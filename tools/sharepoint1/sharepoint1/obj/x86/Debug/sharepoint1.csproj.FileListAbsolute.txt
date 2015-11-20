@@ -1,0 +1,12 @@
+c:\users\v-jianzh\documents\visual studio 2010\Projects\sharepoint1\sharepoint1\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\v-jianzh\documents\visual studio 2010\Projects\sharepoint1\sharepoint1\bin\Debug\sharepoint1.exe.config
+c:\users\v-jianzh\documents\visual studio 2010\Projects\sharepoint1\sharepoint1\bin\Debug\sharepoint1.exe
+c:\users\v-jianzh\documents\visual studio 2010\Projects\sharepoint1\sharepoint1\bin\Debug\sharepoint1.pdb
+c:\users\v-jianzh\documents\visual studio 2010\Projects\sharepoint1\sharepoint1\obj\x86\Debug\sharepoint1.exe
+c:\users\v-jianzh\documents\visual studio 2010\Projects\sharepoint1\sharepoint1\obj\x86\Debug\sharepoint1.pdb
+C:\share\Tools\sharepoint1\sharepoint1\bin\Debug\sharepoint1.exe.config
+C:\share\Tools\sharepoint1\sharepoint1\obj\x86\Debug\sharepoint1.exe
+C:\share\Tools\sharepoint1\sharepoint1\obj\x86\Debug\sharepoint1.pdb
+C:\share\Tools\sharepoint1\sharepoint1\bin\Debug\sharepoint1.exe
+C:\share\Tools\sharepoint1\sharepoint1\bin\Debug\sharepoint1.pdb
+C:\share\Tools\sharepoint1\sharepoint1\obj\x86\Debug\sharepoint1.csprojResolveAssemblyReference.cache

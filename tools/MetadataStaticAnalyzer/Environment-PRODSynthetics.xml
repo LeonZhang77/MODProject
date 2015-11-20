@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Environment>
+    <ServiceConnectionInfo>
+        <CertificateFileName>synthetics.activedirectory.windowsazure.com.pfx</CertificateFileName>
+        <!-- is overriden by environment variable named "ServiceUrl" -->
+        <Url>https://service.activedirectory.windowsazure.com:444</Url>
+        <CertificatePassword>p@ssword1</CertificatePassword>
+        <StsConfiguration>
+          <StsTokenEndpoint>https://login.windows.net/{0}/oauth2/token</StsTokenEndpoint>
+          <ClientId>73299c18-d596-42d1-a718-0dc9833ecc70</ClientId>
+          <Resource>0000000c-0000-0000-c000-000000000000</Resource>
+          <LiveIdAudience>urn:federation:MicrosoftOnline</LiveIdAudience>
+          <LiveIdEndpoint>https://login.live.com</LiveIdEndpoint>
+        </StsConfiguration>
+    </ServiceConnectionInfo>
+    <BoxEmailUser>boxemuser@live.com</BoxEmailUser>
+    <UserNamePrefix>test_aad_</UserNamePrefix>
+    <WebRoleUrl>https://account.activedirectory.windowsazure.com</WebRoleUrl>
+    <OrganizationNamePrefix>test_test_aad_</OrganizationNamePrefix>
+    <LiveIdTestPuidPrefix>AAA</LiveIdTestPuidPrefix>
+    <OrgIdTestPuidPrefix>BBB</OrgIdTestPuidPrefix>
+    <Tenants>
+        <TenantInfo>
+            <Users>
+                <TestUser>
+                    <Kind>LiveId</Kind>
+                    <!-- TODO: find the real PUID of this LiveId-PROD user -->
+                    <Puid>00037FFF8FD85002</Puid>
+                    <ConsumerPuid>00037FFF8FD85002</ConsumerPuid>
+                    <UserPrincipalName>aduxptest_liveid@live.com</UserPrincipalName>
+                    <Password>Password!1</Password>
+                </TestUser>
+                <TestUser>
+                    <Kind>OrgId</Kind>
+                    <Puid>10037FFE860B5C59</Puid>
+                    <ConsumerPuid></ConsumerPuid>
+                    <UserPrincipalName>tenantadmin@aduxpprod2607667.onmicrosoft.com</UserPrincipalName>
+                    <Password>Password!1</Password>
+                    <TenantId>52ec0cd3-e912-419d-aaeb-8b0d74a06185</TenantId>
+                </TestUser>
+            </Users>
+        </TenantInfo>
+    </Tenants>
+</Environment>

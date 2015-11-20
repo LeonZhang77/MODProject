@@ -1,0 +1,6 @@
+C:\share\Tools\sharepoint1\RefreshLogo\obj\Debug\RefreshLogo.csprojResolveAssemblyReference.cache
+C:\share\Tools\sharepoint1\RefreshLogo\bin\Debug\RefreshLogo.exe.config
+C:\share\Tools\sharepoint1\RefreshLogo\bin\Debug\RefreshLogo.exe
+C:\share\Tools\sharepoint1\RefreshLogo\bin\Debug\RefreshLogo.pdb
+C:\share\Tools\sharepoint1\RefreshLogo\obj\Debug\RefreshLogo.exe
+C:\share\Tools\sharepoint1\RefreshLogo\obj\Debug\RefreshLogo.pdb

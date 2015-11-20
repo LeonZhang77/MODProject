@@ -1,0 +1,12 @@
+C:\share\Tools\sharepoint1\addCategory\obj\Debug\addCategory.csprojResolveAssemblyReference.cache
+C:\share\Tools\sharepoint1\addCategory\bin\Debug\addCategory.exe.config
+C:\share\Tools\sharepoint1\addCategory\bin\Debug\addCategory.exe
+C:\share\Tools\sharepoint1\addCategory\bin\Debug\addCategory.pdb
+C:\share\Tools\sharepoint1\addCategory\obj\Debug\addCategory.exe
+C:\share\Tools\sharepoint1\addCategory\obj\Debug\addCategory.pdb
+Z:\tools\sharepoint1\addCategory\bin\Debug\addCategory.exe.config
+Z:\tools\sharepoint1\addCategory\bin\Debug\addCategory.exe
+Z:\tools\sharepoint1\addCategory\bin\Debug\addCategory.pdb
+Z:\tools\sharepoint1\addCategory\obj\Debug\addCategory.csprojResolveAssemblyReference.cache
+Z:\tools\sharepoint1\addCategory\obj\Debug\addCategory.exe
+Z:\tools\sharepoint1\addCategory\obj\Debug\addCategory.pdb

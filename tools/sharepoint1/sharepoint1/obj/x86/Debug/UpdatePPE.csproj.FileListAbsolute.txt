@@ -1,0 +1,6 @@
+C:\share\Tools\sharepoint1\sharepoint1\bin\Debug\sharepoint1.exe.config
+C:\share\Tools\sharepoint1\sharepoint1\obj\x86\Debug\sharepoint1.exe
+C:\share\Tools\sharepoint1\sharepoint1\obj\x86\Debug\sharepoint1.pdb
+C:\share\Tools\sharepoint1\sharepoint1\bin\Debug\sharepoint1.exe
+C:\share\Tools\sharepoint1\sharepoint1\bin\Debug\sharepoint1.pdb
+C:\share\Tools\sharepoint1\sharepoint1\obj\x86\Debug\UpdatePPE.csprojResolveAssemblyReference.cache
