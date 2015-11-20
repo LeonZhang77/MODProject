@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.Web.Models.BookManage.BookManageIndexModel
+@using (Html.BeginForm())
+{    
+    <div class="jumbotron"> 
+        <div>
+            <span>BookName</span>
+            @Html.TextBoxFor(m => m.SearchBookName)
+            <span>Category</span>
+            @Html.DropDownListFor(m => m.SearchSelectedID, this.Model.SearchCategoryList)
+            <input type="submit" value="Search" />
+        </div> 
+        <table>
+            <caption>Book List</caption>
+            <thead>
+                <tr>
+                    <td colspan="11">
+                        @Html.ActionLink("Add", "AddBook")
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        BookName
+                    </th>
+                    <th>
+                        ISBN
+                    </th>
+                    <th>
+                        PublisherName
+                    </th>
+                    <th>
+                        AuthorName
+                    </th>
+                    <th>
+                        CatagoryName
+                    </th>
+                    <th>
+                        PublishDate
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Avaliable
+                    </th>
+                    <th>
+                        Avaliable
+                    </th>
+                    <th>
+                        Operation
+                    </th>
+                </tr>
+                @foreach (var item in this.Model.BookModelList)
+                {
+                    <tr>
+                        <td>
+                            @item.ID
+                        </td>
+                        <td>
+                            @item.BookName
+                        </td>
+                        <td>
+                            @item.ISBN
+                        </td>
+                        <td>
+                            @item.PublisherName
+                        </td>
+                        <td>
+                            @item.AuthorName
+                        </td>
+                        <td>
+                            @item.CatagoryName
+                        </td>
+                        <td>
+                            @item.Publish_Date
+                        </td>
+                        <td>
+                            @item.Price_Inventory
+                        </td>
+                        <td>
+                            @item.Avaliable_Inventory
+                        </td>
+                        <td>
+                            @item.Max_Inventory
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditUser", new { @id = item.ID })
+                            @Html.ActionLink("Delete", "DeleteUser", new { @id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="11" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}
+

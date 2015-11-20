@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "AddAuthor";
+}
+@model Wicresoft.MODLibrarySystem.Web.Models.Author.AuthorModel
+<h2>AddAuthor</h2>
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <table>
+            <caption>Add Author</caption>
+            <tbody>      
+                <tr>
+                    <th>Name</th>
+                    <td>@Html.TextBoxFor(m => m.AuthorName)</td>
+                </tr>
+                <tr>
+                    <th>Introduction</th>
+                    <td>@Html.TextBoxFor(m => m.AuthorIntroduction)</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Add" />
+                        @Html.ActionLink("Back", "Index")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}

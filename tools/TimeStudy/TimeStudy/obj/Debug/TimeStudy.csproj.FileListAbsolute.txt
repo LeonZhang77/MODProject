@@ -1,0 +1,6 @@
+C:\Users\zhang_000\Tools\TimeStudy\TimeStudy\bin\Debug\TimeStudy.exe.config
+C:\Users\zhang_000\Tools\TimeStudy\TimeStudy\bin\Debug\TimeStudy.exe
+C:\Users\zhang_000\Tools\TimeStudy\TimeStudy\bin\Debug\TimeStudy.pdb
+C:\Users\zhang_000\Tools\TimeStudy\TimeStudy\obj\Debug\TimeStudy.csprojResolveAssemblyReference.cache
+C:\Users\zhang_000\Tools\TimeStudy\TimeStudy\obj\Debug\TimeStudy.exe
+C:\Users\zhang_000\Tools\TimeStudy\TimeStudy\obj\Debug\TimeStudy.pdb

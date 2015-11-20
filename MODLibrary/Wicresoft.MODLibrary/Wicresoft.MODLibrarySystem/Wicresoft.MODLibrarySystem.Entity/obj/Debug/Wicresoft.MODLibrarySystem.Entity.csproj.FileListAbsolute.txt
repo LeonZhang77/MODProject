@@ -1,0 +1,10 @@
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\Wicresoft.MODLibrarySystem.Entity.dll.config
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\Wicresoft.MODLibrarySystem.Entity.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\Wicresoft.MODLibrarySystem.Entity.pdb
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\EntityFramework.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\EntityFramework.SqlServer.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\EntityFramework.xml
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\EntityFramework.SqlServer.xml
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\obj\Debug\Wicresoft.MODLibrarySystem.Entity.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\obj\Debug\Wicresoft.MODLibrarySystem.Entity.pdb
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\obj\Debug\Wicresoft.MODLibrarySystem.Entity.csprojResolveAssemblyReference.cache

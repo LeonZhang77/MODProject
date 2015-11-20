@@ -1,0 +1,6 @@
+C:\share\Tools\sharepoint1\GetVisible\obj\Debug\GetVisible.csprojResolveAssemblyReference.cache
+C:\share\Tools\sharepoint1\GetVisible\bin\Debug\GetVisible.exe.config
+C:\share\Tools\sharepoint1\GetVisible\bin\Debug\GetVisible.exe
+C:\share\Tools\sharepoint1\GetVisible\bin\Debug\GetVisible.pdb
+C:\share\Tools\sharepoint1\GetVisible\obj\Debug\GetVisible.exe
+C:\share\Tools\sharepoint1\GetVisible\obj\Debug\GetVisible.pdb

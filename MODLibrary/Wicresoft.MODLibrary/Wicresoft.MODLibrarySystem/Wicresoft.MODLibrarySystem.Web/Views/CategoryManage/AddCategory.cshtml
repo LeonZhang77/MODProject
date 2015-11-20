@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "AddCategroy";
+}
+
+@model Wicresoft.MODLibrarySystem.Web.Models.CategoryManage.CategoryModel
+<h2>AddCategroy</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <table>
+            <caption>Add Category</caption>
+            <tbody>
+                <tr>
+                    <th>CategoryName</th>
+                    <td>@Html.TextBoxFor(m => m.CategoryName)</td>
+                </tr>
+                <tr>
+                    <th>ParenetCategoryName</th>
+                    <td>@Html.DropDownListFor(m => m.CategorySelectedID, this.Model.CategoryList)</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Add" />
+                        @Html.ActionLink("Back", "Index")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}
+

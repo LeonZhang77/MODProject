@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "EditUser";
+}
+@model Wicresoft.MODLibrarySystem.Web.Models.UserManage.UserModel
+<h2>EditUser</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.ID)
+    <div class="jumbotron">
+        <table>
+            <caption>Add User</caption>
+            <tbody>
+                <tr>
+                    <th>DisplayName</th>
+                    <td>@Html.TextBoxFor(m => m.DisplayName)</td>
+                </tr>
+                <tr>
+                    <th>RealName</th>
+                    <td>@Html.TextBoxFor(m => m.RealName)</td>
+                </tr>
+                <tr>
+                    <th>LoginName</th>
+                    <td>@Html.TextBoxFor(m => m.LoginName)</td>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td>@Html.TextBoxFor(m => m.Password)</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>@Html.TextBoxFor(m => m.Email)</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Edit" />
+                        @Html.ActionLink("Back", "Index")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}

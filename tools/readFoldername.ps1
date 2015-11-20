@@ -1,5 +1,5 @@
-﻿$dir = "\\app-psso-china\WAAD Password SSO Wicresoft Team\metaData\2014_06_09_100Apps";
-$output = "\\app-psso-china\WAAD Password SSO Wicresoft Team\metaData\2014_06_09_100Apps\next_block_of_apps_to_ship1.txt";
+﻿$dir = "C:\Cloud\sources\dev\Common\ApplicationDefinitions";
+$output = "C:\data\AppKey.txt";
 
 $stream = [System.IO.StreamWriter] $output
 

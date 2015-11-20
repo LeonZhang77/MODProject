@@ -30,11 +30,11 @@ namespace visiableToTrue
         [STAThread]
         static void Main(string[] args)
         {
-            string activeDir = @"Z:\metaData\2015_11_04_FixApps\2_Fixed\6_Leon\";
+            string activeDir = @"C:\share\bak\";
             //string activeDir = args[0];
             string fileName = @"\metadata.json";
 
-            using (StreamReader sr = new StreamReader(activeDir + "list.txt"))
+            using (StreamReader sr = new StreamReader(activeDir + "bak.txt"))
             {
                 string line;
                 string result = null;
@@ -49,7 +49,7 @@ namespace visiableToTrue
                         using(MemoryStream outMs = new MemoryStream(Encoding.UTF8.GetBytes(content))){
                             Metadata md = outDs.ReadObject(outMs) as Metadata;
                             String temp = md.DisplayName.Trim();
-                            if (md.DisplayName.Equals(temp))
+                            if (md.DisplayName.Equals(md.DisplayName.Trim()))
                             { }
                             else
                             {

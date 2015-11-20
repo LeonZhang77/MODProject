@@ -1,0 +1,166 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Wicresoft.MODLibrarySystem.Azure", "Wicresoft.MODLibrarySystem.Azure\Wicresoft.MODLibrarySystem.Azure.ccproj", "{D9C95879-F907-4FBD-970F-B9AB3B6D184F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.Web", "Wicresoft.MODLibrarySystem.Web\Wicresoft.MODLibrarySystem.Web.csproj", "{1C277778-2C24-4AF6-8BCB-C9F72F0011F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.Web.Tests", "Wicresoft.MODLibrarySystem.Web.Tests\Wicresoft.MODLibrarySystem.Web.Tests.csproj", "{95D93384-FF47-4A96-B837-903C7BC73857}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.Entity", "Wicresoft.MODLibrarySystem.Entity\Wicresoft.MODLibrarySystem.Entity.csproj", "{EBBE74EC-766B-4A98-BB6F-317DC9B42049}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.DataAccess", "Wicresoft.MODLibrarySystem.DataAccess\Wicresoft.MODLibrarySystem.DataAccess.csproj", "{749E3CB0-54D4-4D40-AA58-3A9C0566DC14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.Services", "Wicresoft.MODLibrarySystem.Services\Wicresoft.MODLibrarySystem.Services.csproj", "{CC8B13D0-39C8-4E67-9BAA-405D132BFABF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.Unity", "Wicresoft.MODLibrarySystem.Unity\Wicresoft.MODLibrarySystem.Unity.csproj", "{6A8F0370-E86B-4C99-94F4-9BC45741F64F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.UnitTest", "Wicresoft.MODLibrarySystem.UnitTest\Wicresoft.MODLibrarySystem.UnitTest.csproj", "{DE08F781-7C32-4FAA-A169-E0A44224E16A}"
+EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Wicresoft.MODLibrarySystem.WebUI.Azure", "Wicresoft.MODLibrarySystem.WebUI.Azure\Wicresoft.MODLibrarySystem.WebUI.Azure.ccproj", "{7553F084-B597-4033-AD41-F5EB61337D8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.WebUI", "Wicresoft.MODLibrarySystem.WebUI\Wicresoft.MODLibrarySystem.WebUI.csproj", "{C5D4EA4E-D4EB-45D1-83A3-EAEFBF94B219}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.WebUI.Tests", "Wicresoft.MODLibrarySystem.WebUI.Tests\Wicresoft.MODLibrarySystem.WebUI.Tests.csproj", "{899B8EB1-EC3A-4E85-BCCC-7B3EC38CC950}"
+EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Wicresoft.MODLibrarySystem.Wap.Azure", "Wicresoft.MODLibrarySystem.Wap.Azure\Wicresoft.MODLibrarySystem.Wap.Azure.ccproj", "{CD911610-C09C-4223-AFFB-887F2113B6E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.Wap", "Wicresoft.MODLibrarySystem.Wap\Wicresoft.MODLibrarySystem.Wap.csproj", "{FD452174-D679-4D29-8C2A-E21212FBE980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.Wap.Tests", "Wicresoft.MODLibrarySystem.Wap.Tests\Wicresoft.MODLibrarySystem.Wap.Tests.csproj", "{146F9087-3732-473A-BC4F-E995A22DFC3E}"
+EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Wicresoft.MODLibrarySystem.WebServices.Azure", "Wicresoft.MODLibrarySystem.WebServices.Azure\Wicresoft.MODLibrarySystem.WebServices.Azure.ccproj", "{4FE365BD-359F-4985-B3F7-BAEC84BF281E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.WebServices", "Wicresoft.MODLibrarySystem.WebServices\Wicresoft.MODLibrarySystem.WebServices.csproj", "{E00AF7F2-B9C5-410E-97CC-13148DE0AF52}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 17
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://ws-appdev-01:8080/tfs/modlibrary
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Wicresoft.MODLibrarySystem.Azure\\Wicresoft.MODLibrarySystem.Azure.ccproj
+		SccProjectName1 = Wicresoft.MODLibrarySystem.Azure
+		SccLocalPath1 = Wicresoft.MODLibrarySystem.Azure
+		SccProjectUniqueName2 = Wicresoft.MODLibrarySystem.Web\\Wicresoft.MODLibrarySystem.Web.csproj
+		SccProjectName2 = Wicresoft.MODLibrarySystem.Web
+		SccLocalPath2 = Wicresoft.MODLibrarySystem.Web
+		SccProjectUniqueName3 = Wicresoft.MODLibrarySystem.Web.Tests\\Wicresoft.MODLibrarySystem.Web.Tests.csproj
+		SccProjectName3 = Wicresoft.MODLibrarySystem.Web.Tests
+		SccLocalPath3 = Wicresoft.MODLibrarySystem.Web.Tests
+		SccProjectUniqueName4 = Wicresoft.MODLibrarySystem.Entity\\Wicresoft.MODLibrarySystem.Entity.csproj
+		SccProjectName4 = Wicresoft.MODLibrarySystem.Entity
+		SccLocalPath4 = Wicresoft.MODLibrarySystem.Entity
+		SccProjectUniqueName5 = Wicresoft.MODLibrarySystem.DataAccess\\Wicresoft.MODLibrarySystem.DataAccess.csproj
+		SccProjectName5 = Wicresoft.MODLibrarySystem.DataAccess
+		SccLocalPath5 = Wicresoft.MODLibrarySystem.DataAccess
+		SccProjectUniqueName6 = Wicresoft.MODLibrarySystem.Services\\Wicresoft.MODLibrarySystem.Services.csproj
+		SccProjectName6 = Wicresoft.MODLibrarySystem.Services
+		SccLocalPath6 = Wicresoft.MODLibrarySystem.Services
+		SccProjectUniqueName7 = Wicresoft.MODLibrarySystem.Unity\\Wicresoft.MODLibrarySystem.Unity.csproj
+		SccProjectName7 = Wicresoft.MODLibrarySystem.Unity
+		SccLocalPath7 = Wicresoft.MODLibrarySystem.Unity
+		SccProjectUniqueName8 = Wicresoft.MODLibrarySystem.UnitTest\\Wicresoft.MODLibrarySystem.UnitTest.csproj
+		SccProjectName8 = Wicresoft.MODLibrarySystem.UnitTest
+		SccLocalPath8 = Wicresoft.MODLibrarySystem.UnitTest
+		SccProjectUniqueName9 = Wicresoft.MODLibrarySystem.WebUI.Azure\\Wicresoft.MODLibrarySystem.WebUI.Azure.ccproj
+		SccProjectName9 = Wicresoft.MODLibrarySystem.WebUI.Azure
+		SccLocalPath9 = Wicresoft.MODLibrarySystem.WebUI.Azure
+		SccProjectUniqueName10 = Wicresoft.MODLibrarySystem.WebUI\\Wicresoft.MODLibrarySystem.WebUI.csproj
+		SccProjectName10 = Wicresoft.MODLibrarySystem.WebUI
+		SccLocalPath10 = Wicresoft.MODLibrarySystem.WebUI
+		SccProjectUniqueName11 = Wicresoft.MODLibrarySystem.WebUI.Tests\\Wicresoft.MODLibrarySystem.WebUI.Tests.csproj
+		SccProjectName11 = Wicresoft.MODLibrarySystem.WebUI.Tests
+		SccLocalPath11 = Wicresoft.MODLibrarySystem.WebUI.Tests
+		SccProjectUniqueName12 = Wicresoft.MODLibrarySystem.Wap.Azure\\Wicresoft.MODLibrarySystem.Wap.Azure.ccproj
+		SccProjectName12 = Wicresoft.MODLibrarySystem.Wap.Azure
+		SccLocalPath12 = Wicresoft.MODLibrarySystem.Wap.Azure
+		SccProjectUniqueName13 = Wicresoft.MODLibrarySystem.Wap\\Wicresoft.MODLibrarySystem.Wap.csproj
+		SccProjectName13 = Wicresoft.MODLibrarySystem.Wap
+		SccLocalPath13 = Wicresoft.MODLibrarySystem.Wap
+		SccProjectUniqueName14 = Wicresoft.MODLibrarySystem.Wap.Tests\\Wicresoft.MODLibrarySystem.Wap.Tests.csproj
+		SccProjectName14 = Wicresoft.MODLibrarySystem.Wap.Tests
+		SccLocalPath14 = Wicresoft.MODLibrarySystem.Wap.Tests
+		SccProjectUniqueName15 = Wicresoft.MODLibrarySystem.WebServices.Azure\\Wicresoft.MODLibrarySystem.WebServices.Azure.ccproj
+		SccProjectName15 = Wicresoft.MODLibrarySystem.WebServices.Azure
+		SccLocalPath15 = Wicresoft.MODLibrarySystem.WebServices.Azure
+		SccProjectUniqueName16 = Wicresoft.MODLibrarySystem.WebServices\\Wicresoft.MODLibrarySystem.WebServices.csproj
+		SccProjectName16 = Wicresoft.MODLibrarySystem.WebServices
+		SccLocalPath16 = Wicresoft.MODLibrarySystem.WebServices
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9C95879-F907-4FBD-970F-B9AB3B6D184F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9C95879-F907-4FBD-970F-B9AB3B6D184F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9C95879-F907-4FBD-970F-B9AB3B6D184F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9C95879-F907-4FBD-970F-B9AB3B6D184F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C277778-2C24-4AF6-8BCB-C9F72F0011F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C277778-2C24-4AF6-8BCB-C9F72F0011F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C277778-2C24-4AF6-8BCB-C9F72F0011F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C277778-2C24-4AF6-8BCB-C9F72F0011F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95D93384-FF47-4A96-B837-903C7BC73857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95D93384-FF47-4A96-B837-903C7BC73857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95D93384-FF47-4A96-B837-903C7BC73857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95D93384-FF47-4A96-B837-903C7BC73857}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBBE74EC-766B-4A98-BB6F-317DC9B42049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBBE74EC-766B-4A98-BB6F-317DC9B42049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBBE74EC-766B-4A98-BB6F-317DC9B42049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBBE74EC-766B-4A98-BB6F-317DC9B42049}.Release|Any CPU.Build.0 = Release|Any CPU
+		{749E3CB0-54D4-4D40-AA58-3A9C0566DC14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{749E3CB0-54D4-4D40-AA58-3A9C0566DC14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{749E3CB0-54D4-4D40-AA58-3A9C0566DC14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{749E3CB0-54D4-4D40-AA58-3A9C0566DC14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC8B13D0-39C8-4E67-9BAA-405D132BFABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC8B13D0-39C8-4E67-9BAA-405D132BFABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC8B13D0-39C8-4E67-9BAA-405D132BFABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC8B13D0-39C8-4E67-9BAA-405D132BFABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8F0370-E86B-4C99-94F4-9BC45741F64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8F0370-E86B-4C99-94F4-9BC45741F64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8F0370-E86B-4C99-94F4-9BC45741F64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8F0370-E86B-4C99-94F4-9BC45741F64F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE08F781-7C32-4FAA-A169-E0A44224E16A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE08F781-7C32-4FAA-A169-E0A44224E16A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE08F781-7C32-4FAA-A169-E0A44224E16A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE08F781-7C32-4FAA-A169-E0A44224E16A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7553F084-B597-4033-AD41-F5EB61337D8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7553F084-B597-4033-AD41-F5EB61337D8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7553F084-B597-4033-AD41-F5EB61337D8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7553F084-B597-4033-AD41-F5EB61337D8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D4EA4E-D4EB-45D1-83A3-EAEFBF94B219}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D4EA4E-D4EB-45D1-83A3-EAEFBF94B219}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D4EA4E-D4EB-45D1-83A3-EAEFBF94B219}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D4EA4E-D4EB-45D1-83A3-EAEFBF94B219}.Release|Any CPU.Build.0 = Release|Any CPU
+		{899B8EB1-EC3A-4E85-BCCC-7B3EC38CC950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{899B8EB1-EC3A-4E85-BCCC-7B3EC38CC950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{899B8EB1-EC3A-4E85-BCCC-7B3EC38CC950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{899B8EB1-EC3A-4E85-BCCC-7B3EC38CC950}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD911610-C09C-4223-AFFB-887F2113B6E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD911610-C09C-4223-AFFB-887F2113B6E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD911610-C09C-4223-AFFB-887F2113B6E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD911610-C09C-4223-AFFB-887F2113B6E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD452174-D679-4D29-8C2A-E21212FBE980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD452174-D679-4D29-8C2A-E21212FBE980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD452174-D679-4D29-8C2A-E21212FBE980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD452174-D679-4D29-8C2A-E21212FBE980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{146F9087-3732-473A-BC4F-E995A22DFC3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{146F9087-3732-473A-BC4F-E995A22DFC3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{146F9087-3732-473A-BC4F-E995A22DFC3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{146F9087-3732-473A-BC4F-E995A22DFC3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FE365BD-359F-4985-B3F7-BAEC84BF281E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FE365BD-359F-4985-B3F7-BAEC84BF281E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FE365BD-359F-4985-B3F7-BAEC84BF281E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FE365BD-359F-4985-B3F7-BAEC84BF281E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E00AF7F2-B9C5-410E-97CC-13148DE0AF52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E00AF7F2-B9C5-410E-97CC-13148DE0AF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E00AF7F2-B9C5-410E-97CC-13148DE0AF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E00AF7F2-B9C5-410E-97CC-13148DE0AF52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

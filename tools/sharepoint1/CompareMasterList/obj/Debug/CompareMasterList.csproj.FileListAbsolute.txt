@@ -1,0 +1,6 @@
+C:\share\Tools\sharepoint1\CompareMasterList\obj\Debug\CompareMasterList.csprojResolveAssemblyReference.cache
+C:\share\Tools\sharepoint1\CompareMasterList\bin\Debug\CompareMasterList.exe.config
+C:\share\Tools\sharepoint1\CompareMasterList\bin\Debug\CompareMasterList.exe
+C:\share\Tools\sharepoint1\CompareMasterList\bin\Debug\CompareMasterList.pdb
+C:\share\Tools\sharepoint1\CompareMasterList\obj\Debug\CompareMasterList.exe
+C:\share\Tools\sharepoint1\CompareMasterList\obj\Debug\CompareMasterList.pdb

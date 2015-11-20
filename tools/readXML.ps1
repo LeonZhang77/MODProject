@@ -1,7 +1,8 @@
-﻿$dir = "C:\Cloud\sources\dev\Common\ApplicationDefinitions"
+﻿//asdfasdfasdf
+$dir = "C:\Cloud\sources\dev\Common\ApplicationDefinitions"
 
-$applist = "C:\Depot\getURL.txt"
-$output = "C:\Depot\testttt.txt";
+$applist = "C:\data\AppKey.txt"
+$output = "C:\data\AppURL.txt";
 
 $stream = [System.IO.StreamWriter] $output
 $appkeys = Get-Content $applist
@@ -18,8 +19,8 @@ for($i=0; $i -lt $appkeys.Length; $i++){
         $xmlfile = [xml]$content
         $urls = $xmlfile.ApplicationDefinition.ApplicationLogonPages.ApplicationLogonPage.Urls.Url
         foreach ($url in $urls) {
-            #$stream.WriteLine($appkey + "," +$url)
-            $stream.WriteLine($url)
+            $stream.WriteLine($appkey + "," +$url)
+            #$stream.WriteLine($url)
             break
         }
         

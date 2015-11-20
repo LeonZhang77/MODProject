@@ -4,9 +4,3 @@ C:\share\Tools\sharepoint1\UpdateProdToSP\bin\Debug\UpdateProdToSP.exe
 C:\share\Tools\sharepoint1\UpdateProdToSP\bin\Debug\UpdateProdToSP.pdb
 C:\share\Tools\sharepoint1\UpdateProdToSP\obj\Debug\UpdateProdToSP.exe
 C:\share\Tools\sharepoint1\UpdateProdToSP\obj\Debug\UpdateProdToSP.pdb
-Z:\tools\sharepoint1\UpdateProdToSP\bin\Debug\UpdateProdToSP.exe.config
-Z:\tools\sharepoint1\UpdateProdToSP\obj\Debug\UpdateProdToSP.exe
-Z:\tools\sharepoint1\UpdateProdToSP\obj\Debug\UpdateProdToSP.pdb
-Z:\tools\sharepoint1\UpdateProdToSP\bin\Debug\UpdateProdToSP.exe
-Z:\tools\sharepoint1\UpdateProdToSP\bin\Debug\UpdateProdToSP.pdb
-Z:\tools\sharepoint1\UpdateProdToSP\obj\Debug\UpdateProdToSP.csprojResolveAssemblyReference.cache

@@ -1,0 +1,9 @@
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Unity\bin\Debug\Wicresoft.MODLibrarySystem.Unity.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Unity\bin\Debug\Wicresoft.MODLibrarySystem.Unity.pdb
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Unity\bin\Debug\Wicresoft.MODLibrarySystem.Entity.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Unity\bin\Debug\Wicresoft.MODLibrarySystem.Entity.pdb
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Unity\obj\Debug\Wicresoft.MODLibrarySystem.Unity.csprojResolveAssemblyReference.cache
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Unity\obj\Debug\Wicresoft.MODLibrarySystem.Unity.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Unity\obj\Debug\Wicresoft.MODLibrarySystem.Unity.pdb
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Unity\bin\Debug\System.Web.Mvc.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Unity\bin\Debug\System.Web.Mvc.xml

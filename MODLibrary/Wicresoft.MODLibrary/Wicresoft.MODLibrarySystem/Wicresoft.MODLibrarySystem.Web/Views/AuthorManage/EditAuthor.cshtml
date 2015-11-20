@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "EditAuthor";
+}
+@model Wicresoft.MODLibrarySystem.Web.Models.Author.AuthorModel
+<h2>EditAuthor</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.ID)
+    <div class="jumbotron">
+        <table>
+            <caption>Edit Author</caption>
+            <tbody>       
+                <tr>
+                    <th>Name</th>
+                    <td>@Html.TextBoxFor(m => m.AuthorName)</td>
+                </tr>
+                <tr>
+                    <th>Introduction</th>
+                    <td>@Html.TextBoxFor(m => m.AuthorIntroduction)</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Edit" />
+                        @Html.ActionLink("Back", "Index")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}

@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Author Manage";
+}
+@model Wicresoft.MODLibrarySystem.Web.Models.Author.AuthorManageIndexModel
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <div>
+            <span>AuthorName</span>
+            @Html.TextBoxFor(m => m.FilterName)
+            <input type="submit" value="Search" />
+        </div>
+        <table style="border-color:gray;border:1px;">
+            <caption>Author List</caption>
+            <thead>
+                <tr>
+                    <td colspan="4">
+                        @Html.ActionLink("Add", "AddAuthor")
+                    </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        AuthorName
+                    </th>
+                    <th>
+                        AuthorIntroduction
+                    </th>
+                    <th>
+                        Operation
+                    </th>
+                </tr>
+                @foreach (var item in this.Model.AuthorModelList)
+                {
+                    <tr>
+                        <td>
+                            @item.ID
+                        </td>
+                        <td>
+                            @item.AuthorName
+                        </td>
+                        <td>
+                            @item.AuthorIntroduction
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditAuthor", new { @id = item.ID })
+                            @Html.ActionLink("Delete", "DeleteAuthor", new { @id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}

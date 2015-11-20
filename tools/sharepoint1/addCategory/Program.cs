@@ -128,7 +128,7 @@ namespace addCategory
                 Console.WriteLine(appkey);
                 String content = System.IO.File.ReadAllText(activeDir + appkey + fileName);
                 //content = content.Replace("\"Visible\": false", "\"Visible\": true");
-                int temp = content.LastIndexOf(']');
+                int temp = content.IndexOf(']');
                 content = content.Substring(0,temp+1);
                 content = content + "," + Environment.NewLine;
                 content = content + "\"DisplayCategories\": [" + Environment.NewLine;
@@ -154,8 +154,8 @@ namespace addCategory
         static void Main(string[] args)
         {
 
-            GetCategoryFormExcel();
-            //GetSPList("http://sharepoint/sites/fim/ISV9-3", "v-jianzh", "isnes21)$MAM", "fareast.corp.microsoft.com");
+            //GetCategoryFormExcel();
+            GetSPList("http://sharepoint/sites/fim/ISV9-3", "v-jianzh", "isnes21)$MAM", "fareast.corp.microsoft.com");
             
             //@"\\app-psso-china\WAAD Password SSO Wicresoft Team\metaData\2014_2_13_105Apps\adcash\logo\";
             Console.WriteLine("please choose bak.txt File");
