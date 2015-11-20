@@ -1,6 +1,0 @@
-C:\share\Tools\sharepoint1\GetLogoState\bin\Debug\GetLogoState.exe.config
-C:\share\Tools\sharepoint1\GetLogoState\obj\Debug\GetLogoState.csprojResolveAssemblyReference.cache
-C:\share\Tools\sharepoint1\GetLogoState\bin\Debug\GetLogoState.exe
-C:\share\Tools\sharepoint1\GetLogoState\bin\Debug\GetLogoState.pdb
-C:\share\Tools\sharepoint1\GetLogoState\obj\Debug\GetLogoState.exe
-C:\share\Tools\sharepoint1\GetLogoState\obj\Debug\GetLogoState.pdb
