@@ -16,3 +16,9 @@ C:\share\Tools\visiableToTrue\visiableToTrue\obj\Debug\visiableToTrue.pdb
 C:\share\Tools\visiableToTrue\visiableToTrue\bin\Debug\visiableToTrue.exe
 C:\share\Tools\visiableToTrue\visiableToTrue\bin\Debug\visiableToTrue.pdb
 C:\share\Tools\visiableToTrue\visiableToTrue\obj\Debug\visiableToTrue.csprojResolveAssemblyReference.cache
+Z:\tools\visiableToTrue\visiableToTrue\bin\Debug\visiableToTrue.exe.config
+Z:\tools\visiableToTrue\visiableToTrue\bin\Debug\visiableToTrue.exe
+Z:\tools\visiableToTrue\visiableToTrue\bin\Debug\visiableToTrue.pdb
+Z:\tools\visiableToTrue\visiableToTrue\obj\Debug\visiableToTrue.csprojResolveAssemblyReference.cache
+Z:\tools\visiableToTrue\visiableToTrue\obj\Debug\visiableToTrue.exe
+Z:\tools\visiableToTrue\visiableToTrue\obj\Debug\visiableToTrue.pdb
