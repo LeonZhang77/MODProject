@@ -36,6 +36,16 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.CategoryManage
             set;
         }
 
+        public string StateMessage
+        {
+            get;
+            set;
+        }
+
+        public CategoryModel()
+        {
+            this.StateMessage = "";
+        }
         public CategoryInfo GetEntity()
         {
             CategoryInfo category = new CategoryInfo();

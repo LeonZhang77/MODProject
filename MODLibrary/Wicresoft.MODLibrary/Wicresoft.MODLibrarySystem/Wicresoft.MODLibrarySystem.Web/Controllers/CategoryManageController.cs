@@ -64,17 +64,49 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult AddCategory(CategoryModel category)
         {
             CategoryInfo categoryInfo = category.GetEntity();
+            IEnumerable<CategoryInfo> categorys = this.ICategoryInfoDataProvider.GetCategoryList();
+            bool isExist = false;
+            foreach (CategoryInfo existCategoryInfo in categorys)
+            {
+                if (existCategoryInfo.CategoryName.Equals(categoryInfo.CategoryName))
+                {
+                    if (existCategoryInfo.ParentCategoryInfo != null)
+                    {
+                        if (existCategoryInfo.ParentCategoryInfo.ID == categoryInfo.ParentCategoryInfo.ID)
+                        {
+                            isExist = true;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (categoryInfo.ParentCategoryInfo == null)
+                        {
+                            isExist = true;
+                            break;
+                        }
+                    }
+                }
+            }
 
-            this.ICategoryInfoDataProvider.Add(categoryInfo);
-
-            return RedirectToAction("Index");
+            if (isExist) 
+            {
+                category.CategoryList = DropDownListHelper.GetAllCategorySelectList();
+                category.StateMessage = "The same category has already been exist!";
+                return View(category);
+            }
+            else
+            {
+                this.ICategoryInfoDataProvider.Add(categoryInfo);
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult EditCategory(long id)
         {
             CategoryModel category = new CategoryModel();
             CategoryInfo categoryInfo = this.ICategoryInfoDataProvider.GetCategoryByID(id);
-           
+
             category = CategoryModel.GetViewModel(categoryInfo);
             if (categoryInfo.ParentCategoryInfo != null)
             {
@@ -85,18 +117,23 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             {
                 category.CategoryList = DropDownListHelper.GetAllCategorySelectList(categoryInfo.ID);
             }
-           
+
             return View(category);
         }
 
         [HttpPost]
         public ActionResult EditCategory(CategoryModel category)
         {
-            if (category != null)
+            if (category != null && !DropDownListHelper.ValidateCategory(category.ID, category.CategorySelectedID))
             {
                 this.ICategoryInfoDataProvider.Update(category.GetEntity());
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            else
+            {
+                category.CategoryList = DropDownListHelper.GetCategorySelectListBySelectedID(category.CategorySelectedID, category.ID);
+                return View(category);
+            }
         }
 
         public ActionResult DeleteCategory(long id)

@@ -67,7 +67,14 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             CategoryInfo category = this.GetCategoryByID(categoryInfo.ID);
 
             category.CategoryName = categoryInfo.CategoryName;
-            category.ParentCategoryInfo = this.DataSource.CategoryInfos.Find(categoryInfo.ParentCategoryInfo.ID);
+            if (categoryInfo.ParentCategoryInfo != null)
+            {
+                category.ParentCategoryInfo = this.DataSource.CategoryInfos.Find(categoryInfo.ParentCategoryInfo.ID);
+            }
+            else
+            {
+                category.ParentCategoryInfo = null;
+            }
 
             this.DataSource.SaveChanges();
         }

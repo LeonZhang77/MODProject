@@ -12,8 +12,8 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
 {
     public class DropDownListHelper
     {
-        public static ICategoryInfoDataProvider iCategoryInfoDataProvider;
-
+        private static ICategoryInfoDataProvider iCategoryInfoDataProvider;
+        private static bool _IsSubflag;
         public static List<SelectListItem> GetAllCategorySelectList(long selfID = 0)
         {
             return GetCategorySelectList(selfID);
@@ -85,7 +85,7 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
             if (selfID > 0)
             {
                 SelectListItem temp = categorySelectList.Where(c => c.Value == selfID.ToString()).FirstOrDefault();
-                categorySelectList.Remove(temp);
+                temp.Disabled = true;
             }
 
             return categorySelectList;
@@ -134,6 +134,34 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
             {
                 strPathName.Append(UntityContent.CategoryPathTemplate + pcategory.ParentCategoryInfo.CategoryName);
                 InsertParentCategoryName(pcategory.ParentCategoryInfo, strPathName);
+            }
+        }
+
+        public static bool ValidateCategory(long selfID, long categoryID)
+        {
+            _IsSubflag = false;
+            iCategoryInfoDataProvider = new CategoryInfoDataProvider();
+            CategoryInfo category = iCategoryInfoDataProvider.GetCategoryByID(categoryID);
+            if (category != null)
+            {
+                CategoryCheckSearch(category, selfID);
+            }
+
+            return _IsSubflag;
+        }
+
+        public static void CategoryCheckSearch(CategoryInfo category, long selfID)
+        {
+            if (category.ParentCategoryInfo != null)
+            {
+                if (category.ParentCategoryInfo.ID == selfID)
+                {
+                    _IsSubflag = true;
+                }
+                else if (category.ParentCategoryInfo.ParentCategoryInfo != null)
+                {
+                    CategoryCheckSearch(category.ParentCategoryInfo, selfID);
+                }
             }
         }
     }
