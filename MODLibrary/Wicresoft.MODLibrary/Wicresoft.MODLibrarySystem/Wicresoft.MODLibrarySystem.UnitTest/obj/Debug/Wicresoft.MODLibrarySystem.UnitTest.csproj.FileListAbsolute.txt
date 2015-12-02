@@ -3,8 +3,3 @@ C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibra
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\obj\Debug\Wicresoft.MODLibrarySystem.UnitTest.dll
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\obj\Debug\Wicresoft.MODLibrarySystem.UnitTest.pdb
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\obj\Debug\Wicresoft.MODLibrarySystem.UnitTest.csprojResolveAssemblyReference.cache
-D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\bin\Debug\Wicresoft.MODLibrarySystem.UnitTest.dll
-D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\bin\Debug\Wicresoft.MODLibrarySystem.UnitTest.pdb
-D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\obj\Debug\Wicresoft.MODLibrarySystem.UnitTest.csprojResolveAssemblyReference.cache
-D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\obj\Debug\Wicresoft.MODLibrarySystem.UnitTest.dll
-D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\obj\Debug\Wicresoft.MODLibrarySystem.UnitTest.pdb
