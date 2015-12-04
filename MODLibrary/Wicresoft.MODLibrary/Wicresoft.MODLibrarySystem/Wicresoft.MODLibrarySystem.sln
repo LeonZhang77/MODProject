@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Wicresoft.MODLibrarySystem.Azure", "Wicresoft.MODLibrarySystem.Azure\Wicresoft.MODLibrarySystem.Azure.ccproj", "{D9C95879-F907-4FBD-970F-B9AB3B6D184F}"
 EndProject

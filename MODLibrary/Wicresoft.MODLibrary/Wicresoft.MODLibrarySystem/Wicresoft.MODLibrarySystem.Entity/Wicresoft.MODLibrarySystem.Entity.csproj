@@ -63,6 +63,7 @@
     <Compile Include="Condition\BaseCondition.cs" />
     <Compile Include="Condition\BookInfo\BookInfoCondition.cs" />
     <Compile Include="Condition\CategoryInfo\CategoryInfoCondition.cs" />
+    <Compile Include="Condition\PublisherInfo\PublisherInfoCondition.cs" />
     <Compile Include="Condition\UserInfo\UserInfoCondition.cs" />
     <Compile Include="EntityEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

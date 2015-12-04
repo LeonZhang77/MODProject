@@ -170,6 +170,8 @@
     <Compile Include="Models\CategroyManage\CategoryModel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
     <Compile Include="Models\Login\LoginIndexModel.cs" />
+    <Compile Include="Models\PublisherManage\PublisherManageIndexModel.cs" />
+    <Compile Include="Models\PublisherManage\PublisherModel.cs" />
     <Compile Include="Models\UserManage\UserManageIndexModel.cs" />
     <Compile Include="Models\UserManage\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,6 +232,8 @@
     <Content Include="Views\CategoryManage\EditCategory.cshtml" />
     <Content Include="Views\CategoryManage\AddCategory.cshtml" />
     <Content Include="Views\AuthorManage\AddAuthor.cshtml" />
+    <Content Include="Views\PublisherManage\AddPublisher.cshtml" />
+    <Content Include="Views\PublisherManage\EditPublisher.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

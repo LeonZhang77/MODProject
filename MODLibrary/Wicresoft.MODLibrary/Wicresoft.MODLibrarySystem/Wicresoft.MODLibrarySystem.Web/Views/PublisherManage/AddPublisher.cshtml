@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "AddPublisher";
+}
+@model Wicresoft.MODLibrarySystem.Web.Models.PublisherManage.PublisherModel
+<h2>AddPublisher</h2>
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <table>
+            <caption>Add Publisher</caption>
+            <tbody>
+                <tr>
+                    <th>DisplayName</th>
+                    <td>@Html.TextBoxFor(m => m.PublisherName)</td>
+                </tr>
+                <tr>
+                    <th>RealName</th>
+                    <td>@Html.TextBoxFor(m => m.PublisherIntroduction)</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Add" />
+                        @Html.ActionLink("Back", "Index")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}
