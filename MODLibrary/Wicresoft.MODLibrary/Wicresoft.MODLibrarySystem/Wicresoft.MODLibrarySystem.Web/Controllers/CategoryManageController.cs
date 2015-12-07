@@ -64,35 +64,25 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult AddCategory(CategoryModel category)
         {
             CategoryInfo categoryInfo = category.GetEntity();
-            IEnumerable<CategoryInfo> categorys = this.ICategoryInfoDataProvider.GetCategoryList();
-            bool isExist = false;
-            foreach (CategoryInfo existCategoryInfo in categorys)
-            {
-                if (existCategoryInfo.CategoryName.Equals(categoryInfo.CategoryName))
-                {
-                    if (existCategoryInfo.ParentCategoryInfo != null)
-                    {
-                        if (existCategoryInfo.ParentCategoryInfo.ID == categoryInfo.ParentCategoryInfo.ID)
-                        {
-                            isExist = true;
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        if (categoryInfo.ParentCategoryInfo == null)
-                        {
-                            isExist = true;
-                            break;
-                        }
-                    }
-                }
-            }
+            CategoryInfoCondition condition = new CategoryInfoCondition();
+            condition.CategoryName = categoryInfo.CategoryName;
+            IEnumerable<CategoryInfo> categorys = this.ICategoryInfoDataProvider.GetCategoryList(condition);
 
-            if (isExist) 
+            if (categoryInfo.ParentCategoryInfo == null)
+            {   
+                categorys = categorys.Where(u => u.ParentCategoryInfo == null);
+            }
+            else
+            {
+                categorys = categorys.Where(u => u.ParentCategoryInfo != null 
+                                            && u.ParentCategoryInfo.ID == categoryInfo.ParentCategoryInfo.ID);
+            }
+            
+            if (categorys.Count() > 0) 
             {
                 category.CategoryList = DropDownListHelper.GetAllCategorySelectList();
                 category.StateMessage = "The same category has already been exist!";
+                category.ErrorState = true;
                 return View(category);
             }
             else

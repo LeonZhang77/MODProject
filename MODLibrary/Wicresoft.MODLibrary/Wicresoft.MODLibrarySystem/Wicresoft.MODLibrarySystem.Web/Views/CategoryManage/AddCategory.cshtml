@@ -5,6 +5,11 @@
 
 @model Wicresoft.MODLibrarySystem.Web.Models.CategoryManage.CategoryModel
 <h2>AddCategroy</h2>
+@if (this.Model.ErrorState)
+{
+    <h2>@Html.Label(this.Model.StateMessage)</h2>
+}
+
 
 @using (Html.BeginForm())
 {
@@ -23,8 +28,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th>@Html.Label(this.Model.StateMessage)</th>
-                    <td>
+                    <td colspan="2">
                         <input type="submit" value="Add" />
                         @Html.ActionLink("Back", "Index")
                     </td>

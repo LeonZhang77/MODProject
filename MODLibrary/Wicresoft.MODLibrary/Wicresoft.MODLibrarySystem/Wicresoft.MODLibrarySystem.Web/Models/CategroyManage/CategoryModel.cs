@@ -42,10 +42,12 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.CategoryManage
             set;
         }
 
-        public CategoryModel()
+        public bool ErrorState
         {
-            this.StateMessage = "";
+            get;
+            set;
         }
+        
         public CategoryInfo GetEntity()
         {
             CategoryInfo category = new CategoryInfo();

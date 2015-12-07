@@ -1,4 +1,3 @@
-C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\obj\Debug\Wicresoft.MODLibrarySystem.Wap.Tests.csprojResolveAssemblyReference.cache
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\Wicresoft.MODLibrarySystem.Wap.Tests.dll.config
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\Wicresoft.MODLibrarySystem.Wap.Tests.dll
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\Wicresoft.MODLibrarySystem.Wap.Tests.pdb
@@ -20,6 +19,7 @@ C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibra
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\System.Web.WebPages.xml
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\System.Web.WebPages.Razor.xml
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\System.Web.Optimization.xml
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\obj\Debug\Wicresoft.MODLibrarySystem.Wap.Tests.csprojResolveAssemblyReference.cache
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\obj\Debug\Wicresoft.MODLibrarySystem.Wap.Tests.dll
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\obj\Debug\Wicresoft.MODLibrarySystem.Wap.Tests.pdb
-C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\System.Web.Optimization.xml
