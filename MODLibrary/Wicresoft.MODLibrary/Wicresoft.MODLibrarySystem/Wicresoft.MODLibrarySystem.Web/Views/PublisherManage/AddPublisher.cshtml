@@ -3,16 +3,21 @@
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.PublisherManage.PublisherModel
 <h2>AddPublisher</h2>
-@if (this.Model.ErrorState)
-{
-    <h2>@Html.Label(this.Model.StateMessage)</h2>
-}
 
 @using (Html.BeginForm())
 {
     <div class="jumbotron">
         <table>
-            <caption>Add Publisher</caption>
+            <caption>
+                @if (this.Model.ErrorState)
+                {
+                <span>@Html.Label(this.Model.StateMessage)</span>
+                }
+                else
+                {
+                <span>Add Publisher</span>
+                }
+            </caption>
             <tbody>
                 <tr>
                     <th>DisplayName</th>

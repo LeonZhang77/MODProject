@@ -5,17 +5,21 @@
 
 @model Wicresoft.MODLibrarySystem.Web.Models.CategoryManage.CategoryModel
 <h2>AddCategroy</h2>
-@if (this.Model.ErrorState)
-{
-    <h2>@Html.Label(this.Model.StateMessage)</h2>
-}
-
 
 @using (Html.BeginForm())
 {
     <div class="jumbotron">
         <table>
-            <caption>Add Category</caption>
+            <caption>
+                @if (this.Model.ErrorState)
+                {
+                    <span>@Html.Label(this.Model.StateMessage)</span>
+                }
+                else
+                { 
+                    <span>Add Category</span>
+                }
+            </caption>
             <tbody>
                 <tr>
                     <th>CategoryName</th>
