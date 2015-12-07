@@ -3,6 +3,11 @@
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.PublisherManage.PublisherModel
 <h2>AddPublisher</h2>
+@if (this.Model.ErrorState)
+{
+    <h2>@Html.Label(this.Model.StateMessage)</h2>
+}
+
 @using (Html.BeginForm())
 {
     <div class="jumbotron">
@@ -14,7 +19,7 @@
                     <td>@Html.TextBoxFor(m => m.PublisherName)</td>
                 </tr>
                 <tr>
-                    <th>RealName</th>
+                    <th>Introduction</th>
                     <td>@Html.TextBoxFor(m => m.PublisherIntroduction)</td>
                 </tr>
             </tbody>

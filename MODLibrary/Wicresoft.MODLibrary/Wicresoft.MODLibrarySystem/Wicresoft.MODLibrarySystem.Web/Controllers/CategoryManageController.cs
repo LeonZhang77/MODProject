@@ -67,7 +67,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             CategoryInfoCondition condition = new CategoryInfoCondition();
             condition.CategoryName = categoryInfo.CategoryName;
             IEnumerable<CategoryInfo> categorys = this.ICategoryInfoDataProvider.GetCategoryList(condition);
-
+            
             if (categoryInfo.ParentCategoryInfo == null)
             {   
                 categorys = categorys.Where(u => u.ParentCategoryInfo == null);

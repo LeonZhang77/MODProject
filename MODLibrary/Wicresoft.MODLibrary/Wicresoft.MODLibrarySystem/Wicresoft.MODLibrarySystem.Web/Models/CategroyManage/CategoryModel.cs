@@ -36,18 +36,6 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.CategoryManage
             set;
         }
 
-        public string StateMessage
-        {
-            get;
-            set;
-        }
-
-        public bool ErrorState
-        {
-            get;
-            set;
-        }
-        
         public CategoryInfo GetEntity()
         {
             CategoryInfo category = new CategoryInfo();

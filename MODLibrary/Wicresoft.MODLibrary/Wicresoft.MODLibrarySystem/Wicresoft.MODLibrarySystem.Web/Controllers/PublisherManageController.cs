@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Wicresoft.MODLibrarySystem.Entity;
+using Wicresoft.MODLibrarySystem.Entity.Condition.PublisherInfo;
 using Wicresoft.MODLibrarySystem.Unity.Helper;
 using Wicresoft.MODLibrarySystem.Web.Models.PublisherManage;
 using Wicresoft.MODLibrarySystem.Entity.Condition.PublisherInfo;
@@ -27,7 +29,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             condition.PublisherName = name;
 
             IEnumerable<PublisherInfo> publishers = this.IPublisherInfoDataProvider.GetPublisherList(condition);
-
+            
             PagingContent<PublisherInfo> paging = new PagingContent<PublisherInfo>(publishers, pageIndex);
 
             foreach (var item in paging.EntityList)
@@ -60,10 +62,21 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult AddPublisher(PublisherModel publisher)
         {
             PublisherInfo publisherInfo = publisher.GetEntity();
+            PublisherInfoCondition condition = new PublisherInfoCondition();
+            condition.PublisherName = publisherInfo.PublisherName;
+            IEnumerable<PublisherInfo> publishers = this.IPublisherInfoDataProvider.GetPublisherList(condition);
 
-            this.IPublisherInfoDataProvider.Add(publisherInfo);
-
-            return RedirectToAction("Index");
+            if (publishers.Count() > 0)
+            {
+                publisher.StateMessage = "The same publisher has already been exist!";
+                publisher.ErrorState = true;
+                return View(publisher);  
+            }
+            else
+            {
+                this.IPublisherInfoDataProvider.Add(publisherInfo);
+                return RedirectToAction("Index");
+            }            
         }
 
         public ActionResult EditPublisher(long id)
