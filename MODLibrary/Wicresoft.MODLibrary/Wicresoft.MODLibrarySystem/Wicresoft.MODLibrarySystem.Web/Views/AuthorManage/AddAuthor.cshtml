@@ -2,6 +2,31 @@
     ViewBag.Title = "AddAuthor";
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.Author.AuthorModel
+
+<script type="text/javascript">
+    function Validate() {
+        var value = document.getElementById('AuthorName').value;
+        if (value.length > 48)
+        {
+            alert("Author Name is too Long！");
+            return false;
+        }
+        return ValidateAllEngOrAllChs(value);
+    }
+
+    function ValidateAllEngOrAllChs(s) {
+        var regu = "^[a-zA-Z\u4e00-\u9fa5()]+$";
+        var re = new RegExp(regu);
+        if (re.test(s)) {
+            return true;
+        }
+        else {
+            alert("Author Name contains ilegal char!");
+            return false;
+        }
+    }
+</script>
+
 <h2>AddAuthor</h2>
 @using (Html.BeginForm())
 {
@@ -11,7 +36,7 @@
             <tbody>      
                 <tr>
                     <th>Name</th>
-                    <td>@Html.TextBoxFor(m => m.AuthorName)</td>
+                    <td>@Html.TextBoxFor(m => m.AuthorName, new { required = "required" })</td>
                 </tr>
                 <tr>
                     <th>Introduction</th>
@@ -21,7 +46,7 @@
             <tfoot>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" value="Add" />
+                        <input type="submit" value="Add" onclick="return Validate()"/>
                         @Html.ActionLink("Back", "Index")
                     </td>
                 </tr>

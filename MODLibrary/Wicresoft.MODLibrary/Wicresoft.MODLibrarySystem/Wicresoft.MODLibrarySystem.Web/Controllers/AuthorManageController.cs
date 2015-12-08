@@ -32,7 +32,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
 
             IEnumerable<AuthorInfo> AuthorList = this.IAuthorInfoDataProvider.GetAuthorList(condition);
 
-            PagingContent<AuthorInfo> paging = new PagingContent<AuthorInfo>(AuthorList,pageIndex,2);
+            PagingContent<AuthorInfo> paging = new PagingContent<AuthorInfo>(AuthorList,pageIndex);
 
             foreach (var item in paging.EntityList)
             {

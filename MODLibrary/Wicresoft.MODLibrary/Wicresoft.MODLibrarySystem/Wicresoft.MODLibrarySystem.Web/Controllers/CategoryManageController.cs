@@ -68,22 +68,31 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             condition.CategoryName = categoryInfo.CategoryName;
             IEnumerable<CategoryInfo> categorys = this.ICategoryInfoDataProvider.GetCategoryList(condition);
             
-            if (categoryInfo.ParentCategoryInfo == null)
-            {   
-                categorys = categorys.Where(u => u.ParentCategoryInfo == null);
-            }
-            else
-            {
-                categorys = categorys.Where(u => u.ParentCategoryInfo != null 
-                                            && u.ParentCategoryInfo.ID == categoryInfo.ParentCategoryInfo.ID);
-            }
-            
             if (categorys.Count() > 0) 
             {
-                category.CategoryList = DropDownListHelper.GetAllCategorySelectList();
-                category.StateMessage = "The same category has already been exist!";
-                category.ErrorState = true;
-                return View(category);
+                if (categoryInfo.ParentCategoryInfo == null)
+                {
+                    categorys = categorys.Where(u => u.ParentCategoryInfo == null);
+                }
+                else
+                {
+                    categorys = categorys.Where(u => u.ParentCategoryInfo != null
+                                                && u.ParentCategoryInfo.ID == categoryInfo.ParentCategoryInfo.ID);
+                }
+
+                if (categorys.Count() > 0)
+                {
+                    category.CategoryList = DropDownListHelper.GetAllCategorySelectList();
+                    category.StateMessage = "The same category has already been exist!";
+                    category.ErrorState = true;
+                    return View(category);
+                }
+                else
+                {
+                    this.ICategoryInfoDataProvider.Add(categoryInfo);
+                    return RedirectToAction("Index");
+                }
+
             }
             else
             {
