@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "EditCategory";
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.CategoryManage.CategoryModel
@@ -11,7 +10,13 @@
     @Html.HiddenFor(m => m.ID)
     <div class="jumbotron">
         <table>
-            <caption>Edit Category</caption>
+            <caption>
+                Edit Category
+                @if (this.Model.ErrorState)
+                {
+                    <span style="color:red">@this.Model.StateMessage</span>
+                }
+            </caption>
             <tbody>
                 <tr>
                     <th>CategoryName</th>

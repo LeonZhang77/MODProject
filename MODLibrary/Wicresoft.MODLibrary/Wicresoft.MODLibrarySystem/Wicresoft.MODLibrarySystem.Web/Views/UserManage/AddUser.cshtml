@@ -2,6 +2,9 @@
     ViewBag.Title = "AddUser";
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.UserManage.UserModel
+@section scripts{
+    @Scripts.Render("~/Scripts/UserManageJS/AddUser.js")
+}
 <h2>AddUser</h2>
 @using (Html.BeginForm())
 {
@@ -11,7 +14,10 @@
             <tbody>
                 <tr>
                     <th>DisplayName</th>
-                    <td>@Html.TextBoxFor(m => m.DisplayName)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.DisplayName, new { @onchange = "test()" })
+                        <label id="DisplayName_errorData" errordatamessage="input error" style="display:none;color:red" />
+                    </td>
                 </tr>
                 <tr>
                     <th>RealName</th>
@@ -28,6 +34,38 @@
                 <tr>
                     <th>Password</th>
                     <td>@Html.TextBoxFor(m => m.Email)</td>
+                </tr>
+                <tr>
+                    <th>Floor</th>
+                    <td>@Html.TextBoxFor(m => m.Floor)</td>
+                </tr>
+                <tr>
+                    <th>PM</th>
+                    <td>@Html.TextBoxFor(m => m.PM)</td>
+                </tr>
+                <tr>
+                    <th>Team</th>
+                    <td>@Html.TextBoxFor(m => m.Team)</td>
+                </tr>
+                <tr>
+                    <th>ChineseName</th>
+                    <td>@Html.TextBoxFor(m => m.Chinese_Name)</td>
+                </tr>
+                <tr>
+                    <th>Wechat</th>
+                    <td>@Html.TextBoxFor(m => m.Wechat)</td>
+                </tr>
+                <tr>
+                    <th>Grade</th>
+                    <td>@Html.TextBoxFor(m => m.Grade)</td>
+                </tr>
+                <tr>
+                    <th>LatePoint</th>
+                    <td>@Html.TextBoxFor(m => m.Late_point)</td>
+                </tr>
+                <tr>
+                    <th>Remark</th>
+                    <td>@Html.TextBoxFor(m => m.Remark)</td>
                 </tr>
             </tbody>
             <tfoot>

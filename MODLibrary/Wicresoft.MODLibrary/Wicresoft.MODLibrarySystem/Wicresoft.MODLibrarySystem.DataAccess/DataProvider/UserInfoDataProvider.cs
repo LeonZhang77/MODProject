@@ -81,6 +81,14 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             user.LoginName = userInfo.LoginName;
             user.Password = userInfo.Password;
             user.Email = userInfo.Email;
+            user.Floor = userInfo.Floor;
+            user.PM = userInfo.PM;
+            user.Team = userInfo.Team;
+            user.Chinese_Name = userInfo.Chinese_Name;
+            user.Wechat = userInfo.Wechat;
+            user.Grade = userInfo.Grade;
+            user.Late_point = userInfo.Late_point;
+            user.Remark = userInfo.Remark;
 
             this.DataSource.SaveChanges();
         }

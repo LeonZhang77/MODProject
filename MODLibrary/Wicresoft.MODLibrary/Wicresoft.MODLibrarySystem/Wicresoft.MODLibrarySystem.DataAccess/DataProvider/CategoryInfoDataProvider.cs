@@ -52,6 +52,11 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             return category;
         }
 
+        public IEnumerable<CategoryInfo> GetCategoryListByName(string categoryName)
+        {
+            return this.DataSource.CategoryInfos.Where(c => c.CategoryName.ToLower() == categoryName.Trim().ToLower());
+        }
+
         public void Add(CategoryInfo categoryInfo)
         {
             if (categoryInfo.ParentCategoryInfo != null)
@@ -89,5 +94,7 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
                 this.DataSource.SaveChanges();
             }
         }
+
+
     }
 }

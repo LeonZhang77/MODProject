@@ -7,17 +7,15 @@
 <h2>AddCategroy</h2>
 
 @using (Html.BeginForm())
-{
+{   
+   
     <div class="jumbotron">
         <table>
             <caption>
+                Add Category
                 @if (this.Model.ErrorState)
                 {
-                    <span>@Html.Label(this.Model.StateMessage)</span>
-                }
-                else
-                { 
-                    <span>Add Category</span>
+                    <span style="color:red">@this.Model.StateMessage</span>
                 }
             </caption>
             <tbody>

@@ -16,5 +16,7 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.IDataProvider
         IEnumerable<CategoryInfo> GetCategoryListByParentID(long ID);
         IEnumerable<CategoryInfo> GetParentCategoryList();
         CategoryInfo GetCategoryByID(long ID);
+
+        IEnumerable<CategoryInfo> GetCategoryListByName(string categoryName);
     }
 }

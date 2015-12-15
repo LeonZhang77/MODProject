@@ -64,35 +64,13 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult AddCategory(CategoryModel category)
         {
             CategoryInfo categoryInfo = category.GetEntity();
-            CategoryInfoCondition condition = new CategoryInfoCondition();
-            condition.CategoryName = categoryInfo.CategoryName;
-            IEnumerable<CategoryInfo> categorys = this.ICategoryInfoDataProvider.GetCategoryList(condition);
-            
-            if (categorys.Count() > 0) 
+
+            if (ValidationCategoryIsExist(categoryInfo))
             {
-                if (categoryInfo.ParentCategoryInfo == null)
-                {
-                    categorys = categorys.Where(u => u.ParentCategoryInfo == null);
-                }
-                else
-                {
-                    categorys = categorys.Where(u => u.ParentCategoryInfo != null
-                                                && u.ParentCategoryInfo.ID == categoryInfo.ParentCategoryInfo.ID);
-                }
-
-                if (categorys.Count() > 0)
-                {
-                    category.CategoryList = DropDownListHelper.GetAllCategorySelectList();
-                    category.StateMessage = "The same category has already been exist!";
-                    category.ErrorState = true;
-                    return View(category);
-                }
-                else
-                {
-                    this.ICategoryInfoDataProvider.Add(categoryInfo);
-                    return RedirectToAction("Index");
-                }
-
+                category.CategoryList = DropDownListHelper.GetAllCategorySelectList();
+                category.StateMessage = "The same category has already been exist.";
+                category.ErrorState = true;
+                return View(category);
             }
             else
             {
@@ -125,14 +103,44 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         {
             if (category != null && !DropDownListHelper.ValidateCategory(category.ID, category.CategorySelectedID))
             {
-                this.ICategoryInfoDataProvider.Update(category.GetEntity());
-                return RedirectToAction("Index");
+                CategoryInfo categoryInfo = category.GetEntity();
+                if (ValidationCategoryIsExist(categoryInfo))
+                {
+                    category.CategoryList = DropDownListHelper.GetCategorySelectListBySelectedID(category.CategorySelectedID, category.ID);
+                    category.StateMessage = "The same category has already been exist.";
+                    category.ErrorState = true;
+                    return View(category);
+                }
+                else
+                {
+                    this.ICategoryInfoDataProvider.Update(categoryInfo);
+                    return RedirectToAction("Index");
+                }
             }
             else
             {
                 category.CategoryList = DropDownListHelper.GetCategorySelectListBySelectedID(category.CategorySelectedID, category.ID);
+                category.StateMessage = "The parent category cannot choose a subcategory of itself.";
+                category.ErrorState = true;
                 return View(category);
             }
+        }
+
+        private bool ValidationCategoryIsExist(CategoryInfo categoryInfo)
+        {
+            bool flag = false;
+
+            IEnumerable<CategoryInfo> categorys = this.ICategoryInfoDataProvider.GetCategoryListByName(categoryInfo.CategoryName);
+
+            if (categorys.Count() > 0)
+            {
+                if (categorys.Where(c => c.ParentCategoryInfo == categoryInfo.ParentCategoryInfo).Count() > 0)
+                {
+                    flag = true;
+                }
+            }
+
+            return flag;
         }
 
         public ActionResult DeleteCategory(long id)

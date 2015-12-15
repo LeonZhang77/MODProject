@@ -9,8 +9,10 @@ using Wicresoft.MODLibrarySystem.Entity.Condition.BookInfo;
 namespace Wicresoft.MODLibrarySystem.DataAccess.IDataProvider
 {
     public interface IBookInfoDataProvider : IBaseDataProvider<BookInfo>
-    {
+    {        
         IEnumerable<BookInfo> GetBookList();
+
+        BookInfo GetBookInfoByID(long ID);
 
         IEnumerable<BookInfo> GetBookList(BookInfoCondition condition);
     }

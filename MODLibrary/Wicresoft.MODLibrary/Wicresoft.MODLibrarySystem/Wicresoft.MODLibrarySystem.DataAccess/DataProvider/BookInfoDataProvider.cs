@@ -23,6 +23,12 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             return this.DataSource.BookInfos;
         }
 
+        public BookInfo GetBookInfoByID(long ID)
+        {
+            BookInfo book = this.DataSource.BookInfos.FirstOrDefault(u => u.ID == ID);
+            return book;
+        }
+
         public IEnumerable<BookInfo> GetBookList(BookInfoCondition condition)
         {
             IEnumerable<BookInfo> bookList = this.DataSource.BookInfos;
@@ -43,24 +49,44 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
                 bookList = bookList.Where(b => b.BookName.Contains(condition.BookName));
             }
 
-
-
             return bookList;
         }
 
         public void Add(BookInfo entity)
         {
-            throw new NotImplementedException();
+            this.DataSource.BookInfos.Add(entity);
+            this.DataSource.SaveChanges();
         }
 
         public void Update(BookInfo entity)
         {
-            throw new NotImplementedException();
+            BookInfo book = this.GetBookInfoByID(entity.ID);
+
+            book.BookName = entity.BookName;
+            book.ISBN = entity.ISBN;
+            book.Publish_Date = entity.Publish_Date;
+            book.Avaliable_Inventory = entity.Avaliable_Inventory;
+            book.Max_Inventory = entity.Max_Inventory;
+            book.Price_Inventory = entity.Price_Inventory;
+
+            book.PublisherInfo = this.DataSource.PublisherInfos.Find(entity.PublisherInfo.ID);
+
+            book.BookAndCategorys = entity.BookAndCategorys;
+            book.BookAndAuthors = entity.BookAndAuthors;
+           
+
+            this.DataSource.SaveChanges();
         }
 
         public void DeleteByID(long id)
         {
-            throw new NotImplementedException();
+            BookInfo book = GetBookInfoByID(id);
+
+            if (book != null)
+            {
+                this.DataSource.BookInfos.Remove(book);
+                this.DataSource.SaveChanges();
+            }
         }
     }
 }

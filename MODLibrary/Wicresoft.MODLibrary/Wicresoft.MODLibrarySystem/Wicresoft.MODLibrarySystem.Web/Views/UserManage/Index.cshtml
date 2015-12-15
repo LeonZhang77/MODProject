@@ -15,7 +15,7 @@
             <caption>System User List</caption>
             <thead>
                 <tr>
-                    <td colspan="6">
+                    <td colspan="14">
                         @Html.ActionLink("Add", "AddUser")
                     </td>
                 </tr>
@@ -36,6 +36,30 @@
                     </th>
                     <th>
                         Email
+                    </th>
+                    <th>
+                        Floor
+                    </th>
+                    <th>
+                        PM
+                    </th>
+                    <th>
+                        Team
+                    </th>
+                    <th>
+                        ChineseName
+                    </th>
+                    <th>
+                        Wechat
+                    </th>
+                    <th>
+                        Grade
+                    </th>
+                    <th>
+                        LatePoint
+                    </th>
+                    <th>
+                        Remark
                     </th>
                     <th>
                         Operation
@@ -59,6 +83,30 @@
                         <td>
                             @item.Email
                         </td>
+                        <th>
+                            @item.Floor
+                        </th>
+                        <th>
+                            @item.PM
+                        </th>
+                        <th>
+                            @item.Team
+                        </th>
+                        <th>
+                            @item.Chinese_Name
+                        </th>
+                        <th>
+                            @item.Wechat
+                        </th>
+                        <th>
+                            @item.Grade
+                        </th>
+                        <th>
+                            @item.Late_point
+                        </th>
+                        <th>
+                            @item.Remark
+                        </th>
                         <td>
                             @Html.ActionLink("Edit", "EditUser", new { @id = item.ID })
                             @Html.ActionLink("Delete", "DeleteUser", new { @id = item.ID })
@@ -68,7 +116,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="6" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
+                    <td colspan="14" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
                 </tr>
             </tfoot>
         </table>

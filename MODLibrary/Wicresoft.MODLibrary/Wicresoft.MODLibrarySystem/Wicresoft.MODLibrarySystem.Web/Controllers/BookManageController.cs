@@ -53,5 +53,37 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
                 searchselectedID = model.SearchSelectedID
             });
         }
+
+        public ActionResult DetailBook(long bookID)
+        {
+            return View();
+        }
+
+        public ActionResult AddBook()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddBook(BookModel model)
+        {
+            return View();
+        }
+
+        public ActionResult EditBook(long bookID)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EditBook()
+        {
+            return View();
+        }
+
+        public ActionResult DeleteBook(long bookID)
+        {
+            return View();
+        }
     }
 }
