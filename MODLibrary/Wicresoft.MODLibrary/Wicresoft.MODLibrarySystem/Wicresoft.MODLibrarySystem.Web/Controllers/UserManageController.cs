@@ -23,7 +23,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
 
             IEnumerable<UserInfo> users = this.IUserInfoDataProvider.GetUserList(condition);
 
-            PagingContent<UserInfo> paging = new PagingContent<UserInfo>(users, pageIndex, 2);
+            PagingContent<UserInfo> paging = new PagingContent<UserInfo>(users, pageIndex);
 
             foreach (var item in paging.EntityList)
             {
@@ -55,9 +55,18 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         {
             UserInfo useInfo = user.GetEntity();
 
-            this.IUserInfoDataProvider.Add(useInfo);
+            if (this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0)
+            {
+                user.ErrorState = true;
+                user.StateMessage = "LoginName is exsit";
+                return View(user);
+            }
+            else
+            {
+                this.IUserInfoDataProvider.Add(useInfo);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult EditUser(long id)

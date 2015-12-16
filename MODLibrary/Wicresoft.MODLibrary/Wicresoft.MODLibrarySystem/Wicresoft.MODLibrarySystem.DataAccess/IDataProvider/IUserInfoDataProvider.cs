@@ -19,5 +19,7 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.IDataProvider
         UserInfo GetUserListByEmail(String email);
 
         UserInfo FindUserInfoByUserNameAndPassword(String userName, String password);
+
+        IEnumerable<UserInfo> GetUserListByLoginName(string loginName);
     }
 }

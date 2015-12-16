@@ -2,6 +2,8 @@
     ViewBag.Title = "AddUser";
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.UserManage.UserModel
+@Scripts.Render("~/Scripts/ui/jquery-ui.js")
+@Scripts.Render("~/Scripts/ui/jquery.ui.datepicker.js")
 @section scripts{
     @Scripts.Render("~/Scripts/UserManageJS/AddUser.js")
 }
@@ -10,30 +12,49 @@
 {
     <div class="jumbotron">
         <table>
-            <caption>Add User</caption>
+            <caption>
+                Add User
+                @if (this.Model.ErrorState)
+                {
+                    <span style="color:red">@this.Model.StateMessage</span>
+                }
+            </caption>
             <tbody>
                 <tr>
                     <th>DisplayName</th>
                     <td>
-                        @Html.TextBoxFor(m => m.DisplayName, new { @onchange = "test()" })
-                        <label id="DisplayName_errorData" errordatamessage="input error" style="display:none;color:red" />
+                        @Html.TextBoxFor(m => m.DisplayName)
+                        <label id="DisplayName_errorData" errordatamessage="DisplayName is require and length must be less than 6 bytes." class="errorLable" />
                     </td>
                 </tr>
                 <tr>
                     <th>RealName</th>
-                    <td>@Html.TextBoxFor(m => m.RealName)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.RealName)
+                        <label id="RealName_errorData" errordatamessage="RealName is require." class="errorLable" />
+                    </td>
+
                 </tr>
                 <tr>
                     <th>LoginName</th>
-                    <td>@Html.TextBoxFor(m => m.LoginName)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.LoginName)
+                        <label id="LoginName_errorData" errordatamessage="LoginName is require." class="errorLable" />
+                    </td>
                 </tr>
                 <tr>
                     <th>Password</th>
-                    <td>@Html.TextBoxFor(m => m.Password)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Password)
+                        <label id="Password_errorData" errordatamessage="Password is require." class="errorLable" />
+                    </td>
                 </tr>
                 <tr>
-                    <th>Password</th>
-                    <td>@Html.TextBoxFor(m => m.Email)</td>
+                    <th>Email</th>
+                    <td>
+                        @Html.TextBoxFor(m => m.Email)
+                        <label id="Email_errorData" errordatamessage="Email is require and must be a email address." class="errorLable" />
+                    </td>
                 </tr>
                 <tr>
                     <th>Floor</th>
@@ -61,11 +82,34 @@
                 </tr>
                 <tr>
                     <th>LatePoint</th>
-                    <td>@Html.TextBoxFor(m => m.Late_point)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Late_point)
+                        <label id="Late_point_errorData" errordatamessage="Late_point is require and must be a number." class="errorLable" />
+                    </td>
                 </tr>
                 <tr>
                     <th>Remark</th>
                     <td>@Html.TextBoxFor(m => m.Remark)</td>
+                </tr>
+
+                <!--Model for Date and Dropdownlist validation-->
+                <tr>
+                    <th>Data</th>
+                    <td>
+                        <input id="TestDateTime" type="text" readonly="readonly" />
+                        <label id="TestDateTime_errorData" errordatamessage="TestDateTime is require." class="errorLable" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>DropdownList</th>
+                    <td>
+                        <select id="TestDropDownList">
+                            <option value="">please choose</option>
+                            <option value="1">test1</option>
+                            <option value="2">test2</option>
+                        </select>
+                        <label id="TestDropDownList_errorData" errordatamessage="TestDropDownList is require." class="errorLable" />
+                    </td>
                 </tr>
             </tbody>
             <tfoot>

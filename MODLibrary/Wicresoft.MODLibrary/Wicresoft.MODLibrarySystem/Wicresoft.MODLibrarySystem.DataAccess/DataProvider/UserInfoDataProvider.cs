@@ -103,5 +103,11 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
                 this.DataSource.SaveChanges();
             }
         }
+
+
+        public IEnumerable<UserInfo> GetUserListByLoginName(string loginName)
+        {
+            return this.DataSource.UserInfos.Where(u => u.LoginName == loginName);
+        }
     }
 }
