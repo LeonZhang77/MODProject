@@ -2,6 +2,11 @@
     ViewBag.Title = "AddPublisher";
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.PublisherManage.PublisherModel
+
+@section scripts{
+    @Scripts.Render("~/Scripts/PublisherManageJS/AddPublisher.js")
+}
+
 <h2>AddPublisher</h2>
 
 @using (Html.BeginForm())
@@ -21,7 +26,10 @@
             <tbody>
                 <tr>
                     <th>DisplayName</th>
-                    <td>@Html.TextBoxFor(m => m.PublisherName)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.PublisherName)
+                        <label id="PublisherName_errorData" errordatamessage="PublisherName is required and can not include illegal char, shorter than 50." class="errorLable" />
+                    </td>
                 </tr>
                 <tr>
                     <th>Introduction</th>

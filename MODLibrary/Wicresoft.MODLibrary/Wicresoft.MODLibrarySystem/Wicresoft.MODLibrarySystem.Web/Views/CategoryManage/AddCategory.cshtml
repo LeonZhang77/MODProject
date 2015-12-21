@@ -4,6 +4,10 @@
 }
 
 @model Wicresoft.MODLibrarySystem.Web.Models.CategoryManage.CategoryModel
+
+@section scripts{
+    @Scripts.Render("~/Scripts/CategoryManageJS/AddCategory.js")
+}
 <h2>AddCategroy</h2>
 
 @using (Html.BeginForm())
@@ -21,7 +25,10 @@
             <tbody>
                 <tr>
                     <th>CategoryName</th>
-                    <td>@Html.TextBoxFor(m => m.CategoryName)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.CategoryName)
+                        <label id="CategoryName_errorData" errordatamessage="CategoryName is required and can not include illegal char, shorter than 20." class="errorLable" />
+                    </td>
                 </tr>
                 <tr>
                     <th>ParenetCategoryName</th>

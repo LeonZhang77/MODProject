@@ -255,6 +255,7 @@
     <None Include="Properties\PublishProfiles\ToTestEve.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CategoryManageJS\AddCategory.js" />
+    <Content Include="Scripts\CategoryManageJS\EditCategory.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -263,6 +264,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\PublisherManageJS\AddPublisher.js" />
+    <Content Include="Scripts\PublisherManageJS\EditPublisher.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ui\i18n\jquery-ui-i18n.js" />
