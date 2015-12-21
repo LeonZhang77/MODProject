@@ -254,6 +254,7 @@
     <None Include="Properties\PublishProfiles\ModLibrary.pubxml" />
     <None Include="Properties\PublishProfiles\ToTestEve.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\CategoryManageJS\AddCategory.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

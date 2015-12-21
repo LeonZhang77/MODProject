@@ -1,0 +1,24 @@
+The UI Validation have two mainly part.
+
+1.validateField
+  This method is use at validation field that have one situation need to validate.
+  For example. One Field need to validate Email format that code like "validateField("Email", "VE")".
+2.multipleValidateField
+  This method is use at validation field that more than one situation need to validate.
+  For example. One Field need to validate Require and Email format that code like "multipleValidateField("Email", "VN,VE")".
+
+The ValidationType Mapping at below:
+1."VN": validate is require.
+2."VL": validate is over the length.
+3."VE": validate is correct Email format.
+4."VP": validate is correct Phone Number.
+5."VS": validate special Regex rules.(Defualt is validate specail char ex("$#...")).
+6."VNM":validate is it a number.
+
+Coding method at below:
+
+validateField("[Field ID]", "[ValidationType]",[length number],"[Special RegxText]")
+
+multipleValidateField("[Field ID]", "[ValidationTypeList(split with ',']",[length number],"[Special RegxText]")
+
+Ps: [length number],"[Special RegxText]" could be null.
