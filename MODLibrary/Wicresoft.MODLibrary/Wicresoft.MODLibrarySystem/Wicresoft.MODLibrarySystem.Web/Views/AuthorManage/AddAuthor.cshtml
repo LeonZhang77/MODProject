@@ -3,6 +3,9 @@
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.Author.AuthorModel
 
+@section scripts{
+    @Scripts.Render("~/Scripts/AuthorManaegeJS/AddAuthor.js")
+}
 <h2>AddAuthor</h2>
 @using (Html.BeginForm())
 {
@@ -12,7 +15,9 @@
             <tbody>      
                 <tr>
                     <th>Name</th>
-                    <td>@Html.TextBoxFor(m => m.AuthorName)</td>
+                    <td>@Html.TextBoxFor(m => m.AuthorName)
+                        <label id="AuthorName_errorData" errordatamessage="AuthorName is require or illegal." class="errorLable" />
+                    </td>
                 </tr>
                 <tr>
                     <th>Introduction</th>

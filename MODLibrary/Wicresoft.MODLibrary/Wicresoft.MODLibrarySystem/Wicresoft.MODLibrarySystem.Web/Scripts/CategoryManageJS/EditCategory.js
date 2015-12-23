@@ -10,7 +10,7 @@ function EditCategoryInit() {
 }
 
 function EditCategoryBind() {
-    $("#CategoryName").bind("focusout", function () { multipleValidateField("CategoryName", "VN,VS") });
+    $("#CategoryName").bind("focusout", function () { multipleValidateField("CategoryName", "VN,VL,VS", 20) });
 }
 
 function EditCategorySubmitBind() {
@@ -20,7 +20,7 @@ function EditCategorySubmitBind() {
 function EditCategorySubmitValidation() {
     var step1;
 
-    step1 = multipleValidateField("CategoryName", "VN,VS");
+    step1 = multipleValidateField("CategoryName", "VN,VL,VS", 20);
 
     if (step1) {
         return true;

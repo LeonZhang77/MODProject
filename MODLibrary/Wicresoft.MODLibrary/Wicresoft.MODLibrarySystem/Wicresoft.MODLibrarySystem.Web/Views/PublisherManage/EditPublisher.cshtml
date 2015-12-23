@@ -13,7 +13,13 @@
     @Html.HiddenFor(m => m.ID)
     <div class="jumbotron">
         <table>
-            <caption>Edit Publisher</caption>
+            <caption>
+                Edit Publisher
+                @if (this.Model.ErrorState)
+                {
+                    <span style="color:red">@this.Model.StateMessage</span>
+                }
+            </caption>
             <tbody>
                 <tr>
                     <th>Name</th>

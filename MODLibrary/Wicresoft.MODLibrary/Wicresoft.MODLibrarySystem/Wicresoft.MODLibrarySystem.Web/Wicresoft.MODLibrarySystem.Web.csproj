@@ -248,6 +248,8 @@
     <Content Include="Content\Site.css" />
     <Compile Include="Models\AuthorManage\AuthorModel.cs" />
     <Content Include="Helper\UI Validation Frame Explanation .txt" />
+    <Content Include="Scripts\AuthorManaegeJS\AddAuthor.js" />
+    <Content Include="Scripts\AuthorManaegeJS\EditAuthor.js" />
     <Content Include="Scripts\baseValidation.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

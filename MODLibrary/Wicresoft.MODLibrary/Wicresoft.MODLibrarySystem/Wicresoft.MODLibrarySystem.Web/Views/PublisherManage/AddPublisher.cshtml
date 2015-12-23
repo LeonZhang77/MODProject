@@ -14,13 +14,10 @@
     <div class="jumbotron">
         <table>
             <caption>
+                Add Publisher
                 @if (this.Model.ErrorState)
                 {
-                <span>@Html.Label(this.Model.StateMessage)</span>
-                }
-                else
-                {
-                <span>Add Publisher</span>
+                    <span style="color:red">@this.Model.StateMessage</span>
                 }
             </caption>
             <tbody>
