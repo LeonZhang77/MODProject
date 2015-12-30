@@ -12,9 +12,6 @@ var defualtRegEx = "^[a-zA-Z\u4e00-\u9fa5()]+$";
 var emailRegEx = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 var phoneRegex = /^\+?\d{0,4}\(?\d+\)?\d+-?\d+$/;
 
-var browserDateFormat = "yy/m/dd";
-var serverDateFormat = "yyyy-MM-dd";
-
 var multipleValidateField = function (fieldID, multipleType, maxLen, regEx) {
     if (!arguments[3]) {
         maxLen == 0;

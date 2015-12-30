@@ -52,7 +52,7 @@
                         Avaliable
                     </th>
                     <th>
-                        Avaliable
+                        Max
                     </th>
                     <th>
                         Operation
@@ -92,8 +92,8 @@
                             @item.Max_Inventory
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "EditUser", new { @id = item.ID })
-                            @Html.ActionLink("Delete", "DeleteUser", new { @id = item.ID })
+                            @Html.ActionLink("Edit", "EditBook", new { @id = item.ID })
+                            @Html.ActionLink("Delete", "DeleteBook", new { @id = item.ID })
                         </td>
                     </tr>
                 }

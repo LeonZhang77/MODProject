@@ -24,7 +24,7 @@
                 <tr>
                     <th>Name</th>
                     <td>
-                        @Html.TextBoxFor(m => m.PublisherName)
+                        @Html.TextBoxFor(m => m.PublisherName) <span class="requireSpan">*</span>
                         <label id="PublisherName_errorData" errordatamessage="PublisherName is required and can not include illegal char, shorter than 50." class="errorLable" />
                     </td>
                 </tr>

@@ -22,7 +22,10 @@ namespace Wicresoft.MODLibrarySystem.Web
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
-            
+
+            //bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+            //           "~/Scripts/baseWebAPP.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                        "~/Scripts/baseValidation.js"));
 

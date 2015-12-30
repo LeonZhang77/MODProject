@@ -14,5 +14,8 @@ namespace Wicresoft.MODLibrarySystem.Unity
         public const char CategoryPathTemplate = '/';
         public const char AuthorPathTemplate = ',';
         public const String IOSDateTemplate = "yyyy-MM-dd";
+        public const char SplitDisplayUIStr = ',';
+        public const char SplitDisplayStr = '@';
+        public const char SplitValueStr = '|';
     }
 }

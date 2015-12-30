@@ -40,6 +40,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             }
             else 
             {
+                model.IsFail = true;
                 return View(model);
             }            
         }

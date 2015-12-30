@@ -18,5 +18,11 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.Login
             get;
             set;
         }
+
+        public bool IsFail
+        {
+            get;
+            set;
+        }
     }
 }

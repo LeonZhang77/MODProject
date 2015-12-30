@@ -9,6 +9,7 @@ using Wicresoft.MODLibrarySystem.Entity;
 using Wicresoft.MODLibrarySystem.Entity.Condition.BookInfo;
 using Wicresoft.MODLibrarySystem.Unity.Helper;
 using Wicresoft.MODLibrarySystem.Web.Models.BookManage;
+using Wicresoft.MODLibrarySystem.Web.Models.CategroyManage;
 
 namespace Wicresoft.MODLibrarySystem.Web.Controllers
 {
@@ -54,36 +55,55 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             });
         }
 
-        public ActionResult DetailBook(long bookID)
+        public ActionResult DetailBook(long id)
         {
             return View();
         }
 
         public ActionResult AddBook()
         {
-            return View();
+            BookModel bookModel = new BookModel();
+            bookModel.ChooseCategoryModelList = EasyCategoryModel.GetEasyCategoryModelList(DropDownListHelper.GetAllCategorySelectList(), null);
+            return View(bookModel);
         }
 
         [HttpPost]
-        public ActionResult AddBook(BookModel model)
+        public ActionResult AddBook(BookModel book)
         {
-            return View();
+            BookInfo bookInfo = book.GetEntity();
+            this.IBookInfoDataProvider.Add(bookInfo);
+
+            return RedirectToAction("Index");
         }
 
-        public ActionResult EditBook(long bookID)
+        public ActionResult EditBook(long id)
         {
-            return View();
+            BookModel bookModel = new BookModel();
+            BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
+            if (bookInfo != null)
+            {
+                bookModel = BookModel.GetViewModel(bookInfo);
+                bookModel.ChooseCategoryModelList = EasyCategoryModel.GetEasyCategoryModelList(DropDownListHelper.GetAllCategorySelectList(), bookInfo.BookAndCategorys);
+            }
+
+            return View(bookModel);
         }
 
         [HttpPost]
-        public ActionResult EditBook()
+        public ActionResult EditBook(BookModel book)
         {
-            return View();
+            if (book != null)
+            {
+                this.IBookInfoDataProvider.Update(book.GetEntity());
+            }
+
+            return RedirectToAction("Index");
         }
 
-        public ActionResult DeleteBook(long bookID)
+        public ActionResult DeleteBook(long id)
         {
-            return View();
+            this.IBookInfoDataProvider.DeleteByID(id);
+            return RedirectToAction("Index");
         }
     }
 }

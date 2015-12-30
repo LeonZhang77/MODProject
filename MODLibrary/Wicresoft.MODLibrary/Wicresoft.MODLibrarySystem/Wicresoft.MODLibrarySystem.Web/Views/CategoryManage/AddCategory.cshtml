@@ -26,7 +26,7 @@
                 <tr>
                     <th>CategoryName</th>
                     <td>
-                        @Html.TextBoxFor(m => m.CategoryName)
+                        @Html.TextBoxFor(m => m.CategoryName) <span class="requireSpan">*</span>
                         <label id="CategoryName_errorData" errordatamessage="CategoryName is required and can not include illegal char, shorter than 20." class="errorLable" />
                     </td>
                 </tr>

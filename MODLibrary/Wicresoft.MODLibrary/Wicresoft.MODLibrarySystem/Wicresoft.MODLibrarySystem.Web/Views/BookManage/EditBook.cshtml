@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.Title = "EditBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Wicresoft.MODLibrarySystem.Unity;
+    @model Wicresoft.MODLibrarySystem.Web.Models.BookManage.BookModel
+    @Scripts.Render("~/Scripts/ui/jquery-ui.js")
+    @Scripts.Render("~/Scripts/ui/jquery.ui.datepicker.js")
+    @section scripts{
+        @Scripts.Render("~/Scripts/BookManageJS/BaseBook.js")
+        @Scripts.Render("~/Scripts/BookManageJS/EditBook.js")
+    }
+    <h2>EditBook</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(m => m.ID)
+        <div class="jumbotron">
+            <table>
+                <caption>Edit Book</caption>
+                <tbody>
+                    <tr>
+                        <th>BookName</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.BookName) <span class="requireSpan">*</span>
+                            <label id="BookName_errorData" errordatamessage="BookName can not be empty." class="errorLable" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>ISBN</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.ISBN) <span class="requireSpan">*</span>
+                            <label id="ISBN_errorData" errordatamessage="ISBN can not be empty." class="errorLable" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Publish_Date</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Publish_Date) <span class="requireSpan">*</span>
+                            <label id="Publish_Date_errorData" errordatamessage="Publish_Date can not be empty." class="errorLable" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Avaliable_Inventory</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Avaliable_Inventory) <span class="requireSpan">*</span>
+                            <label id="Avaliable_Inventory_errorData" errordatamessage="Avaliable_Inventory can not be empty and must be a number." class="errorLable" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Max_Inventory</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Max_Inventory) <span class="requireSpan">*</span>
+                            <label id="Max_Inventory_errorData" errordatamessage="Max_Inventory can not be empty and must be a number." class="errorLable" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Price_Inventory</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Price_Inventory) <span class="requireSpan">*</span>
+                            <label id="Price_Inventory_errorData" errordatamessage="Price_Inventory can not be empty and must be a number." class="errorLable" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>PublisherName</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.PublisherName, new { @readonly = "readonly" }) @Html.HiddenFor(b => b.PublisherNameValue)<span class="requireSpan">*</span>
+                            <label id="PublisherNameValue_errorData" errordatamessage="PublisherName can not be empty." class="errorLable" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>AuthorName</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.AuthorName, new { @readonly = "readonly" }) @Html.HiddenFor(b => b.AuthorNameValue)@Html.HiddenFor(b => b.AuthorDisplayName)<span class="requireSpan">*</span>
+                            <label id="AuthorNameValue_errorData" errordatamessage="AuthorName can not be empty." class="errorLable" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>CategoryName</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.CatagoryName, new { @readonly = "readonly" }) @Html.HiddenFor(b => b.CatagoryNameValue)<span class="requireSpan">*</span>
+                            <label id="CatagoryNameValue_errorData" errordatamessage="CatagoryName can not be empty." class="errorLable" />
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" value="Edit" />
+                            @Html.ActionLink("Back", "Index")
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    <!--Choose area-->
+        <div id="PublisherChoose" title="PublisherChoose">
+            <label>Please Input</label><input id="SearchPublisher" type="text" requsturl="@Url.Action("JsonGetPublisherByName", "PublisherManage")" />
+            <input id="PublisherChooseDisplay_Value" displayname="" type="hidden" />
+            <table class="chooseTableStyle">
+                <caption>You choose result</caption>
+                <tr>
+                    <td id="PublisherChooseDisplay"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="AuthourChoose" title="AuthourChoose">
+            <label>Please Input</label><input id="SearchAuthour" type="text" requsturl="@Url.Action("JsonGetAuthorByName", "AuthorManage")" />
+            <input id="AuthourChooseDisplay_Value" displayname="" type="hidden" />
+            <table class="chooseTableStyle">
+                <caption>You choose result</caption>
+                <tr>
+                    <td id="AuthourChooseDisplay">
+                        @if (!String.IsNullOrEmpty(this.Model.AuthorNameValue))
+                        {
+                            var auValues = this.Model.AuthorNameValue.Split(UntityContent.SplitValueStr);
+                            var auNames = this.Model.AuthorDisplayName.Split(UntityContent.SplitDisplayStr);
+                            for (int i = 0; i < auValues.Length; i++)
+                            {
+                                if (!String.IsNullOrEmpty(auValues[i]))
+                                {
+                                    <div> @auNames[i].ToString() ---<span onclick="removeChooseResult(this,'@auValues[i]','@auNames[i].ToString()','AuthourChooseDisplay_Value')">X</span></div>
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="CategoryChoose" title="CategoryChoose">
+            <table id="CategoryChooseArea" class="chooseTableStyle">
+                <caption>CategoryChoose</caption>
+                @for (int i = 0; i < this.Model.ChooseCategoryModelList.Count; i++)
+                {
+                    <tr>
+                        <td>@this.Model.ChooseCategoryModelList[i].CategoryName</td>
+                        <td>
+                            @Html.CheckBoxFor(m => this.Model.ChooseCategoryModelList[i].IsChecked, new { @displayname = this.Model.ChooseCategoryModelList[i].CategoryName.Trim(), @cID = this.Model.ChooseCategoryModelList[i].ID })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }

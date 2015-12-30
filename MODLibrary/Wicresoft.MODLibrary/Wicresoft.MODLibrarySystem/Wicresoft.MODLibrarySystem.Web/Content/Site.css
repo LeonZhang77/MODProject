@@ -27,3 +27,34 @@ textarea {
     display: none;
     color: red;
 }
+
+.requireSpan {
+    font-size: 20px;
+    font-style: italic;
+    color: red;
+}
+
+.chooseIframeStyle {
+    width: 650px;
+    height: 230px;
+}
+
+.chooseTableStyle {
+    width: 650px;
+    height:200px;
+}
+
+.ui-autocomplete {
+    max-height: 150px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+
+* html .ui-autocomplete {
+    height: 150px;
+}
+
+.ui-autocomplete-loading {
+    background: white url("images/loading_16_16.gif") right center no-repeat;
+ }

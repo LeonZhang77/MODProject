@@ -6,7 +6,6 @@ using Wicresoft.MODLibrarySystem.Entity;
 using Wicresoft.MODLibrarySystem.Entity.Condition.PublisherInfo;
 using Wicresoft.MODLibrarySystem.Unity.Helper;
 using Wicresoft.MODLibrarySystem.Web.Models.PublisherManage;
-using Wicresoft.MODLibrarySystem.Entity.Condition.PublisherInfo;
 using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
 using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 
@@ -29,7 +28,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             condition.PublisherName = name;
 
             IEnumerable<PublisherInfo> publishers = this.IPublisherInfoDataProvider.GetPublisherList(condition);
-            
+
             PagingContent<PublisherInfo> paging = new PagingContent<PublisherInfo>(publishers, pageIndex);
 
             foreach (var item in paging.EntityList)
@@ -70,13 +69,13 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             {
                 publisher.StateMessage = "The same publisher has already been exist!";
                 publisher.ErrorState = true;
-                return View(publisher);  
+                return View(publisher);
             }
             else
             {
                 this.IPublisherInfoDataProvider.Add(publisherInfo);
                 return RedirectToAction("Index");
-            }            
+            }
         }
 
         public ActionResult EditPublisher(long id)
@@ -108,6 +107,20 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             return RedirectToAction("Index");
         }
 
-
+        public JsonResult JsonGetPublisherByName(string q)
+        {
+            List<PublisherModel> list = new List<PublisherModel>();
+            if (q.Length > 0)
+            {
+                PublisherInfoCondition condition = new PublisherInfoCondition();
+                condition.PublisherName = q;
+                IEnumerable<PublisherInfo> publishers = this.IPublisherInfoDataProvider.GetPublisherList(condition);
+                foreach (var item in publishers)
+                {
+                    list.Add(PublisherModel.GetViewModel(item));
+                }
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
     }
 }

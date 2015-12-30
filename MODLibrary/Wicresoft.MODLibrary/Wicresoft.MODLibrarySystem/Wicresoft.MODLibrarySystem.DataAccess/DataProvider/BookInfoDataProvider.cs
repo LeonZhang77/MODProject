@@ -12,7 +12,6 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
     public class BookInfoDataProvider : IBookInfoDataProvider
     {
         private DBSource DataSource;
-
         public BookInfoDataProvider()
         {
             this.DataSource = new DBSource();
@@ -54,12 +53,27 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
 
         public void Add(BookInfo entity)
         {
+            ICollection<BookAndCategoryRelation> tempBookAndCategorys = entity.BookAndCategorys;
+            ICollection<BookAndAuthorRelation> tempBookAndAuthors = entity.BookAndAuthors;
+
+            if (entity.PublisherInfo != null)
+            {
+                entity.PublisherInfo = this.DataSource.PublisherInfos.Find(entity.PublisherInfo.ID);
+            }
+
+            entity.BookAndAuthors = null;
+            entity.BookAndCategorys = null;
             this.DataSource.BookInfos.Add(entity);
             this.DataSource.SaveChanges();
+
+            RefreshBookRelationEntity(entity, tempBookAndCategorys, tempBookAndAuthors);
         }
 
         public void Update(BookInfo entity)
         {
+            ICollection<BookAndCategoryRelation> tempBookAndCategorys = entity.BookAndCategorys;
+            ICollection<BookAndAuthorRelation> tempBookAndAuthors = entity.BookAndAuthors;
+
             BookInfo book = this.GetBookInfoByID(entity.ID);
 
             book.BookName = entity.BookName;
@@ -69,13 +83,48 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             book.Max_Inventory = entity.Max_Inventory;
             book.Price_Inventory = entity.Price_Inventory;
 
-            book.PublisherInfo = this.DataSource.PublisherInfos.Find(entity.PublisherInfo.ID);
-
-            book.BookAndCategorys = entity.BookAndCategorys;
-            book.BookAndAuthors = entity.BookAndAuthors;
-           
+            if (entity.PublisherInfo != null)
+            {
+                book.PublisherInfo = this.DataSource.PublisherInfos.Find(entity.PublisherInfo.ID);
+            }
+            else
+            {
+                book.PublisherInfo = null;
+            }
 
             this.DataSource.SaveChanges();
+
+
+            RemoveBookRelationEntity(book);
+
+            RefreshBookRelationEntity(book,tempBookAndCategorys,tempBookAndAuthors);
+        }
+
+        private void RemoveBookRelationEntity(BookInfo book)
+        {
+            this.DataSource.BookAndAuthorRelation.RemoveRange(this.DataSource.BookAndAuthorRelation.Where(r => r.Book_ID == book.ID));
+            this.DataSource.BookAndCategoryRelation.RemoveRange(this.DataSource.BookAndCategoryRelation.Where(r => r.Book_ID == book.ID));
+            this.DataSource.SaveChanges();
+        }
+
+        private void RefreshBookRelationEntity(BookInfo book, ICollection<BookAndCategoryRelation> tempBookAndCategorys, ICollection<BookAndAuthorRelation> tempBookAndAuthors)
+        {
+            if (tempBookAndAuthors != null)
+            {
+                foreach (var item in tempBookAndAuthors)
+                {
+                    this.DataSource.BookAndAuthorRelation.Add(new BookAndAuthorRelation { Book_ID = book.ID, Author_ID = item.AuthorInfo.ID });
+                }
+                this.DataSource.SaveChanges();
+            }
+            if (tempBookAndCategorys != null)
+            {
+                foreach (var item in tempBookAndCategorys)
+                {
+                    this.DataSource.BookAndCategoryRelation.Add(new BookAndCategoryRelation { Book_ID = book.ID, Category_ID = item.CategoryInfo.ID });
+                }
+                this.DataSource.SaveChanges();
+            }
         }
 
         public void DeleteByID(long id)
@@ -84,6 +133,8 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
 
             if (book != null)
             {
+                RemoveBookRelationEntity(book);
+
                 this.DataSource.BookInfos.Remove(book);
                 this.DataSource.SaveChanges();
             }

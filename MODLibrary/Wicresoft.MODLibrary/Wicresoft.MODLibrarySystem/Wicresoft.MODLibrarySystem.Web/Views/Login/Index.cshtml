@@ -8,15 +8,21 @@
 @using (Html.BeginForm())
 {
     <div class="jumbotron">
-        <table>
+        <table style="width:400px">
             <thead> Please Login </thead>
+            @if (this.Model.IsFail)
+            {
+                <caption>
+                    <span style="color:red">Login Fail. <br /> Please check username and password is correct</span>
+                </caption>
+            }
             <tbody>
                 <tr>
                     <th>
                         UserName
                     </th>
                     <td>
-                        @Html.TextBoxFor(m => this.Model.UserName)
+                        @Html.TextBoxFor(m => this.Model.UserName)<span class="requireSpan">*</span>
                     </td>
                 </tr>
                 <tr>
@@ -24,7 +30,7 @@
                         Password
                     </th>
                     <td>
-                        @Html.TextBoxFor(m => this.Model.Password, new { @type = "password" })
+                        @Html.TextBoxFor(m => this.Model.Password, new { @type = "password" })<span class="requireSpan">*</span>
                     </td>
                 </tr>
             </tbody>

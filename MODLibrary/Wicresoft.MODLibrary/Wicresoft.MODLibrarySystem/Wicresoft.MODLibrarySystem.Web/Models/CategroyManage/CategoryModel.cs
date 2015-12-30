@@ -7,17 +7,12 @@ using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
 using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 using Wicresoft.MODLibrarySystem.Entity;
 using Wicresoft.MODLibrarySystem.Unity.Helper;
+using Wicresoft.MODLibrarySystem.Web.Models.CategroyManage;
 
 namespace Wicresoft.MODLibrarySystem.Web.Models.CategoryManage
 {
-    public class CategoryModel : BaseViewModel
+    public class CategoryModel : BaseCategoryModel
     {
-        public String CategoryName
-        {
-            get;
-            set;
-        }
-
         public String ParentCategoryName
         {
             get;
@@ -59,7 +54,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.CategoryManage
 
             model.ID = category.ID;
             model.CategoryName = category.CategoryName;
-            model.ParentCategoryName = DropDownListHelper.GetParentCategoryName(category);           
+            model.ParentCategoryName = DropDownListHelper.GetParentCategoryName(category);
 
             return model;
         }

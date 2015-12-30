@@ -17,7 +17,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
     {
         public IAuthorInfoDataProvider IAuthorInfoDataProvider;
 
-         public AuthorManageController()
+        public AuthorManageController()
         {
             this.IAuthorInfoDataProvider = new AuthorInfoDataProvider();
         }
@@ -32,7 +32,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
 
             IEnumerable<AuthorInfo> AuthorList = this.IAuthorInfoDataProvider.GetAuthorList(condition);
 
-            PagingContent<AuthorInfo> paging = new PagingContent<AuthorInfo>(AuthorList,pageIndex);
+            PagingContent<AuthorInfo> paging = new PagingContent<AuthorInfo>(AuthorList, pageIndex);
 
             foreach (var item in paging.EntityList)
             {
@@ -96,5 +96,22 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             this.IAuthorInfoDataProvider.DeleteByID(id);
             return RedirectToAction("Index");
         }
+
+        public JsonResult JsonGetAuthorByName(string q)
+        {
+            List<AuthorModel> list = new List<AuthorModel>();
+            if (q.Length > 0)
+            {
+                AuthorInfoCondition condition = new AuthorInfoCondition();
+                condition.AuthorName = q;
+                IEnumerable<AuthorInfo> AuthorList = this.IAuthorInfoDataProvider.GetAuthorList(condition);
+                foreach (var item in AuthorList)
+                {
+                    list.Add(AuthorModel.GetViewModel(item));
+                }
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
