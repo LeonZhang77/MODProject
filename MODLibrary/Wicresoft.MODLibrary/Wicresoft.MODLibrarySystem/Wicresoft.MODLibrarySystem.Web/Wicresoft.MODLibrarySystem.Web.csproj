@@ -496,9 +496,11 @@
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
     <Content Include="Scripts\BookManageJS\AddBook.js" />
     <Content Include="Scripts\UserManageJS\AddUser.js" />
+    <Content Include="Scripts\UserManageJS\EditUser.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\ui\.jshintrc" />
     <None Include="Views\AuthorManage\EditAuthor.cshtml" />
+    <None Include="Views\UserManage\DetailUser.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "NotPermission";
+}
+
+This account is not  permission to login this system.
+
+@if (!String.IsNullOrEmpty(System.Web.Configuration.WebConfigurationManager.AppSettings["WEBSITE_AUTH_LOGOUT_PATH"]))
+{
+    <a href="@System.Web.Configuration.WebConfigurationManager.AppSettings["WEBSITE_AUTH_LOGOUT_PATH"]">Login out and change other account</a>
+}
+else
+{
+    @Html.ActionLink("Login out and change other account", "LoginOut", "Login", null, null)
+}

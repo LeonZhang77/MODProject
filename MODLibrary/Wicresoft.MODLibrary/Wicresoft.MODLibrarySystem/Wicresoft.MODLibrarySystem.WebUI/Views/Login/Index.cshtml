@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "MOD Library Login";
+}
+@model Wicresoft.MODLibrarySystem.WebUI.Models.Login.LoginIndexModel
+
+<h2>MOD Library Login</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <table style="width:400px">
+            <thead> Please Login </thead>
+            @if (this.Model.IsFail)
+            {
+                <caption>
+                    <span style="color:red">Login Fail. <br /> Please check username and password is correct</span>
+                </caption>
+            }
+            <tbody>
+                <tr>
+                    <th>
+                        UserName
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(m => this.Model.UserName)<span class="requireSpan">*</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Password
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(m => this.Model.Password, new { @type = "password" })<span class="requireSpan">*</span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input id="loginButton" name="loginButtion" type="submit" value="Login" />
+                       @* <input id="registerButton" name="registerButtion" type="submit" value="Register" />*@
+                        @Html.ActionLink("Register", "TurnToRegister")
+                    </td>
+
+                </tr>
+
+            </tfoot>
+        </table>
+    </div>
+}
+

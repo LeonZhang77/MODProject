@@ -84,17 +84,34 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         [HttpPost]
         public ActionResult EditUser(UserModel user)
         {
-            if (user != null)
+            UserInfo useInfo = user.GetEntity();
+
+            if (this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0)
             {
-                this.IUserInfoDataProvider.Update(user.GetEntity());
+                user.ErrorState = true;
+                user.StateMessage = "LoginName is exsit";
+                return View(user);
             }
-            return RedirectToAction("Index");
+            else
+            {
+                this.IUserInfoDataProvider.Update(useInfo);
+
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult DeleteUser(long id)
         {
             this.IUserInfoDataProvider.DeleteByID(id);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult DetailUser(long id)
+        {
+            UserModel user = new UserModel();
+            UserInfo userInfo = this.IUserInfoDataProvider.GetUserListByID(id);
+            user = UserModel.GetViewModel(userInfo);
+            return View(user);
         }
     }
 }

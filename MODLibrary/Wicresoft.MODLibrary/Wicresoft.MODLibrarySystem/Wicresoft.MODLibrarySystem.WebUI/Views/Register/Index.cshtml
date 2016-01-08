@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Register";
+}
+@model Wicresoft.MODLibrarySystem.WebUI.Models.Register.RegisterIndexModel
+<h2>Register</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <table style="width:400px">
+            <thead> Please Input You Email </thead>
+            @if (this.Model.IsExist)
+            {
+                <caption>
+                    <span style="color:red">Account exist. <br /> The email has been registered</span>
+                </caption>
+            }
+            <tbody>
+                <tr>
+                    <th>
+                        Email
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(m => this.Model.Email, new { @type = "email" })<span class="requireSpan">*</span>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input id="loginButton" name="loginButtion" type="submit" value="Next" />
+                    </td>
+
+                </tr>
+
+            </tfoot>
+        </table>
+    </div>
+}
+
+
