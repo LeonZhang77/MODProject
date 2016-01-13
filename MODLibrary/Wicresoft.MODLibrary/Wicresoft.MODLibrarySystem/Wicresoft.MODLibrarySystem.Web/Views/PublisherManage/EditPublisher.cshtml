@@ -7,6 +7,18 @@
     @Scripts.Render("~/Scripts/PublisherManageJS/EditPublisher.js")
 }
 
+<script type="text/javascript">
+function ConfirmDialog()
+{
+    var se = confirm("This Published will be modified, Are you sure?");
+    if (se == true)
+    {
+        document.getElementsByTagName('form')[0].submit();
+    }
+
+}
+</script>
+
 <h2>EditPublisher</h2>
 @using (Html.BeginForm())
 {
@@ -36,7 +48,7 @@
             <tfoot>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" value="Edit" />
+                        <input type="button" onclick="ConfirmDialog()" value="Edit" />
                         @Html.ActionLink("Back", "Index")
                     </td>
                 </tr>

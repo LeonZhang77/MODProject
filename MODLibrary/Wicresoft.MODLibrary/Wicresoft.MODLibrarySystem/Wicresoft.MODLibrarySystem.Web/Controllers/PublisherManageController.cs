@@ -21,6 +21,11 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         // GET: PublisherManage
         public ActionResult Index(String name, Int32 pageIndex = 0)
         {
+            if(name != null)
+            {
+                name = name.Trim();
+            }
+
             PublisherManageIndexModel model = new PublisherManageIndexModel();
             model.FilterName = name;
 

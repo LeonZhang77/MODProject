@@ -8,3 +8,13 @@ C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibra
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\obj\Debug\Wicresoft.MODLibrarySystem.Entity.dll
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\obj\Debug\Wicresoft.MODLibrarySystem.Entity.pdb
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\obj\Debug\Wicresoft.MODLibrarySystem.Entity.csprojResolveAssemblyReference.cache
+D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\Wicresoft.MODLibrarySystem.Entity.dll.config
+D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\Wicresoft.MODLibrarySystem.Entity.dll
+D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\Wicresoft.MODLibrarySystem.Entity.pdb
+D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\EntityFramework.dll
+D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\EntityFramework.SqlServer.dll
+D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\EntityFramework.xml
+D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\bin\Debug\EntityFramework.SqlServer.xml
+D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\obj\Debug\Wicresoft.MODLibrarySystem.Entity.dll
+D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\obj\Debug\Wicresoft.MODLibrarySystem.Entity.pdb
+D:\git\modproject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Entity\obj\Debug\Wicresoft.MODLibrarySystem.Entity.csprojResolveAssemblyReference.cache

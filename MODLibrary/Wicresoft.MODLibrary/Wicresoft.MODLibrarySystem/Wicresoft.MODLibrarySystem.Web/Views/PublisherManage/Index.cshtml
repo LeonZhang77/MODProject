@@ -4,6 +4,16 @@
 
 @model Wicresoft.MODLibrarySystem.Web.Models.PublisherManage.PublisherManageIndexModel
 
+<script type="text/javascript">
+    function ConfirmDialog() {
+        var se = confirm("This Published will be Delected, Are you sure?");
+        return se;
+
+    }
+</script>
+
+
+
 @using (Html.BeginForm())
 {
     <div class="jumbotron">
@@ -50,7 +60,7 @@
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "EditPublisher", new { @id = item.ID })
-                            @Html.ActionLink("Delete", "DeletePublisher", new { @id = item.ID })
+                            @Html.ActionLink("Delete", "DeletePublisher", new { @id = item.ID}, new { @onclick = "return ConfirmDialog()"})
                         </td>
                     </tr>
                 }
