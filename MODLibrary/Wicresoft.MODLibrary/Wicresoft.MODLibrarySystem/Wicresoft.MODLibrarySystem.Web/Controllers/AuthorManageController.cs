@@ -93,8 +93,41 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
 
         public ActionResult DeleteAuthor(long id)
         {
-            this.IAuthorInfoDataProvider.DeleteByID(id);
-            return RedirectToAction("Index");
+            AuthorInfo authorInfo= this.IAuthorInfoDataProvider.GetAuthorListByID(id);
+            AuthorModel author = new AuthorModel();
+            if (authorInfo != null)
+            {
+                author = AuthorModel.GetViewModel(authorInfo);
+            }
+            if (authorInfo.BookAndAuthors.Count() > 0)
+            {
+                AuthorManageIndexModel model = new AuthorManageIndexModel();
+                model.StateMessage = "This Author can't be delete, He/She has some books.";
+                model.ErrorState = true;
+                model.FilterName = author.AuthorName;
+
+                AuthorInfoCondition condition = new AuthorInfoCondition();
+                condition.AuthorName = author.AuthorName;
+
+                IEnumerable<AuthorInfo> AuthorList = this.IAuthorInfoDataProvider.GetAuthorList(condition);
+
+                PagingContent<AuthorInfo> paging = new PagingContent<AuthorInfo>(AuthorList, 0);
+
+                foreach (var item in paging.EntityList)
+                {
+                    model.AuthorModelList.Add(AuthorModel.GetViewModel(item));
+                }
+
+                model.PagingContent = paging;
+
+                return View("Index", model);
+            }
+            else
+            {
+                this.IAuthorInfoDataProvider.DeleteByID(id);
+                return RedirectToAction("Index");
+            }
+            
         }
 
         public JsonResult JsonGetAuthorByName(string q)
@@ -112,6 +145,5 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             }
             return Json(list, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

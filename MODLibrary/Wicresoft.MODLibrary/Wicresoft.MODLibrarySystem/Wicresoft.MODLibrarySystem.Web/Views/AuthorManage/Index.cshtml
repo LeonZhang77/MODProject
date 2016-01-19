@@ -12,7 +12,13 @@
             <input type="submit" value="Search" />
         </div>
         <table style="border-color:gray;border:1px;">
-            <caption>Author List</caption>
+            <caption>
+                Author List
+                @if (this.Model.ErrorState)
+                {
+                    <span style="color:red">@this.Model.StateMessage</span>
+                }
+            </caption>
             <thead>
                 <tr>
                     <td colspan="4">
