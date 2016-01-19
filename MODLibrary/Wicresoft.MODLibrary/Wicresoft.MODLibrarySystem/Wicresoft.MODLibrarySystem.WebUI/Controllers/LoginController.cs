@@ -45,6 +45,13 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             }
         }
 
+        public ActionResult LoginOut()
+        {
+            FormsAuthentication.SignOut();
+
+            return RedirectToAction("Index");
+        }
+
         public ActionResult NotPermission()
         {
 

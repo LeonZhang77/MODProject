@@ -1,6 +1,6 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "MOD Library Login";
+    Layout = "~/Views/Shared/_NLayout.cshtml";
 }
 @model Wicresoft.MODLibrarySystem.WebUI.Models.Login.LoginIndexModel
 
@@ -39,12 +39,9 @@
                 <tr>
                     <td colspan="2">
                         <input id="loginButton" name="loginButtion" type="submit" value="Login" />
-                       @* <input id="registerButton" name="registerButtion" type="submit" value="Register" />*@
                         @Html.ActionLink("Register", "TurnToRegister")
                     </td>
-
                 </tr>
-
             </tfoot>
         </table>
     </div>

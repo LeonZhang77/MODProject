@@ -18,24 +18,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
     {
         public ActionResult Index()
         {
-            HomeIndexModel model = new HomeIndexModel();
-
-            //IEnumerable<UserInfo> userInfos = this.IUserInfoDataProvider.GetUserList(true);
-
-            //StringBuilder sbUserName = new StringBuilder();
-            //foreach (var item in userInfos)
-            //{
-            //    sbUserName.Append(item.DisplayName + "|");
-            //}
-
-            //UserInfo userInfo = this.IUserInfoDataProvider.GetUserListByID(2);
-
-            //if (userInfo != null)
-            //{
-            //    sbUserName.Append(userInfo.DisplayName);
-            //}
-
-            //model.ShowUserName = sbUserName.ToString();
+            HomeIndexModel model = new HomeIndexModel();           
 
             return View(model);
         }
@@ -71,11 +54,6 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
-
-        public ActionResult TestView2()
-        {
             return View();
         }
     }
