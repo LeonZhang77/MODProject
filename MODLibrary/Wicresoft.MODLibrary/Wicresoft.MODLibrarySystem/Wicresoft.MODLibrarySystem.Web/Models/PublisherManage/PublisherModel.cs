@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
+using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 using Wicresoft.MODLibrarySystem.Entity;
+using Wicresoft.MODLibrarySystem.Entity.Condition.BookInfo;
 
 namespace Wicresoft.MODLibrarySystem.Web.Models.PublisherManage
 {
@@ -20,6 +23,11 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.PublisherManage
             set;
         }
 
+        public bool IsUse
+        {
+            get;
+            set;
+        }
         public PublisherInfo GetEntity()
         {
             PublisherInfo publisher = new PublisherInfo();
@@ -33,11 +41,20 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.PublisherManage
 
         public static PublisherModel GetViewModel(PublisherInfo publisher)
         {
-            PublisherModel model = new PublisherModel();
+          PublisherModel model = new PublisherModel();
 
             model.ID = publisher.ID;
             model.PublisherName = publisher.PublisherName;
             model.PublisherIntroduction = publisher.PublisherIntroduction;
+
+            IBookInfoDataProvider iBookInfoDataProvider = new BookInfoDataProvider();
+            BookInfoCondition condition = new BookInfoCondition();
+            condition.publisher = publisher;
+
+            if ( iBookInfoDataProvider.GetBookList(condition).Count() > 0)
+            {
+                model.IsUse = true;
+            }
 
             return model;
 

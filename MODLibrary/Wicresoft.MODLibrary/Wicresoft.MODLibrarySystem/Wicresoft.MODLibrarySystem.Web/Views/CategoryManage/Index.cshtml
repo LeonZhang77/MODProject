@@ -44,7 +44,10 @@
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "EditCategory", new { @id = item.ID })
-                            @Html.ActionLink("Delete", "DeleteCategory", new { @id = item.ID })
+                            @if (!item.IsUse)
+                            {
+                                @Html.ActionLink("Delete", "DeleteCategory", new { @id = item.ID })
+                            }
                         </td>
                     </tr>
                 }

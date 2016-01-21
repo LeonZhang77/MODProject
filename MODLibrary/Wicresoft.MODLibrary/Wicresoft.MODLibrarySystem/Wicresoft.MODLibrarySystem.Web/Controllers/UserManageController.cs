@@ -60,23 +60,20 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult AddUser(UserModel user)
         {
             UserInfo useInfo = user.GetEntity();
-            
-            if (this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0)
-            {
-                    user.ErrorState = true;
-                    user.StateMessage = "LoginName is exsit";
-                    return View(user);
-            }
 
-            if (this.IUserInfoDataProvider.GetUserListByEmail(user.Email) != null)
+            string isDup = this.ValidateDuplicate(useInfo);
+
+            if (!string.IsNullOrEmpty(isDup))
             {
-                    user.ErrorState = true;
-                    user.StateMessage = "This Email is exsit";
-                    return View(user);
-            }  
-            
-            this.IUserInfoDataProvider.Add(useInfo);
-            return RedirectToAction("Index");
+                user.ErrorState = true;
+                user.StateMessage = isDup;
+                return View(user);
+            }
+            else
+            {
+                this.IUserInfoDataProvider.Add(useInfo);
+                return RedirectToAction("Index"); 
+            }
         }
             
         public ActionResult EditUser(long id)
@@ -97,27 +94,26 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         {
             UserInfo useInfo = user.GetEntity();
             UserInfo originalUserInfo = this.IUserInfoDataProvider.GetUserListByID(useInfo.ID);
-
-            if ( !string.Equals(originalUserInfo.LoginName, useInfo.LoginName) 
-                && this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0 )
+            string isDup = null;
+            
+            if ( !string.Equals(originalUserInfo.LoginName, useInfo.LoginName)
+                || !string.Equals(originalUserInfo.Email, useInfo.Email)) 
             {
-                user.FloorList = GetFloorList(user.Floor.ToString());
-                user.ErrorState = true;
-                user.StateMessage = "This LoginName is exsit";
-                return View(user);
-            }
-
-            if ( !string.Equals(originalUserInfo.Email, useInfo.Email)
-                && this.IUserInfoDataProvider.GetUserListByEmail(user.Email) != null )
-            {
-                user.FloorList = GetFloorList(user.Floor.ToString());
-                user.ErrorState = true;
-                user.StateMessage = "This Email is exsit";
-                return View(user);
+                isDup = this.ValidateDuplicate(useInfo);
             }
             
-            this.IUserInfoDataProvider.Update(useInfo);
-            return RedirectToAction("Index");
+            if (!string.IsNullOrEmpty(isDup))
+            {
+                user.FloorList = GetFloorList(user.Floor.ToString());
+                user.ErrorState = true;
+                user.StateMessage = isDup;
+                return View(user);
+            }
+            else
+            {
+                this.IUserInfoDataProvider.Update(useInfo);
+                return RedirectToAction("Index"); 
+             }
         }
 
         public ActionResult DeleteUser(long id)
@@ -153,6 +149,24 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             floors.Add(new SelectListItem { Text = "Please Choose", Value = "", Selected = true });
 
             return floors;
+        }
+
+        private string ValidateDuplicate(UserInfo userInfo)
+        {
+            string resultStr = null;
+            if (this.IUserInfoDataProvider.GetUserListByLoginName(userInfo.LoginName).Count() > 0)
+            {
+                resultStr = "LoginName is exsit";
+            }
+            else
+            {
+                if (this.IUserInfoDataProvider.GetUserListByEmail(userInfo.Email) != null)
+                {
+                    resultStr = "This Email is exsit";
+                }
+            }
+            
+            return resultStr;
         }
     }
 }

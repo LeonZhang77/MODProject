@@ -19,5 +19,11 @@ namespace Wicresoft.MODLibrarySystem.Entity.Condition.BookInfo
             get;
             set;
         }
+
+        public Wicresoft.MODLibrarySystem.Entity.PublisherInfo publisher
+        {
+            get;
+            set;
+        }
     }
 }

@@ -48,6 +48,11 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
                 bookList = bookList.Where(b => b.BookName.Contains(condition.BookName));
             }
 
+            if (condition.publisher != null)
+            {
+                bookList = bookList.Where(b => b.PublisherInfo.ID == condition.publisher.ID);
+            }
+            
             return bookList;
         }
 

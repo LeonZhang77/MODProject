@@ -31,6 +31,11 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.CategoryManage
             set;
         }
 
+        public bool IsUse
+        {
+            get;
+            set;
+        }
         public CategoryInfo GetEntity()
         {
             CategoryInfo category = new CategoryInfo();
@@ -55,6 +60,14 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.CategoryManage
             model.ID = category.ID;
             model.CategoryName = category.CategoryName;
             model.ParentCategoryName = DropDownListHelper.GetParentCategoryName(category);
+
+            ICategoryInfoDataProvider dataProvider = new CategoryInfoDataProvider();
+
+            if (category.BookAndCategorys.Count > 0
+                ||dataProvider.GetCategoryListByParentID(category.ID).Count() > 0 )
+            {
+                model.IsUse = true;
+            }
 
             return model;
         }
