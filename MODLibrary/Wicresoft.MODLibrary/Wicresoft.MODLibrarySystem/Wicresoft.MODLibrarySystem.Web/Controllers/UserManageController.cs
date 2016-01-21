@@ -15,6 +15,11 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         // GET: UserManage
         public ActionResult Index(String name, Int32 pageIndex = 0)
         {
+            if (!string.IsNullOrEmpty(name))
+            {
+                name = name.Trim();
+            }
+            
             UserManageIndexModel model = new UserManageIndexModel();
             model.FilterName = name;
 
@@ -47,6 +52,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult AddUser()
         {
             UserModel user = new UserModel();
+            user.FloorList = GetFloorList(null);
             return View(user);
         }
 
@@ -54,21 +60,25 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult AddUser(UserModel user)
         {
             UserInfo useInfo = user.GetEntity();
-
+            
             if (this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0)
             {
-                user.ErrorState = true;
-                user.StateMessage = "LoginName is exsit";
-                return View(user);
+                    user.ErrorState = true;
+                    user.StateMessage = "LoginName is exsit";
+                    return View(user);
             }
-            else
+
+            if (this.IUserInfoDataProvider.GetUserListByEmail(user.Email) != null)
             {
-                this.IUserInfoDataProvider.Add(useInfo);
-
-                return RedirectToAction("Index");
-            }
+                    user.ErrorState = true;
+                    user.StateMessage = "This Email is exsit";
+                    return View(user);
+            }  
+            
+            this.IUserInfoDataProvider.Add(useInfo);
+            return RedirectToAction("Index");
         }
-
+            
         public ActionResult EditUser(long id)
         {
             UserModel user = new UserModel();
@@ -76,6 +86,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             if (userInfo != null)
             {
                 user = UserModel.GetViewModel(userInfo);
+                user.FloorList = GetFloorList(user.Floor.ToString());
             }
 
             return View(user);
@@ -85,19 +96,28 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult EditUser(UserModel user)
         {
             UserInfo useInfo = user.GetEntity();
+            UserInfo originalUserInfo = this.IUserInfoDataProvider.GetUserListByID(useInfo.ID);
 
-            if (this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0)
+            if ( !string.Equals(originalUserInfo.LoginName, useInfo.LoginName) 
+                && this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0 )
             {
+                user.FloorList = GetFloorList(user.Floor.ToString());
                 user.ErrorState = true;
-                user.StateMessage = "LoginName is exsit";
+                user.StateMessage = "This LoginName is exsit";
                 return View(user);
             }
-            else
-            {
-                this.IUserInfoDataProvider.Update(useInfo);
 
-                return RedirectToAction("Index");
+            if ( !string.Equals(originalUserInfo.Email, useInfo.Email)
+                && this.IUserInfoDataProvider.GetUserListByEmail(user.Email) != null )
+            {
+                user.FloorList = GetFloorList(user.Floor.ToString());
+                user.ErrorState = true;
+                user.StateMessage = "This Email is exsit";
+                return View(user);
             }
+            
+            this.IUserInfoDataProvider.Update(useInfo);
+            return RedirectToAction("Index");
         }
 
         public ActionResult DeleteUser(long id)
@@ -112,6 +132,27 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             UserInfo userInfo = this.IUserInfoDataProvider.GetUserListByID(id);
             user = UserModel.GetViewModel(userInfo);
             return View(user);
+        }
+
+        public List<SelectListItem> GetFloorList(string selectFloor)
+        {
+            List<SelectListItem> floors = new List<SelectListItem>();
+
+            for (int i = 1; i < 5; i++)
+            {
+                if (i.ToString() == selectFloor)
+                {
+                    floors.Add(new SelectListItem { Text = i + "F", Value = i.ToString(), Selected = true });
+                }
+                else
+                {
+                    floors.Add(new SelectListItem { Text = i + "F", Value = i.ToString() });
+                    
+                }
+            }
+            floors.Add(new SelectListItem { Text = "Please Choose", Value = "", Selected = true });
+
+            return floors;
         }
     }
 }

@@ -13,17 +13,5 @@ namespace Wicresoft.MODLibrarySystem.Web.Models
             get;
             set;
         }
-
-        public string StateMessage
-        {
-            get;
-            set;
-        }
-
-        public bool ErrorState
-        {
-            get;
-            set;
-        }
     }
 }

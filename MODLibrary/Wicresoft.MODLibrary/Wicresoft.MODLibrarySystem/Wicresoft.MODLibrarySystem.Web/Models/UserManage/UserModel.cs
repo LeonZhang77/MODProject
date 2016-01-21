@@ -1,13 +1,20 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using Wicresoft.MODLibrarySystem.Entity;
 
 namespace Wicresoft.MODLibrarySystem.Web.Models.UserManage
 {
     public class UserModel : BaseViewModel
     {
+        public UserModel()
+        {
+            this.FloorList = new List<SelectListItem>();
+        }
+
         public String DisplayName
         {
             get;
@@ -72,19 +79,31 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.UserManage
         {
             get;
             set;
-        } 
+        }
         public int Late_point
         {
             get;
             set;
         }
-        
+
         public String Remark
         {
             get;
             set;
         }
-           
+
+        public string SelectedFloor
+        {
+            get;
+            set;
+        }
+
+        public List<SelectListItem> FloorList
+        {
+            get;
+            set;
+        }
+
         public UserInfo GetEntity()
         {
             UserInfo user = new UserInfo();
@@ -95,7 +114,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.UserManage
             user.Password = this.Password;
             user.RealName = this.RealName;
             user.Email = this.Email;
-            user.Floor = this.Floor;
+            user.Floor = GetFloor(this.SelectedFloor);
             user.PM = this.PM;
             user.Team = this.Team;
             user.Chinese_Name = this.Chinese_Name;
@@ -104,6 +123,18 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.UserManage
             user.Late_point = this.Late_point;
             user.Remark = this.Remark;
             return user;
+        }
+
+        public Int32 GetFloor(string selectFloor)
+        {
+            Int32 floor = 0;
+
+            if (!string.IsNullOrEmpty(selectFloor))
+            {
+                floor = Convert.ToInt32(selectFloor);
+            }
+
+            return floor;
         }
 
         public static UserModel GetViewModel(UserInfo user)
@@ -117,6 +148,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.UserManage
             model.LoginName = user.LoginName;
             model.Email = user.Email;
             model.Floor = user.Floor;
+            model.SelectedFloor = user.Floor.ToString();
             model.PM = user.PM;
             model.Team = user.Team;
             model.Chinese_Name = user.Chinese_Name;

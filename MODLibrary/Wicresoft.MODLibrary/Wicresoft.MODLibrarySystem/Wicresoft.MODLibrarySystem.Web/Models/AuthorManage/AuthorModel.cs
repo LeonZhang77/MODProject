@@ -12,7 +12,13 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.Author
             set;
         }
 
-        public String  AuthorIntroduction
+        public String AuthorIntroduction
+        {
+            get;
+            set;
+        }
+
+        public bool IsUse
         {
             get;
             set;
@@ -34,6 +40,11 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.Author
             model.ID = author.ID;
             model.AuthorName = author.AuthorName;
             model.AuthorIntroduction = author.AuthorIntroduction;
+
+            if (author.BookAndAuthors.Count > 0)
+            {
+                model.IsUse = true;
+            }
 
             return model;
         }

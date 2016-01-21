@@ -58,7 +58,9 @@
                 </tr>
                 <tr>
                     <th>Floor</th>
-                    <td>@Html.TextBoxFor(m => m.Floor)</td>
+                    <td>
+                        @Html.DropDownListFor(m => m.SelectedFloor, this.Model.FloorList)
+                    </td>
                 </tr>
                 <tr>
                     <th>PM</th>

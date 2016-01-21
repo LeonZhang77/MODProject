@@ -12,13 +12,7 @@
             <input type="submit" value="Search" />
         </div>
         <table style="border-color:gray;border:1px;">
-            <caption>
-                Author List
-                @if (this.Model.ErrorState)
-                {
-                    <span style="color:red">@this.Model.StateMessage</span>
-                }
-            </caption>
+            <caption>Author List</caption>
             <thead>
                 <tr>
                     <td colspan="4">
@@ -55,7 +49,10 @@
                         </td>
                         <td>
                             @Html.ActionLink("Edit", "EditAuthor", new { @id = item.ID })
-                            @Html.ActionLink("Delete", "DeleteAuthor", new { @id = item.ID })
+                            @if (!item.IsUse)
+                            {
+                                @Html.ActionLink("Delete", "DeleteAuthor", new { @id = item.ID })
+                            }
                         </td>
                     </tr>
                 }

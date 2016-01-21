@@ -24,36 +24,38 @@
                 <tr>
                     <th>DisplayName</th>
                     <td>@Html.TextBoxFor(m => m.DisplayName) <span class="requireSpan">*</span>
-                    <label id="DisplayName_errorData" errordatamessage="DisplayName is require and length must be less than 6 bytes." class="errorLable" />
+                        <label id="DisplayName_errorData" errordatamessage="DisplayName is require and length must be less than 6 bytes." class="errorLable" />
                     </td>
                 </tr>
                 <tr>
                     <th>RealName</th>
                     <td>@Html.TextBoxFor(m => m.RealName) <span class="requireSpan">*</span>
-                    <label id="RealName_errorData" errordatamessage="RealName is require." class="errorLable" />
+                        <label id="RealName_errorData" errordatamessage="RealName is require." class="errorLable" />
                     </td>
                 </tr>
                 <tr>
                     <th>LoginName</th>
                     <td>@Html.TextBoxFor(m => m.LoginName) <span class="requireSpan">*</span>
-                    <label id="LoginName_errorData" errordatamessage="LoginName is require." class="errorLable" />
+                        <label id="LoginName_errorData" errordatamessage="LoginName is require." class="errorLable" />
                     </td>
                 </tr>
                 <tr>
                     <th>Password</th>
                     <td>@Html.TextBoxFor(m => m.Password) <span class="requireSpan">*</span>
-                    <label id="Password_errorData" errordatamessage="Password is require." class="errorLable" />
+                        <label id="Password_errorData" errordatamessage="Password is require." class="errorLable" />
                     </td>
-                </tr>
+                </tr>    
                 <tr>
                     <th>Email</th>
                     <td>@Html.TextBoxFor(m => m.Email) <span class="requireSpan">*</span>
-                    <label id="Email_errorData" errordatamessage="Email is require and must be a email address." class="errorLable" />
+                        <label id="Email_errorData" errordatamessage="Email is require and must be a email address." class="errorLable" />
                     </td>
                 </tr>
                 <tr>
                     <th>Floor</th>
-                    <td>@Html.TextBoxFor(m => m.Floor)</td>
+                    <td>
+                        @Html.DropDownListFor(m => m.SelectedFloor, this.Model.FloorList)
+                    </td>
                 </tr>
                 <tr>
                     <th>PM</th>
@@ -78,7 +80,7 @@
                 <tr>
                     <th>Remark</th>
                     <td>@Html.TextBoxFor(m => m.Remark)</td>
-                </tr> 
+                </tr>
             </tbody>
             <tfoot>
                 <tr>
