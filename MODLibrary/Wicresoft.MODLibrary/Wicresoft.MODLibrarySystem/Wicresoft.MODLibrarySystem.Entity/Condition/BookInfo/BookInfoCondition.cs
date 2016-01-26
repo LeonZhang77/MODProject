@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wicresoft.MODLibrarySystem;
 
 namespace Wicresoft.MODLibrarySystem.Entity.Condition.BookInfo
 {
@@ -20,7 +21,7 @@ namespace Wicresoft.MODLibrarySystem.Entity.Condition.BookInfo
             set;
         }
 
-        public Wicresoft.MODLibrarySystem.Entity.PublisherInfo publisher
+        public Entity.PublisherInfo Publisher
         {
             get;
             set;

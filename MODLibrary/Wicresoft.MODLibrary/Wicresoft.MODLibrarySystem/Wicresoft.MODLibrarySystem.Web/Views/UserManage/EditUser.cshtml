@@ -35,9 +35,7 @@
                 </tr>
                 <tr>
                     <th>LoginName</th>
-                    <td>@Html.TextBoxFor(m => m.LoginName) <span class="requireSpan">*</span>
-                        <label id="LoginName_errorData" errordatamessage="LoginName is require." class="errorLable" />
-                    </td>
+                        <td>@this.Model.LoginName</td>
                 </tr>
                 <tr>
                     <th>Password</th>
@@ -47,9 +45,7 @@
                 </tr>    
                 <tr>
                     <th>Email</th>
-                    <td>@Html.TextBoxFor(m => m.Email) <span class="requireSpan">*</span>
-                        <label id="Email_errorData" errordatamessage="Email is require and must be a email address." class="errorLable" />
-                    </td>
+                    <td> @this.Model.Email </td>
                 </tr>
                 <tr>
                     <th>Floor</th>

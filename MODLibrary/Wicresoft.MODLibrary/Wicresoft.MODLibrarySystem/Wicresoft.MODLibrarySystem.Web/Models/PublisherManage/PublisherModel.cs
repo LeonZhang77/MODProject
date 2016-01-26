@@ -49,7 +49,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.PublisherManage
 
             IBookInfoDataProvider iBookInfoDataProvider = new BookInfoDataProvider();
             BookInfoCondition condition = new BookInfoCondition();
-            condition.publisher = publisher;
+            condition.Publisher = publisher;
 
             if ( iBookInfoDataProvider.GetBookList(condition).Count() > 0)
             {

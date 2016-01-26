@@ -92,29 +92,14 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         [HttpPost]
         public ActionResult EditUser(UserModel user)
         {
-            UserInfo useInfo = user.GetEntity();
-            UserInfo originalUserInfo = this.IUserInfoDataProvider.GetUserListByID(useInfo.ID);
-            string isDup = null;
-            
-            if ( !string.Equals(originalUserInfo.LoginName, useInfo.LoginName)
-                || !string.Equals(originalUserInfo.Email, useInfo.Email)) 
-            {
-                isDup = this.ValidateDuplicate(useInfo);
-            }
-            
-            if (!string.IsNullOrEmpty(isDup))
-            {
-                user.FloorList = GetFloorList(user.Floor.ToString());
-                user.ErrorState = true;
-                user.StateMessage = isDup;
-                return View(user);
-            }
-            else
-            {
-                this.IUserInfoDataProvider.Update(useInfo);
-                return RedirectToAction("Index"); 
-             }
-        }
+            UserInfo userInfo = user.GetEntity();
+            UserInfo originalUser = this.IUserInfoDataProvider.GetUserListByID(userInfo.ID);
+            userInfo.LoginName = originalUser.LoginName;
+            userInfo.Email = originalUser.Email;
+
+            this.IUserInfoDataProvider.Update(userInfo);
+            return RedirectToAction("Index");
+       }
 
         public ActionResult DeleteUser(long id)
         {

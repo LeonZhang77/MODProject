@@ -23,3 +23,9 @@ C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibra
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\obj\Debug\Wicresoft.MODLibrarySystem.Wap.Tests.csprojResolveAssemblyReference.cache
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\obj\Debug\Wicresoft.MODLibrarySystem.Wap.Tests.dll
 C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\obj\Debug\Wicresoft.MODLibrarySystem.Wap.Tests.pdb
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\Wicresoft.MODLibrarySystem.DataAccess.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\Wicresoft.MODLibrarySystem.Entity.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\EntityFramework.dll
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\Wicresoft.MODLibrarySystem.DataAccess.pdb
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\Wicresoft.MODLibrarySystem.Entity.pdb
+C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Tests\bin\Debug\EntityFramework.xml

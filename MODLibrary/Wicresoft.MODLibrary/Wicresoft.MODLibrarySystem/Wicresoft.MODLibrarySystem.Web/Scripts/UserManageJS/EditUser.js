@@ -14,11 +14,7 @@ function EditUserBind() {
 
     $("#RealName").bind("change", function () { validateField("RealName", "VN") });
 
-    $("#LoginName").bind("change", function () { validateField("LoginName", "VN") });
-
     $("#Password").bind("change", function () { validateField("Password", "VN") });
-
-    $("#Email").bind("change", function () { multipleValidateField("Email", "VN,VE") });
 }
 
 function EditUserSubmitBind() {
@@ -30,11 +26,9 @@ function EditUserSubmitValidation() {
 
     step1 = multipleValidateField("DisplayName", "VN,VL", 6);
     step2 = validateField("RealName", "VN");
-    step3 = validateField("LoginName", "VN");
-    step4 = validateField("Password", "VN");
-    step5 = multipleValidateField("Email", "VN,VE");
-
-    if (step1 && step2 && step3 && step4 && step5) {
+    step3 = validateField("Password", "VN");
+    
+    if (step1 && step2 && step3) {
         return true;
     }
     else {

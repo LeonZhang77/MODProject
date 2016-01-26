@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Wicresoft.MODLibrarySystem.Azure", "Wicresoft.MODLibrarySystem.Azure\Wicresoft.MODLibrarySystem.Azure.ccproj", "{D9C95879-F907-4FBD-970F-B9AB3B6D184F}"
 EndProject
@@ -35,9 +35,15 @@ Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Wicresoft.MODLibrarySystem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.WebServices", "Wicresoft.MODLibrarySystem.WebServices\Wicresoft.MODLibrarySystem.WebServices.csproj", "{E00AF7F2-B9C5-410E-97CC-13148DE0AF52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.Resoure", "Wicresoft.MODLibrarySystem.Resoure\Wicresoft.MODLibrarySystem.Resoure.csproj", "{2F4244C9-87B7-47CA-B3AE-F153B68F8E31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wicresoft.MODLibrarySystem.Resoure.Tests", "Wicresoft.MODLibrarySystem.Resoure.Tests\Wicresoft.MODLibrarySystem.Resoure.Tests.csproj", "{9C490A5D-46A3-4F64-8B37-D6EC226DDFE7}"
+EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Wicresoft.MODLibrarySystem.Resoure.Azure", "Wicresoft.MODLibrarySystem.Resoure.Azure\Wicresoft.MODLibrarySystem.Resoure.Azure.ccproj", "{B1D0840E-1BA1-4E0A-8855-28B693B2B9A4}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 17
+		SccNumberOfProjects = 20
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = http://ws-appdev-01:8080/tfs/modlibrary
 		SccLocalPath0 = .
@@ -89,6 +95,15 @@ Global
 		SccProjectUniqueName16 = Wicresoft.MODLibrarySystem.WebServices\\Wicresoft.MODLibrarySystem.WebServices.csproj
 		SccProjectName16 = Wicresoft.MODLibrarySystem.WebServices
 		SccLocalPath16 = Wicresoft.MODLibrarySystem.WebServices
+		SccProjectUniqueName17 = Wicresoft.MODLibrarySystem.Resoure\\Wicresoft.MODLibrarySystem.Resoure.csproj
+		SccProjectName17 = Wicresoft.MODLibrarySystem.Resoure
+		SccLocalPath17 = Wicresoft.MODLibrarySystem.Resoure
+		SccProjectUniqueName18 = Wicresoft.MODLibrarySystem.Resoure.Tests\\Wicresoft.MODLibrarySystem.Resoure.Tests.csproj
+		SccProjectName18 = Wicresoft.MODLibrarySystem.Resoure.Tests
+		SccLocalPath18 = Wicresoft.MODLibrarySystem.Resoure.Tests
+		SccProjectUniqueName19 = Wicresoft.MODLibrarySystem.Resoure.Azure\\Wicresoft.MODLibrarySystem.Resoure.Azure.ccproj
+		SccProjectName19 = Wicresoft.MODLibrarySystem.Resoure.Azure
+		SccLocalPath19 = Wicresoft.MODLibrarySystem.Resoure.Azure
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +174,18 @@ Global
 		{E00AF7F2-B9C5-410E-97CC-13148DE0AF52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E00AF7F2-B9C5-410E-97CC-13148DE0AF52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E00AF7F2-B9C5-410E-97CC-13148DE0AF52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F4244C9-87B7-47CA-B3AE-F153B68F8E31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F4244C9-87B7-47CA-B3AE-F153B68F8E31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F4244C9-87B7-47CA-B3AE-F153B68F8E31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F4244C9-87B7-47CA-B3AE-F153B68F8E31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C490A5D-46A3-4F64-8B37-D6EC226DDFE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C490A5D-46A3-4F64-8B37-D6EC226DDFE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C490A5D-46A3-4F64-8B37-D6EC226DDFE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C490A5D-46A3-4F64-8B37-D6EC226DDFE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D0840E-1BA1-4E0A-8855-28B693B2B9A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D0840E-1BA1-4E0A-8855-28B693B2B9A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D0840E-1BA1-4E0A-8855-28B693B2B9A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D0840E-1BA1-4E0A-8855-28B693B2B9A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
