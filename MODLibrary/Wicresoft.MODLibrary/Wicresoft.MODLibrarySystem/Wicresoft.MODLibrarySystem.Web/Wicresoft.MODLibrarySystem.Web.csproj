@@ -183,6 +183,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\loading_16_16.gif" />
+    <Content Include="Content\reset.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -271,6 +273,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\ConfrimDialog.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\PublisherManageJS\AddPublisher.js" />
     <Content Include="Scripts\PublisherManageJS\EditPublisher.js" />
@@ -500,6 +503,9 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\ui\.jshintrc" />
     <None Include="Views\AuthorManage\EditAuthor.cshtml" />
+    <Content Include="try.html" />
+    <Content Include="Views\tryConfirmation.html" />
+    <Content Include="Views\TryConfirmDialog.cshtml" />
     <None Include="Views\UserManage\DetailUser.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
