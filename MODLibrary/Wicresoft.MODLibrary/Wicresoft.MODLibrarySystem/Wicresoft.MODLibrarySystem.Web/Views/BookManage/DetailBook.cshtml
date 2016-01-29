@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "DetailBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Wicresoft.MODLibrarySystem.Unity;
+@model Wicresoft.MODLibrarySystem.Web.Models.BookManage.BookModel
+<h2>BookDetail</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.ID)
+    <div class="jumbotron" style="height:600px;">
+        <div style="width:50%;float:left">
+            <table>
+                <caption>Detail Book</caption>
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ActionLink("AddBooks", "AddBooks", new { @id = this.Model.ID })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>BookName</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.BookName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>ISBN</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.ISBN)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Publish_Date</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Publish_Date)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Avaliable_Inventory</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Avaliable_Inventory)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Max_Inventory</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Max_Inventory)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Price_Inventory</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Price_Inventory)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>PublisherName</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.PublisherName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>AuthorName</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.AuthorName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>CategoryName</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.CatagoryName)
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ActionLink("Back", "Index")
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div style="width:50%;float:left;">
+            <table>
+                <caption>Books</caption>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        InstoreTime
+                    </th>
+                    <th>
+                        Owner
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Operation
+                    </th>
+                </tr>
+                @foreach (var item in this.Model.BookDetailList)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Storage_Time</td>
+                        <td>@item.Owner</td>
+                        <td>@item.Status</td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditBooks")
+                            @if (!item.IsUse)
+                            {
+                                @Html.ActionLink("Delete", "DeleteBooks", new { @id = item.ID }, new { onclick = "return deleteConfrimDialog(this);" })
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+}
+
+

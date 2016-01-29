@@ -10,5 +10,7 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.IDataProvider
     public interface IBookDetailInfoDataProvider:IBaseDataProvider<BookDetailInfo>
     {
         IEnumerable<BookDetailInfo> GetBookDetailList();
+        BookDetailInfo GetBookDetailInfoByID(long ID);
+
     }
 }

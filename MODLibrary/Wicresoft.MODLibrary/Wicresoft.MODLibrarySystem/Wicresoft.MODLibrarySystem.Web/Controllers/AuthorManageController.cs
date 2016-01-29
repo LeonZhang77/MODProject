@@ -24,11 +24,6 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         // GET: AuthorManage
         public ActionResult Index(String name, Int32 pageIndex = 0)
         {
-            if (!string.IsNullOrEmpty(name))
-            {
-                name = name.Trim();
-            }
-
             AuthorManageIndexModel model = new AuthorManageIndexModel();
             model.FilterName = name;
 

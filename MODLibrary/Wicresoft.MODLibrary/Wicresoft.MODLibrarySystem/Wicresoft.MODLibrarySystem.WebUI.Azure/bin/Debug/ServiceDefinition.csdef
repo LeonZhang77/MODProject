@@ -25,7 +25,7 @@
     </Endpoints>
     <Contents>
       <Content destination=".\">
-        <SourceDirectory path="C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.WebUI.Azure\rcf\Debug\Wicresoft.MODLibrarySystem.WebUIContent\" />
+        <SourceDirectory path="c:\TotallySame\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.WebUI.Azure\rcf\Debug\Wicresoft.MODLibrarySystem.WebUIContent\" />
       </Content>
     </Contents>
   </WebRole>

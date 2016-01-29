@@ -32,7 +32,7 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
         }
 
 
-        public IEnumerable<TEnum> GetEnumIEnumerable<TEnum>()
+        public static IEnumerable<TEnum> GetEnumIEnumerable<TEnum>()
            where TEnum : struct
         {
             List<TEnum> enumList = new List<TEnum>();
@@ -45,7 +45,7 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
             return enumList;
         }
 
-        public List<SelectListItem> GetEnumIEnumerable<TEnum>(TEnum SelectedEnum)
+        public static List<SelectListItem> GetEnumIEnumerable<TEnum>(TEnum SelectedEnum)
             where TEnum : struct
         {
             List<SelectListItem> enumList = new List<SelectListItem>();
@@ -54,11 +54,11 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
             {
                 if (SelectedEnum.ToString() == item.ToString())
                 {
-                    enumList.Add(new SelectListItem { Text = GetEnumDescription<TEnum>(item), Value = item.ToString(), Selected = true });
+                    enumList.Add(new SelectListItem { Text = GetEnumDescription<TEnum>(item), Value = Convert.ToInt32(item).ToString(), Selected = true });
                 }
                 else
                 {
-                    enumList.Add(new SelectListItem { Text = GetEnumDescription<TEnum>(item), Value = item.ToString(), Selected = false });
+                    enumList.Add(new SelectListItem { Text = GetEnumDescription<TEnum>(item), Value = Convert.ToInt32(item).ToString(), Selected = false });
                 }
             }
 

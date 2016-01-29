@@ -1,4 +1,4 @@
-C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\bin\Debug\Wicresoft.MODLibrarySystem.UnitTest.dll
-C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\bin\Debug\Wicresoft.MODLibrarySystem.UnitTest.pdb
-C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\obj\Debug\Wicresoft.MODLibrarySystem.UnitTest.dll
-C:\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\obj\Debug\Wicresoft.MODLibrarySystem.UnitTest.pdb
+c:\TotallySame\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\bin\Debug\Wicresoft.MODLibrarySystem.UnitTest.dll
+c:\TotallySame\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\bin\Debug\Wicresoft.MODLibrarySystem.UnitTest.pdb
+c:\TotallySame\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\obj\Debug\Wicresoft.MODLibrarySystem.UnitTest.dll
+c:\TotallySame\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.UnitTest\obj\Debug\Wicresoft.MODLibrarySystem.UnitTest.pdb

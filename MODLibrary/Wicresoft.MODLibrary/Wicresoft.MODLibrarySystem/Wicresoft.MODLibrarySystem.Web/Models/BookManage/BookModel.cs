@@ -1,18 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Mvc;
 using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
 using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 using Wicresoft.MODLibrarySystem.Entity;
 using Wicresoft.MODLibrarySystem.Unity;
-using Wicresoft.MODLibrarySystem.Unity.Helper;
 using Wicresoft.MODLibrarySystem.Web.Models.CategroyManage;
-using Wicresoft.MODLibrarySystem.Unity;
-using System.Text;
 
 namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
 {
@@ -21,6 +14,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
         public BookModel()
         {
             this.ChooseCategoryModelList = new List<EasyCategoryModel>();
+            this.BookDetailList = new List<AddDetailBookModel>();
         }
         public String BookName
         {
@@ -100,6 +94,12 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
         }
 
         public List<EasyCategoryModel> ChooseCategoryModelList
+        {
+            get;
+            set;
+        }
+
+        public List<AddDetailBookModel> BookDetailList
         {
             get;
             set;

@@ -164,7 +164,9 @@
     <Compile Include="Models\AuthorManage\AuthorManageIndexModel.cs" />
     <Compile Include="Models\BaseIndexListModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
+    <Compile Include="Models\BookManage\DetailBookModel.cs" />
     <Compile Include="Models\BookManage\BookManageIndexModel.cs" />
+    <Compile Include="Models\BookManage\AddDetailBookModel.cs" />
     <Compile Include="Models\BookManage\BookModel.cs" />
     <Compile Include="Models\CategroyManage\BaseCategoryModel.cs" />
     <Compile Include="Models\CategroyManage\CategoryManageIndexModel.cs" />
@@ -183,8 +185,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\loading_16_16.gif" />
-    <Content Include="Content\reset.css" />
-    <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -255,10 +255,14 @@
     <Content Include="Helper\UI Validation Frame Explanation .txt" />
     <Content Include="Scripts\AuthorManaegeJS\AddAuthor.js" />
     <Content Include="Scripts\AuthorManaegeJS\EditAuthor.js" />
+    <Content Include="Scripts\baseGeneralFunction.js" />
     <Content Include="Scripts\baseValidation.js" />
     <Content Include="Scripts\baseWebAPP.js" />
+    <Content Include="Scripts\BookManageJS\AddBooks.js" />
     <Content Include="Scripts\BookManageJS\BaseBook.js" />
+    <Content Include="Scripts\BookManageJS\BaseBooks.js" />
     <Content Include="Scripts\BookManageJS\EditBook.js" />
+    <Content Include="Scripts\BookManageJS\EditBooks.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\ModLibrary.pubxml" />
@@ -273,7 +277,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\ConfrimDialog.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\PublisherManageJS\AddPublisher.js" />
     <Content Include="Scripts\PublisherManageJS\EditPublisher.js" />
@@ -503,9 +506,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\ui\.jshintrc" />
     <None Include="Views\AuthorManage\EditAuthor.cshtml" />
-    <Content Include="try.html" />
-    <Content Include="Views\tryConfirmation.html" />
-    <Content Include="Views\TryConfirmDialog.cshtml" />
+    <Content Include="Views\Shared\ConfrimDialog.cshtml" />
     <None Include="Views\UserManage\DetailUser.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -539,8 +540,10 @@
     <Content Include="Views\AuthorManage\AddAuthor.cshtml" />
     <Content Include="Views\PublisherManage\AddPublisher.cshtml" />
     <Content Include="Views\PublisherManage\EditPublisher.cshtml" />
-    <Content Include="Views\BookManage\AddBook.cshtml" />
+    <Content Include="Views\BookManage\AddBooks.cshtml" />
     <Content Include="Views\BookManage\EditBook.cshtml" />
+    <Content Include="Views\BookManage\DetailBook.cshtml" />
+    <Content Include="Views\BookManage\AddBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

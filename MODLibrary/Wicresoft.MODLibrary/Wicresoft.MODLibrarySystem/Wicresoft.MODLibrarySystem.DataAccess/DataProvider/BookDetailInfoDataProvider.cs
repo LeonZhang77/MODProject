@@ -22,19 +22,58 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             return this.DataSource.BookDetailInfos;
         }
 
+        public BookDetailInfo GetBookDetailInfoByID(long ID)
+        {
+            BookDetailInfo bookDetail = this.DataSource.BookDetailInfos.FirstOrDefault(u => u.ID == ID);
+            return bookDetail;
+        }
+
         public void Add(BookDetailInfo entity)
         {
-            throw new NotImplementedException();
+            if (entity.BookInfo != null)
+            {
+                entity.BookInfo = this.DataSource.BookInfos.FirstOrDefault(b => b.ID == entity.BookInfo.ID);
+            }
+
+            if (entity.UserInfo != null)
+            {
+                entity.UserInfo = this.DataSource.UserInfos.FirstOrDefault(u => u.ID == entity.UserInfo.ID);
+            }
+
+            this.DataSource.BookDetailInfos.Add(entity);
+            this.DataSource.SaveChanges();
         }
 
         public void Update(BookDetailInfo entity)
         {
-            throw new NotImplementedException();
+            BookDetailInfo bookdetail = this.GetBookDetailInfoByID(entity.ID);
+
+            if (entity.BookInfo != null)
+            {
+                entity.BookInfo = this.DataSource.BookInfos.FirstOrDefault(b => b.ID == entity.BookInfo.ID);
+            }
+
+            if (entity.UserInfo != null)
+            {
+                entity.UserInfo = this.DataSource.UserInfos.FirstOrDefault(u => u.ID == entity.UserInfo.ID);
+            }
+
+            bookdetail.Status = entity.Status;
+            bookdetail.Storage_Time = entity.Storage_Time;
+            bookdetail.CreateTime = entity.CreateTime;
+
+            this.DataSource.SaveChanges();
         }
 
         public void DeleteByID(long id)
         {
-            throw new NotImplementedException();
+            BookDetailInfo bookdetail = GetBookDetailInfoByID(id);
+
+            if (bookdetail != null)
+            {
+                this.DataSource.BookDetailInfos.Remove(bookdetail);
+                this.DataSource.SaveChanges();
+            }
         }
     }
 }

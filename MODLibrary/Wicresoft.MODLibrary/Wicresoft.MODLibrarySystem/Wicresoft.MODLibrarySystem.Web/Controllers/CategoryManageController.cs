@@ -24,11 +24,6 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         // GET: CategroyManage
         public ActionResult Index(String name, Int32 pageIndex = 0)
         {
-            if (!string.IsNullOrEmpty(name))
-            {
-                name = name.Trim();
-            }
-
             CategoryManageIndexModel model = new CategoryManageIndexModel();
             model.FilterName = name;
 

@@ -92,6 +92,7 @@
                             @item.Max_Inventory
                         </td>
                         <td>
+                            @Html.ActionLink("Detail", "DetailBook", new { @id = item.ID })
                             @Html.ActionLink("Edit", "EditBook", new { @id = item.ID })
                             @Html.ActionLink("Delete", "DeleteBook", new { @id = item.ID })
                         </td>

@@ -68,7 +68,7 @@
                         <td>
                             @Html.ActionLink("Detail", "DetailUser", new { @id = item.ID })
                             @Html.ActionLink("Edit", "EditUser", new { @id = item.ID })
-                            @Html.ActionLink("Delete", "DeleteUser", new { @id = item.ID })
+                            @Html.ActionLink("Delete", "DeleteUser", new { @id = item.ID }, new { onclick = "return deleteConfrimDialog(this);" })
                         </td>
                     </tr>
                 }
@@ -80,4 +80,6 @@
             </tfoot>
         </table>
     </div>
+    
+    
 }

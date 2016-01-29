@@ -15,11 +15,6 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         // GET: UserManage
         public ActionResult Index(String name, Int32 pageIndex = 0)
         {
-            if (!string.IsNullOrEmpty(name))
-            {
-                name = name.Trim();
-            }
-            
             UserManageIndexModel model = new UserManageIndexModel();
             model.FilterName = name;
 
@@ -61,21 +56,20 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         {
             UserInfo useInfo = user.GetEntity();
 
-            string isDup = this.ValidateDuplicate(useInfo);
-
-            if (!string.IsNullOrEmpty(isDup))
+            if (this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0)
             {
                 user.ErrorState = true;
-                user.StateMessage = isDup;
+                user.StateMessage = "LoginName is exsit";
                 return View(user);
             }
             else
             {
                 this.IUserInfoDataProvider.Add(useInfo);
-                return RedirectToAction("Index"); 
+
+                return RedirectToAction("Index");
             }
         }
-            
+
         public ActionResult EditUser(long id)
         {
             UserModel user = new UserModel();
@@ -92,14 +86,22 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         [HttpPost]
         public ActionResult EditUser(UserModel user)
         {
-            UserInfo userInfo = user.GetEntity();
-            UserInfo originalUser = this.IUserInfoDataProvider.GetUserListByID(userInfo.ID);
-            userInfo.LoginName = originalUser.LoginName;
-            userInfo.Email = originalUser.Email;
+            UserInfo useInfo = user.GetEntity();
 
-            this.IUserInfoDataProvider.Update(userInfo);
-            return RedirectToAction("Index");
-       }
+            if (this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0)
+            {
+                user.FloorList = GetFloorList(user.Floor.ToString());
+                user.ErrorState = true;
+                user.StateMessage = "LoginName is exsit";
+                return View(user);
+            }
+            else
+            {
+                this.IUserInfoDataProvider.Update(useInfo);
+
+                return RedirectToAction("Index");
+            }
+        }
 
         public ActionResult DeleteUser(long id)
         {
@@ -113,6 +115,22 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             UserInfo userInfo = this.IUserInfoDataProvider.GetUserListByID(id);
             user = UserModel.GetViewModel(userInfo);
             return View(user);
+        }
+
+        public JsonResult JsonGetUserByName(string q)
+        {
+            List<UserModel> list = new List<UserModel>();
+            if (q.Length > 0)
+            {
+                UserInfoCondition condition = new UserInfoCondition();
+                condition.DisplayName = q;
+                IEnumerable<UserInfo> users = this.IUserInfoDataProvider.GetUserList(condition);
+                foreach (var item in users)
+                {
+                    list.Add(UserModel.GetViewModel(item));
+                }
+            }
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         public List<SelectListItem> GetFloorList(string selectFloor)
@@ -134,24 +152,6 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             floors.Add(new SelectListItem { Text = "Please Choose", Value = "", Selected = true });
 
             return floors;
-        }
-
-        private string ValidateDuplicate(UserInfo userInfo)
-        {
-            string resultStr = null;
-            if (this.IUserInfoDataProvider.GetUserListByLoginName(userInfo.LoginName).Count() > 0)
-            {
-                resultStr = "LoginName is exsit";
-            }
-            else
-            {
-                if (this.IUserInfoDataProvider.GetUserListByEmail(userInfo.Email) != null)
-                {
-                    resultStr = "This Email is exsit";
-                }
-            }
-            
-            return resultStr;
         }
     }
 }
