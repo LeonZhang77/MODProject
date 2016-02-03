@@ -15,6 +15,11 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         // GET: UserManage
         public ActionResult Index(String name, Int32 pageIndex = 0)
         {
+            if (!string.IsNullOrEmpty(name))
+            {
+                name = name.Trim();
+            }
+            
             UserManageIndexModel model = new UserManageIndexModel();
             model.FilterName = name;
 
@@ -56,20 +61,21 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         {
             UserInfo useInfo = user.GetEntity();
 
-            if (this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0)
+            string isDup = this.ValidateDuplicate(useInfo);
+
+            if (!string.IsNullOrEmpty(isDup))
             {
                 user.ErrorState = true;
-                user.StateMessage = "LoginName is exsit";
+                user.StateMessage = isDup;
                 return View(user);
             }
             else
             {
                 this.IUserInfoDataProvider.Add(useInfo);
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Index"); 
             }
         }
-
+            
         public ActionResult EditUser(long id)
         {
             UserModel user = new UserModel();
@@ -87,21 +93,10 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult EditUser(UserModel user)
         {
             UserInfo useInfo = user.GetEntity();
-
-            if (this.IUserInfoDataProvider.GetUserListByLoginName(user.LoginName).Count() > 0)
-            {
-                user.FloorList = GetFloorList(user.Floor.ToString());
-                user.ErrorState = true;
-                user.StateMessage = "LoginName is exsit";
-                return View(user);
-            }
-            else
-            {
-                this.IUserInfoDataProvider.Update(useInfo);
-
-                return RedirectToAction("Index");
-            }
-        }
+            
+            this.IUserInfoDataProvider.Update(useInfo);
+            return RedirectToAction("Index");
+       }
 
         public ActionResult DeleteUser(long id)
         {
@@ -152,6 +147,24 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             floors.Add(new SelectListItem { Text = "Please Choose", Value = "", Selected = true });
 
             return floors;
+        }
+
+        private string ValidateDuplicate(UserInfo userInfo)
+        {
+            string resultStr = null;
+            if (this.IUserInfoDataProvider.GetUserListByLoginName(userInfo.LoginName).Count() > 0)
+            {
+                resultStr = "LoginName is exsit";
+            }
+            else
+            {
+                if (this.IUserInfoDataProvider.GetUserListByEmail(userInfo.Email) != null)
+                {
+                    resultStr = "This Email is exsit";
+                }
+            }
+            
+            return resultStr;
         }
     }
 }

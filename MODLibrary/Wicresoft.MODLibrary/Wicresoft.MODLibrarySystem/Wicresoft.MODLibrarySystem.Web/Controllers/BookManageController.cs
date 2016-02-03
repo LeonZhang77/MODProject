@@ -24,6 +24,11 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         // GET: BookManage
         public ActionResult Index(string bookName, long searchselectedID = 0, Int32 pageIndex = 0)
         {
+            if (!string.IsNullOrEmpty(bookName))
+            {
+                bookName = bookName.Trim();
+            }
+            
             BookManageIndexModel model = new BookManageIndexModel();
 
             BookInfoCondition condition = new BookInfoCondition();

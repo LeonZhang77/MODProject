@@ -22,7 +22,7 @@ function EditUserSubmitBind() {
 }
 
 function EditUserSubmitValidation() {
-    var step1, step2, step3, step4, step5;
+    var step1, step2, step3
 
     step1 = multipleValidateField("DisplayName", "VN,VL", 6);
     step2 = validateField("RealName", "VN");

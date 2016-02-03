@@ -28,6 +28,10 @@ textarea {
     color: red;
 }
 
+.infoLable {
+    color: blue;
+}
+
 .requireSpan {
     font-size: 20px;
     font-style: italic;

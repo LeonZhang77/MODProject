@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <th>LoginName</th>
-                    <td>@Html.TextBoxFor(m => m.LoginName) <span class="requireSpan">*</span>
+                    <td>@Html.TextBoxFor(m => m.LoginName, new { @readonly = "readonly" }) <span class="infoLable">Can't be Modified!</span>
                         <label id="LoginName_errorData" errordatamessage="LoginName is require." class="errorLable" />
                     </td>
                 </tr>
@@ -47,7 +47,7 @@
                 </tr>    
                 <tr>
                     <th>Email</th>
-                    <td>@Html.TextBoxFor(m => m.Email) <span class="requireSpan">*</span>
+                    <td>@Html.TextBoxFor(m => m.Email, new { @readonly = "readonly" }) <span class="infoLable">Can't be Modified!</span>
                         <label id="Email_errorData" errordatamessage="Email is require and must be a email address." class="errorLable" />
                     </td>
                 </tr>
