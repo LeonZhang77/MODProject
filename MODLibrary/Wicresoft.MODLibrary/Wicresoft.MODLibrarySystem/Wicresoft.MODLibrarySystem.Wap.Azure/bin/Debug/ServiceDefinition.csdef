@@ -25,7 +25,7 @@
     </Endpoints>
     <Contents>
       <Content destination=".\">
-        <SourceDirectory path="c:\TotallySame\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Azure\rcf\Debug\Wicresoft.MODLibrarySystem.WapContent\" />
+        <SourceDirectory path="d:\TFSOnline\MODProject\MODLibrary\Wicresoft.MODLibrary\Wicresoft.MODLibrarySystem\Wicresoft.MODLibrarySystem.Wap.Azure\rcf\Debug\Wicresoft.MODLibrarySystem.WapContent\" />
       </Content>
     </Contents>
   </WebRole>
