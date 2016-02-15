@@ -52,7 +52,7 @@
                             @Html.ActionLink("Edit", "EditPublisher", new { @id = item.ID })
                             @if (!item.IsUse)
                             {
-                                @Html.ActionLink("Delete", "DeletePublisher", new { @id = item.ID })
+                                @Html.ActionLink("Delete", "DeletePublisher", new { @id = item.ID }, new { onclick = "return deleteConfrimDialog(this);" })
                             }   
                         </td>
                     </tr>

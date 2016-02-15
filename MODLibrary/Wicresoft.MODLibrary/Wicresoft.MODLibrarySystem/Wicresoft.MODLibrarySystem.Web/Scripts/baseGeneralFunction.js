@@ -31,3 +31,35 @@ function goDelete() {
         window.location = url;
     }
 }
+
+//Edit Item
+
+$(function () {
+    $("#dialog-edit-confirm").dialog({
+        autoOpen: false,
+        resizable: false,
+        height: 200,
+        width: 500,
+        modal: true,
+        buttons: {
+            "Edit": function () {
+                goEdit();
+            },
+            Cancel: function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+});
+
+var theFORM;
+
+var editConfrimDialog = function (obj) {
+    $("#dialog-edit-confirm").dialog("open");
+    theFORM= $(obj).closest("form");
+    return false;
+}
+
+function goEdit() {
+    theFORM.submit();
+}
