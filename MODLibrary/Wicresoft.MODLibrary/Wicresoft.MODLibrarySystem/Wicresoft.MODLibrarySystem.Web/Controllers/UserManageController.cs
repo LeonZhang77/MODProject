@@ -52,7 +52,8 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult AddUser()
         {
             UserModel user = new UserModel();
-            user.FloorList = GetFloorList(null);
+            user.FloorList = DropDownListHelper.GetFloorSelectList(user.Floor.ToString(),
+                Request.UrlReferrer.Authority);
             return View(user);
         }
 
@@ -83,7 +84,8 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             if (userInfo != null)
             {
                 user = UserModel.GetViewModel(userInfo);
-                user.FloorList = GetFloorList(user.Floor.ToString());
+                user.FloorList = DropDownListHelper.GetFloorSelectList(user.Floor.ToString(), 
+                    Request.UrlReferrer.Authority);
             }
 
             return View(user);
@@ -128,27 +130,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        public List<SelectListItem> GetFloorList(string selectFloor)
-        {
-            List<SelectListItem> floors = new List<SelectListItem>();
-
-            for (int i = 1; i < 5; i++)
-            {
-                if (i.ToString() == selectFloor)
-                {
-                    floors.Add(new SelectListItem { Text = i + "F", Value = i.ToString(), Selected = true });
-                }
-                else
-                {
-                    floors.Add(new SelectListItem { Text = i + "F", Value = i.ToString() });
-                    
-                }
-            }
-            floors.Add(new SelectListItem { Text = "Please Choose", Value = "", Selected = true });
-
-            return floors;
-        }
-
+        
         private string ValidateDuplicate(UserInfo userInfo)
         {
             string resultStr = null;

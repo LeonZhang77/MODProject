@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
@@ -163,6 +164,37 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
                     CategoryCheckSearch(category.ParentCategoryInfo, selfID);
                 }
             }
+        }
+
+        public static List<SelectListItem> GetFloorSelectList(string selectFloor, string path)
+        {
+            List<SelectListItem> floors = new List<SelectListItem>();
+            XmlDocument xmlDoc = new XmlDocument();
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.IgnoreComments = true;
+            string xmlLocation = "http://" + path + "/Preference.xml";
+            XmlReader reader = XmlReader.Create(xmlLocation, settings);
+            
+            xmlDoc.Load(reader);
+
+            XmlNode xn = xmlDoc.SelectSingleNode("Floors");
+            XmlNodeList xnl = xn.ChildNodes;
+            foreach (XmlNode xnInList in xnl)
+            {
+                string tempFloor = xnInList.InnerText;
+                if (String.Equals(tempFloor,selectFloor))
+                {
+                    floors.Add(new SelectListItem { Text = tempFloor + "F", Value = tempFloor, Selected = true });
+                }
+                else
+                {
+                    floors.Add(new SelectListItem { Text = tempFloor + "F", Value = tempFloor });
+                }
+            }
+            floors.Add(new SelectListItem { Text = "Please Choose", Value = "", Selected = true });
+
+            reader.Close();
+            return floors;
         }
     }
 }
