@@ -32,6 +32,12 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
             set;
         }
 
+        public String SearchCategoryTree
+        {
+            get;
+            set;
+        }
+
         public List<BookModel> BookModelList
         {
             get;

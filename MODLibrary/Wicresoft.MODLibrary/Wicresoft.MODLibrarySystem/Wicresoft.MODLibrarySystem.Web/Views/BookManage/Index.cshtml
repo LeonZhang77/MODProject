@@ -3,108 +3,184 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.BookManage.BookManageIndexModel
-@using (Html.BeginForm())
-{    
-    <div class="jumbotron"> 
-        <div>
-            <span>BookName</span>
-            @Html.TextBoxFor(m => m.SearchBookName)
-            <span>Category</span>
-            @Html.DropDownListFor(m => m.SearchSelectedID, this.Model.SearchCategoryList)
-            <input type="submit" value="Search" />
-        </div> 
-        <table>
-            <caption>Book List</caption>
-            <thead>
-                <tr>
-                    <td colspan="11">
-                        @Html.ActionLink("Add", "AddBook")
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        BookName
-                    </th>
-                    <th>
-                        ISBN
-                    </th>
-                    <th>
-                        PublisherName
-                    </th>
-                    <th>
-                        AuthorName
-                    </th>
-                    <th>
-                        CatagoryName
-                    </th>
-                    <th>
-                        PublishDate
-                    </th>
-                    <th>
-                        Price
-                    </th>
-                    <th>
-                        Avaliable
-                    </th>
-                    <th>
-                        Max
-                    </th>
-                    <th>
-                        Operation
-                    </th>
-                </tr>
-                @foreach (var item in this.Model.BookModelList)
-                {
-                    <tr>
-                        <td>
-                            @item.ID
-                        </td>
-                        <td>
-                            @item.BookName
-                        </td>
-                        <td>
-                            @item.ISBN
-                        </td>
-                        <td>
-                            @item.PublisherName
-                        </td>
-                        <td>
-                            @item.AuthorName
-                        </td>
-                        <td>
-                            @item.CatagoryName
-                        </td>
-                        <td>
-                            @item.Publish_Date
-                        </td>
-                        <td>
-                            @item.Price_Inventory
-                        </td>
-                        <td>
-                            @item.Avaliable_Inventory
-                        </td>
-                        <td>
-                            @item.Max_Inventory
-                        </td>
-                        <td>
-                            @Html.ActionLink("Detail", "DetailBook", new { @id = item.ID })
-                            @Html.ActionLink("Edit", "EditBook", new { @id = item.ID })
-                            @Html.ActionLink("Delete", "DeleteBook", new { @id = item.ID }, new { onclick = "return deleteConfrimDialog(this);" })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="11" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-}
+
+<link rel="stylesheet" href="~/Content/css/zTree/metroStyle/metroStyle.css" type="text/css">
+<script type="text/javascript" src="~/Scripts/zTree/jquery.ztree.core.js"></script>
+<script type="text/javascript">
+  <!--
+	var zTree;
+	var demoIframe;
+
+	var setting = {
+	    view: {
+			dblClickExpand: false,
+			showLine: true,
+			selectedMulti: false
+		},
+		data: {
+			simpleData: {
+				enable:true,
+				idKey: "id",
+				pIdKey: "pId",
+				rootPId: ""
+			}
+		},
+		callback: {
+    		beforeClick: function(treeId, treeNode) {
+				var zTree = $.fn.zTree.getZTreeObj("tree");
+				if (treeNode.isParent) {
+				    zTree.expandNode(treeNode);
+				} 
+				var searchSelectID = document.getElementById("SearchSelectedID");
+				searchSelectID.value = treeNode.id;
+    			if (treeNode.isParent) {
+				    return false;
+				} else {
+				    return true;
+				}
+			}
+		}
+	};
+
+	var treeNodesStr = '@Model.SearchCategoryTree';
+    treeNodesStr = treeNodesStr.replace(/&quot;/g, "\"");
+    var zNodes = eval(treeNodesStr);
+    
+    $(document).ready(function () {
+        var t = $("#tree");
+        t = $.fn.zTree.init(t, setting, zNodes);
+    });
+
+</script>
+
+<style type="text/css">
+    .leftdiv {
+        float:left;
+        width:30%;
+        height:800px;
+        background-color:inherit;
+        overflow:auto;
+    }
+    .rightdiv {
+        float: left;
+        width: 70%;
+        height:800px;
+        background-color:inherit;
+        overflow:auto;        
+    }
+</style>
+
+
+
+    @using (Html.BeginForm())
+    {
+        <div class="jumbotron">
+            <div class="leftdiv">
+                <span>Category</span>
+                <!--<ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>-->
+                <ul id="tree" class="ztree"></ul>
+            </div>
+            <div class="rightdiv">
+                <div>
+                    <span>BookName</span>
+                    @Html.TextBoxFor(m => m.SearchBookName)
+                    @Html.TextBoxFor(m => m.SearchSelectedID, new { @id = "SearchSelectedID", @type = "hidden" })
+                    <input type="submit" value="Search" />
+                </div>
+                <table>
+                    <caption>Book List</caption>
+                    <thead>
+                        <tr>
+                            <td colspan="11">
+                                @Html.ActionLink("Add", "AddBook")
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                BookName
+                            </th>
+                            <th>
+                                ISBN
+                            </th>
+                            <th>
+                                PublisherName
+                            </th>
+                            <th>
+                                AuthorName
+                            </th>
+                            <th>
+                                CatagoryName
+                            </th>
+                            <th>
+                                PublishDate
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Avaliable
+                            </th>
+                            <th>
+                                Max
+                            </th>
+                            <th>
+                                Operation
+                            </th>
+                        </tr>
+                        @foreach (var item in this.Model.BookModelList)
+                    {
+                            <tr>
+                                <td>
+                                    @item.ID
+                                </td>
+                                <td>
+                                    @item.BookName
+                                </td>
+                                <td>
+                                    @item.ISBN
+                                </td>
+                                <td>
+                                    @item.PublisherName
+                                </td>
+                                <td>
+                                    @item.AuthorName
+                                </td>
+                                <td>
+                                    @item.CatagoryName
+                                </td>
+                                <td>
+                                    @item.Publish_Date
+                                </td>
+                                <td>
+                                    @item.Price_Inventory
+                                </td>
+                                <td>
+                                    @item.Avaliable_Inventory
+                                </td>
+                                <td>
+                                    @item.Max_Inventory
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Detail", "DetailBook", new { @id = item.ID })
+                                    @Html.ActionLink("Edit", "EditBook", new { @id = item.ID })
+                                    @Html.ActionLink("Delete", "DeleteBook", new { @id = item.ID }, new { onclick = "return deleteConfrimDialog(this);" })
+                                </td>
+                            </tr>
+                    }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="11" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    }
+
 

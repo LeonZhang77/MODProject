@@ -46,6 +46,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
 
             model.SearchBookName = bookName;
             model.SearchCategoryList = DropDownListHelper.GetCategorySelectListBySelectedID(searchselectedID);
+            model.SearchCategoryTree = TreeNodesHelper.GetCategorySelectTreeBySelectedID(searchselectedID);
             model.PagingContent = paging;
 
             return View(model);
