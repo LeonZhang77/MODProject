@@ -21,55 +21,55 @@
                     <tr>
                         <th>BookName</th>
                         <td>
-                            @Html.TextBoxFor(b => b.BookName)
+                            @Html.TextBoxFor(b => b.BookName, new { @readonly = "readonly" })
                         </td>
                     </tr>
                     <tr>
                         <th>ISBN</th>
                         <td>
-                            @Html.TextBoxFor(b => b.ISBN)
+                            @Html.TextBoxFor(b => b.ISBN, new { @readonly = "readonly" })
                         </td>
                     </tr>
                     <tr>
                         <th>Publish_Date</th>
                         <td>
-                            @Html.TextBoxFor(b => b.Publish_Date)
+                            @Html.TextBoxFor(b => b.Publish_Date, new { @readonly = "readonly" })
                         </td>
                     </tr>
                     <tr>
                         <th>Avaliable_Inventory</th>
                         <td>
-                            @Html.TextBoxFor(b => b.Avaliable_Inventory)
+                            @Html.TextBoxFor(b => b.Avaliable_Inventory, new { @readonly = "readonly" })
                         </td>
                     </tr>
                     <tr>
                         <th>Max_Inventory</th>
                         <td>
-                            @Html.TextBoxFor(b => b.Max_Inventory)
+                            @Html.TextBoxFor(b => b.Max_Inventory, new { @readonly = "readonly" })
                         </td>
                     </tr>
                     <tr>
                         <th>Price_Inventory</th>
                         <td>
-                            @Html.TextBoxFor(b => b.Price_Inventory)
+                            @Html.TextBoxFor(b => b.Price_Inventory, new { @readonly = "readonly" })
                         </td>
                     </tr>
                     <tr>
                         <th>PublisherName</th>
                         <td>
-                            @Html.TextBoxFor(b => b.PublisherName)
+                            @Html.TextAreaFor(b => b.PublisherName, new { @readonly = "readonly" })
                         </td>
                     </tr>
                     <tr>
                         <th>AuthorName</th>
                         <td>
-                            @Html.TextBoxFor(b => b.AuthorName)
+                            @Html.TextAreaFor(b => b.AuthorName, new { @readonly = "readonly" })
                         </td>
                     </tr>
                     <tr>
                         <th>CategoryName</th>
                         <td>
-                            @Html.TextBoxFor(b => b.CatagoryName)
+                            @Html.TextAreaFor(b => b.CatagoryName, new { @readonly = "readonly" })
                         </td>
                     </tr>
                 </tbody>
@@ -110,10 +110,10 @@
                         <td>@item.Owner</td>
                         <td>@item.Status</td>
                         <td>
-                            @Html.ActionLink("Edit", "EditBooks")
+                            @Html.ActionLink("Edit", "EditBooks", new { @id = item.ID })
                             @if (!item.IsUse)
                             {
-                                @Html.ActionLink("Delete", "DeleteBooks", new { @id = item.ID }, new { onclick = "return deleteConfrimDialog(this);" })
+                                @Html.ActionLink("Delete", "DeleteBooks", new { @id = item.ID }, new { onclick = "return bindConfrimDialog(this,'delete','a');" })
                             }
                         </td>
                     </tr>

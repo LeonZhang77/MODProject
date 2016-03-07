@@ -2,8 +2,6 @@
     ViewBag.Title = "AddUser";
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.UserManage.UserModel
-@Scripts.Render("~/Scripts/ui/jquery-ui.js")
-@Scripts.Render("~/Scripts/ui/jquery.ui.datepicker.js")
 @section scripts{
     @Scripts.Render("~/Scripts/UserManageJS/AddUser.js")
 }
@@ -80,7 +78,7 @@
                 </tr>
                 <tr>
                     <th>Grade</th>
-                    <td>@Html.TextBoxFor(m => m.Grade)</td>
+                    <td>@Html.DropDownListFor(m => m.Grade, this.Model.GradeList)</td>
                 </tr>
                 <tr>
                     <th>LatePoint</th>
@@ -92,27 +90,6 @@
                 <tr>
                     <th>Remark</th>
                     <td>@Html.TextBoxFor(m => m.Remark)</td>
-                </tr>
-
-                <!--Model for Date and Dropdownlist validation-->
-                <tr>
-                    <th>Data</th>
-                    <td>
-                        <input id="TestDateTime" type="text" readonly="readonly" /><span class="requireSpan">*</span>
-                        <label id="TestDateTime_errorData" errordatamessage="TestDateTime is require." class="errorLable" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>DropdownList</th>
-                    <td>
-                        <select id="TestDropDownList">
-                            <option value="">please choose</option>
-                            <option value="1">test1</option>
-                            <option value="2">test2</option>
-                        </select>
-                        <span class="requireSpan">*</span>
-                        <label id="TestDropDownList_errorData" errordatamessage="TestDropDownList is require." class="errorLable" />
-                    </td>
                 </tr>
             </tbody>
             <tfoot>

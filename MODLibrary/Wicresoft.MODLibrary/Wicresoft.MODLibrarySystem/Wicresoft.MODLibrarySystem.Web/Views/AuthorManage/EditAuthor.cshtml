@@ -13,26 +13,27 @@
     <div class="jumbotron">
         <table>
             <caption>Edit Author</caption>
-            <tbody>       
+            <tbody>
                 <tr>
                     <th>Name</th>
-                    <td>@Html.TextBoxFor(m => m.AuthorName) <span class="requireSpan">*</span>
-                        <label id="AuthorName_errorData" errordatamessage="AuthorName is require or illegal." class="errorLable" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>Introduction</th>
-                    <td>@Html.TextBoxFor(m => m.AuthorIntroduction)</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="Edit" onclick="return editConfrimDialog(this);"/>
-                        @Html.ActionLink("Back", "Index")
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+                    <td>
+                        @Html.TextBoxFor(m => m.AuthorName) <span class="requireSpan">*</span>
+                    <label id="AuthorName_errorData" errordatamessage="AuthorName is require or illegal." class="errorLable" />
+                </td>
+            </tr>
+            <tr>
+                <th>Introduction</th>
+                <td>@Html.TextBoxFor(m => m.AuthorIntroduction)</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Edit" onclick="return bindConfrimDialog(this, 'edit', 'b', EditAuthorSubmitValidation);" />
+                    @Html.ActionLink("Back", "Index")
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
 }

@@ -3,6 +3,9 @@
     Layout = "~/Views/Shared/_NLayout.cshtml";
 }
 @model Wicresoft.MODLibrarySystem.WebUI.Models.Register.RegisterIndexModel
+@section scripts{
+    @Scripts.Render("~/Scripts/RegisterJS/IndexRegister.js")
+}
 <h2>Register</h2>
 
 @using (Html.BeginForm())
@@ -22,14 +25,15 @@
                         Email
                     </th>
                     <td>
-                        @Html.TextBoxFor(m => this.Model.Email, new { @type = "email" })<span class="requireSpan">*</span>
+                        @Html.TextBoxFor(m => this.Model.Email)<span class="requireSpan">*</span>
+                        <label id="Email_errorData" errordatamessage="Email is require and should be a email format." class="errorLable" />
                     </td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="2">
-                        <input id="loginButton" name="loginButtion" type="submit" value="Next" />
+                        <input type="submit" value="Next" />
                     </td>
 
                 </tr>

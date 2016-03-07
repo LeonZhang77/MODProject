@@ -19,7 +19,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             {
                 name = name.Trim();
             }
-            
+
             UserManageIndexModel model = new UserManageIndexModel();
             model.FilterName = name;
 
@@ -52,8 +52,8 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult AddUser()
         {
             UserModel user = new UserModel();
-            user.FloorList = DropDownListHelper.GetFloorSelectList(user.Floor.ToString(),
-                Request.UrlReferrer.Authority);
+            user.FloorList = DropDownListHelper.GetFloorList(null);
+            user.GradeList = EnumHelper.GetEnumIEnumerable<UserGrade>(UserGrade.Junior);
             return View(user);
         }
 
@@ -66,6 +66,8 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
 
             if (!string.IsNullOrEmpty(isDup))
             {
+                user.FloorList = DropDownListHelper.GetFloorList(user.SelectedFloor);
+                user.GradeList = EnumHelper.GetEnumIEnumerable<UserGrade>(user.Grade);
                 user.ErrorState = true;
                 user.StateMessage = isDup;
                 return View(user);
@@ -73,10 +75,10 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             else
             {
                 this.IUserInfoDataProvider.Add(useInfo);
-                return RedirectToAction("Index"); 
+                return RedirectToAction("Index");
             }
         }
-            
+
         public ActionResult EditUser(long id)
         {
             UserModel user = new UserModel();
@@ -84,8 +86,8 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             if (userInfo != null)
             {
                 user = UserModel.GetViewModel(userInfo);
-                user.FloorList = DropDownListHelper.GetFloorSelectList(user.Floor.ToString(), 
-                    Request.UrlReferrer.Authority);
+                user.FloorList = DropDownListHelper.GetFloorList(user.Floor.ToString());
+                user.GradeList = EnumHelper.GetEnumIEnumerable<UserGrade>(user.Grade);
             }
 
             return View(user);
@@ -95,10 +97,10 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public ActionResult EditUser(UserModel user)
         {
             UserInfo useInfo = user.GetEntity();
-            
+
             this.IUserInfoDataProvider.Update(useInfo);
             return RedirectToAction("Index");
-       }
+        }
 
         public ActionResult DeleteUser(long id)
         {
@@ -130,7 +132,8 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-        
+
+
         private string ValidateDuplicate(UserInfo userInfo)
         {
             string resultStr = null;
@@ -145,7 +148,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
                     resultStr = "This Email is exsit";
                 }
             }
-            
+
             return resultStr;
         }
     }

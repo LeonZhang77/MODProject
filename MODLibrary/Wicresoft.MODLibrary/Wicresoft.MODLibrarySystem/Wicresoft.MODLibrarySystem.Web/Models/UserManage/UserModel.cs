@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wicresoft.MODLibrarySystem.Entity;
+using Wicresoft.MODLibrarySystem.Unity.Helper;
 
 namespace Wicresoft.MODLibrarySystem.Web.Models.UserManage
 {
@@ -13,6 +14,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.UserManage
         public UserModel()
         {
             this.FloorList = new List<SelectListItem>();
+            this.GradeList = new List<SelectListItem>();
         }
 
         public String DisplayName
@@ -75,11 +77,6 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.UserManage
             set;
         }
 
-        public UserGrade Grade
-        {
-            get;
-            set;
-        }
         public int Late_point
         {
             get;
@@ -99,6 +96,24 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.UserManage
         }
 
         public List<SelectListItem> FloorList
+        {
+            get;
+            set;
+        }
+
+        public String GradeDisplay
+        {
+            get;
+            set;
+        }
+
+        public UserGrade Grade
+        {
+            get;
+            set;
+        }
+
+        public List<SelectListItem> GradeList
         {
             get;
             set;
@@ -154,6 +169,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.UserManage
             model.Chinese_Name = user.Chinese_Name;
             model.Wechat = user.Wechat;
             model.Grade = user.Grade;
+            model.GradeDisplay = EnumHelper.GetEnumDescription(user.Grade);
             model.Late_point = user.Late_point;
             user.Remark = user.Remark;
             return model;

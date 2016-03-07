@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
 using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 using Wicresoft.MODLibrarySystem.Entity;
@@ -40,7 +41,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
 
             if (user == null)
             {
-                return RedirectToAction("AddUser", "Register", model);
+                return RedirectToAction("RegisterUser", "Register", model);
             }
             else
             {
@@ -49,7 +50,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             }
         }
 
-        public ActionResult AddUser(RegisterIndexModel model)
+        public ActionResult RegisterUser(RegisterIndexModel model)
         {
             RegisterModel userModel = new RegisterModel();
             userModel.InitRegisterModel(model);
@@ -65,7 +66,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddUser(RegisterModel userModel)
+        public ActionResult RegisterUser(RegisterModel userModel)
         {
             UserInfo useInfo = userModel.GetEntity();
             if (this.IUserInfoDataProvider.GetUserListByLoginName(userModel.LoginName).Count() > 0)
@@ -78,7 +79,9 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             {
                 this.IUserInfoDataProvider.Add(useInfo);
 
-                return RedirectToAction("Index", "Login");
+                FormsAuthentication.SignOut();
+                FormsAuthentication.SetAuthCookie(useInfo.ID.ToString(), true);
+                return RedirectToAction("Index", "Home", null);
             }
         }
         

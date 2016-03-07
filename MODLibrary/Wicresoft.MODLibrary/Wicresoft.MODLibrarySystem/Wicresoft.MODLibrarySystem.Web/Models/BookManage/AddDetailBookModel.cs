@@ -67,7 +67,13 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
             set;
         }
 
-        public int BookStatusSelected
+        public BookStatus BookStatusSelected
+        {
+            get;
+            set;
+        }
+
+        public BookStatus BeforeStatus
         {
             get;
             set;
@@ -83,11 +89,12 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
         {
             BookDetailInfo bookDetailInfo = new BookDetailInfo();
 
+            bookDetailInfo.ID = this.ID;
             IUserInfoDataProvider userDataProvider = new UserInfoDataProvider();
             bookDetailInfo.UserInfo = userDataProvider.GetUserListByID(Convert.ToInt32(this.OwnerValue));
             IBookInfoDataProvider bookDataProvider = new BookInfoDataProvider();
             bookDetailInfo.BookInfo = bookDataProvider.GetBookInfoByID(this.BookID);
-            bookDetailInfo.Status = (BookStatus)this.BookStatusSelected;
+            bookDetailInfo.Status = this.BookStatusSelected;
             bookDetailInfo.Storage_Time = Convert.ToDateTime(this.Storage_Time);
             bookDetailInfo.CreateTime = DateTime.Now;
 
@@ -98,6 +105,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
         {
             AddDetailBookModel model = new AddDetailBookModel();
             model.ID = bookDetailInfo.ID;
+            model.BookID = bookDetailInfo.BookInfo.ID;
             model.BookName = bookDetailInfo.BookInfo.BookName;
             model.ISBN = bookDetailInfo.BookInfo.ISBN;
             model.Owner = bookDetailInfo.UserInfo.DisplayName;
@@ -105,6 +113,8 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
             model.Status = EnumHelper.GetEnumDescription(bookDetailInfo.Status);
             model.Storage_Time = bookDetailInfo.Storage_Time.ToString(UntityContent.IOSDateTemplate);
             model.Create_Time = bookDetailInfo.CreateTime.ToString();
+
+            model.BeforeStatus = bookDetailInfo.Status;
 
             //need to add logic
             model.IsUse = false;

@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Edit Account";
+}
+@model Wicresoft.MODLibrarySystem.WebUI.Models.AccountManage.EditAccountModel
+@section scripts{
+    @Scripts.Render("~/Scripts/AccountManageJS/EditAccount.js")
+}
+<h2>Edit Account</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <table>
+            <caption>
+                Edit Account
+                @if (this.Model.IsSave)
+                {
+                    <span style="color:green">Update Success.</span>
+                }
+            </caption>
+            <tbody>
+                <tr>
+                    <th>LoginName</th>
+                    <td>
+                        @Html.TextBoxFor(m => m.LoginName, new { @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>
+                        @Html.TextBoxFor(m => m.Email, new { @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>DisplayName</th>
+                    <td>
+                        @Html.TextBoxFor(m => m.DisplayName) <span class="requireSpan">*</span>
+                        <label id="DisplayName_errorData" errordatamessage="DisplayName is require and length must be less than 6 bytes." class="errorLable" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>RealName</th>
+                    <td>
+                        @Html.TextBoxFor(m => m.RealName) <span class="requireSpan">*</span>
+                        <label id="RealName_errorData" errordatamessage="RealName is require." class="errorLable" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>ChineseName</th>
+                    <td>
+                        @Html.TextBoxFor(m => m.Chinese_Name)
+                    </td>
+                </tr>
+                <tr>
+                    <th>Grade</th>
+                    <td>
+                        @Html.TextBoxFor(m => m.Grade, new { @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>LatePoint</th>
+                    <td>
+                        @Html.TextBoxFor(m => m.Late_point, new { @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Wechat
+                    </th>
+                    <td>
+                        @Html.TextBoxFor(m => m.Wechat)
+                    </td>
+                </tr>
+                <tr>
+                    <th>Floor</th>
+                    <td>
+                        @Html.DropDownListFor(m => m.SelectedFloor, this.Model.FloorList)
+                    </td>
+                </tr>
+                <tr>
+                    <th>PM</th>
+                    <td>@Html.TextBoxFor(m => m.PM)</td>
+                </tr>
+                <tr>
+                    <th>Team</th>
+                    <td>@Html.TextBoxFor(m => m.Team)</td>
+                </tr>
+
+                <tr>
+                    <th>Remark</th>
+                    <td>@Html.TextBoxFor(m => m.Remark)</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Edit" onclick="return bindConfrimDialog(this, 'edit', 'b', EditAccountSubmitValidation);" />
+                        @Html.ActionLink("Back", "Index", "Home")
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}

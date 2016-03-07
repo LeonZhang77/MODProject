@@ -52,6 +52,16 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             {
                 bookList = bookList.Where(b => b.PublisherInfo.ID == condition.Publisher.ID);
             }
+
+            if (condition.IsAvaliable.HasValue)
+            {
+                if (condition.IsAvaliable.Value)
+                {
+                    bookList = bookList.Where(b => b.Avaliable_Inventory > 0);
+                }
+            }
+
+            bookList = bookList.OrderByDescending(b => b.Publish_Date);
             
             return bookList;
         }
@@ -84,9 +94,10 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             book.BookName = entity.BookName;
             book.ISBN = entity.ISBN;
             book.Publish_Date = entity.Publish_Date;
+            book.Price_Inventory = entity.Price_Inventory;
+
             book.Avaliable_Inventory = entity.Avaliable_Inventory;
             book.Max_Inventory = entity.Max_Inventory;
-            book.Price_Inventory = entity.Price_Inventory;
 
             if (entity.PublisherInfo != null)
             {

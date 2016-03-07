@@ -3,13 +3,15 @@
     Layout = "~/Views/Shared/_NLayout.cshtml";
 }
 @model Wicresoft.MODLibrarySystem.WebUI.Models.Login.LoginIndexModel
-
+@section scripts{
+    @Scripts.Render("~/Scripts/LoginJS/Login.js")
+}
 <h2>MOD Library Login</h2>
 
 @using (Html.BeginForm())
 {
     <div class="jumbotron">
-        <table style="width:400px">
+        <table style="width:500px">
             <thead> Please Login </thead>
             @if (this.Model.IsFail)
             {
@@ -24,6 +26,7 @@
                     </th>
                     <td>
                         @Html.TextBoxFor(m => this.Model.UserName)<span class="requireSpan">*</span>
+                        <label id="UserName_errorData" errordatamessage="UserName is require." class="errorLable" />
                     </td>
                 </tr>
                 <tr>
@@ -32,6 +35,7 @@
                     </th>
                     <td>
                         @Html.TextBoxFor(m => this.Model.Password, new { @type = "password" })<span class="requireSpan">*</span>
+                        <label id="Password_errorData" errordatamessage="Password is require." class="errorLable" />
                     </td>
                 </tr>
             </tbody>

@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mod-Library</title>
     @Scripts.Render("~/Scripts/jquery-1.10.2.js")
-    @Scripts.Render("~/Scripts/ui/jquery-ui.js")
-    @Scripts.Render("~/Scripts/ui/jquery.ui.core.js")
-    @Scripts.Render("~/Scripts/ui/jquery.ui.widget.js")
     @Scripts.Render("~/Scripts/baseWebAPP.js")
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/themes/base/jquery.ui.all.css")
@@ -32,6 +29,7 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Books Store", "Index", "BookManage", null, null)</li>
                     <li>@Html.ActionLink("Rent Manage", "Index", "RentManage", null, null)</li>
+                    <li>@Html.ActionLink("Account Manage", "Index", "AccountManage", null, null)</li>
                     <li>@Html.ActionLink("About", "About", "Home", null, null)</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", null, null)</li>
                 </ul>
@@ -48,5 +46,11 @@
             <p>&copy; @DateTime.Now.Year - MOD Dev Application</p>
         </footer>
     </div>
+    @{Html.RenderPartial("ConfrimDialog");}
+    @Scripts.Render("~/Scripts/ui/jquery-ui.js")
+    @Scripts.Render("~/Scripts/ui/jquery.ui.core.js")
+    @Scripts.Render("~/Scripts/ui/jquery.ui.widget.js")
+    @Scripts.Render("~/Scripts/baseGeneralFunction.js")
+    
 </body>
 </html>

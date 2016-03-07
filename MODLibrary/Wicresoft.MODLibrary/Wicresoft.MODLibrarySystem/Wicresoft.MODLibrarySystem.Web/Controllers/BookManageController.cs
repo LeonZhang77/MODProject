@@ -28,7 +28,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             {
                 bookName = bookName.Trim();
             }
-            
+
             BookManageIndexModel model = new BookManageIndexModel();
 
             BookInfoCondition condition = new BookInfoCondition();
@@ -46,7 +46,6 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
 
             model.SearchBookName = bookName;
             model.SearchCategoryList = DropDownListHelper.GetCategorySelectListBySelectedID(searchselectedID);
-            model.SearchCategoryTree = TreeNodesHelper.GetCategorySelectTreeBySelectedID(searchselectedID);
             model.PagingContent = paging;
 
             return View(model);
@@ -73,34 +72,6 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
                 bookModel.BookDetailList.Add(AddDetailBookModel.GetViewModel(item));
             }
             return View(bookModel);
-        }
-
-        public ActionResult AddBooks(long id)
-        {
-            AddDetailBookModel addBooksModel = new AddDetailBookModel();
-            BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
-            addBooksModel.BookID = id;
-            addBooksModel.BookName = bookInfo.BookName;
-            addBooksModel.ISBN = bookInfo.ISBN;
-            addBooksModel.BookStatusList = EnumHelper.GetEnumIEnumerable<BookStatus>(BookStatus.InStore);
-            addBooksModel.BookStatusSelected = (int)BookStatus.InStore;
-            return View(addBooksModel);
-        }
-
-        [HttpPost]
-        public ActionResult AddBooks(AddDetailBookModel books)
-        {
-            BookDetailInfo booksInfo = books.GetEntity();
-            this.IBookDetailInfoDataProvider.Add(booksInfo);
-
-            return RedirectToAction("DetailBook", new { @id = books.BookID });
-        }
-
-        public ActionResult DeleteBooks(long id)
-        {
-            long bookID = this.IBookDetailInfoDataProvider.GetBookDetailInfoByID(id).BookInfo.ID;
-            this.IBookDetailInfoDataProvider.DeleteByID(id);
-            return RedirectToAction("DetailBook", new { @id = bookID });
         }
 
         public ActionResult AddBook()
@@ -147,6 +118,121 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         {
             this.IBookInfoDataProvider.DeleteByID(id);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult AddBooks(long id)
+        {
+            AddDetailBookModel addBooksModel = new AddDetailBookModel();
+            BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
+            addBooksModel.BookID = id;
+            addBooksModel.BookName = bookInfo.BookName;
+            addBooksModel.ISBN = bookInfo.ISBN;
+            addBooksModel.BookStatusList = EnumHelper.GetEnumIEnumerable<BookStatus>(BookStatus.InStore);
+            addBooksModel.BookStatusSelected = BookStatus.InStore;
+            return View(addBooksModel);
+        }
+
+        [HttpPost]
+        public ActionResult AddBooks(AddDetailBookModel books)
+        {
+            BookDetailInfo booksInfo = books.GetEntity();
+            this.IBookDetailInfoDataProvider.Add(booksInfo);
+
+            BookInfo book = booksInfo.BookInfo;
+            book.Avaliable_Inventory = book.Avaliable_Inventory + 1;
+            book.Max_Inventory = book.Max_Inventory + 1;
+
+            this.IBookInfoDataProvider.Update(book);
+
+            return RedirectToAction("DetailBook", new { @id = books.BookID });
+        }
+
+        public ActionResult EditBooks(long id)
+        {
+            AddDetailBookModel model = new AddDetailBookModel();
+            BookDetailInfo booksInfo = this.IBookDetailInfoDataProvider.GetBookDetailInfoByID(id);
+
+            if (booksInfo != null)
+            {
+                model = AddDetailBookModel.GetViewModel(booksInfo);
+                model.BookStatusList = EnumHelper.GetEnumIEnumerable<BookStatus>(booksInfo.Status);
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditBooks(AddDetailBookModel model)
+        {
+            if (model != null)
+            {
+                BookDetailInfo books = model.GetEntity();
+                this.IBookDetailInfoDataProvider.Update(books);
+
+                EditBooksUpdateBook(books, model);
+            }
+
+            return RedirectToAction("DetailBook", new { @id = model.BookID });
+        }
+
+        private void EditBooksUpdateBook(BookDetailInfo books, AddDetailBookModel model)
+        {
+            BookInfo book = books.BookInfo;
+
+            switch (model.BookStatusSelected)
+            {
+                case BookStatus.InStore:
+                    if (model.BeforeStatus != BookStatus.InStore && model.BeforeStatus == BookStatus.Error)
+                    {
+                        book.Avaliable_Inventory = book.Avaliable_Inventory + 1;
+                        book.Max_Inventory = book.Max_Inventory + 1;
+                    }
+                    else if (model.BeforeStatus != BookStatus.InStore)
+                    {
+                        book.Avaliable_Inventory = book.Avaliable_Inventory + 1;
+                    }
+                    break;
+                case BookStatus.Rent:
+                    if (model.BeforeStatus == BookStatus.InStore)
+                    {
+                        book.Avaliable_Inventory = book.Avaliable_Inventory - 1;
+                    }
+                    break;
+                case BookStatus.Error:
+                    if (model.BeforeStatus == BookStatus.InStore)
+                    {
+                        book.Avaliable_Inventory = book.Avaliable_Inventory - 1;
+                        book.Max_Inventory = book.Max_Inventory - 1;
+                    }
+                    else if (model.BeforeStatus == BookStatus.Rent || model.BeforeStatus == BookStatus.OutStore)
+                    {
+                        book.Max_Inventory = book.Max_Inventory - 1;
+                    }
+                    break;
+                case BookStatus.OutStore:
+                    if (model.BeforeStatus == BookStatus.InStore)
+                    {
+                        book.Avaliable_Inventory = book.Avaliable_Inventory - 1;
+                    }
+                    break;
+            }
+
+            this.IBookInfoDataProvider.Update(book);
+        }
+
+        public ActionResult DeleteBooks(long id)
+        {
+            BookDetailInfo books = this.IBookDetailInfoDataProvider.GetBookDetailInfoByID(id);
+
+            BookInfo book = books.BookInfo;
+            book.Avaliable_Inventory = book.Avaliable_Inventory - 1;
+            book.Max_Inventory = book.Max_Inventory - 1;
+
+            this.IBookDetailInfoDataProvider.DeleteByID(books.ID);
+
+            this.IBookInfoDataProvider.Update(book);
+
+            return RedirectToAction("DetailBook", new { @id = book.ID });
         }
     }
 }

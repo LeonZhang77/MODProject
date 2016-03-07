@@ -105,17 +105,27 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
             set;
         }
 
+        public bool IsUse
+        {
+            get;
+            set;
+        }
+
         public BookInfo GetEntity()
         {
             BookInfo bookInfo = new BookInfo();
+
+            if (this.ID > 0)
+            {
+                IBookInfoDataProvider IBookInfoDataProvider=new BookInfoDataProvider();
+                bookInfo = IBookInfoDataProvider.GetBookInfoByID(this.ID);
+            }
 
             bookInfo.ID = this.ID;
             bookInfo.BookName = this.BookName;
             bookInfo.ISBN = this.ISBN;
 
             bookInfo.Publish_Date = Convert.ToDateTime(this.Publish_Date);
-            bookInfo.Avaliable_Inventory = Decimal.Parse(this.Avaliable_Inventory);
-            bookInfo.Max_Inventory = Decimal.Parse(this.Max_Inventory);
             bookInfo.Price_Inventory = Decimal.Parse(this.Price_Inventory);
 
             bookInfo.PublisherInfo = GetPublisherInfo(this.PublisherNameValue);
@@ -140,8 +150,8 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
             }
 
             model.Publish_Date = bookInfo.Publish_Date.ToString(UntityContent.IOSDateTemplate);
-            model.Avaliable_Inventory = bookInfo.Avaliable_Inventory.ToString("F");
-            model.Max_Inventory = bookInfo.Max_Inventory.ToString("F");
+            model.Avaliable_Inventory = Convert.ToInt32(bookInfo.Avaliable_Inventory).ToString();
+            model.Max_Inventory = Convert.ToInt32(bookInfo.Max_Inventory).ToString();
             model.Price_Inventory = bookInfo.Price_Inventory.ToString("F");
 
             string categoryNameValue = string.Empty;
@@ -154,6 +164,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
             model.AuthorDisplayName = displayName;
             model.AuthorNameValue = authorNameValue;
 
+            model.IsUse = bookInfo.Max_Inventory > 0 ? true : false;
 
             return model;
         }

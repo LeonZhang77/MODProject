@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="Helper\DropDownListHelper.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
-    <Compile Include="Helper\TreeNodesHelper.cs" />
     <Compile Include="UntityContent.cs" />
     <Compile Include="Helper\PagingContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

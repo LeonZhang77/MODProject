@@ -26,5 +26,11 @@ namespace Wicresoft.MODLibrarySystem.Entity.Condition.BookInfo
             get;
             set;
         }
+
+        public Boolean? IsAvaliable
+        {
+            get;
+            set;
+        }
     }
 }

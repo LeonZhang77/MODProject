@@ -33,16 +33,23 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         {
             UserInfo user = this.IUserInfoDataProvider.FindUserInfoByUserNameAndPassword(model.UserName, model.Password);
 
-            if (user != null)
+            if (user != null && user.Grade == UserGrade.Admin)
             {
                 FormsAuthentication.SetAuthCookie(user.ID.ToString(), true);
                 return RedirectToAction("Index", "Home", null);
             }
-            else 
+            else if (user != null && user.Grade != UserGrade.Admin)
             {
+                ViewBag.ErrorMessage = "You not permission to login the admin system.";
                 model.IsFail = true;
                 return View(model);
-            }            
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Please check username and password is correct.";
+                model.IsFail = true;
+                return View(model);
+            }
         }
 
         public ActionResult LoginOut()

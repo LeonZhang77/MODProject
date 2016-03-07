@@ -51,7 +51,7 @@
                             @Html.ActionLink("Edit", "EditAuthor", new { @id = item.ID })
                             @if (!item.IsUse)
                             {
-                                @Html.ActionLink("Delete", "DeleteAuthor", new { @id = item.ID }, new {  onclick = "return deleteConfrimDialog(this);" })
+                                @Html.ActionLink("Delete", "DeleteAuthor", new { @id = item.ID }, new { onclick = "return bindConfrimDialog(this,'delete','a',false);" })
                             }
                         </td>
                     </tr>

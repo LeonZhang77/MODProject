@@ -15,7 +15,7 @@
             <caption>System User List</caption>
             <thead>
                 <tr>
-                    <td colspan="7">
+                    <td colspan="8">
                         @Html.ActionLink("Add", "AddUser")
                     </td>
                 </tr>
@@ -36,6 +36,9 @@
                     </th>
                     <th>
                         Email
+                    </th>
+                    <th>
+                        Grade
                     </th>
                     <th>
                         Floor
@@ -62,24 +65,27 @@
                         <td>
                             @item.Email
                         </td>
+                        <td>
+                            @item.GradeDisplay
+                        </td>
                         <th>
                             @item.Floor
                         </th>
                         <td>
                             @Html.ActionLink("Detail", "DetailUser", new { @id = item.ID })
                             @Html.ActionLink("Edit", "EditUser", new { @id = item.ID })
-                            @Html.ActionLink("Delete", "DeleteUser", new { @id = item.ID }, new { onclick = "return deleteConfrimDialog(this);" })
+                            @*@Html.ActionLink("Delete", "DeleteUser", new { @id = item.ID }, new { onclick = "return bindConfrimDialog(this,'delete','a');" })*@
                         </td>
                     </tr>
                 }
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="7" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
+                    <td colspan="8" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
                 </tr>
             </tfoot>
         </table>
     </div>
-    
-    
+
+
 }

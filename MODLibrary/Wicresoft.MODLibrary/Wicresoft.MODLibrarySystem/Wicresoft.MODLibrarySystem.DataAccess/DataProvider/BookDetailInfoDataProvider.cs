@@ -50,17 +50,16 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
 
             if (entity.BookInfo != null)
             {
-                entity.BookInfo = this.DataSource.BookInfos.FirstOrDefault(b => b.ID == entity.BookInfo.ID);
+                bookdetail.BookInfo = this.DataSource.BookInfos.FirstOrDefault(b => b.ID == entity.BookInfo.ID);
             }
 
             if (entity.UserInfo != null)
             {
-                entity.UserInfo = this.DataSource.UserInfos.FirstOrDefault(u => u.ID == entity.UserInfo.ID);
+                bookdetail.UserInfo = this.DataSource.UserInfos.FirstOrDefault(u => u.ID == entity.UserInfo.ID);
             }
 
             bookdetail.Status = entity.Status;
             bookdetail.Storage_Time = entity.Storage_Time;
-            bookdetail.CreateTime = entity.CreateTime;
 
             this.DataSource.SaveChanges();
         }

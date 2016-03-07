@@ -40,20 +40,6 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Avaliable_Inventory</th>
-                        <td>
-                            @Html.TextBoxFor(b => b.Avaliable_Inventory) <span class="requireSpan">*</span>
-                            <label id="Avaliable_Inventory_errorData" errordatamessage="Avaliable_Inventory can not be empty and must be a number." class="errorLable" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Max_Inventory</th>
-                        <td>
-                            @Html.TextBoxFor(b => b.Max_Inventory) <span class="requireSpan">*</span>
-                            <label id="Max_Inventory_errorData" errordatamessage="Max_Inventory can not be empty and must be a number." class="errorLable" />
-                        </td>
-                    </tr>
-                    <tr>
                         <th>Price_Inventory</th>
                         <td>
                             @Html.TextBoxFor(b => b.Price_Inventory) <span class="requireSpan">*</span>
@@ -85,7 +71,7 @@
                 <tfoot>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" value="Edit" onclick="return editConfrimDialog(this);" />
+                            <input type="submit" value="Edit" onclick="return bindConfrimDialog(this, 'edit', 'b', EditBookSubmitValidation);"  />
                             @Html.ActionLink("Back", "Index")
                         </td>
                     </tr>

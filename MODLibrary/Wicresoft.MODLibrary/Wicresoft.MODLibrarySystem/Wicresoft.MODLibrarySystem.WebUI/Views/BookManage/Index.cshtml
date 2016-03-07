@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Book Search";
+}
+@model Wicresoft.MODLibrarySystem.WebUI.Models.BookManage.BookManageIndexModel
+@using (Html.BeginForm())
+{
+    <div class="jumbotron" style="height:1000px; font-size:small">
+        <div>
+            <span>BookName</span>
+            @Html.TextBoxFor(m => m.SearchBookName)
+            <span>Category</span>
+            @Html.DropDownListFor(m => m.SearchSelectedID, this.Model.SearchCategoryList)
+            <span>Can be Reserve</span> @Html.CheckBoxFor(m => m.IsAvaliable)
+            <input type="submit" value="Search" />
+        </div>
+        <div>
+            <span>Book Search List</span>
+        </div>
+        @if (this.Model.BookModelList.Count > 0)
+        {
+            for (int i = 0; i < this.Model.BookModelList.Count; i++)
+            {
+                <div style="width:30%;float:left">
+                    <table style="width:300px; height:350px">
+                        <tr>
+                            <td rowspan="6" style="height:150px;width:100px"><img width="100" height="150" src="~/Content/images/DefaultPic.jpg" /></td>
+                            <th>
+                                Book
+                            </th>
+                            <td>
+                                @this.Model.BookModelList[i].BookName
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                ISBN
+                            </th>
+                            <td>
+                                @this.Model.BookModelList[i].ISBN
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Price
+                            </th>
+                            <td>
+                                @this.Model.BookModelList[i].Price_Inventory
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Avaliable
+                            </th>
+                            <td>
+                                @this.Model.BookModelList[i].Avaliable_Inventory
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                MaxAvaliable
+                            </th>
+                            <td>
+                                @this.Model.BookModelList[i].Max_Inventory
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                PublishDate
+                            </th>
+                            <td>
+                                @this.Model.BookModelList[i].Publish_Date
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Publisher
+                            </th>
+                            <td colspan="2">
+                                @this.Model.BookModelList[i].PublisherName
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Author
+                            </th>
+                            <td colspan="2">
+                                @Html.TextAreaFor(m => this.Model.BookModelList[i].AuthorName, new { @readonly = "readonly" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Catagory
+                            </th>
+                            <td colspan="2">
+                                @Html.TextAreaFor(m => this.Model.BookModelList[i].CatagoryName, new { @readonly = "readonly" })
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="3">
+                                @if (this.Model.BookModelList[i].IsAvaliable)
+                                {
+                                    @Html.ActionLink("Reserve", "ReserveBook", new { @id = this.Model.BookModelList[i].ID })
+                                }
+                                else
+                                {
+                                    <span style="color:gray">Reserve</span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                if (i == 2)
+                {
+                    <div style="width:100%;float:left">
+                        <span>-----------------</span>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            <div style="width:100%;float:left">
+                <span>No Result.</span>
+            </div>
+        }
+        <div style="width:100%;float:left">
+            <table>
+                <tr>
+                    @Html.Raw(this.Model.PagingContent.PagingViewContent)
+                </tr>
+            </table>
+        </div>
+    </div>
+}
