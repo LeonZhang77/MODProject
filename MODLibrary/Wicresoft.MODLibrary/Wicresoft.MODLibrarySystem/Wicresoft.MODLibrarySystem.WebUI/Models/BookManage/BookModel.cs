@@ -36,6 +36,13 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
             set;
         }
 
+        public String PublisherDisplayDescription
+        {
+            get;
+            set;
+        }
+
+
         public String Publish_Date
         {
             get;
@@ -90,6 +97,12 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
             set;
         }
 
+        public String AuthorDisplayDescription
+        {
+            get;
+            set;
+        }
+
         public bool IsAvaliable
         {
             get;
@@ -108,6 +121,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
             {
                 model.PublisherName = bookInfo.PublisherInfo.PublisherName;
                 model.PublisherNameValue = bookInfo.PublisherInfo.ID.ToString();
+                model.PublisherDisplayDescription = bookInfo.PublisherInfo.PublisherIntroduction;
             }
 
             model.Publish_Date = bookInfo.Publish_Date.ToString(UntityContent.IOSDateTemplate);
