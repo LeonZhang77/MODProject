@@ -2,6 +2,69 @@
     ViewBag.Title = "Book Search";
 }
 @model Wicresoft.MODLibrarySystem.WebUI.Models.BookManage.BookManageIndexModel
+<style type="text/css">
+    .contact {
+        /*width: 100px;
+        height: 15px;
+        margin: 20px 0 0 50px;
+        background-color: #CCCCCC;
+        text-align: center;*/
+    }
+
+    /*.us {
+        display: none;
+        width: 300px;
+        height: 40px;
+        padding: 10px;
+        position: relative;
+        z-index:auto;
+        top: 0px;
+        left: 50px;
+        background-color: #0099FF;
+    }*/
+
+    .us {
+  display:none;
+  left:1px;
+  top:1px;
+  width:422px; 
+  min-height:53px; 
+  padding:10px;
+  color:#000000;
+  background:#CCCCCC; 
+  position:fixed; 
+  z-index:999999; 
+  border: 1px solid #5e4e3f;
+    }
+
+</style>
+
+<script type="text/javascript">
+    var MouseEvent = function (e) {
+        this.x = e.pageX
+        this.y = e.pageY
+    }
+    var Mouse = function (e) {
+        var kdheight = jQuery(document).scrollTop();
+        mouse = new MouseEvent(e);
+        leftpos = mouse.x + 10;
+        toppos = mouse.y - kdheight + 10;
+    }
+    jQuery(
+     function () {
+         jQuery(".contact").hover(
+          function (e) {
+              Mouse(e);
+              jQuery(".us").css({ top: toppos, left: leftpos }).fadeIn(100);
+          }, function () {
+              jQuery(".us").hide();
+          }
+         )
+     }
+    )
+</script>
+
+
 @using (Html.BeginForm())
 {
     <div class="jumbotron" style="height:1000px; font-size:small">
@@ -20,7 +83,8 @@
         {
             for (int i = 0; i < this.Model.BookModelList.Count; i++)
             {
-                <div style="width:30%;float:left">
+                <div class="us">@this.Model.BookModelList[i].PublisherDisplayDescription</div>
+                <div style="width:30%;float:left">                 
                     <table style="width:300px; height:350px">
                         <tr>
                             <td rowspan="6" style="height:150px;width:100px"><img width="100" height="150" src="~/Content/images/DefaultPic.jpg" /></td>
@@ -75,8 +139,8 @@
                             <th>
                                 Publisher
                             </th>
-                            <td colspan="2">
-                                @this.Model.BookModelList[i].PublisherName
+                            <td colspan="2" class="contact ">
+                                @this.Model.BookModelList[i].PublisherName                               
                             </td>
                         </tr>
                         <tr>
