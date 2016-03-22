@@ -97,12 +97,6 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
             set;
         }
 
-        public String AuthorDisplayDescription
-        {
-            get;
-            set;
-        }
-
         public bool IsAvaliable
         {
             get;

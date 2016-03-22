@@ -246,6 +246,7 @@
     <Content Include="Scripts\baseGeneralFunction.js" />
     <Content Include="Scripts\baseValidation.js" />
     <Content Include="Scripts\baseWebAPP.js" />
+    <Content Include="Scripts\BookManageJS\BookManage.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\LocalDeploy.pubxml" />

@@ -2,52 +2,7 @@
     ViewBag.Title = "Book Search";
 }
 @model Wicresoft.MODLibrarySystem.WebUI.Models.BookManage.BookManageIndexModel
-<style type="text/css">
- [class^="major"] {
- }
-
-[class^="related"] {
-  display:none;
-   /*left:1px;
-  top:1px;*/
-  width:422px; 
-  min-height:53px; 
-  padding:10px;
-  color:#000000;
-  background:#CCCCCC; 
-  position:fixed; 
-  z-index:999999; 
-  border: 1px solid #5e4e3f;
-}
-
-</style>
-
-<script type="text/javascript">
-    var MouseEvent = function (e) {
-        this.x = e.pageX
-        this.y = e.pageY
-    }
-
-    var Mouse = function (e) {
-        var kdheight = jQuery(document).scrollTop();
-        mouse = new MouseEvent(e);
-        leftpos = mouse.x + 10;
-        toppos = mouse.y - kdheight + 10;
-    }
-    
-    function mIn(i){
-        var relatedStr = ".related" + i.toString();
-        Mouse(window.event);
-        jQuery(relatedStr).css({ top: toppos, left: leftpos }).fadeIn(100);
-    }
-
-    function mOut(i){
-        var relatedStr = ".related" + i.toString();
-        jQuery(relatedStr).hide();
-    }
-</script>
-
-
+<script type="text/javascript" src="~/Scripts/BookManageJS/BookManage.js"></script>
 @using (Html.BeginForm())
 {
     <div class="jumbotron" style="height:1000px; font-size:small">
@@ -124,7 +79,7 @@
                                 Publisher
                             </th>
                             <td colspan="2" onmouseover="mIn(@i);" onmouseout="mOut(@i);">
-                                @this.Model.BookModelList[i].PublisherName
+                                @this.Model.BookModelList[i].PublisherName  
                             </td>
                         </tr>
                         <tr>
@@ -148,7 +103,8 @@
                             <td colspan="3">
                                 @if (this.Model.BookModelList[i].IsAvaliable)
                                 {
-                                    @Html.ActionLink("Reserve", "ReserveBook", new { @id = this.Model.BookModelList[i].ID })
+                                    <a href="javascript:void(0);" onclick="alert('Coming soon.')">Reserve</a>
+                                    @*@Html.ActionLink("Reserve", "ReserveBook", new { @id = this.Model.BookModelList[i].ID })*@
                                 }
                                 else
                                 {

@@ -28,7 +28,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Books Store", "Index", "BookManage", null, null)</li>
-                    <li>@Html.ActionLink("Rent Manage", "Index", "RentManage", null, null)</li>
+                    <li>
+                        @*@Html.ActionLink("Rent Manage", "Index", "RentManage", null, null)*@
+                        <a href="javascript:void(0);" onclick="alert('Coming soon.')">Rent Manage</a>
+                    </li>
                     <li>@Html.ActionLink("Account Manage", "Index", "AccountManage", null, null)</li>
                     <li>@Html.ActionLink("About", "About", "Home", null, null)</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", null, null)</li>
