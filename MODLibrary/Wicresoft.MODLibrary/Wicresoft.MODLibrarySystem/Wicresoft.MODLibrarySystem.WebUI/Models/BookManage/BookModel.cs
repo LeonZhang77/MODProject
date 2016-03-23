@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
+using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 using Wicresoft.MODLibrarySystem.Entity;
 using Wicresoft.MODLibrarySystem.Unity;
 
@@ -97,13 +99,29 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
             set;
         }
 
+        public bool IsAvaliableForSupport
+        {
+            get;
+            set;
+        }
+        public String Supports
+        {
+            get;
+            set;
+        }
+
+        public String Objections
+        {
+            get;
+            set;
+        }
         public bool IsAvaliable
         {
             get;
             set;
         }
 
-        public static BookModel GetViewModel(BookInfo bookInfo)
+        public static BookModel GetViewModel(BookInfo bookInfo, UserInfo userInfo)
         {
             BookModel model = new BookModel();
 
@@ -135,6 +153,12 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
 
             model.IsAvaliable = bookInfo.Avaliable_Inventory > 0 ? true : false;
 
+            ISupportAndObjectionInfoDataProvider dataProvider = new SupportAndObjectionInfoDataProvider();
+            
+            model.IsAvaliableForSupport = dataProvider.GetCount(bookInfo, true, userInfo) >= 1 ? false : true;
+            model.Supports = dataProvider.GetCount(bookInfo, true).ToString();
+            model.Objections = dataProvider.GetCount(bookInfo, false).ToString();
+            
             return model;
         }
 

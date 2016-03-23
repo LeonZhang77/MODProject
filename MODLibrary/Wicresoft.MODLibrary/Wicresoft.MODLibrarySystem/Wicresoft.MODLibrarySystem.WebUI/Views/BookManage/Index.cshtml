@@ -60,18 +60,18 @@
                         </tr>
                         <tr>
                             <th>
-                                MaxAvaliable
+                                <img width="30" height="30" src="~/Content/images/support.png" />
                             </th>
                             <td>
-                                @this.Model.BookModelList[i].Max_Inventory
+                                @this.Model.BookModelList[i].Supports
                             </td>
                         </tr>
                         <tr>
                             <th>
-                                PublishDate
+                                <img width="30" height="30" src="~/Content/images/objection.png" />
                             </th>
                             <td>
-                                @this.Model.BookModelList[i].Publish_Date
+                                @this.Model.BookModelList[i].Objections
                             </td>
                         </tr>
                         <tr>
@@ -103,8 +103,7 @@
                             <td colspan="3">
                                 @if (this.Model.BookModelList[i].IsAvaliable)
                                 {
-                                    <a href="javascript:void(0);" onclick="alert('Coming soon.')">Reserve</a>
-                                    @*@Html.ActionLink("Reserve", "ReserveBook", new { @id = this.Model.BookModelList[i].ID })*@
+                                    @Html.ActionLink("Reserve", "ReserveBook", new { @id = this.Model.BookModelList[i].ID })
                                 }
                                 else
                                 {

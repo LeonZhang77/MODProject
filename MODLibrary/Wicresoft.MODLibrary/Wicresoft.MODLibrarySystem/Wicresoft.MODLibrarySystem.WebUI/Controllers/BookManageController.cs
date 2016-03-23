@@ -12,7 +12,7 @@ using Wicresoft.MODLibrarySystem.WebUI.Models.BookManage;
 
 namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
 {
-    public class BookManageController : Controller
+    public class BookManageController : BaseController
     {
         public IBookInfoDataProvider IBookInfoDataProvider;
 
@@ -41,7 +41,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
 
             foreach (var item in paging.EntityList)
             {
-                model.BookModelList.Add(BookModel.GetViewModel(item));
+                model.BookModelList.Add(BookModel.GetViewModel(item, this.LoginUser()));
             }
 
             model.SearchBookName = bookName;
