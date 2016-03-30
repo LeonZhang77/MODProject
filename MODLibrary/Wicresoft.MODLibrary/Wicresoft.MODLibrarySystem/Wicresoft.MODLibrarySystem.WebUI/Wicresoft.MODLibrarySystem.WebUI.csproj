@@ -164,6 +164,8 @@
     <Compile Include="Models\BaseView\BaseViewModel.cs" />
     <Compile Include="Models\BookManage\BookManageIndexModel.cs" />
     <Compile Include="Models\BookManage\BookModel.cs" />
+    <Compile Include="Models\BookManage\DetailBookModel.cs" />
+    <Compile Include="Models\BookManage\DetailBooksModel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
     <Compile Include="Models\Login\LoginIndexModel.cs" />
     <Compile Include="Models\Register\RegisterIndexModule.cs" />
@@ -512,6 +514,7 @@
     <Content Include="Views\AccountManage\EditAccount.cshtml" />
     <Content Include="Views\BookManage\Index.cshtml" />
     <Content Include="Views\Shared\ConfrimDialog.cshtml" />
+    <Content Include="Views\BookManage\DetailOfTheBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

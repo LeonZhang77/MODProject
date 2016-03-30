@@ -63,11 +63,5 @@ namespace Wicresoft.MODLibrarySystem.DataAccess
             get;
             set;
         }
-
-        public DbSet<SupportAndObjectionInfo> SupportAndObjectionInfos
-        {
-            get;
-            set;
-        }
     }
 }

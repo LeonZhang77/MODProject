@@ -56,7 +56,6 @@
     <Compile Include="DataProvider\BorrowAndReturnRecordInfoDataProvider.cs" />
     <Compile Include="DataProvider\CategoryInfoDataProvider.cs" />
     <Compile Include="DataProvider\PublisherInfoDataProvider.cs" />
-    <Compile Include="DataProvider\SupportAndObjectionInfoDataProvider.cs" />
     <Compile Include="DataProvider\UserInfoDataProvider.cs" />
     <Compile Include="DBSource.cs" />
     <Compile Include="IDataProvider\IAuthorInfoDataProvider.cs" />
@@ -66,7 +65,6 @@
     <Compile Include="IDataProvider\IBorrowAndReturnRecordInfoDataProvider.cs" />
     <Compile Include="IDataProvider\ICategoryInfoDataProvider.cs" />
     <Compile Include="IDataProvider\IPublisherInfoDataProvider.cs" />
-    <Compile Include="IDataProvider\ISupportAndObjectionInfoDataProvider.cs" />
     <Compile Include="IDataProvider\IUserInfoDataProvider.cs" />
     <Compile Include="Migrations\201509170636584_InitialCreate.cs" />
     <Compile Include="Migrations\201509170636584_InitialCreate.Designer.cs">

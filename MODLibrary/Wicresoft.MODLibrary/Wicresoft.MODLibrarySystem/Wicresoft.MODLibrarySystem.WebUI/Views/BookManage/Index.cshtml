@@ -60,7 +60,11 @@
                         </tr>
                         <tr>
                             <th>
-                                <img width="30" height="30" src="~/Content/images/support.png" />
+                                @*@if (!item.IsUse)
+                                {
+                                    @Html.ActionLink("Delete", "DeleteBook", new { @id = item.ID }, new { onclick = "return bindConfrimDialog(this,'delete','a');" })
+                                }*@
+                                    <img width="30" height="30" src="~/Content/images/support.png" />
                             </th>
                             <td>
                                 @this.Model.BookModelList[i].Supports
@@ -100,7 +104,10 @@
                         </tr>
 
                         <tr>
-                            <td colspan="3">
+                            <td colspan="2">
+                                @Html.ActionLink("Detail", "DetailOfTheBook", new { @id = this.Model.BookModelList[i].ID })                                
+                            </td>
+                            <td >
                                 @if (this.Model.BookModelList[i].IsAvaliable)
                                 {
                                     @Html.ActionLink("Reserve", "ReserveBook", new { @id = this.Model.BookModelList[i].ID })

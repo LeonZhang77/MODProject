@@ -15,7 +15,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
     public class BookManageController : BaseController
     {
         public IBookInfoDataProvider IBookInfoDataProvider;
-
+        public IBookDetailInfoDataProvider IBookDetailInfoDataProvider;
         public BookManageController()
         {
             this.IBookInfoDataProvider = new BookInfoDataProvider();
@@ -60,6 +60,14 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
                 searchselectedID = model.SearchSelectedID,
                 isAvaliable = model.IsAvaliable
             });
+        }
+
+        public ActionResult DetailOfTheBook(long id)
+        {
+            //DetailBookModel detailBookModel = new DetailBookModel();
+            BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
+            DetailBookModel detailBookModel = DetailBookModel.GetViewModel(bookInfo, this.LoginUser());
+            return View(detailBookModel);
         }
     }
 }
