@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "DetailOfTheBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Wicresoft.MODLibrarySystem.Unity;
+@model Wicresoft.MODLibrarySystem.WebUI.Models.BookManage.DetailBookModel
+<h2>BookDetail</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.ID)
+    <div class="jumbotron" style="height:600px;">
+        <div style="width:50%;float:left">
+            <table>
+                <caption>Detail Of The Book</caption>
+                <tbody>
+                    <tr>
+                        <th>BookName</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.BookName, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>ISBN</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.ISBN, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Publish_Date</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Publish_Date, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Avaliable_Inventory</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Avaliable_Inventory, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Max_Inventory</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Max_Inventory, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Price_Inventory</th>
+                        <td>
+                            @Html.TextBoxFor(b => b.Price_Inventory, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>PublisherName</th>
+                        <td>
+                            @Html.TextAreaFor(b => b.PublisherName, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>AuthorName</th>
+                        <td>
+                            @Html.TextAreaFor(b => b.AuthorName, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>CategoryName</th>
+                        <td>
+                            @Html.TextAreaFor(b => b.CatagoryName, new { @readonly = "readonly" })
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            @Html.ActionLink("Back", "Index")
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div style="width:50%;float:left;">
+            <table>
+                <caption>Books In the Warehouse</caption>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        InstoreTime
+                    </th>
+                    <th>
+                        Owner
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>
+                        Operation
+                    </th>
+                </tr>
+                @foreach (var item in @Model.BookDetailList)
+                {
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.Storage_Time</td>
+                        <td>@item.Owner</td>
+                        <td>@item.Status</td>
+                        <td>
+                            @if (this.Model.IsAvaliable)
+                            {
+                                @Html.ActionLink("Reserve", "ReserveBook")
+                            }
+                        </td>
+                    </tr>
+                }
+                <tfoot>
+                    <tr>
+                        <th>
+                            <img width="30" height="30" src="~/Content/images/support.png" />
+                        </th>
+                        <td>
+                            @this.Model.Supports
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            <img width="30" height="30" src="~/Content/images/objection.png" />
+                        </th>
+                        <td>
+                            @this.Model.Objections
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+}
+
+
