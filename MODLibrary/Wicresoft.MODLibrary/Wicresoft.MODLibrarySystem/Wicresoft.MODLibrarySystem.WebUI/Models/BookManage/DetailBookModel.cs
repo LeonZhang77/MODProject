@@ -10,7 +10,7 @@ using Wicresoft.MODLibrarySystem.Unity;
 
 namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
 {
-    
+
     public class DetailBookModel : BookModel
     {
         public DetailBookModel()
@@ -58,11 +58,10 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
             model.IsAvaliable = bookInfo.Avaliable_Inventory > 0 ? true : false;
 
             //ISupportAndObjectionInfoDataProvider dataProvider = new SupportAndObjectionInfoDataProvider();
-
             //model.IsAvaliableForSupport = dataProvider.GetCount(bookInfo, true, userInfo) >= 1 ? false : true;
             //model.Supports = dataProvider.GetCount(bookInfo, true).ToString();
             //model.Objections = dataProvider.GetCount(bookInfo, false).ToString();
-
+            //waiting for DB is ready.
             model.IsAvaliableForSupport = true;
             model.Supports = Convert.ToInt32(3).ToString(); ;
             model.Objections = Convert.ToInt32(5).ToString();

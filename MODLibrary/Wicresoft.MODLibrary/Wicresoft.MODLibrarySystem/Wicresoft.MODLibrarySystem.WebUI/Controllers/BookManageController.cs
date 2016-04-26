@@ -62,6 +62,26 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             });
         }
 
+        public ActionResult SupportBook(long id)
+        {
+            //waiting for DB, should add 1 record in supportAndObjection table.     
+            //book.id = id; user = this.loginUser(); SupportOrObjection = true;
+            BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
+            DetailBookModel detailBookModel = DetailBookModel.GetViewModel(bookInfo, this.LoginUser());
+            //search DB and redirect to Detail Of the book again.            
+            return RedirectToAction("DetailOfTheBook", detailBookModel);
+        }
+
+        public ActionResult ObjectionToBook(long id)
+        {
+            //waiting for DB, should add 1 record in supportAndObjection table.
+            //book.id = id; user = this.loginUser(); SupportOrObjection = false;
+            BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
+            DetailBookModel detailBookModel = DetailBookModel.GetViewModel(bookInfo, this.LoginUser());
+            //search DB and redirect to Detail Of the book again.     
+            return RedirectToAction("DetailOfTheBook", detailBookModel);
+        }
+
         public ActionResult DetailOfTheBook(long id)
         {
             //DetailBookModel detailBookModel = new DetailBookModel();

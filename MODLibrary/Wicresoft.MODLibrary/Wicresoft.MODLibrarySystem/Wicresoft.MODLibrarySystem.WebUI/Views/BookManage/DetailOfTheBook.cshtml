@@ -78,47 +78,61 @@
             </table>
         </div>
         <div style="width:50%;float:left;">
-            <table>
-                <caption>Books In the Warehouse</caption>
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        InstoreTime
-                    </th>
-                    <th>
-                        Owner
-                    </th>
-                    <th>
-                        Status
-                    </th>
-                    <th>
-                        Operation
-                    </th>
-                </tr>
-                @foreach (var item in @Model.BookDetailList)
-                {
+            <div>
+                <table>
+                    <caption>Books In the Warehouse</caption>
                     <tr>
-                        <td>@item.ID</td>
-                        <td>@item.Storage_Time</td>
-                        <td>@item.Owner</td>
-                        <td>@item.Status</td>
-                        <td>
-                            @if (this.Model.IsAvaliable)
-                            {
-                                @Html.ActionLink("Reserve", "ReserveBook")
-                            }
-                        </td>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            InstoreTime
+                        </th>
+                        <th>
+                            Owner
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Operation
+                        </th>
                     </tr>
-                }
-                <tfoot>
+                    @foreach (var item in @Model.BookDetailList)
+                    {
+                        <tr>
+                            <td>@item.ID</td>
+                            <td>@item.Storage_Time</td>
+                            <td>@item.Owner</td>
+                            <td>@item.Status</td>
+                            <td>
+                                @if (this.Model.IsAvaliable)
+                                {
+                                    @Html.ActionLink("Reserve", "ReserveBook")
+                                }
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div style="width:100%;float:left">
+                <span>-----------------</span>
+            </div>
+            <div>
+                <table>
+                    <caption>Feedback of this book</caption>
                     <tr>
                         <th>
                             <img width="30" height="30" src="~/Content/images/support.png" />
                         </th>
-                        <td>
+                        <td width="60">
                             @this.Model.Supports
+                        </td>
+                        <td width="100">
+                            @if (this.Model.IsAvaliableForSupport)
+                            {
+                                @Html.ActionLink("Like it!", "SupportBook", new { @id = this.Model.ID })
+                            }
                         </td>
                     </tr>
                     <tr>
@@ -128,9 +142,15 @@
                         <td>
                             @this.Model.Objections
                         </td>
+                        <td>
+                            @if (this.Model.IsAvaliableForSupport)
+                            {
+                                @Html.ActionLink("Don't Like it!", "ObjectionToBook", new { @id = this.Model.ID })
+                            }
+                        </td>
                     </tr>
-                </tfoot>
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 }
