@@ -51,5 +51,9 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
 
             return View();
         }
+        public ActionResult MemberHelper()
+        {
+            return View();
+        }
     }
 }

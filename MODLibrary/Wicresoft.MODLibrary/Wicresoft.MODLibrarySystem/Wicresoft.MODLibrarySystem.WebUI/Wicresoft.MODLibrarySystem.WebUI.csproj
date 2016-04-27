@@ -165,7 +165,6 @@
     <Compile Include="Models\BookManage\BookManageIndexModel.cs" />
     <Compile Include="Models\BookManage\BookModel.cs" />
     <Compile Include="Models\BookManage\DetailBookModel.cs" />
-    <Compile Include="Models\BookManage\DetailBooksModel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
     <Compile Include="Models\Login\LoginIndexModel.cs" />
     <Compile Include="Models\Register\RegisterIndexModule.cs" />
@@ -178,6 +177,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\DefaultPic.jpg" />
     <Content Include="Content\images\loading_16_16.gif" />
+    <Content Include="Content\images\memberLevel.jpg" />
     <Content Include="Content\images\objection.png" />
     <Content Include="Content\images\support.png" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -242,6 +242,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
+    <Content Include="Content\themes\base\HelperStyleSheet.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -514,7 +515,8 @@
     <Content Include="Views\AccountManage\EditAccount.cshtml" />
     <Content Include="Views\BookManage\Index.cshtml" />
     <Content Include="Views\Shared\ConfrimDialog.cshtml" />
-    <Content Include="Views\BookManage\DetailOfTheBook.cshtml" />
+    <Content Include="Views\Home\MemberHelper.cshtml" />
+    <Content Include="Views\BookManage\DetailTheBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

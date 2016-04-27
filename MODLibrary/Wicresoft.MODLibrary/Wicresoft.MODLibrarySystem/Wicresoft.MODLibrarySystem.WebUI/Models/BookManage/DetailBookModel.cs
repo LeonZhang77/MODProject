@@ -15,13 +15,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
     {
         public DetailBookModel()
         {
-            this.BookDetailList = new List<DetailBooksModel>();
-        }
-
-        public List<DetailBooksModel> BookDetailList
-        {
-            get;
-            set;
+            
         }
 
         public static DetailBookModel GetViewModel(BookInfo bookInfo, UserInfo userInfo)
@@ -65,12 +59,6 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
             model.IsAvaliableForSupport = true;
             model.Supports = Convert.ToInt32(3).ToString(); ;
             model.Objections = Convert.ToInt32(5).ToString();
-
-            List<BookDetailInfo> books = iBookDetailInfoDataProvider.GetBookDetailList().Where(b => b.BookInfo.ID == bookInfo.ID).ToList();
-            foreach (var item in books)
-            {
-                model.BookDetailList.Add(DetailBooksModel.GetViewModel(item));
-            }
 
             return model;
         }

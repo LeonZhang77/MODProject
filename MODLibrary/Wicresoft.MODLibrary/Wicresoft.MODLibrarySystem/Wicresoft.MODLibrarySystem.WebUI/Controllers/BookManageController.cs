@@ -69,7 +69,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
             DetailBookModel detailBookModel = DetailBookModel.GetViewModel(bookInfo, this.LoginUser());
             //search DB and redirect to Detail Of the book again.            
-            return RedirectToAction("DetailOfTheBook", detailBookModel);
+            return RedirectToAction("DetailTheBook", new { id = id });
         }
 
         public ActionResult ObjectionToBook(long id)
@@ -79,10 +79,10 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
             DetailBookModel detailBookModel = DetailBookModel.GetViewModel(bookInfo, this.LoginUser());
             //search DB and redirect to Detail Of the book again.     
-            return RedirectToAction("DetailOfTheBook", detailBookModel);
+            return RedirectToAction("DetailTheBook", new { id = id});
         }
 
-        public ActionResult DetailOfTheBook(long id)
+        public ActionResult DetailTheBook(long id)
         {
             //DetailBookModel detailBookModel = new DetailBookModel();
             BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
