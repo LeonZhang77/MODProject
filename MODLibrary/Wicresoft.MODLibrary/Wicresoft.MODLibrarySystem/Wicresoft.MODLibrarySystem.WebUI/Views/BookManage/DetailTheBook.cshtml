@@ -4,7 +4,7 @@
 }
 @using Wicresoft.MODLibrarySystem.Unity;
 @model Wicresoft.MODLibrarySystem.WebUI.Models.BookManage.DetailBookModel
-@Scripts.Render("~/Scripts/ui/jquery-ui.js")
+<script type="text/javascript" src="~/Scripts/BookManageJS/DetailTheBook.js"></script>
 
 
 <h2>BookDetail</h2>
@@ -75,11 +75,10 @@
                             <img width="30" height="30" src="~/Content/images/support.png" />
                         </th>
                         <td width="60">
-                            @this.Model.Supports
+                            <label id="Supports">@this.Model.Supports</label>
                             @if (this.Model.IsAvaliableForSupport)
                             {
-                                @*@Html.ActionLink("Like it!", "SupportBook", new { @id = this.Model.ID })*@
-                                 <a herf="@Url.Action("SupportBook", "BookManager", new { @id = this.Model.ID })">Like it!</a>
+                                <a herf= "#" onclick="support(@this.Model.ID)">Like it!</a>
                             }
                         </td>
                     </tr>
@@ -88,10 +87,10 @@
                             <img width="30" height="30" src="~/Content/images/objection.png" />
                         </th>
                         <td>
-                            @this.Model.Objections
+                            <label id="Objections">@this.Model.Objections</label>
                             @if (this.Model.IsAvaliableForSupport)
                             {
-                                @Html.ActionLink("Don't Like it!", "ObjectionToBook", new { @id = this.Model.ID })
+                                <a herf="#" onclick="objection(@this.Model.ID)">Like it!</a>
                             }
                         </td>                       
                     </tr>
