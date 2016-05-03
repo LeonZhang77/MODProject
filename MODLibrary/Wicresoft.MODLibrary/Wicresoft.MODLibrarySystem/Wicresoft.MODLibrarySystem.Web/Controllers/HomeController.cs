@@ -56,5 +56,10 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
 
             return View();
         }
+
+        public ActionResult MemberHelper()
+        {
+            return View();
+        }
     }
 }
