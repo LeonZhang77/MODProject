@@ -1,0 +1,201 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MemberHelper</title>
+    <link href="~/Content/HelperStyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="out">
+        <h1>帮助</h1>
+        <p>
+            <h2>
+                会员级别介绍
+            </h2>
+        </p>
+
+        <div class="in">
+            <h3>
+                一、会员级别图示
+            </h3>
+            <img src="~/Content/images/memberLevel.jpg"/>
+
+            <ul>
+                <li>MOD Library的会员级别共分为4个等级，分别为：铜牌会员、银牌会员、金牌会员、钻石会员。</li>
+                <li>会员级别的升降均由系统自动处理，无需申请。</li>
+                <li>会员级别由积分决定，积分越高会员等级越高，享受到的会员权益越大。</li>
+            </ul>
+        </div>
+
+        <div class="in">
+            <h3>二、会员级别规则及享有服务</h3>
+            <dl>
+                <dd>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>会员级别</th>
+                                <th>积分</th>
+                                <th>会员有效期</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="dark1">
+                                <td>铜牌会员</td>
+                                <td>0-50</td>
+                                <td>永久有效</td>
+                            </tr>
+                            <tr class="dark2">
+                                <td>银牌会员</td>
+                                <td>51-200</td>
+                                <td>永久有效</td>
+                            </tr>
+                            <tr class="dark3">
+                                <td>金牌会员</td>
+                                <td>200-无上限</td>
+                                <td>永久有效</td>
+                            </tr>
+                            <tr class="dark1">
+                                <td>钻石会员</td>
+                                <td>累计捐书3本</td>
+                                <td>有效期一年，一年后根据积分剩余重新计算级别</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </dd>
+            </dl>
+            <dl>
+                <dd>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>会员特权</th>
+                                <th>铜牌会员</th>
+                                <th>银牌会员</th>
+                                <th>金牌会员</th>
+                                <th>钻石会员</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="dark1">
+                                <td>数量</td>
+                                <td>同时借书两本</td>
+                                <td>同时借书两本</td>
+                                <td>同时借书三本</td>
+                                <td>同时借书五本</td>
+                            </tr>
+                            <tr class="dark2">
+                                <td>时间</td>
+                                <td>一个月</td>
+                                <td>一个月</td>
+                                <td>一个月</td>
+                                <td>两个月</td>
+                            </tr>
+                            <tr class="dark3">
+                                <td>续借</td>
+                                <td>可续借一本一次</td>
+                                <td>可续借一本一次</td>
+                                <td>每本可续借一次</td>
+                                <td>每本可续借一次</td>
+                            </tr>
+                            <tr class="dark1">
+                                <td>预约</td>
+                                <td>可预约</td>
+                                <td>可预约</td>
+                                <td>可预约</td>
+                                <td>预约优先</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </dd>
+            </dl>
+        </div>
+
+        <div class="in">
+            <h3>三、图书馆具体规则</h3>
+
+            <h4>1， 逾期规则：<br /></h4>
+            <ul type="a">
+                <li>
+                    超过7天还书视为逾期，逾期需扣除积分（扣除计算： 2积分 * 逾期天数（逾期后的第一个周三算起））；
+                </li>
+                <li>
+                    若积分为0，则暂时取消借阅资格，需到管理员处消除记录；
+                </li>
+                <li>
+                    若逾期超过一个月，该图书将视为遗失，将强制归还，积分归0，并缴纳相应费用。
+                </li>
+            </ul>
+            <h4>2，	积分规则：<br /></h4>
+            <ul type="a">
+                <li>
+                    注册新用户，可获取5积分，成为铜牌会员；
+                </li>
+                <li>
+                    借一本书，可获取5积分，积分累计超过50，可升为银牌会员；
+                </li>
+                <li>
+                    积分累计超过200积分，可升为金牌会员；
+                </li>
+                <li>
+                    捐一本书，可获取20积分，累计捐书3本，可升为钻石会员；
+                </li>
+                <li>
+                    逾期归还将会扣除相应积分，若积分为0，则暂时取消借阅资格；
+                </li>
+                <li>
+                    申请通过，若周三没有主动领取所借书籍，将扣除2积分。
+                </li>
+            </ul>
+            <h4>3，	 书籍管理：<br /></h4>
+            <ul type="a">
+                <li>
+                    如污损情况不影响阅读者，须修补完整后归还；
+                </li>
+                <li>
+                    若污损情况严重，须赔偿污损书籍相对应的金额或自行购买此书归还。
+                </li>
+                <li>
+                    读者遗失图书需在应还日期之前向管理员挂失并在报告后的两周之内办理图书赔偿。
+                </li>
+                <li>
+                    若图书遗失，读者可首先选择购买同版或再版的正版原书赔偿，若无法买到，赔偿原书两倍赔偿。
+                </li>
+                <li>
+                    遗失图书超期，也应交付逾期费用。
+                </li>
+            </ul>
+            <h4>4，	预约规则：<br /></h4>
+            <ul type="a">
+                <li>
+                    预约图书到馆后保留7天；
+                </li>
+                <li>
+                    若读者有图书超期，或积分为零，将不能预约；
+                </li>
+            </ul>
+            <h4>5，	续借规则：<br /></h4>
+            <ul type="a">
+                <li>
+                    各类读者均可办理一次续借，续借期限为30天；
+                </li>
+                <li>
+                    图书续借只能在所借图书到期日前5天内办理，不可提前续借；
+                </li>
+                <li>
+                    过期图书不能办理续借；
+                </li>
+            </ul>
+            <p><span class="small">以上规则，最终解释权归MOD Library 所有。</span></p>
+        </div>
+    </div>
+</body>
+
+</html>
