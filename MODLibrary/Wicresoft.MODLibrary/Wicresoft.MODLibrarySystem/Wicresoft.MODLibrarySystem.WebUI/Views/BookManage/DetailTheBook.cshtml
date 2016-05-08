@@ -78,7 +78,7 @@
                             <label id="Supports">@this.Model.Supports</label>
                             @if (this.Model.IsAvaliableForSupport)
                             {
-                                <a herf= "#" onclick="support(@this.Model.ID)">Like it!</a>
+                                <a id="SupportsActionLink" herf="#" onclick = "bindSOOConfirmDialog(this, @this.Model.ID, 'supports')">Like it!</a>
                             }
                         </td>
                     </tr>
@@ -90,7 +90,7 @@
                             <label id="Objections">@this.Model.Objections</label>
                             @if (this.Model.IsAvaliableForSupport)
                             {
-                                <a herf="#" onclick="objection(@this.Model.ID)">Like it!</a>
+                                <a id="ObjectionsActionLink" herf="#" onclick = "bindSOOConfirmDialog(this, @this.Model.ID, 'objections')">Don't Like it!</a>
                             }
                         </td>                       
                     </tr>
@@ -108,5 +108,11 @@
         </div>
     </div>
 }
+
+<div id="supportOrObjection-dialog-confirm" title="Support Or Objection?" style="display: none">
+    <p>
+        You Only have ONE chance. Are you sure?
+    </p>
+</div>
 
 
