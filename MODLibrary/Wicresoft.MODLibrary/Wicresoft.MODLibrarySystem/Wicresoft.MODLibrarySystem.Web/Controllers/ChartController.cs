@@ -4,68 +4,89 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wicresoft.MODLibrarySystem.Web.Models;
+using Wicresoft.MODLibrarySystem.Entity;
+using Wicresoft.MODLibrarySystem.Entity.Condition;
+using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
+using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
 
 namespace Wicresoft.MODLibrarySystem.Web.Controllers
 {
     public class ChartController : Controller
     {
+        private ICategoryInfoDataProvider ICategoryInfoDataProvider;
+        private IBookInfoDataProvider IBookInfoDataProvider;
 
+        public ChartController()
+        {
+            this.ICategoryInfoDataProvider = new CategoryInfoDataProvider();
+            this.IBookInfoDataProvider = new BookInfoDataProvider();
+        }
         public ActionResult Demo()
         {
+            
             return View();
         }
-        public JsonResult GetDemoLineChartJson()
+
+        private class BookCountByCategory
         {
-            _getLineChartModelMethod = () =>
-            {
-                return new LabelAndDataForChart()
-                {
-                    XLabels = new string[] { "Lip", "Chang" },
-                    YData = new int[] { 0, 100 }
-                };
-            };
-            return Json(_getLineChartModelMethod(), JsonRequestBehavior.AllowGet);
+            public long ParenetID;
+            public long CategoryID;
+            public int count;
         }
 
-        public JsonResult GetDemoPieChartJson()
+        private class returnListFordoughnut
         {
-            _getPieChartModelMethod = () =>
-            {
-                return new DataAndColorForChart[]
-                {
-                    new DataAndColorForChart()
-                    {
-                        value=50,
-                        color="#F38630",
-                        highlight="#616774",
-                        label="Chang"
-                    },
-                    new DataAndColorForChart()
-                    {
-                        value =50,
-                        color="#E0E4CC",
-                        highlight="#E0E4CC",
-                        label="Lip"
-                    }
-                };
-            };
-            return Json(_getPieChartModelMethod(), JsonRequestBehavior.AllowGet);
+            public int value;
+            public string color;
         }
+        public JsonResult GetJSONForDoughnut()
+        {
+            List<returnListFordoughnut> returnList = null;
+            List<BookCountByCategory> countList = null;
+            List<CategoryInfo> allCategories = this.ICategoryInfoDataProvider.GetCategoryList().ToList<CategoryInfo>();
+            foreach (CategoryInfo categoryInfo in allCategories)
+            {
+                Entity.Condition.BookInfo.BookInfoCondition condition =
+                    new Entity.Condition.BookInfo.BookInfoCondition();
+                condition.CategoryID = categoryInfo.ID;
+                int count = this.IBookInfoDataProvider.GetBookList(condition).Count();
+                BookCountByCategory temp = new BookCountByCategory();
+                if (categoryInfo.ParentCategoryInfo == null)
+                {
+                    temp.ParenetID = 0;
+                }
+                else
+                {
+                    temp.ParenetID = categoryInfo.ParentCategoryInfo.ID;
+                }
+                temp.CategoryID = categoryInfo.ID;
+                temp.count = count;
+                countList.Add(temp);
+            }
 
-        #region Base
-        /// <summary>
-        /// Delegate of get line chart model method.
-        /// </summary>
-        Func<LabelAndDataForChart> _getLineChartModelMethod;
+            for (int i = countList.Count - 1; i >= 0; i--)
+            {
+                if (countList[i].ParenetID != 0)
+                {
+                    BookCountByCategory parenetCountItem = countList.Find(
+                        delegate(BookCountByCategory countItem)
+                        {
+                            return countItem.CategoryID == countList[i].ParenetID;
+                        });
+                    parenetCountItem.count += countList[i].count;
+                    countList.Remove(countList[i]);
+                }
+            }
 
-        /// <summary>
-        /// Delegate of get pie chart model method.
-        /// </summary>
-        Func<DataAndColorForChart[]> _getPieChartModelMethod;
+            foreach (BookCountByCategory countItem in countList)
+            {
+                returnListFordoughnut returnItem = new returnListFordoughnut();
+                returnItem.value = countItem.count;
+                returnItem.color = "";
+                returnList.Add(returnItem);
+            }           
 
-
-
-
-        #endregion
+            return Json(returnList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

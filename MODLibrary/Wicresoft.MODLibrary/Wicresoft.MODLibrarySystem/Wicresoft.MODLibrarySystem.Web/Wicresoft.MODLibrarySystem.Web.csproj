@@ -173,7 +173,7 @@
     <Compile Include="Models\CategroyManage\CategoryManageIndexModel.cs" />
     <Compile Include="Models\CategroyManage\CategoryModel.cs" />
     <Compile Include="Models\CategroyManage\EasyCategoryModel.cs" />
-    <Compile Include="Models\ChartModel.cs" />
+    <Compile Include="Models\Chart\ChartModel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
     <Compile Include="Models\Login\LoginIndexModel.cs" />
     <Compile Include="Models\PublisherManage\PublisherManageIndexModel.cs" />
@@ -278,6 +278,7 @@
     <Content Include="Scripts\CategoryManageJS\AddCategory.js" />
     <Content Include="Scripts\CategoryManageJS\EditCategory.js" />
     <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\ChartJS\Demo.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
