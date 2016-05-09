@@ -520,6 +520,7 @@
     <Content Include="Views\BookManage\EditBooks.cshtml" />
     <Content Include="Views\Home\MemberHelper.cshtml" />
     <Content Include="Views\Chart\Demo.cshtml" />
+    <Content Include="Views\Chart\DoughnutChart.cshtml" />
     <None Include="Views\UserManage\DetailUser.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

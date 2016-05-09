@@ -3,32 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Wicresoft.MODLibrarySystem.Web.Models
+namespace Wicresoft.MODLibrarySystem.Web.Models.Chart
 {
-    /// <summary>
-    /// Chart data model for those types:
-    /// Polar area
-    /// Pie
-    /// Doughnut
-    /// </summary>
-    public class DataAndColorForChart
+    public class BookCountByCategory
     {
-        public int value { get; set; }
-        public string color { get; set; }
-        public string highlight { get; set; }
-        public string label { get; set; }
+        public long ParenetID;
+        public long CategoryID;
+        public int count;
     }
 
-    /// <summary>
-    /// Chart data model for those types:
-    /// Line
-    /// Bar
-    /// Radar
-    /// </summary>
-    public class LabelAndDataForChart
+    public class returnListFordoughnut
     {
-        public string[] XLabels { get; set; }
-        public int[] YData { get; set; }
-        public int[] YData2 { get; set; }
+        public int value;
+        public string color;
     }
+    
+    public class ChartModel : BaseIndexListModel<returnListFordoughnut>
+    {
+        public List<returnListFordoughnut> forDoughnutList
+        {
+            get;
+            set;
+        }
+    }    
 }

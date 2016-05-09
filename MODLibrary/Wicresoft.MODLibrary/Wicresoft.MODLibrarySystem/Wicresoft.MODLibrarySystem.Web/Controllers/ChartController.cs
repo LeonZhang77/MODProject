@@ -4,10 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Wicresoft.MODLibrarySystem.Web.Models;
+using Wicresoft.MODLibrarySystem.Web.Models.Chart;
 using Wicresoft.MODLibrarySystem.Entity;
 using Wicresoft.MODLibrarySystem.Entity.Condition;
 using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
+using Wicresoft.MODLibrarySystem.Unity;
+
 
 namespace Wicresoft.MODLibrarySystem.Web.Controllers
 {
@@ -16,33 +19,29 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         private ICategoryInfoDataProvider ICategoryInfoDataProvider;
         private IBookInfoDataProvider IBookInfoDataProvider;
 
+        
         public ChartController()
         {
             this.ICategoryInfoDataProvider = new CategoryInfoDataProvider();
             this.IBookInfoDataProvider = new BookInfoDataProvider();
         }
+
         public ActionResult Demo()
         {
-            
             return View();
         }
 
-        private class BookCountByCategory
+        public ActionResult DoughnutChart()
         {
-            public long ParenetID;
-            public long CategoryID;
-            public int count;
+            ChartModel model = new ChartModel();
+            model.forDoughnutList = GetListForDoughnut();
+            return View(model);
         }
 
-        private class returnListFordoughnut
+        public List<returnListFordoughnut> GetListForDoughnut()
         {
-            public int value;
-            public string color;
-        }
-        public JsonResult GetJSONForDoughnut()
-        {
-            List<returnListFordoughnut> returnList = null;
-            List<BookCountByCategory> countList = null;
+            List<returnListFordoughnut> returnList = new List<returnListFordoughnut>();
+            List<BookCountByCategory> countList = new List<BookCountByCategory>();
             List<CategoryInfo> allCategories = this.ICategoryInfoDataProvider.GetCategoryList().ToList<CategoryInfo>();
             foreach (CategoryInfo categoryInfo in allCategories)
             {
@@ -82,10 +81,16 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             {
                 returnListFordoughnut returnItem = new returnListFordoughnut();
                 returnItem.value = countItem.count;
-                returnItem.color = "";
+                returnItem.color = Unity.Helper.ColorUnity.GetRandomColor();
                 returnList.Add(returnItem);
-            }           
+            }
 
+            return returnList;
+        }
+        public JsonResult GetJSONForDoughnut()
+        {
+            List<returnListFordoughnut> returnList = new List<returnListFordoughnut>();
+            returnList = GetListForDoughnut();
             return Json(returnList, JsonRequestBehavior.AllowGet);
         }
     }
