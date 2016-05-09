@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Scripts.Render("~/Scripts/Chart.js")
+
+<div class="jumbotron">
+    <div>
+        <p>
+            <br />
+        </p>
+        <h2>颜值</h2>
+        <canvas id="myChart" height="500" width="800"></canvas>
+    </div>
+    <script>
+        $(document).ready(function () {
+            //Only need to alter url.
+            var url = 'http://localhost:60728/chart/GetDemoLineChartJson';
+
+            var xdata = [];
+            var ydata = [];
+            $.getJSON(url, null, function (data) {
+                xdata = data.XLabels
+                ydata = data.YData;
+            }).done(function () {
+                var lineChartData = {
+                    labels: xdata,
+                    datasets: [
+                        {
+                            label: "颜值表",
+                            fillColor: "rgba(151,187,205,0.5)",
+                            strokeColor: "rgba(151,187,205,1)",
+                            pointColor: "rgba(151,187,205,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#ff0",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: ydata
+                        }
+                    ]
+                }
+
+                var ctx = document.getElementById("myChart").getContext("2d");
+                new Chart(ctx).Line(lineChartData, {
+                    maintainAspectRatio: true,
+                    responsive: true
+                });
+            });
+        });
+    </script>
+</div>

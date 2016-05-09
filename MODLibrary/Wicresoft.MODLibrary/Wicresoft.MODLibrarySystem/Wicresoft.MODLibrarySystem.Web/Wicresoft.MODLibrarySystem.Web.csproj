@@ -153,6 +153,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BookManageController.cs" />
     <Compile Include="Controllers\CategoryManageController.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PublisherManageController.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="Models\CategroyManage\CategoryManageIndexModel.cs" />
     <Compile Include="Models\CategroyManage\CategoryModel.cs" />
     <Compile Include="Models\CategroyManage\EasyCategoryModel.cs" />
+    <Compile Include="Models\ChartModel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
     <Compile Include="Models\Login\LoginIndexModel.cs" />
     <Compile Include="Models\PublisherManage\PublisherManageIndexModel.cs" />
@@ -275,6 +277,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\CategoryManageJS\AddCategory.js" />
     <Content Include="Scripts\CategoryManageJS\EditCategory.js" />
+    <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -515,6 +518,7 @@
     <Content Include="Views\Shared\ConfrimDialog.cshtml" />
     <Content Include="Views\BookManage\EditBooks.cshtml" />
     <Content Include="Views\Home\MemberHelper.cshtml" />
+    <Content Include="Views\Chart\Demo.cshtml" />
     <None Include="Views\UserManage\DetailUser.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
