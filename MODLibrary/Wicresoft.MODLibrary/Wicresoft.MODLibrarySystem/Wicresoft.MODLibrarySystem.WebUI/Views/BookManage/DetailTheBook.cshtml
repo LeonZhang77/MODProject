@@ -75,7 +75,7 @@
                             <img width="30" height="30" src="~/Content/images/support.png" />
                         </th>
                         <td width="60">
-                            <label id="Supports">@this.Model.Supports</label>
+                            <label id="Supports" requsturl="@Url.Action("SupportOrObjectionBook", "BookManage")">@this.Model.Supports</label>
                             @if (this.Model.IsAvaliableForSupport)
                             {
                                 <a id="SupportsActionLink" herf="#" onclick = "bindSOOConfirmDialog(this, @this.Model.ID, 'supports')">Like it!</a>
@@ -87,7 +87,7 @@
                             <img width="30" height="30" src="~/Content/images/objection.png" />
                         </th>
                         <td>
-                            <label id="Objections">@this.Model.Objections</label>
+                            <label id="Objections" requsturl="@Url.Action("SupportOrObjectionBook", "BookManage")">@this.Model.Objections</label>
                             @if (this.Model.IsAvaliableForSupport)
                             {
                                 <a id="ObjectionsActionLink" herf="#" onclick = "bindSOOConfirmDialog(this, @this.Model.ID, 'objections')">Don't Like it!</a>

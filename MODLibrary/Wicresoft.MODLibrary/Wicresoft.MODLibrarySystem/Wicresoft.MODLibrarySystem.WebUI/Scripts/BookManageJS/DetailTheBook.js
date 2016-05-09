@@ -31,13 +31,42 @@ var bindSOOConfirmDialog = function (obj, i, dSOOWType) {
 
 function doSOOWork() {
     if (_doSOOWorkType == "supports") {
-        var supportVal = document.getElementById("Supports");
-        supportVal.innerText = supportVal.innerText / 1 + 1;
+        $(function()
+        {$.ajax(
+            {
+                url: $("#Supports").attr("requstUrl"),
+                data: {q: _id, flag: "true"},
+                success: function (data) {
+                    if (data == "true") {
+                        var supportVal = document.getElementById("Supports");
+                        supportVal.innerText = supportVal.innerText / 1 + 1;
+                        HideSOOLinks();
+                    }
+                }
+            })
+        });        
     }
     else {
-        var objectionVal = document.getElementById("Objections");
-        objectionVal.innerText = objectionVal.innerText / 1 - 1;
+        $(function () {
+            $.ajax(
+               {
+                   url: $("#Objections").attr("requstUrl"),
+                   data: { q: _id, flag: "false" },
+                   success: function (data) {
+                       if (data == "true") {
+                           var objectionVal = document.getElementById("Objections");
+                           objectionVal.innerText = objectionVal.innerText / 1 - 1;
+                           HideSOOLinks();
+                       }
+                   }
+               })
+        });
     }
-    $("#SupportsActionLink").hide();
-    $("#ObjectionsActionLink").hide();
+
+    function HideSOOLinks() {
+        $("#SupportsActionLink").hide();
+        $("#ObjectionsActionLink").hide();
+    }
 }
+
+
