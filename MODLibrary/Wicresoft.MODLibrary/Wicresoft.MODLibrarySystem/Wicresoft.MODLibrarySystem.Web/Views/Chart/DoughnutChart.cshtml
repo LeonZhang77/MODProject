@@ -3,23 +3,28 @@
 }
 
 @Scripts.Render("~/Scripts/Chart.js")
-@*@Scripts.Render("~/Scripts/ChartJS/Demo.js")*@
-@model Wicresoft.MODLibrarySystem.Web.Models.Chart.ChartModel
+@Scripts.Render("~/Scripts/ChartJS/DoughnutChart.js")
 
-<script>
-    var data = @this.Model.forDoughnutList;
-    var ctx = $("#myChart").get(0).getContext("2d");
-    var myNewChart = new Chart(ctx).PolarArea(_data);
-    new Chart(ctx).Doughnut(data, null);
-
-</script>
 
 <div class="jumbotron">
-    <div>
+    <div style="width:50%;float:left">
         <p>
             <br />
         </p>
-        <h2>DoughnutChart</h2>
-        <canvas id="myChart" height="400" width="500"></canvas>        
+        <h2>Demo</h2>
+        <canvas id="myChart" height="300" width="400" requesturl="@Url.Action("GetJSONForDoughnut", "Chart")"></canvas>
     </div>
+    <div style="width:50%;float:left">
+        <table>
+            <caption>Title/Color</caption>
+            <tbody>
+                <tr id="titleColorThRow">
+                    <th>Title</th>
+                    <th>Color</th>
+                    <th>Count</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>

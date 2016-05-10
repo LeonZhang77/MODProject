@@ -9,18 +9,20 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.Chart
     {
         public long ParenetID;
         public long CategoryID;
+        public string CategoryName;
         public int count;
     }
 
     public class returnListFordoughnut
     {
         public int value;
+        public string title;
         public string color;
     }
-    
-    public class ChartModel : BaseIndexListModel<returnListFordoughnut>
+
+    public class ChartModel : BaseIndexListModel<BookCountByCategory>
     {
-        public List<returnListFordoughnut> forDoughnutList
+        public List<BookCountByCategory> forDoughnutList
         {
             get;
             set;

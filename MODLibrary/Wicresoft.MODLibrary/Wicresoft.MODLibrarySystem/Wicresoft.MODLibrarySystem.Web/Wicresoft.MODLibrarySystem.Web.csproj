@@ -278,7 +278,7 @@
     <Content Include="Scripts\CategoryManageJS\AddCategory.js" />
     <Content Include="Scripts\CategoryManageJS\EditCategory.js" />
     <Content Include="Scripts\Chart.js" />
-    <Content Include="Scripts\ChartJS\Demo.js" />
+    <Content Include="Scripts\ChartJS\DoughnutChart.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -519,7 +519,6 @@
     <Content Include="Views\Shared\ConfrimDialog.cshtml" />
     <Content Include="Views\BookManage\EditBooks.cshtml" />
     <Content Include="Views\Home\MemberHelper.cshtml" />
-    <Content Include="Views\Chart\Demo.cshtml" />
     <Content Include="Views\Chart\DoughnutChart.cshtml" />
     <None Include="Views\UserManage\DetailUser.cshtml" />
     <Content Include="Web.config" />

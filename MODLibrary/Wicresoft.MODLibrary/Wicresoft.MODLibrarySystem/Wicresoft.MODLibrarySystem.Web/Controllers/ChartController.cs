@@ -26,21 +26,12 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             this.IBookInfoDataProvider = new BookInfoDataProvider();
         }
 
-        public ActionResult Demo()
+        public ActionResult DoughnutChart()
         {
             return View();
         }
-
-        public ActionResult DoughnutChart()
+        public List<BookCountByCategory> GetListForDoughnut()
         {
-            ChartModel model = new ChartModel();
-            model.forDoughnutList = GetListForDoughnut();
-            return View(model);
-        }
-
-        public List<returnListFordoughnut> GetListForDoughnut()
-        {
-            List<returnListFordoughnut> returnList = new List<returnListFordoughnut>();
             List<BookCountByCategory> countList = new List<BookCountByCategory>();
             List<CategoryInfo> allCategories = this.ICategoryInfoDataProvider.GetCategoryList().ToList<CategoryInfo>();
             foreach (CategoryInfo categoryInfo in allCategories)
@@ -59,6 +50,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
                     temp.ParenetID = categoryInfo.ParentCategoryInfo.ID;
                 }
                 temp.CategoryID = categoryInfo.ID;
+                temp.CategoryName = categoryInfo.CategoryName;
                 temp.count = count;
                 countList.Add(temp);
             }
@@ -77,20 +69,21 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
                 }
             }
 
+            return countList;
+        }
+        public JsonResult GetJSONForDoughnut()
+        {
+            List<BookCountByCategory> countList =  GetListForDoughnut();
+            List<returnListFordoughnut> returnList = new List<returnListFordoughnut>();
+            
             foreach (BookCountByCategory countItem in countList)
             {
                 returnListFordoughnut returnItem = new returnListFordoughnut();
                 returnItem.value = countItem.count;
+                returnItem.title = countItem.CategoryName;
                 returnItem.color = Unity.Helper.ColorUnity.GetRandomColor();
                 returnList.Add(returnItem);
             }
-
-            return returnList;
-        }
-        public JsonResult GetJSONForDoughnut()
-        {
-            List<returnListFordoughnut> returnList = new List<returnListFordoughnut>();
-            returnList = GetListForDoughnut();
             return Json(returnList, JsonRequestBehavior.AllowGet);
         }
     }
