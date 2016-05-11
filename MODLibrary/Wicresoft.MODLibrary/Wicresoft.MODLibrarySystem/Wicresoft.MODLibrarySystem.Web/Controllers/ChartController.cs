@@ -33,40 +33,24 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
         public List<BookCountByCategory> GetListForDoughnut()
         {
             List<BookCountByCategory> countList = new List<BookCountByCategory>();
-            List<CategoryInfo> allCategories = this.ICategoryInfoDataProvider.GetCategoryList().ToList<CategoryInfo>();
-            foreach (CategoryInfo categoryInfo in allCategories)
+            
+            List<CategoryInfo> allTopCategories = this.ICategoryInfoDataProvider.GetParentCategoryList().ToList();
+            
+            foreach (CategoryInfo topCategory in allTopCategories)
             {
-                Entity.Condition.BookInfo.BookInfoCondition condition =
-                    new Entity.Condition.BookInfo.BookInfoCondition();
-                condition.CategoryID = categoryInfo.ID;
-                int count = this.IBookInfoDataProvider.GetBookList(condition).Count();
                 BookCountByCategory temp = new BookCountByCategory();
-                if (categoryInfo.ParentCategoryInfo == null)
+                temp.CategoryID = topCategory.ID;
+                temp.CategoryName = topCategory.CategoryName;
+                temp.count = 0;
+                
+                List<CategoryInfo> groupCategories = 
+                    this.ICategoryInfoDataProvider.GetCategoryListByParentID(topCategory.ID).ToList();
+                groupCategories.Add(topCategory);
+                foreach(CategoryInfo categoryInfo in groupCategories)
                 {
-                    temp.ParenetID = 0;
+                    temp.count += categoryInfo.BookAndCategorys.Count();
                 }
-                else
-                {
-                    temp.ParenetID = categoryInfo.ParentCategoryInfo.ID;
-                }
-                temp.CategoryID = categoryInfo.ID;
-                temp.CategoryName = categoryInfo.CategoryName;
-                temp.count = count;
                 countList.Add(temp);
-            }
-
-            for (int i = countList.Count - 1; i >= 0; i--)
-            {
-                if (countList[i].ParenetID != 0)
-                {
-                    BookCountByCategory parenetCountItem = countList.Find(
-                        delegate(BookCountByCategory countItem)
-                        {
-                            return countItem.CategoryID == countList[i].ParenetID;
-                        });
-                    parenetCountItem.count += countList[i].count;
-                    countList.Remove(countList[i]);
-                }
             }
 
             return countList;
@@ -78,11 +62,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             
             foreach (BookCountByCategory countItem in countList)
             {
-                returnListFordoughnut returnItem = new returnListFordoughnut();
-                returnItem.value = countItem.count;
-                returnItem.title = countItem.CategoryName;
-                returnItem.color = Unity.Helper.ColorUnity.GetRandomColor();
-                returnList.Add(returnItem);
+                returnList.Add(ChartModel.GetDoughnutViewMode(countItem));
             }
             return Json(returnList, JsonRequestBehavior.AllowGet);
         }

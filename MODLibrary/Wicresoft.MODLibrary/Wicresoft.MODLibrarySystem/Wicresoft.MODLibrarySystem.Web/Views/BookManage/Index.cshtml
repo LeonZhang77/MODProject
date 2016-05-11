@@ -17,8 +17,11 @@
             <caption>Book List</caption>
             <thead>
                 <tr>
-                    <td colspan="11">
+                    <td colspan="5">
                         @Html.ActionLink("Add", "AddBook")
+                    </td>
+                    <td colspan="6">
+                        @Html.ActionLink("Chart by Category", "DoughnutChart", "Chart", null, null)
                     </td>
                 </tr>
             </thead>
@@ -104,8 +107,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="5">@Html.ActionLink("Chart by Category", "DoughnutChart", "Chart", null, null)</td>
-                    <td colspan="6" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
+                    <td colspan="11" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
                 </tr>
             </tfoot>
         </table>

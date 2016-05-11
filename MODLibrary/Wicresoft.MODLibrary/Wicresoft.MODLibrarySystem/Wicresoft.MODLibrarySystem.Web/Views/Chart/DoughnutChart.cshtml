@@ -6,12 +6,12 @@
 @Scripts.Render("~/Scripts/ChartJS/DoughnutChart.js")
 
 
-<div class="jumbotron">
+<div class="jumbotron" style="height:600px;">
     <div style="width:50%;float:left">
         <p>
             <br />
         </p>
-        <h2>Demo</h2>
+        <h2>Doughnut By Category</h2>
         <canvas id="myChart" height="300" width="400" requesturl="@Url.Action("GetJSONForDoughnut", "Chart")"></canvas>
     </div>
     <div style="width:50%;float:left">

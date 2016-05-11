@@ -19,7 +19,6 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.Chart
         public string title;
         public string color;
     }
-
     public class ChartModel : BaseIndexListModel<BookCountByCategory>
     {
         public List<BookCountByCategory> forDoughnutList
@@ -27,5 +26,15 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.Chart
             get;
             set;
         }
+
+        public static returnListFordoughnut GetDoughnutViewMode(BookCountByCategory countItem)
+        {
+            returnListFordoughnut returnItem = new returnListFordoughnut();
+            returnItem.value = countItem.count;
+            returnItem.title = countItem.CategoryName;
+            returnItem.color = Unity.Helper.ColorUnity.GetRandomColor();
+            return returnItem;
+        }
     }    
+ 
 }
