@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.WebUI.Models.RentManage.MyRequestModel
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{ <table>
+        <caption>My Request</caption>
+        <tbody>
+            <tr>
+                <td>
+                    Title
+                </td>
+                <td>
+                    Author
+                </td>
+                <td>
+                    Publish
+                </td>
+                <td>
+                    Status
+                </td>
+                <td>
+                    Comment
+                </td>
+            </tr>
+            @foreach (var item in this.Model.MyRequestList)
+            {
+                <tr>
+                    <td>
+                        @item.ID
+                    </td>
+                    <td>
+                        @item.Title
+                    </td>
+                    <td>
+                        @item.Author
+                    </td>
+                    <td>
+                        @item.Publish
+                    </td>
+                    <td>
+                        @item.Status
+                    </td>
+                    <td>
+                        @item.Comment
+                    </td>
+                </tr>
+            }
+    </table>
+}

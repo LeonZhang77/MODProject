@@ -169,7 +169,12 @@
     <Compile Include="Models\Login\LoginIndexModel.cs" />
     <Compile Include="Models\Register\RegisterIndexModule.cs" />
     <Compile Include="Models\Register\RegisterModel.cs" />
+    <Compile Include="Models\RentManage\BookInHandModel.cs" />
+    <Compile Include="Models\RentManage\MyRequestModel.cs" />
+    <Compile Include="Models\RentManage\ReadHistoryModel.cs" />
+    <Compile Include="Models\RentManage\RentManageIndexModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\RentManageController.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -518,6 +523,9 @@
     <Content Include="Views\Shared\ConfrimDialog.cshtml" />
     <Content Include="Views\Home\MemberHelper.cshtml" />
     <Content Include="Views\BookManage\DetailTheBook.cshtml" />
+    <Content Include="Views\RentManage\Index.cshtml" />
+    <Content Include="Views\RentManage\MyRequest.cshtml" />
+    <Content Include="Views\RentManage\ReadHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

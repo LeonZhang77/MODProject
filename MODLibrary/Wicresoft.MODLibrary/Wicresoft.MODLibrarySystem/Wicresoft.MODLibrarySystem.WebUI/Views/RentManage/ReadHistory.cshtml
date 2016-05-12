@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Read History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.WebUI.Models.RentManage.ReadHistoryModel
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <caption>Read History</caption>
+
+        <tbody>
+            <tr>
+                <td>
+                    Title
+                </td>
+            </tr>
+            @foreach (var item in this.Model.ReadHistoryModelList)
+            {
+                <tr>
+                    <td>
+                        @item.Title
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
