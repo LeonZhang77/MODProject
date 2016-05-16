@@ -1,0 +1,32 @@
+﻿@model Wicresoft.MODLibrarySystem.Wap.Models.BookManage.BookManageIndexModel
+
+<div class="margin_top5">
+    @if (this.Model.BookModelList.Count > 0)
+    {
+        for (int i = 0; i < this.Model.BookModelList.Count; i++)
+        {
+            <div class="row">
+                <a class="col-xs-12" href="BookManage/BookDetail/@this.Model.BookModelList[i].ID">
+                    <div class="row" id="bookheight">
+                        <div class="col-xs-4">
+                            <img class="img-responsive" src="~/Content/images/DefaultPic.jpg" />
+                        </div>
+                        <div class="col-xs-8">
+                            <p>
+                                @this.Model.BookModelList[i].BookName
+                            </p>
+                            <p>
+                                <small>@this.Model.BookModelList[i].AuthorName</small>
+                            </p>
+                            <p>
+                                <small>Avaliable:@this.Model.BookModelList[i].Avaliable_Inventory</small>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div><hr />
+        }
+    }
+</div>
+
+

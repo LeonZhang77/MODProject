@@ -6814,3 +6814,32 @@ td.visible-print {
     display: none !important;
   }
 }
+.goback{
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 55px;
+}
+#gobackimg{
+    width:30px;
+    height:30px;
+    opacity:0.5;
+}
+#bookList{
+    margin-top:20px;
+}
+#option{
+    display:none;
+}
+.margin_top5{
+    margin-top:50px;
+}
+#img_height{
+    height:250px;
+}
+#bookheight{
+    height:40px;
+}
+.btn-width{
+    width:100%;
+}

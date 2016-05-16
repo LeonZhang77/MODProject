@@ -167,6 +167,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\DefaultPic.jpg" />
+    <Content Include="Content\images\goback.png" />
     <Content Include="Content\images\loading_16_16.gif" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -236,6 +237,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\baseValidation.js" />
     <Content Include="Scripts\baseWebAPP.js" />
+    <Content Include="Scripts\BookManageJS\BookManage.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\LocalDeploy.pubxml" />
@@ -488,6 +490,7 @@
     <Content Include="Scripts\ui\.jshintrc" />
     <Content Include="Views\BookManage\Index.cshtml" />
     <Content Include="Views\BookManage\BookDetail.cshtml" />
+    <Content Include="Views\BookManage\BookPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

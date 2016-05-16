@@ -37,7 +37,7 @@ namespace Wicresoft.MODLibrarySystem.Wap.Controllers
 
             IEnumerable<BookInfo> books = this.IBookInfoDataProvider.GetBookList(condition);
 
-            PagingContent<BookInfo> paging = new PagingContent<BookInfo>(books, pageIndex, 6);
+            PagingContent<BookInfo> paging = new PagingContent<BookInfo>(books, pageIndex, 10);
 
             foreach (var item in paging.EntityList)
             {
@@ -48,7 +48,14 @@ namespace Wicresoft.MODLibrarySystem.Wap.Controllers
             model.SearchCategoryList = DropDownListHelper.GetCategorySelectListBySelectedID(searchselectedID);
             model.PagingContent = paging;
 
-            return View(model);
+            if (base.Request.IsAjaxRequest())
+            {
+                return PartialView("BookPartial", model);
+            }
+            else
+            {
+                return View(model);
+            } 
         }
 
         [HttpPost]
