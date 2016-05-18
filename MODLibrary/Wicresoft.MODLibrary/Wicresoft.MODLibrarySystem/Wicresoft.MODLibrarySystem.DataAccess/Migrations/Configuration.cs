@@ -9,7 +9,7 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "Wicresoft.MODLibrarySystem.DataAccess.DBSource";
         }
 

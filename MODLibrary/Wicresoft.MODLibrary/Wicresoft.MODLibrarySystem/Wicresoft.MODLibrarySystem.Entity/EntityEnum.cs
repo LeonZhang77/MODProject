@@ -25,10 +25,18 @@ namespace Wicresoft.MODLibrarySystem.Entity
 
     public enum RentRecordStatus
     {
-        [Description("InProcess")]
-        InProcess = 0,
-        [Description("Finished")]
-        Finished = 1
+        [Description("Pending")]
+        Pending = 0,
+        [Description("Approved")]
+        Approved = 1,
+        [Description("Rejected")]
+        Rejected = 2,
+        [Description("Taked")]
+        Taked = 3,
+        [Description("Revoked")]
+        Revoked = 4,
+        [Description("Returned")]
+        Returned = 5
     }
 
     public enum BookStatus
@@ -41,5 +49,13 @@ namespace Wicresoft.MODLibrarySystem.Entity
         Error = 3,
         [Description("OutStore")]
         OutStore = 4
+    }
+
+    public enum SupportAgainstStatus
+    {
+        [Description("Support")]
+        Support = 0,
+        [Description("Against")]
+        Against = 1
     }
 }

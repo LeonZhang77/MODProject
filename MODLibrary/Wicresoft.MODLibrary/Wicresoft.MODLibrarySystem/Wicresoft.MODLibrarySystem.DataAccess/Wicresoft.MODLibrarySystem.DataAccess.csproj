@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201510300809376_AddAuthorPublisherBookDetailAndother.Designer.cs">
       <DependentUpon>201510300809376_AddAuthorPublisherBookDetailAndother.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605180201308_AddNewRentAndSupportFeature.cs" />
+    <Compile Include="Migrations\201605180201308_AddNewRentAndSupportFeature.designer.cs">
+      <DependentUpon>201605180201308_AddNewRentAndSupportFeature.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -107,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201510300809376_AddAuthorPublisherBookDetailAndother.resx">
       <DependentUpon>201510300809376_AddAuthorPublisherBookDetailAndother.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605180201308_AddNewRentAndSupportFeature.resx">
+      <DependentUpon>201605180201308_AddNewRentAndSupportFeature.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

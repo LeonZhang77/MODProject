@@ -28,7 +28,7 @@ namespace Wicresoft.MODLibrarySystem.Entity
             get;
             set;
         }
-        
+
         public virtual PublisherInfo PublisherInfo
         {
             get;
@@ -57,6 +57,13 @@ namespace Wicresoft.MODLibrarySystem.Entity
 
         [Required]
         public virtual Decimal Price_Inventory
+        {
+            get;
+            set;
+        }
+
+        [MaxLength(1024 * 1024)]
+        public virtual String Summary
         {
             get;
             set;

@@ -63,5 +63,23 @@ namespace Wicresoft.MODLibrarySystem.DataAccess
             get;
             set;
         }
+
+        public DbSet<DelayRecord> DelayRecords
+        {
+            get;
+            set;
+        }
+
+        public DbSet<ProcessRecord> ProcessRecords
+        {
+            get;
+            set;
+        }
+
+        public DbSet<SupportORAgainst> SupportORAgainstInfos
+        {
+            get;
+            set;
+        }
     }
 }
