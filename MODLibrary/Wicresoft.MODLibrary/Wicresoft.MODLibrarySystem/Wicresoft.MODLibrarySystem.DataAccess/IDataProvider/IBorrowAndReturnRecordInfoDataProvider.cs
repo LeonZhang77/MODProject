@@ -10,5 +10,7 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.IDataProvider
     public interface IBorrowAndReturnRecordInfoDataProvider:IBaseDataProvider<BorrowAndReturnRecordInfo>
     {
         IEnumerable<BorrowAndReturnRecordInfo> GetBorrowAndReturnRecordList();
+
+        int GetBooksInHandCount(UserInfo userInfo);
     }
 }

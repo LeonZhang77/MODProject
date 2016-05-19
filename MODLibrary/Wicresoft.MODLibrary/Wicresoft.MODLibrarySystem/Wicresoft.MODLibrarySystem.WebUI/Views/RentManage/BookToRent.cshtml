@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.WebUI.Models.RentManage.BookToRentModel
+
+<h2>Detail of this Book</h2>
+@using (Html.BeginForm())
+{
+    <div class="jumbotron" style="height:600px;">
+        <div style="float:left">
+            <table style="width:400px; height:350px">
+                <tr>
+                    <td rowspan="7" style="height:150px;width:100px"><img width="100" height="150" src="~/Content/images/DefaultPic.jpg" /></td>
+                    <th>Title</th>
+                    <td>@this.Model.BookName</td>
+                </tr>
+                <tr>
+                    <th>Author </th>
+                    <td>@this.Model.AuthorName</td>
+                </tr>
+                <tr>
+                    <th>Publisher</th>
+                    <td>@this.Model.PublisherName</td>
+                </tr>
+                <tr>
+                    <th>Publish Date</th>
+                    <td>@this.Model.Publish_Date</td>
+                </tr>
+                <tr>
+                    <th>ISBN</th>
+                    <td>@this.Model.ISBN</td>
+                </tr>
+                <tr>
+                    <th>Avaliable</th>
+                    <td>@this.Model.Avaliable_Inventory</td>
+                </tr>
+                <tr>
+                    <th>MAX Avaliable</th>
+                    <td>@this.Model.Max_Inventory</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td colspan="2">
+                        @this.Model.Book_Description
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        You can borrow @this.Model.Can_Borrow_Count book/books. You still can borrow @this.Model.Still_Can_Borrow_Count book/books.
+                        @Html.ActionLink("Help", "MemberHelper", "Home", null, null)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        @if (this.Model.Still_Can_Borrow)
+                        {
+                            <button>Reserve</button> 
+                        }
+                        else
+                        {
+                            <button disabled ="disabled">Reserve</button>
+                        }
+                        
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+
+
+

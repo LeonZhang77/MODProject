@@ -5,12 +5,21 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Wicresoft.MODLibrarySystem.WebUI.Models.RentManage;
+using Wicresoft.MODLibrarySystem.Entity;
+using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
+using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 
 
 namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
 {
-    public class RentManageController : Controller
+    public class RentManageController : BaseController
     {
+        public IBookInfoDataProvider IBookInfoDataProvider;
+        public RentManageController()
+        {
+            this.IBookInfoDataProvider = new BookInfoDataProvider();
+        }
+        
         public ActionResult Index()
         {
             RentManageIndexModel model = new RentManageIndexModel();
@@ -27,6 +36,13 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
         {
             ReadHistoryModel model = new ReadHistoryModel();
 
+            return View(model);
+        }
+
+        public ActionResult BookToRent(long id)
+        {
+            BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
+            BookToRentModel model = BookToRentModel.GetViewMode(bookInfo, this.LoginUser());
             return View(model);
         }
     }

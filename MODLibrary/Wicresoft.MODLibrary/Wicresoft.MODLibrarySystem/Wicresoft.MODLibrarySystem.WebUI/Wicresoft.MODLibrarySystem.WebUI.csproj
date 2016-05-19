@@ -170,6 +170,7 @@
     <Compile Include="Models\Register\RegisterIndexModule.cs" />
     <Compile Include="Models\Register\RegisterModel.cs" />
     <Compile Include="Models\RentManage\BookInHandModel.cs" />
+    <Compile Include="Models\RentManage\BookToRentModel.cs" />
     <Compile Include="Models\RentManage\MyRequestModel.cs" />
     <Compile Include="Models\RentManage\ReadHistoryModel.cs" />
     <Compile Include="Models\RentManage\RentManageIndexModel.cs" />
@@ -526,6 +527,7 @@
     <Content Include="Views\RentManage\Index.cshtml" />
     <Content Include="Views\RentManage\MyRequest.cshtml" />
     <Content Include="Views\RentManage\ReadHistory.cshtml" />
+    <Content Include="Views\RentManage\BookToRent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

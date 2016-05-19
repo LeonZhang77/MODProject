@@ -7092,7 +7092,31 @@ td.visible-print {
     }
 }
 
-input{
+[class^="related"] {
+  display:none;
+  width:422px; 
+  min-height:53px; 
+  padding:10px;
+  color:#000000;
+  background:#CCCCCC; 
+  position:fixed; 
+  z-index:999999; 
+  border: 1px solid #5e4e3f;
+}
+
+td input{
     height:auto;
     line-height:normal;
+}
+
+[class^="related"] {
+  display:none;
+  width:422px; 
+  min-height:53px; 
+  padding:10px;
+  color:#000000;
+  background:#CCCCCC; 
+  position:fixed; 
+  z-index:999999; 
+  border: 1px solid #5e4e3f;
 }
