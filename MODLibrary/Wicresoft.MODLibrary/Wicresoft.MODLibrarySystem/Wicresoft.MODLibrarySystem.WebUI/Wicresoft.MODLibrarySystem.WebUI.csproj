@@ -275,6 +275,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\RegisterJS\IndexRegister.js" />
     <Content Include="Scripts\RegisterJS\RegisterUserRegister.js" />
+    <Content Include="Scripts\RentManageJS\BookToRent.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ui\i18n\jquery-ui-i18n.js" />

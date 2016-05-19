@@ -45,5 +45,21 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             BookToRentModel model = BookToRentModel.GetViewMode(bookInfo, this.LoginUser());
             return View(model);
         }
+
+        public string RequstBook(string q) 
+        {
+            try 
+            { 
+                //book avaliable -1
+                // books udpate status: pending
+                //borrowAndReturn, new record, status: pending
+                //Process, new record, status: pending
+            }
+            catch (Exception ex)
+            {
+                return "false";
+            }
+            return "true";
+        }
     }
 }
