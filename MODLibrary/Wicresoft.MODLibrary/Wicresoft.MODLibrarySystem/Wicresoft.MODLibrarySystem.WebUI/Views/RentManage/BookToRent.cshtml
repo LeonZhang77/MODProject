@@ -3,6 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Wicresoft.MODLibrarySystem.WebUI.Models.RentManage.BookToRentModel
+<script type="text/javascript" src="~/Scripts/RentManageJS/BookToRent.js"></script>
 
 <h2>Detail of this Book</h2>
 @using (Html.BeginForm())
@@ -55,11 +56,12 @@
                     <td colspan="3">
                         @if (this.Model.Still_Can_Borrow)
                         {
-                            <button id="Reserve-Button" requstUrl ="@Url.Action("RequstBook","RentManaage") ">Reserve</button> 
+                            <a id="Reserve-Button" requsturl="@Url.Action("RequstBook","RentManage")" onclick="bindRentConfirmDialog(@this.Model.ID)">Reserve</a>
+                            
                         }
                         else
                         {
-                            <button disabled ="disabled">Reserve</button>
+                            <a disabled="disabled">Reserve</a>
                         }
                         
                     </td>
@@ -69,16 +71,18 @@
     </div>
 }
 
-<div style="display: none" id="Rent-Confirm-Dialog " title="confirm Item">
+<div style="display: none" id="Rent-Confirm-Dialog" title="confirm Item">
     <p>
-        We'll reserve this book for you.
-        Please configm the detail in formation of this book:
+        We'll reserve this book for you.<br />
+        Please configm the detail in formation of this book:<br />
 
-        Title: @this.Model.BookName
-        Author: @this.Model.AuthorName
-        Publisher: @this.Model.PublisherName
+        Title: @this.Model.BookName<br />
+        Author: @this.Model.AuthorName<br />
+        Publisher: @this.Model.PublisherName<br />
    </p>
 </div>
 
+<div style="display: none" id="Submit-Result-Dialog" title="Submit Item">   
+</div>
 
 

@@ -48,18 +48,19 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
 
         public string RequstBook(string q) 
         {
-            try 
-            { 
-                //book avaliable -1
-                // books udpate status: pending
-                //borrowAndReturn, new record, status: pending
-                //Process, new record, status: pending
-            }
-            catch (Exception ex)
-            {
-                return "false";
-            }
-            return "true";
+            //try 
+            //{ 
+            //    //book avaliable -1
+            //    // books udpate status: pending
+            //    //borrowAndReturn, new record, status: pending
+            //    //Process, new record, status: pending
+            //}
+            //catch (Exception ex)
+            //{
+            //    return "false";
+            //}
+            //return "true";
+            return "false";
         }
     }
 }

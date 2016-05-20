@@ -3,7 +3,7 @@
     {
         autoOpen: false,
         resizable: false,
-        height: 200,
+        height: 400,
         width: 500,
         modal: true,
         buttons: {
@@ -18,6 +18,29 @@
     })
 });
 
+$(function () {
+    $("#Submit-Result-Dialog").dialog(
+    {
+        autoOpen: false,
+        resizable: false,
+        height: 200,
+        width: 500,
+        modal: true,
+    })
+});
+
+var _id;
+
+var bindRentConfirmDialog = function (i) {
+    $("#Rent-Confirm-Dialog").dialog("open");
+    _id = i;
+}
+
+//function bindRentConfirmDialog(i) {
+//        $("#Rent-Confirm-Dialog").dialog("open");
+//        _id = i;
+//}
+
 function doRentWork() {
     $(function ()
     {
@@ -27,9 +50,46 @@ function doRentWork() {
                 data: {q:_id},
         success:function(data){
             if(data == "true")
-            {}
+            {
+                $(function () {
+                    $("#Submit-Result-Dialog").dialog(
+                    {
+                        buttons: {
+                            "Go My List": function () {
+                                $(this).dialog('close');
+                            },
+                            "Find others": function () {
+                                $(this).dialog('close');
+                            }
+                        }
+                    })
+                });
+                $("#Submit-Result-Dialog").append("<p>" +
+                    "You Request has been submited successfully!." + "<br />" +
+                    "Our administrator will handle it soon." + "<br />" +
+                    "</p>");
+                $("#Submit-Result-Dialog").dialog("open");
+            }
             else
-            {}
+            {
+                $(function () {
+                    $("#Submit-Result-Dialog").dialog(
+                    {
+                        buttons: {
+                            "Go To My List": function () {
+                                $(this).dialog('close');
+                            },
+                            "Find another book": function () {
+                                $(this).dialog('close');
+                            }
+                        }
+                    })
+                });
+                $("#Submit-Result-Dialog").append("<p>"+
+                    "Sorry, You Request was failed to Submit."+
+                    "</p>");
+                $("#Submit-Result-Dialog").dialog("open");
+            }
         }
             })
     });
