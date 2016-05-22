@@ -37,7 +37,17 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
 
         public void Add(BorrowAndReturnRecordInfo entity)
         {
-            throw new NotImplementedException();
+            if (entity.UserInfo != null)
+            { 
+                entity.UserInfo =  this.DataSource.UserInfos.FirstOrDefault(u => u.ID == entity.UserInfo.ID);
+            }
+            if(entity.BookDetailInfo != null)
+            {
+                entity.BookDetailInfo = this.DataSource.BookDetailInfos.FirstOrDefault(u=>u.ID == entity.BookDetailInfo.ID);
+            }
+
+            this.DataSource.BorrowAndReturnRecordInfos.Add(entity);
+            this.DataSource.SaveChanges();
         }
 
         public void Update(BorrowAndReturnRecordInfo entity)

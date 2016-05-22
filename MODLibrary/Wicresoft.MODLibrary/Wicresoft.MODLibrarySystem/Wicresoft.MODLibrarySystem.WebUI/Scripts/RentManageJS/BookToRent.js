@@ -57,9 +57,11 @@ function doRentWork() {
                         buttons: {
                             "Go My List": function () {
                                 $(this).dialog('close');
+                                self.location = "/RentManage";
                             },
                             "Find others": function () {
                                 $(this).dialog('close');
+                                self.location = "/BookManage";
                             }
                         }
                     })
@@ -78,15 +80,18 @@ function doRentWork() {
                         buttons: {
                             "Go To My List": function () {
                                 $(this).dialog('close');
+                                self.location = "/RentManage";
                             },
                             "Find another book": function () {
                                 $(this).dialog('close');
+                                self.location = "/BookManage";
                             }
                         }
                     })
                 });
                 $("#Submit-Result-Dialog").append("<p>"+
-                    "Sorry, You Request was failed to Submit."+
+                    "Sorry, You Request was failed to Submit." + "<br />" +
+                    data +
                     "</p>");
                 $("#Submit-Result-Dialog").dialog("open");
             }

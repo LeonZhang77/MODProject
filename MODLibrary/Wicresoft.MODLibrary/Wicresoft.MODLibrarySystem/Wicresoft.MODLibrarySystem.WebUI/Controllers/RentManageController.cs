@@ -15,9 +15,15 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
     public class RentManageController : BaseController
     {
         public IBookInfoDataProvider IBookInfoDataProvider;
+        public IBookDetailInfoDataProvider IBookDetailInfoDataProvider;
+        public IBorrowAndReturnRecordInfoDataProvider IBorrowAndReturnRecordInfoDataProvider;
+        public IProcessRecordDataProvider IProcessRecordDataProvider;
         public RentManageController()
         {
             this.IBookInfoDataProvider = new BookInfoDataProvider();
+            this.IBookDetailInfoDataProvider = new BookDetailInfoDataProvider();
+            this.IBorrowAndReturnRecordInfoDataProvider = new BorrowAndReturnRecordInfoDataProvider();
+            this.IProcessRecordDataProvider = new ProcessRecordDataProvider();
         }
         
         public ActionResult Index()
@@ -48,19 +54,47 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
 
         public string RequstBook(string q) 
         {
-            //try 
-            //{ 
-            //    //book avaliable -1
-            //    // books udpate status: pending
-            //    //borrowAndReturn, new record, status: pending
-            //    //Process, new record, status: pending
-            //}
-            //catch (Exception ex)
-            //{
-            //    return "false";
-            //}
-            //return "true";
-            return "false";
+            try
+            {
+                int id = Convert.ToInt32(q);
+                BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
+                BookDetailInfo bookDetailInfo = this.IBookDetailInfoDataProvider.GetAvaliableBookDetailInfoByBookInfoID(id);
+                if (bookDetailInfo == null)
+                {
+                    Exception ex = new Exception("There is no avaliable Book!");
+                    throw (ex);
+                }
+                else 
+                {
+                    BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = new BorrowAndReturnRecordInfo();
+                    borrowAndReturnRecordInfo.BookDetailInfo = bookDetailInfo;
+                    borrowAndReturnRecordInfo.UserInfo = this.LoginUser();
+                    borrowAndReturnRecordInfo.Status = RentRecordStatus.Pending;
+                    this.IBorrowAndReturnRecordInfoDataProvider.Add(borrowAndReturnRecordInfo);
+
+                    ProcessRecord processRecord = new ProcessRecord();
+                    processRecord.UserInfo = this.LoginUser();
+                    processRecord.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
+                    processRecord.Status = RentRecordStatus.Pending;
+                    this.IProcessRecordDataProvider.Add(processRecord);
+
+                    bookDetailInfo.Status = BookStatus.Rent;
+                    this.IBookDetailInfoDataProvider.Update(bookDetailInfo);
+                    bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory - 1;
+                    this.IBookInfoDataProvider.Update(bookInfo);
+
+                }
+                //book avaliable -1
+                // books udpate status: pending
+                //borrowAndReturn, new record, status: pending
+                //Process, new record, status: pending
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return "true";
+            //return "false";
         }
     }
 }

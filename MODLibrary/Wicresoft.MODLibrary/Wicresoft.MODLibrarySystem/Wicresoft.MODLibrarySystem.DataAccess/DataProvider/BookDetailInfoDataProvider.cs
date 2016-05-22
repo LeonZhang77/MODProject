@@ -28,6 +28,18 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             return bookDetail;
         }
 
+        public BookDetailInfo GetAvaliableBookDetailInfoByBookInfoID(long ID)
+        {
+            BookDetailInfo returnEntity = null;
+            List<BookDetailInfo> detailInfoList = this.DataSource.BookDetailInfos.ToList();
+            detailInfoList = detailInfoList.Where(c => c.Status == BookStatus.InStore).ToList();
+            if (detailInfoList.Count() > 0)
+            {
+                returnEntity = detailInfoList.First < BookDetailInfo>();
+            }
+            return returnEntity;
+        }
+
         public void Add(BookDetailInfo entity)
         {
             if (entity.BookInfo != null)

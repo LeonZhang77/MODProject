@@ -7,122 +7,133 @@
 <h2>Index</h2>
 
 @using (Html.BeginForm())
-{ <table>
-        <caption>My Request</caption>
-        <thead>
-            <tr>
-                <td colspan="5">
-                    @Html.ActionLink("More", "MyRequest")
-                </td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    Title
-                </td>
-                <td>
-                    Author
-                </td>
-                <td>
-                    Publish
-                </td>
-                <td>
-                    Status
-                </td>
-                <td>
-                    Comment
-                </td>
-            </tr>
-            @foreach (var item in this.Model.MyRequestList)
+{
+    <div class="jumbotron" style="height:700px;">
+        <div style="width:500px; height:250px; border:1px; float:left">
+            <table style="width:500px;">
+                <caption>My Request</caption>
+                <thead>
+                    <tr>
+                        <td colspan="5">
+                            @Html.ActionLink("More", "MyRequest")
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Title
+                        </td>
+                        <td>
+                            Author
+                        </td>
+                        <td>
+                            Publish
+                        </td>
+                        <td>
+                            Status
+                        </td>
+                        <td>
+                            Comment
+                        </td>
+                    </tr>
+                    @foreach (var item in this.Model.MyRequestList)
             {
-                <tr>
-                    <td>
-                        @item.ID
-                    </td>
-                    <td>
-                        @item.Title
-                    </td>
-                    <td>
-                        @item.Author
-                    </td>
-                    <td>
-                        @item.Publish
-                    </td>
-                    <td>
-                        @item.Status
-                    </td>
-                    <td>
-                        @item.Comment
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            @item.ID
+                        </td>
+                        <td>
+                            @item.Title
+                        </td>
+                        <td>
+                            @item.Author
+                        </td>
+                        <td>
+                            @item.Publish
+                        </td>
+                        <td>
+                            @item.Status
+                        </td>
+                        <td>
+                            @item.Comment
+                        </td>
+                    </tr>
             }
-    </table>
-    <table>
-        <caption>Read History</caption>
-        <thead>
+            </table>
+        </div>
+        <div style="width:250px; height:600px;border:1px;float:right;">
+            <table style=" width:200px">
+                <caption>Read History</caption>
+                <thead>
 
-            <tr>
-                <td colspan="1">
-                    @Html.ActionLink("More", "ReadHistory")
-                </td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    Title
-                </td>
-            </tr>
-            @foreach (var item in this.Model.ReadHistoryModelList)
-            {
-                <tr>
-                    <td colspan="1">
-                        @Html.ActionLink("More", "ReadHistory", new { @id = item.ID })
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @item.Title
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <table>
-        <caption>Books In Hand</caption>
-        <thead>
-            <tr>
-                <td>
-                    Title
-                </td>
-                <td>
-                    Start Borrow Day
-                </td>
-                <td>
-                    Expiration Day
-                </td>
-                <td>
-                    Operation
-                </td>
-            </tr>
-            @foreach (var item in this.Model.BookInHandModelList)
-            {
-                <tr>
-                    <td>
-                        @item.Title
-                    </td>
-                    <td>
-                        @item.StartBorrowDay
-                    </td>
-                    <td>
-                        @item.EXpirationDay
-                    </td>
-                    <td>
-                        @item.Operation
-                    </td>
-                </tr>
-            }
-        </thead>
-    </table>
+                    <tr>
+                        <td colspan="1">
+                            @Html.ActionLink("More", "ReadHistory")
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Title
+                        </td>
+                    </tr>
+                    @foreach (var item in this.Model.ReadHistoryModelList)
+                    {
+                        <tr>
+                            <td colspan="1">
+                                @Html.ActionLink("More", "ReadHistory", new { @id = item.ID })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @item.Title
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="width:500px; height:250px;border:1px; ">
+            <table style="width:500px;">
+                <caption>Books In Hand</caption>
+                <thead>
+                    <tr>
+                        <td>
+                            Title
+                        </td>
+                        <td>
+                            Start Borrow Day
+                        </td>
+                        <td>
+                            Expiration Day
+                        </td>
+                        <td>
+                            Operation
+                        </td>
+                    </tr>
+                    @foreach (var item in this.Model.BookInHandModelList)
+                {
+                    <tr>
+                        <td>
+                            @item.Title
+                        </td>
+                        <td>
+                            @item.StartBorrowDay
+                        </td>
+                        <td>
+                            @item.EXpirationDay
+                        </td>
+                        <td>
+                            @item.Operation
+                        </td>
+                    </tr>
+                }
+                </thead>
+            </table>
+        </div>
+        
+           
+    </div>
 }
