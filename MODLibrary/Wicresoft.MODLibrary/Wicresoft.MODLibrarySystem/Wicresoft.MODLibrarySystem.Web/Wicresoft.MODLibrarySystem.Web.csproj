@@ -178,6 +178,11 @@
     <Compile Include="Models\Login\LoginIndexModel.cs" />
     <Compile Include="Models\PublisherManage\PublisherManageIndexModel.cs" />
     <Compile Include="Models\PublisherManage\PublisherModel.cs" />
+    <Compile Include="Models\RentManage\ReadHistoryModel.cs" />
+    <Compile Include="Models\RentManage\RentManageIndexModel.cs" />
+    <Compile Include="Models\RentManage\UserRequestModel.cs" />
+    <Compile Include="Models\RentManage\WaitingForReturnModel.cs" />
+    <Compile Include="Models\RentManage\WaitingForTakeModel.cs" />
     <Compile Include="Models\UserManage\UserManageIndexModel.cs" />
     <Compile Include="Models\UserManage\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

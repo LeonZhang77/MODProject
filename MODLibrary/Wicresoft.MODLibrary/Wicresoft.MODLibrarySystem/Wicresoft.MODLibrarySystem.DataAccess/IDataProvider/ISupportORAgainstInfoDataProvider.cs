@@ -10,6 +10,8 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.IDataProvider
 {
     public interface ISupportORAgainstInfoDataProvider : IBaseDataProvider<SupportORAgainst>
     {
-        int GetCount(BookInfo bookInfo, SupportAgainstStatus supportOrAgainst = SupportAgainstStatus.Support, UserInfo userInfo = null);
+        int GetCountByStatus(BookInfo bookInfo, SupportAgainstStatus supportOrAgainst);
+
+        int GetCountByUser(BookInfo bookInfo, UserInfo userInfo);
     }
 }

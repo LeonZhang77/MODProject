@@ -3398,8 +3398,48 @@ input[type="button"].btn-block {
     content: "";
 }
 
+.dropbtn {
+    max-height: 340px;
+    padding-right: 15px;
+    padding-left: 15px;
+    overflow-x: visible;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    color: #e6e6e6;
+    padding: 16px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 .dropdown {
     position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    min-width: 150px;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: none;
+    position: absolute;
+    background-color: #4f4f4f;
+}
+
+.dropdown-content a {
+    color: black;
+    overflow-x: visible;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    color:white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    color: white;
 }
 
 .dropdown-toggle:focus {
@@ -7092,7 +7132,7 @@ td.visible-print {
     }
 }
 
-input{
+td input{
     height:auto;
     line-height:normal;
 }

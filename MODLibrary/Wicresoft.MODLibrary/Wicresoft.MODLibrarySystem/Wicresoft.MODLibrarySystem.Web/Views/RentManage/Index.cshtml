@@ -1,8 +1,231 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model Wicresoft.MODLibrarySystem.Web.Models.RentManage.RentManageIndexModel
 
 <h2>Index</h2>
 
+@using (Html.BeginForm())
+{
+    <div class="jumbotron" style="height:700px;">
+        <div style="width:500px; height:250px; border:1px; float:left">
+            <table style="width:500px;">
+                <caption>User Request</caption>
+                <thead>
+                    <tr>
+                        <td colspan="7">
+                            @Html.ActionLink("More", "UserRequest")
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Title
+                        </td>
+                        <td>
+                            Author
+                        </td>
+                        <td>
+                            Publish
+                        </td>
+                        <td>
+                            User Name
+                        </td>
+                        <td>
+                            Email
+                        </td>
+                        <td>
+                            Floor
+                        </td>
+                        <td>
+                            Operation
+                        </td>
+                    </tr>
+                    @foreach (var item in this.Model.UserRequestList)
+                    {
+                        <tr>
+                            <td>
+                                @item.ID
+                            </td>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td>
+                                @item.Author
+                            </td>
+                            <td>
+                                @item.Publish
+                            </td>
+                            <td>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.Email
+                            </td>
+                            <td>
+                                @item.Floor
+                            </td>
+                            <td>
+                                <button>Approval</button>
+                                <button>Reject</button>
+                            </td>
+                        </tr>
+                    }
+            </table>
+        </div>
+        <div style="width:500px; height:250px;border:1px;float:left;">
+            <table style=" width:500px">
+                <caption>Waiting For Take</caption>
+                <thead>
+
+                    <tr>
+                        <td colspan="5">
+                            @Html.ActionLink("More", "WaitingForTake")
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Title
+                        </td>
+                        <td>
+                            User Name
+                        </td>
+                        <td>
+                            Email
+                        </td>
+                        <td>
+                            Floor
+                        </td>
+                        <td>
+                            Operation
+                        </td>
+                    </tr>
+                    @foreach (var item in this.Model.WaitingForTakeModelList)
+                    {
+                        <tr>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.Email
+                            </td>
+                            <td>
+                                @item.Floor
+                            </td>
+                            <td>
+                                <button>Approval</button>
+                                <button>Reject</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="width:500px; height:250px;border:1px; float:left ">
+            <table style="width:500px;">
+                <caption>Waiting for Return</caption>
+                <thead>
+
+                    <tr>
+                        <td colspan="5">
+                            @Html.ActionLink("More", "WaitingForReturn")
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Title
+                        </td>
+                        <td>
+                            User Name
+                        </td>
+                        <td>
+                            Expiration Day
+                        </td>
+                        <td>
+                            Delay                        
+                        </td>
+                        <td>
+                            Operation
+                        </td>
+                    </tr>
+                    @foreach (var item in this.Model.WaitingForReturnModelList)
+                    {
+                        <tr>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.ExpirationDay
+                            </td>
+                            <td>
+                                3
+                            </td>
+                            <td>
+                                <button>Approval</button>
+                                <button>Reject</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div style="width:500px; height:250px;border:1px; float:right ">
+            <table style="width:500px;">
+                <caption>RentHistory</caption>
+                <thead>
+                    <tr>
+                        <td colspan="1">
+                            @Html.ActionLink("More", "RentHistory")
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Title
+                        </td>
+                        <td>
+                            User Name
+                        </td>
+                        <td>
+                            Rent Date(Form)
+                        </td>
+                        <td>
+                            Rent Date(To)
+                        </td>
+                    </tr>
+                    @foreach (var item in this.Model.ReadHistoryModelList)
+                    {
+                        <tr>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.RentDateFrom
+                            </td>
+                            <td>
+                                @item.RentDateTo
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+}

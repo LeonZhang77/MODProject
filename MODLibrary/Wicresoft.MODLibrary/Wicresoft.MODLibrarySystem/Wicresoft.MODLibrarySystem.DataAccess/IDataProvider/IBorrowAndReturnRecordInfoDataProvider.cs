@@ -12,5 +12,6 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.IDataProvider
         IEnumerable<BorrowAndReturnRecordInfo> GetBorrowAndReturnRecordList();
 
         int GetBooksInHandCount(UserInfo userInfo);
+        IEnumerable<BorrowAndReturnRecordInfo> GetBorrowAndReturnRecordListByStatus(RentRecordStatus status);
     }
 }

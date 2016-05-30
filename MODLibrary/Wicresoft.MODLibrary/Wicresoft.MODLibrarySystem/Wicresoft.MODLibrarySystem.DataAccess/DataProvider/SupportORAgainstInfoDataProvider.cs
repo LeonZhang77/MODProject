@@ -19,7 +19,7 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             this.DataSource = new DBSource();
         }
 
-        public int GetCount(BookInfo bookInfo, SupportAgainstStatus supportOrAgainst = SupportAgainstStatus.Support, UserInfo userInfo = null)
+        public int GetCountByUser(BookInfo bookInfo, UserInfo userInfo)
         {
             IEnumerable<SupportORAgainst> supportORAgainsts
                 = this.DataSource.SupportORAgainstInfos.Where(c => c.BookInfo.ID == bookInfo.ID);
@@ -27,13 +27,23 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             if (userInfo != null)
             {
                 supportORAgainsts = supportORAgainsts.Where(c => c.UserInfo.ID == userInfo.ID);
+                return supportORAgainsts.Count();
             }
             else
             {
-                supportORAgainsts = supportORAgainsts.Where(c => c.Status == supportOrAgainst);
+                return 0;
             }
+        }
+
+        public int GetCountByStatus(BookInfo bookInfo, SupportAgainstStatus supportOrAgainst)
+        {
+            IEnumerable<SupportORAgainst> supportORAgainsts
+                = this.DataSource.SupportORAgainstInfos.Where(c => c.BookInfo.ID == bookInfo.ID);
+
+            supportORAgainsts = supportORAgainsts.Where(c => c.Status == supportOrAgainst);
 
             return supportORAgainsts.Count();
+
         }
 
         public void DeleteByID(long id)

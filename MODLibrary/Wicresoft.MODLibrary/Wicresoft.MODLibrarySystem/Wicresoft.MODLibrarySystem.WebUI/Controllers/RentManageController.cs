@@ -70,6 +70,10 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
                     borrowAndReturnRecordInfo.BookDetailInfo = bookDetailInfo;
                     borrowAndReturnRecordInfo.UserInfo = this.LoginUser();
                     borrowAndReturnRecordInfo.Status = RentRecordStatus.Pending;
+                    //Borrow_Date,Forcast_Date and Return_Date can't be null, make it as same as createTime.
+                    borrowAndReturnRecordInfo.Borrow_Date = borrowAndReturnRecordInfo.CreateTime;
+                    borrowAndReturnRecordInfo.Forcast_Date = borrowAndReturnRecordInfo.CreateTime;
+                    borrowAndReturnRecordInfo.Return_Date = borrowAndReturnRecordInfo.CreateTime;
                     this.IBorrowAndReturnRecordInfoDataProvider.Add(borrowAndReturnRecordInfo);
 
                     ProcessRecord processRecord = new ProcessRecord();

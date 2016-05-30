@@ -15,10 +15,11 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
     public class BookManageController : BaseController
     {
         public IBookInfoDataProvider IBookInfoDataProvider;
-        public IBookDetailInfoDataProvider IBookDetailInfoDataProvider;
+        public ISupportORAgainstInfoDataProvider ISupportORAgainstInfoDataProvider;
         public BookManageController()
         {
             this.IBookInfoDataProvider = new BookInfoDataProvider();
+            this.ISupportORAgainstInfoDataProvider = new SupportORAgainstInfoDataProvider();
         }
         // GET: BookManage
         public ActionResult Index(string bookName, long searchselectedID = 0, bool? isAvaliable = null, Int32 pageIndex = 0)
@@ -62,13 +63,29 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             });
         }
 
-        public string SupportOrObjectionBook(string q, string flag)
+        public bool SupportORAgainstBook(string q, bool flag)
         {
-            //waiting for DB, should add 1 record in supportAndObjection table.     
-            //book.id = q; user = this.loginUser(); 
-            //flag = true, support. flag=false, objection. SupportOrObjection = flag;
-            //if add success, return true;
-            return "true";
+            try
+            {
+                SupportORAgainst readyToAdd = new SupportORAgainst();
+                if (flag)
+                {
+                    readyToAdd.Status = SupportAgainstStatus.Support;
+                }
+                else
+                {
+                    readyToAdd.Status = SupportAgainstStatus.Against;
+                }
+                readyToAdd.UserInfo = this.LoginUser();
+                readyToAdd.BookInfo = this.IBookInfoDataProvider.GetBookInfoByID(Convert.ToInt32(q));
+                this.ISupportORAgainstInfoDataProvider.Add(readyToAdd);
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+            
+            return true;
         }
 
         public ActionResult DetailTheBook(long id)

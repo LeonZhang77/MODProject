@@ -21,6 +21,14 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
             return this.DataSource.BorrowAndReturnRecordInfos;
         }
 
+        public IEnumerable<BorrowAndReturnRecordInfo> GetBorrowAndReturnRecordListByStatus(RentRecordStatus status)
+        {
+            IEnumerable<BorrowAndReturnRecordInfo> returnList = GetBorrowAndReturnRecordList(); ;
+            //returnList = returnList.Where(b => b.Status == RentRecordStatus.Pending);
+            //returnList.OrderBy(b => b.CreateTime);
+            return returnList;
+        }
+
         public int GetBooksInHandCount(UserInfo userInfo)
         {
             int returnInt = 0;

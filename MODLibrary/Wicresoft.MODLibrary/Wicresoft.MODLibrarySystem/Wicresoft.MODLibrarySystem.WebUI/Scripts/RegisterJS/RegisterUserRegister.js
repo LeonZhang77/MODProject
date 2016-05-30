@@ -18,6 +18,10 @@ function RegisterUserRegisterBind() {
 
     $("#Password").bind("change", function () { validateField("Password", "VN") });
 
+    $("#Password").bind("change", function () { ConfirmPassword() });
+
+    $("#rePassword").bind("change", function () { ConfirmPassword() });
+
     $("#Email").bind("change", function () { multipleValidateField("Email", "VN,VE") });
 }
 
@@ -40,4 +44,16 @@ function RegisterUserRegisterSubmitValidation() {
     else {
         return false;
     }
+}
+
+function ConfirmPassword() {
+    var password, repassword, errormsg;
+    errormsg = "Password should be same.";
+    password = $("#Password").val();
+    repassword = $("#rePassword").val();
+
+    if (password != repassword) {
+        $("#rePassword_errorData").text(errormsg).show();
+    }
+    else { $("#rePassword_errorData").text(errormsg).hide(); }
 }

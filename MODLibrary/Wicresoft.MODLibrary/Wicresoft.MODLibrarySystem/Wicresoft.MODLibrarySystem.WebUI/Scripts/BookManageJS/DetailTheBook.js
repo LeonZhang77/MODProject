@@ -35,9 +35,9 @@ function doSOOWork() {
         {$.ajax(
             {
                 url: $("#Supports").attr("requstUrl"),
-                data: {q: _id, flag: "true"},
+                data: {q: _id, flag: true},
                 success: function (data) {
-                    if (data == "true") {
+                    if (data) {
                         var supportVal = document.getElementById("Supports");
                         supportVal.innerText = supportVal.innerText / 1 + 1;
                         HideSOOLinks();
@@ -53,9 +53,9 @@ function doSOOWork() {
                    url: $("#Objections").attr("requstUrl"),
                    data: { q: _id, flag: "false" },
                    success: function (data) {
-                       if (data == "true") {
+                       if (data) {
                            var objectionVal = document.getElementById("Objections");
-                           objectionVal.innerText = objectionVal.innerText / 1 - 1;
+                           objectionVal.innerText = objectionVal.innerText / 1 + 1;
                            HideSOOLinks();
                        }
                    }

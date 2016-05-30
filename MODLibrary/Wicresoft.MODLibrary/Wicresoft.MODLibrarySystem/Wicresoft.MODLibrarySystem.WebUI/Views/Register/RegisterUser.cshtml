@@ -46,8 +46,15 @@
                 <tr>
                     <th>Password</th>
                     <td>
-                        @Html.TextBoxFor(m => m.Password) <span class="requireSpan">*</span>
+                        @Html.TextBoxFor(m => m.Password, new { @id="Password", @type = "password" }) <span class="requireSpan">*</span>
                         <label id="Password_errorData" errordatamessage="Password is require." class="errorLable" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Confirm Password</th>
+                    <td>
+                        <input type="password" id="rePassword" /><span class="requireSpan">*</span>
+                        <label id="rePassword_errorData" class="errorLable" />
                     </td>
                 </tr>
                 <tr>

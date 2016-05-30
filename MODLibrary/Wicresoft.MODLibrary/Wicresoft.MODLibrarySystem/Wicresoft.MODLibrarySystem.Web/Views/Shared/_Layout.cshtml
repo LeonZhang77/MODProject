@@ -31,9 +31,14 @@
                     <li>@Html.ActionLink("Books Store", "Index", "BookManage", null, null)</li>
                     <li>@Html.ActionLink("Rent Manage", "Index", "RentManage", null, null)</li>
                     <li>@Html.ActionLink("User Manage", "Index", "UserManage", null, null)</li>
-                    <li>@Html.ActionLink("Category Manage", "Index", "CategoryManage", null, null)</li>
-                    <li>@Html.ActionLink("Author Manage", "Index", "AuthorManage", null, null)</li>
-                    <li>@Html.ActionLink("Publisher Manage", "Index", "PublisherManage", null, null)</li>
+                    <li class="dropdown">
+                        <div class="dropbtn">Book manage</div>
+                        <div class="dropdown-content">
+                            @Html.ActionLink("Category Manage", "Index", "CategoryManage", null, null)
+                            @Html.ActionLink("Author Manage", "Index", "AuthorManage", null, null)
+                            @Html.ActionLink("Publisher Manage", "Index", "PublisherManage", null, null)
+                        </div>
+                    </li>
                     <li>@Html.ActionLink("About", "About", "Home", null, null)</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home", null, null)</li>
                 </ul>
