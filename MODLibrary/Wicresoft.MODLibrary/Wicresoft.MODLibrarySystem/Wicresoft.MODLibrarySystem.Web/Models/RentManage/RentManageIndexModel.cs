@@ -70,10 +70,13 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
                 userRequestModel.Title = tempList[i].BookDetailInfo.BookInfo.BookName;
                 string displayName = string.Empty;
                 string authorNameValue = string.Empty;
+                userRequestModel.ID = tempList[i].ID;
                 userRequestModel.Author = BookModel.GetAuthorName(tempList[i].BookDetailInfo.BookInfo, out displayName, out authorNameValue);
-                userRequestModel.Publish = tempList[i].BookDetailInfo.UserInfo.DisplayName;
+                userRequestModel.Publish = tempList[i].BookDetailInfo.BookInfo.PublisherInfo.PublisherName;
+                userRequestModel.UserName = tempList[i].BookDetailInfo.UserInfo.DisplayName;
                 userRequestModel.Email = tempList[i].BookDetailInfo.UserInfo.Email;
                 userRequestModel.Floor = tempList[i].BookDetailInfo.UserInfo.Floor.ToString();
+                returnList.Add(userRequestModel);
             }
             return returnList;
         }

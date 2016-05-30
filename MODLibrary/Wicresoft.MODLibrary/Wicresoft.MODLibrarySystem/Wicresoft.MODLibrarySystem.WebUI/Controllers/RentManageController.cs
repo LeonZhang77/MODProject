@@ -29,6 +29,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
         public ActionResult Index()
         {
             RentManageIndexModel model = new RentManageIndexModel();
+            model = RentManageIndexModel.GetViewModel(this.LoginUser());
 
             return View(model);
         }
@@ -84,6 +85,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
 
                     bookDetailInfo.Status = BookStatus.Rent;
                     this.IBookDetailInfoDataProvider.Update(bookDetailInfo);
+
                     bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory - 1;
                     this.IBookInfoDataProvider.Update(bookInfo);
 

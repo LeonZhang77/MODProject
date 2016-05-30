@@ -4,12 +4,24 @@
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.RentManage.RentManageIndexModel
 
+<style type="text/css">
+    table {
+        table-layout: fixed;
+    }
+
+    td {
+        white-space: nowrap;
+        overflow: hidden;
+        word-break: keep-all;
+    }
+</style> 
+
 <h2>Index</h2>
 
 @using (Html.BeginForm())
 {
     <div class="jumbotron" style="height:700px;">
-        <div style="width:500px; height:250px; border:1px; float:left">
+        <div style="width:500px; height:500px; border:1px; float:left">
             <table style="width:500px;">
                 <caption>User Request</caption>
                 <thead>
@@ -47,9 +59,6 @@
                     {
                         <tr>
                             <td>
-                                @item.ID
-                            </td>
-                            <td>
                                 @item.Title
                             </td>
                             <td>
@@ -59,7 +68,7 @@
                                 @item.Publish
                             </td>
                             <td>
-                                @item.UserName
+                                 @item.UserName
                             </td>
                             <td>
                                 @item.Email
@@ -68,14 +77,14 @@
                                 @item.Floor
                             </td>
                             <td>
-                                <button>Approval</button>
-                                <button>Reject</button>
+                                    <button onclick="ApproveUserRequest(@item.ID)">A</button>
+                                    <button>R</button>                                
                             </td>
                         </tr>
                     }
             </table>
         </div>
-        <div style="width:500px; height:250px;border:1px;float:left;">
+        <div style="width:500px; height:500px;border:1px;float:right;">
             <table style=" width:500px">
                 <caption>Waiting For Take</caption>
                 <thead>
@@ -128,7 +137,7 @@
                 </tbody>
             </table>
         </div>
-        <div style="width:500px; height:250px;border:1px; float:left ">
+        <div style="width:500px; height:500px;border:1px; float:left ">
             <table style="width:500px;">
                 <caption>Waiting for Return</caption>
                 <thead>
@@ -181,7 +190,7 @@
                 </tbody>
             </table>
         </div>
-        <div style="width:500px; height:250px;border:1px; float:right ">
+        <div style="width:500px; height:500px;border:1px; float:right ">
             <table style="width:500px;">
                 <caption>RentHistory</caption>
                 <thead>

@@ -9,10 +9,6 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
 {
     public class MyRequestModel : BaseViewModel
     {
-        public MyRequestModel()
-        {
-            this.MyRequestList = new List<MyRequestModel>();
-        }
         public string Title
         {
             get;
@@ -34,11 +30,6 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             set;
         }
         public String Comment
-        {
-            get;
-            set;
-        }
-        public List<MyRequestModel> MyRequestList
         {
             get;
             set;
