@@ -130,7 +130,8 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
 
             bookInfo.Publish_Date = Convert.ToDateTime(this.Publish_Date);
             bookInfo.Price_Inventory = Decimal.Parse(this.Price_Inventory);
-
+            bookInfo.Max_Inventory = Convert.ToInt32(Decimal.Parse(this.Max_Inventory));
+            bookInfo.Avaliable_Inventory = Convert.ToInt32(Decimal.Parse(this.Avaliable_Inventory));
             bookInfo.PublisherInfo = GetPublisherInfo(this.PublisherNameValue, bookInfoDataProvider);
             bookInfo.TempBookAndAuthors = GetAuthorInfoRelationList(this.AuthorNameValue, bookInfo, bookInfoDataProvider);
             bookInfo.TempBookAndCategorys = GetCategoryInfoRelationList(this.CatagoryNameValue, bookInfo, bookInfoDataProvider);

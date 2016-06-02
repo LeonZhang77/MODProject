@@ -47,6 +47,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             IBorrowAndReturnRecordInfoDataProvider dataProvider = new BorrowAndReturnRecordInfoDataProvider();
             List<MyRequestModel> returnList = new List<MyRequestModel>();
             List<BorrowAndReturnRecordInfo> borrowAndReturnRecordInfoList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Pending, userInfo).ToList();
+            
             foreach (BorrowAndReturnRecordInfo item in borrowAndReturnRecordInfoList)
             { 
                 MyRequestModel model = new MyRequestModel();
@@ -58,6 +59,34 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
                 model.Publish = item.BookDetailInfo.BookInfo.PublisherInfo.PublisherName;
                 model.Status = EnumHelper.GetEnumDescription(item.Status);
                 returnList.Add(model);
+            }
+            returnList.OrderByDescending(c => c.CreateTime);
+
+            if (returnList.Count() < 5)
+            {
+                borrowAndReturnRecordInfoList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Rejected, userInfo).ToList();
+                if (borrowAndReturnRecordInfoList.Count() > 0)
+                {
+                    borrowAndReturnRecordInfoList.OrderByDescending(c => c.CreateTime);
+                    int includCount = borrowAndReturnRecordInfoList.Count() < 5 - returnList.Count() ? borrowAndReturnRecordInfoList.Count() : 5 - returnList.Count();
+                    for (int i = 0; i < includCount;  i++)
+                    {
+                        MyRequestModel model = new MyRequestModel();
+                        model.ID = borrowAndReturnRecordInfoList[i].ID;
+                        model.Title = borrowAndReturnRecordInfoList[i].BookDetailInfo.BookInfo.BookName;
+                        string displayName = string.Empty;
+                        string authorNameValue = string.Empty;
+                        model.Author = BookModel.GetAuthorName(borrowAndReturnRecordInfoList[i].BookDetailInfo.BookInfo, out displayName, out authorNameValue);
+                        model.Publish = borrowAndReturnRecordInfoList[i].BookDetailInfo.BookInfo.PublisherInfo.PublisherName;
+                        model.Status = EnumHelper.GetEnumDescription(borrowAndReturnRecordInfoList[i].Status);
+
+                        IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
+                        ProcessRecord processRecord = iProcessRecordDataProvider.GetProcessRecordList().OrderByDescending(c=>c.CreateTime).FirstOrDefault(c => c.BorrowAndReturnRecordInfo.ID == borrowAndReturnRecordInfoList[i].ID);
+                        model.Comment = processRecord.Comments;
+
+                        returnList.Add(model);
+                    }
+                }
             }
             return returnList;            
         }

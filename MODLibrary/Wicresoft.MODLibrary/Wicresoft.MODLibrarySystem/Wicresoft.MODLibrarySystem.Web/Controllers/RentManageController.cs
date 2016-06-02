@@ -7,6 +7,7 @@ using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
 using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 using Wicresoft.MODLibrarySystem.Entity;
 using Wicresoft.MODLibrarySystem.Web.Models.RentManage;
+using Wicresoft.MODLibrarySystem.Web.Models.BookManage;
 using Newtonsoft.Json.Linq;
 
 namespace Wicresoft.MODLibrarySystem.Web.Controllers
@@ -65,19 +66,22 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
                 borrowAndReturnRecordInfo.Status = RentRecordStatus.Rejected;
                 iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
 
+                BookModel bookModel = BookModel.GetViewModel(bookInfo);
                 if (errorOrNot)
                 {
                     bookDetailInfo.Status = BookStatus.Error;
                     bookInfo.Max_Inventory = bookInfo.Max_Inventory - 1;
+                    bookModel.Max_Inventory = bookInfo.Max_Inventory.ToString();
                 }
                 else
                 {
                     bookDetailInfo.Status = BookStatus.InStore;
                     bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory + 1;
+                    bookModel.Avaliable_Inventory = bookInfo.Avaliable_Inventory.ToString();
                 }
                 
                 iBookDetailInfoDataProvider.Update(bookDetailInfo);
-                iBookInfoDataProvider.Update(bookInfo);
+                iBookInfoDataProvider.Update(bookModel.GetEntity());
             }
             catch (Exception ex)
             {
