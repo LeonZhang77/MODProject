@@ -11,7 +11,7 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
 {
     public class BookInfoDataProvider : IBookInfoDataProvider
     {
-        private DBSource DataSource;
+        public DBSource DataSource;
         public BookInfoDataProvider()
         {
             this.DataSource = new DBSource();
@@ -68,8 +68,8 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
 
         public void Add(BookInfo entity)
         {
-            ICollection<BookAndCategoryRelation> tempBookAndCategorys = entity.BookAndCategorys;
-            ICollection<BookAndAuthorRelation> tempBookAndAuthors = entity.BookAndAuthors;
+            ICollection<BookAndCategoryRelation> tempBookAndCategorys = entity.TempBookAndCategorys;
+            ICollection<BookAndAuthorRelation> tempBookAndAuthors = entity.TempBookAndAuthors;
 
             if (entity.PublisherInfo != null)
             {
@@ -86,8 +86,8 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
 
         public void Update(BookInfo entity)
         {
-            ICollection<BookAndCategoryRelation> tempBookAndCategorys = entity.BookAndCategorys;
-            ICollection<BookAndAuthorRelation> tempBookAndAuthors = entity.BookAndAuthors;
+            ICollection<BookAndCategoryRelation> tempBookAndCategorys = entity.TempBookAndCategorys;
+            ICollection<BookAndAuthorRelation> tempBookAndAuthors = entity.TempBookAndAuthors;
 
             BookInfo book = this.GetBookInfoByID(entity.ID);
 

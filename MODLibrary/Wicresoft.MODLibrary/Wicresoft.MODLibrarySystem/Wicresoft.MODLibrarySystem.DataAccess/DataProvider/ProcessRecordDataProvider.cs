@@ -21,6 +21,11 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
         {
             return this.DataSource.ProcessRecords;
         }
+
+        public ProcessRecord GetProcessRecordByID(long id)
+        {
+            return this.DataSource.ProcessRecords.FirstOrDefault(c => c.ID == id);
+        }
         public void Add(ProcessRecord entity)
         {
             if (entity.UserInfo != null)
@@ -38,7 +43,30 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
 
         public void Update(ProcessRecord entity)
         {
-            throw new NotImplementedException();
+            ProcessRecord processRecord = this.GetProcessRecordByID(entity.ID);
+
+            if (processRecord.BorrowAndReturnRecordInfo != null)
+            {
+                processRecord.BorrowAndReturnRecordInfo = this.DataSource.BorrowAndReturnRecordInfos.Find(entity.BorrowAndReturnRecordInfo.ID);
+            }
+            else 
+            {
+                processRecord.BorrowAndReturnRecordInfo = null;
+            }
+
+            if (processRecord.UserInfo != null)
+            {
+                processRecord.UserInfo = this.DataSource.UserInfos.Find(entity.UserInfo.ID);
+            }
+            else
+            {
+                processRecord.UserInfo = null;
+            }
+
+            processRecord.Status = entity.Status;
+            processRecord.Comments = entity.Comments;
+
+            this.DataSource.SaveChanges();
         }
 
         public void DeleteByID(long id)

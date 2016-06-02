@@ -80,5 +80,19 @@ namespace Wicresoft.MODLibrarySystem.Entity
             get;
             set;
         }
+
+        [NotMapped]
+        public virtual ICollection<BookAndCategoryRelation> TempBookAndCategorys
+        {
+            get;
+            set;
+        }
+
+        [NotMapped]
+        public virtual ICollection<BookAndAuthorRelation> TempBookAndAuthors
+        {
+            get;
+            set;
+        }
     }
 }

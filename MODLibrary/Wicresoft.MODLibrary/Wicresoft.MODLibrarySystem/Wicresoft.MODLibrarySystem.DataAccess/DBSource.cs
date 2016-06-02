@@ -8,7 +8,7 @@ using Wicresoft.MODLibrarySystem.Entity;
 
 namespace Wicresoft.MODLibrarySystem.DataAccess
 {
-    class DBSource : DbContext
+    public class DBSource : DbContext
     {
         public DbSet<UserInfo> UserInfos
         {
@@ -80,6 +80,11 @@ namespace Wicresoft.MODLibrarySystem.DataAccess
         {
             get;
             set;
+        }
+
+        public DbSet<T> GetDbSet<T>() where T : class
+        {
+            return this.Set<T>();
         }
     }
 }

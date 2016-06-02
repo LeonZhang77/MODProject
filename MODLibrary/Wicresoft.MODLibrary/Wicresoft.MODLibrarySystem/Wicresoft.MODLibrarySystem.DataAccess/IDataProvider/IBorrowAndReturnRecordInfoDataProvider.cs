@@ -7,11 +7,13 @@ using Wicresoft.MODLibrarySystem.Entity;
 
 namespace Wicresoft.MODLibrarySystem.DataAccess.IDataProvider
 {
-    public interface IBorrowAndReturnRecordInfoDataProvider:IBaseDataProvider<BorrowAndReturnRecordInfo>
+    public interface IBorrowAndReturnRecordInfoDataProvider : IBaseDataProvider<BorrowAndReturnRecordInfo>
     {
         IEnumerable<BorrowAndReturnRecordInfo> GetBorrowAndReturnRecordList();
 
         int GetBooksInHandCount(UserInfo userInfo);
+
+        BorrowAndReturnRecordInfo GetBorrowAndReturnRecordById(long id);
         IEnumerable<BorrowAndReturnRecordInfo> GetBorrowAndReturnRecordListByStatus(RentRecordStatus status);
         IEnumerable<BorrowAndReturnRecordInfo> GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus status, UserInfo userInfo);
     }

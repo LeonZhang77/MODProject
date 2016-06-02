@@ -159,8 +159,93 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
             model.Objections = dataProvider.GetCountByStatus(bookInfo, SupportAgainstStatus.Against).ToString();
 
             return model;
-        } 
+        }
 
+        public BookInfo GetEntity()
+        {
+            BookInfo bookInfo = new BookInfo();
+
+            BookInfoDataProvider bookInfoDataProvider = new BookInfoDataProvider();
+            IBookInfoDataProvider iBookInfoDataProvider = bookInfoDataProvider;
+
+            if (this.ID > 0)
+            {
+
+                bookInfo = iBookInfoDataProvider.GetBookInfoByID(this.ID);
+            }
+
+            bookInfo.ID = this.ID;
+            bookInfo.BookName = this.BookName;
+            bookInfo.ISBN = this.ISBN;
+
+            bookInfo.Publish_Date = Convert.ToDateTime(this.Publish_Date);
+            bookInfo.Price_Inventory = Decimal.Parse(this.Price_Inventory);
+            bookInfo.Avaliable_Inventory = Convert.ToInt32(Convert.ToDecimal(this.Avaliable_Inventory));
+            bookInfo.Max_Inventory = Convert.ToInt32(this.Max_Inventory);
+
+            bookInfo.PublisherInfo = GetPublisherInfo(this.PublisherNameValue, bookInfoDataProvider);
+            bookInfo.TempBookAndAuthors = GetAuthorInfoRelationList(this.AuthorNameValue, bookInfo, bookInfoDataProvider);
+            bookInfo.TempBookAndCategorys = GetCategoryInfoRelationList(this.CatagoryNameValue, bookInfo, bookInfoDataProvider);
+
+            return bookInfo;
+        }
+
+        public ICollection<BookAndCategoryRelation> GetCategoryInfoRelationList(string cIDs, BookInfo book, BookInfoDataProvider bookInfoDataProvider)
+        {
+            ICollection<BookAndCategoryRelation> list = new List<BookAndCategoryRelation>();
+            if (!String.IsNullOrEmpty(cIDs))
+            {
+                var aArrary = cIDs.Split(UntityContent.SplitValueStr);
+                foreach (var item in aArrary)
+                {
+                    if (!String.IsNullOrEmpty(item))
+                    {
+                        long catID = long.Parse(item);
+                        BookAndCategoryRelation relationEntity = new BookAndCategoryRelation();
+                        relationEntity.BookInfo = book;
+                        relationEntity.CategoryInfo = bookInfoDataProvider.DataSource.CategoryInfos.FirstOrDefault(c => c.ID == catID);
+                        list.Add(relationEntity);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public ICollection<BookAndAuthorRelation> GetAuthorInfoRelationList(string aIDs, BookInfo book, BookInfoDataProvider bookInfoDataProvider)
+        {
+            ICollection<BookAndAuthorRelation> list = new List<BookAndAuthorRelation>();
+            if (!String.IsNullOrEmpty(aIDs))
+            {
+                var aArrary = aIDs.Split(UntityContent.SplitValueStr);
+                foreach (var item in aArrary)
+                {
+                    if (!String.IsNullOrEmpty(item))
+                    {
+                        long authID = long.Parse(item);
+                        BookAndAuthorRelation relationEntity = new BookAndAuthorRelation();
+                        relationEntity.BookInfo = book;
+                        relationEntity.AuthorInfo = bookInfoDataProvider.DataSource.AuthorInfos.FirstOrDefault(a => a.ID == authID);
+                        list.Add(relationEntity);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public PublisherInfo GetPublisherInfo(string pid, BookInfoDataProvider bookInfoDataProvider)
+        {
+            PublisherInfo info = null;
+
+            if (!String.IsNullOrEmpty(pid))
+            {
+                long publishID = long.Parse(pid);
+                info = bookInfoDataProvider.DataSource.PublisherInfos.FirstOrDefault(p => p.ID == publishID);
+            }
+
+            return info;
+        }
         public static string GetCategoryName(BookInfo bookInfo, out string categoryNameValue)
         {
             string categoryName = string.Empty;

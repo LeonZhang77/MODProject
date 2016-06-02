@@ -23,17 +23,22 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
 
         public IEnumerable<BorrowAndReturnRecordInfo> GetBorrowAndReturnRecordListByStatus(RentRecordStatus status)
         {
-            IEnumerable<BorrowAndReturnRecordInfo> returnList = GetBorrowAndReturnRecordList(); ;
+            IEnumerable<BorrowAndReturnRecordInfo> returnList = GetBorrowAndReturnRecordList(); 
             returnList = returnList.Where(b => b.Status == RentRecordStatus.Pending);
-            returnList.OrderBy(b => b.CreateTime);
             return returnList;
         }
 
         public IEnumerable<BorrowAndReturnRecordInfo> GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus status, UserInfo userInfo)
         {
-            IEnumerable<BorrowAndReturnRecordInfo> returnList = GetBorrowAndReturnRecordListByStatus(status) ;
+            IEnumerable<BorrowAndReturnRecordInfo> returnList = GetBorrowAndReturnRecordListByStatus(status);
             returnList = returnList.Where(b => b.UserInfo.ID == userInfo.ID);
             return returnList;
+        }
+
+        public BorrowAndReturnRecordInfo   GetBorrowAndReturnRecordById(long id)
+        {
+            BorrowAndReturnRecordInfo returnInfo = this.DataSource.BorrowAndReturnRecordInfos.FirstOrDefault(c => c.ID == id);
+            return returnInfo; 
         }
 
         public int GetBooksInHandCount(UserInfo userInfo)
@@ -53,12 +58,12 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
         public void Add(BorrowAndReturnRecordInfo entity)
         {
             if (entity.UserInfo != null)
-            { 
-                entity.UserInfo =  this.DataSource.UserInfos.FirstOrDefault(u => u.ID == entity.UserInfo.ID);
-            }
-            if(entity.BookDetailInfo != null)
             {
-                entity.BookDetailInfo = this.DataSource.BookDetailInfos.FirstOrDefault(u=>u.ID == entity.BookDetailInfo.ID);
+                entity.UserInfo = this.DataSource.UserInfos.FirstOrDefault(u => u.ID == entity.UserInfo.ID);
+            }
+            if (entity.BookDetailInfo != null)
+            {
+                entity.BookDetailInfo = this.DataSource.BookDetailInfos.FirstOrDefault(u => u.ID == entity.BookDetailInfo.ID);
             }
 
             this.DataSource.BorrowAndReturnRecordInfos.Add(entity);
@@ -67,7 +72,32 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
 
         public void Update(BorrowAndReturnRecordInfo entity)
         {
-            throw new NotImplementedException();
+            BorrowAndReturnRecordInfo info = this.DataSource.BorrowAndReturnRecordInfos.Find(entity.ID);
+
+            if (info.BookDetailInfo != null)
+            {
+                info.BookDetailInfo = this.DataSource.BookDetailInfos.Find(entity.BookDetailInfo.ID);
+            }
+            else
+            {
+                info.BookDetailInfo = null;            
+            }
+
+            if (info.UserInfo != null)
+            {
+                info.UserInfo = this.DataSource.UserInfos.Find(entity.UserInfo.ID);
+            }
+            else
+            {
+                info.UserInfo = null;
+            }
+
+            info.Status = entity.Status;
+            info.Borrow_Date = entity.Borrow_Date;
+            info.Forcast_Date = entity.Forcast_Date;
+            info.Return_Date = entity.Return_Date;
+
+            this.DataSource.SaveChanges();
         }
 
         public void DeleteByID(long id)

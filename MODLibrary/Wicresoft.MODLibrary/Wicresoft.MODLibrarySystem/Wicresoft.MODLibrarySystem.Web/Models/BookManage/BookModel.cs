@@ -115,10 +115,13 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
         {
             BookInfo bookInfo = new BookInfo();
 
+            BookInfoDataProvider bookInfoDataProvider = new BookInfoDataProvider();
+            IBookInfoDataProvider iBookInfoDataProvider = bookInfoDataProvider;
+
             if (this.ID > 0)
             {
-                IBookInfoDataProvider IBookInfoDataProvider=new BookInfoDataProvider();
-                bookInfo = IBookInfoDataProvider.GetBookInfoByID(this.ID);
+
+                bookInfo = iBookInfoDataProvider.GetBookInfoByID(this.ID);
             }
 
             bookInfo.ID = this.ID;
@@ -128,9 +131,9 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
             bookInfo.Publish_Date = Convert.ToDateTime(this.Publish_Date);
             bookInfo.Price_Inventory = Decimal.Parse(this.Price_Inventory);
 
-            bookInfo.PublisherInfo = GetPublisherInfo(this.PublisherNameValue);
-            bookInfo.BookAndAuthors = GetAuthorInfoRelationList(this.AuthorNameValue, bookInfo);
-            bookInfo.BookAndCategorys = GetCategoryInfoRelationList(this.CatagoryNameValue, bookInfo);
+            bookInfo.PublisherInfo = GetPublisherInfo(this.PublisherNameValue, bookInfoDataProvider);
+            bookInfo.TempBookAndAuthors = GetAuthorInfoRelationList(this.AuthorNameValue, bookInfo, bookInfoDataProvider);
+            bookInfo.TempBookAndCategorys = GetCategoryInfoRelationList(this.CatagoryNameValue, bookInfo, bookInfoDataProvider);
 
             return bookInfo;
         }
@@ -169,10 +172,9 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
             return model;
         }
 
-        public ICollection<BookAndCategoryRelation> GetCategoryInfoRelationList(string cIDs, BookInfo book)
+        public ICollection<BookAndCategoryRelation> GetCategoryInfoRelationList(string cIDs, BookInfo book, BookInfoDataProvider bookInfoDataProvider)
         {
             ICollection<BookAndCategoryRelation> list = new List<BookAndCategoryRelation>();
-            ICategoryInfoDataProvider categoryDataProvider = new CategoryInfoDataProvider();
             if (!String.IsNullOrEmpty(cIDs))
             {
                 var aArrary = cIDs.Split(UntityContent.SplitValueStr);
@@ -180,9 +182,10 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
                 {
                     if (!String.IsNullOrEmpty(item))
                     {
+                        long catID = long.Parse(item);
                         BookAndCategoryRelation relationEntity = new BookAndCategoryRelation();
                         relationEntity.BookInfo = book;
-                        relationEntity.CategoryInfo = categoryDataProvider.GetCategoryByID(long.Parse(item));
+                        relationEntity.CategoryInfo = bookInfoDataProvider.DataSource.CategoryInfos.FirstOrDefault(c => c.ID == catID);
                         list.Add(relationEntity);
                     }
                 }
@@ -191,10 +194,9 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
             return list;
         }
 
-        public ICollection<BookAndAuthorRelation> GetAuthorInfoRelationList(string aIDs, BookInfo book)
+        public ICollection<BookAndAuthorRelation> GetAuthorInfoRelationList(string aIDs, BookInfo book, BookInfoDataProvider bookInfoDataProvider)
         {
             ICollection<BookAndAuthorRelation> list = new List<BookAndAuthorRelation>();
-            IAuthorInfoDataProvider authorDataProvider = new AuthorInfoDataProvider();
             if (!String.IsNullOrEmpty(aIDs))
             {
                 var aArrary = aIDs.Split(UntityContent.SplitValueStr);
@@ -202,9 +204,10 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
                 {
                     if (!String.IsNullOrEmpty(item))
                     {
+                        long authID = long.Parse(item);
                         BookAndAuthorRelation relationEntity = new BookAndAuthorRelation();
                         relationEntity.BookInfo = book;
-                        relationEntity.AuthorInfo = authorDataProvider.GetAuthorListByID(long.Parse(item));
+                        relationEntity.AuthorInfo = bookInfoDataProvider.DataSource.AuthorInfos.FirstOrDefault(a => a.ID == authID);
                         list.Add(relationEntity);
                     }
                 }
@@ -213,14 +216,14 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.BookManage
             return list;
         }
 
-        public PublisherInfo GetPublisherInfo(string pid)
+        public PublisherInfo GetPublisherInfo(string pid, BookInfoDataProvider bookInfoDataProvider)
         {
             PublisherInfo info = null;
 
             if (!String.IsNullOrEmpty(pid))
             {
-                IPublisherInfoDataProvider dataProvider = new PublisherInfoDataProvider();
-                info = dataProvider.GetPublisherByID(long.Parse(pid));
+                long publishID = long.Parse(pid);
+                info = bookInfoDataProvider.DataSource.PublisherInfos.FirstOrDefault(p => p.ID == publishID);
             }
 
             return info;

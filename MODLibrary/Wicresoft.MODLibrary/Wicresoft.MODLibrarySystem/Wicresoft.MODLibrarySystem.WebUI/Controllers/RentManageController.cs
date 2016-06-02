@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Wicresoft.MODLibrarySystem.WebUI.Models.RentManage;
+using Wicresoft.MODLibrarySystem.WebUI.Models.BookManage;
 using Wicresoft.MODLibrarySystem.Entity;
 using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
 using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
@@ -86,8 +87,10 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
                     bookDetailInfo.Status = BookStatus.Rent;
                     this.IBookDetailInfoDataProvider.Update(bookDetailInfo);
 
+                    BookModel bookModel = BookModel.GetViewModel(bookInfo, this.LoginUser());
                     bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory - 1;
-                    this.IBookInfoDataProvider.Update(bookInfo);
+                    bookModel.Avaliable_Inventory = bookInfo.Avaliable_Inventory.ToString();
+                    this.IBookInfoDataProvider.Update(bookModel.GetEntity());
 
                 }
                 //book avaliable -1

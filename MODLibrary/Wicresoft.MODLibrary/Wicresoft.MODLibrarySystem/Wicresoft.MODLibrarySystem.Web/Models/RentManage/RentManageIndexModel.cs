@@ -55,6 +55,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
             List<UserRequestModel> returnList = new List<UserRequestModel>();
             IBorrowAndReturnRecordInfoDataProvider dataProvider = new BorrowAndReturnRecordInfoDataProvider();
             List<BorrowAndReturnRecordInfo> tempList = dataProvider.GetBorrowAndReturnRecordListByStatus(RentRecordStatus.Pending).ToList();
+            tempList.OrderByDescending(b => b.CreateTime);
             int count;
             if (tempList.Count() > 5)
             {
@@ -67,10 +68,10 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
             for (int i = 0; i < count; i++)
             {
                 UserRequestModel userRequestModel = new UserRequestModel();
+                userRequestModel.ID = tempList[i].ID;
                 userRequestModel.Title = tempList[i].BookDetailInfo.BookInfo.BookName;
                 string displayName = string.Empty;
                 string authorNameValue = string.Empty;
-                userRequestModel.ID = tempList[i].ID;
                 userRequestModel.Author = BookModel.GetAuthorName(tempList[i].BookDetailInfo.BookInfo, out displayName, out authorNameValue);
                 userRequestModel.Publish = tempList[i].BookDetailInfo.BookInfo.PublisherInfo.PublisherName;
                 userRequestModel.UserName = tempList[i].BookDetailInfo.UserInfo.DisplayName;

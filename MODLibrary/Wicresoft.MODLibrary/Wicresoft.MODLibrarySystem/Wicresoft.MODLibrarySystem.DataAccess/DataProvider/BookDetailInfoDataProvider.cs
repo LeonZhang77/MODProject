@@ -32,7 +32,8 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.DataProvider
         {
             BookDetailInfo returnEntity = null;
             List<BookDetailInfo> detailInfoList = this.DataSource.BookDetailInfos.ToList();
-            detailInfoList = detailInfoList.Where(c => c.Status == BookStatus.InStore && c.BookInfo.ID == ID).ToList();
+            detailInfoList = detailInfoList.Where(c => c.Status == BookStatus.InStore).ToList();
+            detailInfoList = detailInfoList.Where(c => c.BookInfo.ID == ID).ToList();
             if (detailInfoList.Count() > 0)
             {
                 returnEntity = detailInfoList.First < BookDetailInfo>();

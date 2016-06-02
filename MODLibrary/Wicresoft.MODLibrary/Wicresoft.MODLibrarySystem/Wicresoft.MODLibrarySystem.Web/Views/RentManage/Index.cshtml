@@ -3,6 +3,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.RentManage.RentManageIndexModel
+@Scripts.Render("~/Scripts/ui/jquery-ui.js")
+@Scripts.Render("~/Scripts/RentManageJS/RentIndexJS.js")
 
 <style type="text/css">
     table {
@@ -14,7 +16,7 @@
         overflow: hidden;
         word-break: keep-all;
     }
-</style> 
+</style>
 
 <h2>Index</h2>
 
@@ -40,7 +42,7 @@
                             Author
                         </td>
                         <td>
-                            Publish
+                            Publisher
                         </td>
                         <td>
                             User Name
@@ -57,6 +59,8 @@
                     </tr>
                     @foreach (var item in this.Model.UserRequestList)
                     {
+                        string approveButtonId = "approveuserRequestButton" + @item.ID.ToString();
+                        string rejectButtonId = "rejectuserRequestButton" + @item.ID.ToString();
                         <tr>
                             <td>
                                 @item.Title
@@ -68,7 +72,7 @@
                                 @item.Publish
                             </td>
                             <td>
-                                 @item.UserName
+                                @item.UserName
                             </td>
                             <td>
                                 @item.Email
@@ -77,8 +81,8 @@
                                 @item.Floor
                             </td>
                             <td>
-                                    <button onclick="ApproveUserRequest(@item.ID)">A</button>
-                                    <button>R</button>                                
+                                <a id= @approveButtonId onclick="approveUserRequestButton(@item.ID);">A</a>
+                                <a id = @rejectButtonId onclick="rejectUserRequestDialogShow(@item.ID);">R</a>
                             </td>
                         </tr>
                     }
@@ -160,7 +164,7 @@
                             Expiration Day
                         </td>
                         <td>
-                            Delay                        
+                            Delay
                         </td>
                         <td>
                             Operation
@@ -195,7 +199,7 @@
                 <caption>RentHistory</caption>
                 <thead>
                     <tr>
-                        <td colspan="1">
+                        <td colspan="4">
                             @Html.ActionLink("More", "RentHistory")
                         </td>
                     </tr>
@@ -238,3 +242,17 @@
 
     </div>
 }
+
+    <div style="display: none" id="RejectUserRequestDialog" title="Reject item">
+        <p>
+            You will reject this request. Please input your reason.<br />
+            <br />
+            <input type="checkbox" id="setThisBookError" onclick="checkSetThisBookError()" />Mark this book's status as "Error".
+            <br />
+            <br />
+            <textarea id="comments" style="width:400px; height:100px">The MOD Library is arranging books.</textarea>
+        </p>
+    </div>
+
+<div style="display: none" id="RejectUserRequestURL" requstUrl ="@Url.Action("RejectUserRequest", "RentManage")"></div>
+<div style="display: none" id="ApproveUserRequestURL" requsturl="@Url.Action("ApproveUserRequest", "RentManage")"></div>

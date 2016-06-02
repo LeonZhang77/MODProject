@@ -9,6 +9,7 @@ namespace Wicresoft.MODLibrarySystem.DataAccess.IDataProvider
 {
     public interface IProcessRecordDataProvider:IBaseDataProvider<ProcessRecord>
     {
+        ProcessRecord GetProcessRecordByID(long id);
         IEnumerable<ProcessRecord> GetProcessRecordList();
     }
 }
