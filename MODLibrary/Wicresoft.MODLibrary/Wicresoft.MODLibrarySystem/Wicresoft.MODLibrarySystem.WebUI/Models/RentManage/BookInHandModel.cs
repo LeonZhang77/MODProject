@@ -28,10 +28,18 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             get;
             set;
         }
-        public String Operation
+
+        public bool EnableRenew
         {
             get;
             set;
         }
+
+        public bool HasAlreadyRenewed
+        {
+            get;
+            set;
+        }
+
     }
 }

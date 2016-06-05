@@ -19,12 +19,14 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
         public IBookDetailInfoDataProvider IBookDetailInfoDataProvider;
         public IBorrowAndReturnRecordInfoDataProvider IBorrowAndReturnRecordInfoDataProvider;
         public IProcessRecordDataProvider IProcessRecordDataProvider;
+        public IDelayRecordDataProvider IDelayRecordDataProvider;
         public RentManageController()
         {
             this.IBookInfoDataProvider = new BookInfoDataProvider();
             this.IBookDetailInfoDataProvider = new BookDetailInfoDataProvider();
             this.IBorrowAndReturnRecordInfoDataProvider = new BorrowAndReturnRecordInfoDataProvider();
             this.IProcessRecordDataProvider = new ProcessRecordDataProvider();
+            this.IDelayRecordDataProvider = new DelayRecordDataProvider();
         }
         
         public ActionResult Index()
@@ -104,6 +106,29 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             }
             return "true";
             //return "false";
+        }
+
+        public string RenewBookInHand(string q) 
+        {
+            try
+            {
+                int id = Convert.ToInt32(q);
+                
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = 
+                    this.IBorrowAndReturnRecordInfoDataProvider.GetBorrowAndReturnRecordById(id);
+                borrowAndReturnRecordInfo.Forcast_Date = borrowAndReturnRecordInfo.Forcast_Date.AddDays(30);
+                this.IBorrowAndReturnRecordInfoDataProvider.Update(borrowAndReturnRecordInfo);
+
+                DelayRecord delayRecord = new DelayRecord();
+                delayRecord.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
+                delayRecord.UserInfo = this.LoginUser();
+                this.IDelayRecordDataProvider.Add(delayRecord);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return "true";
         }
     }
 }

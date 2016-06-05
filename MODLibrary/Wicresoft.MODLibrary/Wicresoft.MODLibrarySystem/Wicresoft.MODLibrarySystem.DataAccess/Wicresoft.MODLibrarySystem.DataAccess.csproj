@@ -55,6 +55,7 @@
     <Compile Include="DataProvider\BookInfoDataProvider.cs" />
     <Compile Include="DataProvider\BorrowAndReturnRecordInfoDataProvider.cs" />
     <Compile Include="DataProvider\CategoryInfoDataProvider.cs" />
+    <Compile Include="DataProvider\DelayRecordDataProvider.cs" />
     <Compile Include="DataProvider\ProcessRecordDataProvider.cs" />
     <Compile Include="DataProvider\PublisherInfoDataProvider.cs" />
     <Compile Include="DataProvider\SupportORAgainstInfoDataProvider.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="IDataProvider\IBookInfoDataProvider.cs" />
     <Compile Include="IDataProvider\IBorrowAndReturnRecordInfoDataProvider.cs" />
     <Compile Include="IDataProvider\ICategoryInfoDataProvider.cs" />
+    <Compile Include="IDataProvider\IDelayRecordDataProvider.cs" />
     <Compile Include="IDataProvider\IProcessRecordDataProvider.cs" />
     <Compile Include="IDataProvider\IPublisherInfoDataProvider.cs" />
     <Compile Include="IDataProvider\ISupportORAgainstInfoDataProvider.cs" />

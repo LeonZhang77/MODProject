@@ -89,5 +89,143 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             }
             return "true";
         }
+
+        public string ApproveUserRequest(string q)
+        {
+            try
+            {
+                JObject obj = JObject.Parse(q);
+                long id = long.Parse((string)obj["idStr"]);
+                string comments = (string)obj["comments"];
+
+                IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = iBorrowAndReturnRecordInfoDataProviderdataProvider.GetBorrowAndReturnRecordById(id);
+               
+                IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
+                ProcessRecord processInfo = new ProcessRecord();
+                processInfo.Status = RentRecordStatus.Approved;
+                processInfo.UserInfo = this.LoginUser();
+                processInfo.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
+                processInfo.Comments = comments;
+                iProcessRecordDataProvider.Add(processInfo);
+
+                borrowAndReturnRecordInfo.Status = RentRecordStatus.Approved;
+                iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return "true";
+        }
+
+        public string TakeWaitingForTake(string q)
+        {
+            try
+            {
+                long id = long.Parse(q);
+                
+                IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = iBorrowAndReturnRecordInfoDataProviderdataProvider.GetBorrowAndReturnRecordById(id);
+
+                IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
+                ProcessRecord processInfo = new ProcessRecord();
+                processInfo.Status = RentRecordStatus.Taked;
+                processInfo.UserInfo = this.LoginUser();
+                processInfo.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
+                processInfo.Comments = "";
+                iProcessRecordDataProvider.Add(processInfo);
+
+                borrowAndReturnRecordInfo.Status = RentRecordStatus.Taked;
+                borrowAndReturnRecordInfo.Borrow_Date = DateTime.Today;
+                borrowAndReturnRecordInfo.Forcast_Date = DateTime.Today.AddDays(30);
+                
+                iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return "true";
+        }
+
+        public string RevokeWaitingForTake(string q)
+        {
+            try
+            {
+                long id = long.Parse(q);
+
+                IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = iBorrowAndReturnRecordInfoDataProviderdataProvider.GetBorrowAndReturnRecordById(id);
+
+                IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
+                ProcessRecord processInfo = new ProcessRecord();
+                processInfo.Status = RentRecordStatus.Revoked;
+                processInfo.UserInfo = this.LoginUser();
+                processInfo.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
+                processInfo.Comments = "You didn't take your book in limited time.";
+                iProcessRecordDataProvider.Add(processInfo);
+
+                borrowAndReturnRecordInfo.Status = RentRecordStatus.Revoked;
+                iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
+
+                IBookDetailInfoDataProvider iBookDetailInfoDataProvider = new BookDetailInfoDataProvider();
+                BookDetailInfo bookDetailInfo = iBookDetailInfoDataProvider.GetBookDetailInfoByID(borrowAndReturnRecordInfo.BookDetailInfo.ID);
+                bookDetailInfo.Status = BookStatus.InStore;
+                iBookDetailInfoDataProvider.Update(bookDetailInfo);
+
+                IBookInfoDataProvider iBookInfoDataProvider = new BookInfoDataProvider();
+                BookInfo bookInfo = iBookInfoDataProvider.GetBookInfoByID(borrowAndReturnRecordInfo.BookDetailInfo.BookInfo.ID);
+                bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory + 1;
+                BookModel model = BookModel.GetViewModel(bookInfo);
+                iBookInfoDataProvider.Update(model.GetEntity());
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return "true";
+        }
+
+        public string ReturnWaitingForReturn(string q)
+        {
+            try
+            {
+                long id = long.Parse(q);
+
+                IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = iBorrowAndReturnRecordInfoDataProviderdataProvider.GetBorrowAndReturnRecordById(id);
+
+                IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
+                ProcessRecord processInfo = new ProcessRecord();
+                processInfo.Status = RentRecordStatus.Returned;
+                processInfo.UserInfo = this.LoginUser();
+                processInfo.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
+                processInfo.Comments = "";
+                iProcessRecordDataProvider.Add(processInfo);
+
+                borrowAndReturnRecordInfo.Status = RentRecordStatus.Returned;
+                borrowAndReturnRecordInfo.Return_Date = DateTime.Today;
+                iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
+
+                IBookDetailInfoDataProvider iBookDetailInfoDataProvider = new BookDetailInfoDataProvider();
+                BookDetailInfo bookDetailInfo = iBookDetailInfoDataProvider.GetBookDetailInfoByID(borrowAndReturnRecordInfo.BookDetailInfo.ID);
+                bookDetailInfo.Status = BookStatus.InStore;
+                iBookDetailInfoDataProvider.Update(bookDetailInfo);
+
+                IBookInfoDataProvider iBookInfoDataProvider = new BookInfoDataProvider();
+                BookInfo bookInfo = iBookInfoDataProvider.GetBookInfoByID(borrowAndReturnRecordInfo.BookDetailInfo.BookInfo.ID);
+                bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory + 1;
+                BookModel model = BookModel.GetViewModel(bookInfo);
+                iBookInfoDataProvider.Update(model.GetEntity());
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return "true";
+        }
+    
     }
-}
+ }
+

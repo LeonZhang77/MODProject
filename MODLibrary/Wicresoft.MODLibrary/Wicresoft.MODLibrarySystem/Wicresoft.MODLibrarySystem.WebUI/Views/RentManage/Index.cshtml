@@ -3,13 +3,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Wicresoft.MODLibrarySystem.WebUI.Models.RentManage.RentManageIndexModel
+@Scripts.Render("~/Scripts/RentManageJS/RentIndex.js")
+<link href="~/Content/TDNoWarp.css" rel="stylesheet" />
 
 <h2>Index</h2>
 
 @using (Html.BeginForm())
 {
-    <div class="jumbotron" style="height:700px;">
-        <div style="width:500px; height:250px; border:1px; float:left">
+    <div class="jumbotron" style="height:800px;">
+        <div style="width:500px; height:400px; border:1px; float:left">
             <table style="width:500px;">
                 <caption>My Request</caption>
                 <thead>
@@ -79,11 +81,6 @@
                     @foreach (var item in this.Model.ReadHistoryModelList)
                     {
                         <tr>
-                            <td colspan="1">
-                                @Html.ActionLink("More", "ReadHistory", new { @id = item.ID })
-                            </td>
-                        </tr>
-                        <tr>
                             <td>
                                 @item.Title
                             </td>
@@ -123,7 +120,14 @@
                             @item.EXpirationDay
                         </td>
                         <td>
-                            @item.Operation
+                            @if (item.HasAlreadyRenewed)
+                            { 
+                            <p>Renewed</p>
+                            }
+                            @if (item.EnableRenew)
+                            {
+                                <a onclick="renewBookInHandButton(@item.ID)">Renew</a>
+                            }
                         </td>
                     </tr>
                 }
@@ -134,3 +138,25 @@
            
     </div>
 }
+
+<div style="display: none" id="RenewConfirmDialog" title="Confirm Dialog">
+    @if (Model.RenewLevel)
+    {
+            <p>
+                <br />              
+                For this book, You can renew once, <br />
+                Are you sure you want to renew this book?
+            </p>
+    }
+    else
+    {
+        <p>
+            <br />
+            For all of books in your hand, You can renew 1 time totally, <br />
+            Are you sure you want to renew now?
+        </p>
+    }
+
+</div>
+
+<div style="display:none" id="RenewBookInHandURL" requstUrl =" @Url.Action("RenewBookInHand", "RentManage")"></div>

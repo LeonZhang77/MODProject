@@ -20,7 +20,13 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
             set;
         }
 
-        public DateTime ExpirationDay
+        public string ExpirationDay
+        {
+            get;
+            set;
+        }
+
+        public string Delay
         {
             get;
             set;

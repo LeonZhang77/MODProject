@@ -1,0 +1,9 @@
+﻿table {
+        table-layout: fixed;
+    }
+
+    td {
+        white-space: nowrap;
+        overflow: hidden;
+        word-break: keep-all;
+    }

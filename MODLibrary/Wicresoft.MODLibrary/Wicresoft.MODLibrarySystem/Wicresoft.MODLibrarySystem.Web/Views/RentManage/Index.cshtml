@@ -5,24 +5,13 @@
 @model Wicresoft.MODLibrarySystem.Web.Models.RentManage.RentManageIndexModel
 @Scripts.Render("~/Scripts/ui/jquery-ui.js")
 @Scripts.Render("~/Scripts/RentManageJS/RentIndexJS.js")
-
-<style type="text/css">
-    table {
-        table-layout: fixed;
-    }
-
-    td {
-        white-space: nowrap;
-        overflow: hidden;
-        word-break: keep-all;
-    }
-</style>
+<link href="~/Content/TDNoWarp.css" rel="stylesheet" />
 
 <h2>Index</h2>
 
 @using (Html.BeginForm())
 {
-    <div class="jumbotron" style="height:700px;">
+    <div class="jumbotron" style="height:1100px;">
         <div style="width:500px; height:500px; border:1px; float:left">
             <table style="width:500px;">
                 <caption>User Request</caption>
@@ -119,6 +108,8 @@
                     </tr>
                     @foreach (var item in this.Model.WaitingForTakeModelList)
                     {
+                        string takeButtonId = "takeWaitingForTakeButton" + @item.ID.ToString();
+                        string revoketButtonId = "revokeWaitingForTakeButton" + @item.ID.ToString();
                         <tr>
                             <td>
                                 @item.Title
@@ -133,8 +124,8 @@
                                 @item.Floor
                             </td>
                             <td>
-                                <button>Approval</button>
-                                <button>Reject</button>
+                                <a id=@takeButtonId onclick="takeWaitingForTakeButton(@item.ID);">T</a>
+                                <a id=@revoketButtonId onclick="revokeWaitingForTakeButton(@item.ID);">R</a>
                             </td>
                         </tr>
                     }
@@ -172,6 +163,7 @@
                     </tr>
                     @foreach (var item in this.Model.WaitingForReturnModelList)
                     {
+                        string returnButtonId = "returnWaitingForReturnButton" + @item.ID.ToString();
                         <tr>
                             <td>
                                 @item.Title
@@ -183,11 +175,10 @@
                                 @item.ExpirationDay
                             </td>
                             <td>
-                                3
+                                @item.Delay
                             </td>
                             <td>
-                                <button>Approval</button>
-                                <button>Reject</button>
+                                <a id=@returnButtonId onclick="returnWaitingForReturnButton(@item.ID);">RETURN</a>
                             </td>
                         </tr>
                     }
@@ -196,7 +187,7 @@
         </div>
         <div style="width:500px; height:500px;border:1px; float:right ">
             <table style="width:500px;">
-                <caption>RentHistory</caption>
+                <caption>Rent History</caption>
                 <thead>
                     <tr>
                         <td colspan="4">
@@ -243,16 +234,62 @@
     </div>
 }
 
-    <div style="display: none" id="RejectUserRequestDialog" title="Reject item">
+ <div style="display: none" id="RejectUserRequestDialog" title="Reject item">
         <p>
             You will reject this request. Please input your reason.<br />
             <br />
             <input type="checkbox" id="setThisBookError" onclick="checkSetThisBookError()" />Mark this book's status as "Error".
             <br />
             <br />
-            <textarea id="comments" style="width:400px; height:100px">The MOD Library is arranging books.</textarea>
+            <textarea id="commentsOfReject" style="width:400px; height:100px">The MOD Library is arranging books.</textarea>
         </p>
     </div>
 
+<div style="display: none" id="ApproveUserRequestDialog" title="Reject item">
+    <p>
+        <br />
+        You will approve this request, please input your comment.<br />
+        <br />
+        <br />
+        <textarea id="commentsOfApprove" style="width:600px; height:150px">
+            Please come to take you requested book before next Wednesday, 
+            Locate is out door of West 3 Floor. 
+        </textarea>
+    </p>
+</div>
+
+<div style="display: none" id="TakeWaitingForTakeDialog" title="Confirm Dialog">
+    <p>
+        <br />
+        This item will be edit and can not be recover.<br />
+        Are you sure user has already taken this book?
+        <br />
+        <br />
+    </p>
+</div>
+
+<div style="display: none" id="RevokeWaitingForTakeDialog" title="Confirm Dialog">
+    <p>
+        <br />
+        This item will be edit and can not be recover.<br />
+        Are you sure user hasn't taken this book in time?
+        <br />
+        <br />
+    </p>
+</div>
+
+<div style="display: none" id="ReturnWaitingForReturnDialog" title="Confirm Dialog">
+    <p>
+        <br />
+        This item will be edit and can not be recover.<br />
+        Are you sure user has return this book in time?
+        <br />
+        <br />
+    </p>
+</div>
+
 <div style="display: none" id="RejectUserRequestURL" requstUrl ="@Url.Action("RejectUserRequest", "RentManage")"></div>
 <div style="display: none" id="ApproveUserRequestURL" requsturl="@Url.Action("ApproveUserRequest", "RentManage")"></div>
+<div style="display: none" id="TakeWaitingForTakeURL" requsturl="@Url.Action("TakeWaitingForTake", "RentManage")"></div>
+<div style="display: none" id="RevokeWaitingForTakeURL" requsturl="@Url.Action("RevokeWaitingForTake", "RentManage")"></div>
+<div style="display: none" id="ReturnWaitingForReturnURL" requsturl="@Url.Action("ReturnWaitingForReturn", "RentManage")"></div>

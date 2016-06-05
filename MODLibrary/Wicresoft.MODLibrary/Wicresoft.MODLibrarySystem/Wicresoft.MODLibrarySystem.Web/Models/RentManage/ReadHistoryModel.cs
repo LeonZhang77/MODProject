@@ -20,12 +20,12 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
             set;
         }
 
-        public DateTime RentDateFrom
+        public String RentDateFrom
         {
             get;
             set;
         }
-        public DateTime RentDateTo
+        public String RentDateTo
         {
             get;
             set;

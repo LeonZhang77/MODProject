@@ -37,5 +37,24 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
 
             return returnInt;
         }
+
+        public static bool GetCanRenewLevel(UserInfo userInfo)
+        {
+            bool returnBool = true;
+            switch (userInfo.Grade)
+            {
+                case UserGrade.Resign:
+                case UserGrade.Junior:
+                    returnBool = false;
+                    break;
+                case UserGrade.PrepVolunteer:
+                case UserGrade.Ordinary:
+                case UserGrade.Admin:
+                case UserGrade.VIP:
+                    break;
+            }
+
+            return returnBool;
+        }
     }
 }
