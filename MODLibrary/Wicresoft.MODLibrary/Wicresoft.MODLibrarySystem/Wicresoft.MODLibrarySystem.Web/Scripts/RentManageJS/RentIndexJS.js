@@ -89,7 +89,16 @@
         }
     });
 
-    
+    $("#setThisBookError").click(function ()
+    {
+        var obj = document.getElementById("setThisBookError").checked;
+        if (obj) {
+            document.getElementById("commentsOfReject").value = "This book is broken.";
+        }
+        else {
+            document.getElementById("commentsOfReject").value = "The MOD Library is arranging books.";
+        }
+    });
 
 });
 
@@ -124,7 +133,7 @@ function returnWaitingForReturnButton(i) {
 }
 
 function doRejectUserRequestWork() {
-    _checked =$("#setThisBookError").val();
+    _checked = document.getElementById("setThisBookError").checked;
     _comments = $("#commentsOfReject").val();
     var dataString = "{" + "\"idStr\":\"" + _id + "\",\"isChecked\":\"" + _checked + "\",\"comments\":\"" + _comments + "\"}";
     $(function () {
@@ -136,8 +145,10 @@ function doRejectUserRequestWork() {
                     if (data == "true") {
                         var approveButtonId = "#approveuserRequestButton" + _id;
                         var rejectButtonId = "#rejectuserRequestButton" + _id;
-                        $(approveButtonId).hide();
-                        $(rejectButtonId).hide();
+                        $(approveButtonId).after("<button disabled=\"disabled\">Y</button>");
+                        var $approveButton = $(approveButtonId).detach();
+                        $(rejectButtonId).after("<button disabled=\"disabled\">N</button>");
+                        var rejectButton = $(rejectButtonId).detach();                        
                     }
                     else {
                         alert(data);
@@ -228,14 +239,3 @@ function doReturnWaitingForReturnWork() {
     });
 }
 
-function checkSetThisBookError() {
-    var obj =$("#setThisBookError").val();
-    if(obj.checked)
-    {
-        document.getElementById("commentsOfReject").value = "This book is broken.";
-    }
-    else
-    {
-        document.getElementById("commentsOfReject").value = "The MOD Library is arranging books.";
-    }
-}
