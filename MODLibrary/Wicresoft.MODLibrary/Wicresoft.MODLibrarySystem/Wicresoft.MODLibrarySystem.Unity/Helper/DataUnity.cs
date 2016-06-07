@@ -20,18 +20,18 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
                     break;
                 
                 case UserGrade.Junior:
-                case UserGrade.PrepVolunteer:
                     returnInt = 2;
                     break;
 
-
                 case UserGrade.Ordinary:
+                case UserGrade.Senior:
                     returnInt = 3;
                     break;
 
                 case UserGrade.Admin:                              
                 case UserGrade.VIP:
-                    returnInt = 3;
+                case UserGrade.PrepVolunteer:
+                    returnInt = 5;
                     break;
             }
 
@@ -47,8 +47,10 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
                 case UserGrade.Junior:
                     returnBool = false;
                     break;
+
                 case UserGrade.PrepVolunteer:
                 case UserGrade.Ordinary:
+                case UserGrade.Senior:
                 case UserGrade.Admin:
                 case UserGrade.VIP:
                     break;

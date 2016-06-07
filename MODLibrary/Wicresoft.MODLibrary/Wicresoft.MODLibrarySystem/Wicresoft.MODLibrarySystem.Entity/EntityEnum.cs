@@ -20,7 +20,9 @@ namespace Wicresoft.MODLibrarySystem.Entity
         [Description("VIP")]
         VIP = 5,
         [Description("Admin")]
-        Admin = 6
+        Admin = 6,
+        [Description("Senior")]
+        Senior = 7
     }
 
     public enum RentRecordStatus
