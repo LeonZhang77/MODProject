@@ -3,238 +3,233 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Wicresoft.MODLibrarySystem.Web.Models.RentManage.RentManageIndexModel
-@Scripts.Render("~/Scripts/ui/jquery-ui.js")
-@Scripts.Render("~/Scripts/RentManageJS/RentIndexJS.js")
-<link href="~/Content/TDNoWarp.css" rel="stylesheet" />
-
-<h2>Index</h2>
+@section scripts{
+    @Scripts.Render("~/Scripts/RentManageJS/RentIndexJS.js")
+}
 
 @using (Html.BeginForm())
 {
-    <div class="jumbotron" style="height:1100px;">
-        <div style="width:500px; height:500px; border:1px; float:left">
-            <table style="width:500px;">
-                <caption>User Request</caption>
-                <thead>
-                    <tr>
-                        <td colspan="7">
-                            @Html.ActionLink("More", "UserRequest")
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Title
-                        </td>
-                        <td>
-                            Author
-                        </td>
-                        <td>
-                            Publisher
-                        </td>
-                        <td>
-                            User Name
-                        </td>
-                        <td>
-                            Email
-                        </td>
-                        <td>
-                            Floor
-                        </td>
-                        <td>
-                            Operation
-                        </td>
-                    </tr>
-                    @foreach (var item in this.Model.UserRequestList)
-                    {
-                        string approveButtonId = "approveuserRequestButton" + @item.ID.ToString();
-                        string rejectButtonId = "rejectuserRequestButton" + @item.ID.ToString();
-                        <tr>
-                            <td>
-                                @item.Title
-                            </td>
-                            <td>
-                                @item.Author
-                            </td>
-                            <td>
-                                @item.Publish
-                            </td>
-                            <td>
-                                @item.UserName
-                            </td>
-                            <td>
-                                @item.Email
-                            </td>
-                            <td>
-                                @item.Floor
-                            </td>
-                            <td>
-                                <a id= @approveButtonId onclick="approveUserRequestButton(@item.ID);">A</a>
-                                <a id = @rejectButtonId onclick="rejectUserRequestDialogShow(@item.ID);">R</a>
-                            </td>
-                        </tr>
-                    }
-            </table>
-        </div>
-        <div style="width:500px; height:500px;border:1px;float:right;">
-            <table style=" width:500px">
-                <caption>Waiting For Take</caption>
-                <thead>
+    <div class="jumbotron">
+        <div class="accordion" id="accordion2">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                        User Request
+                    </a>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                    <div class="accordion-inner">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr><td colspan="7">@Html.ActionLink("More", "More", new { @ModelType = "Request" })</td></tr>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Publish</th>
+                                    <th>UserName</th>
+                                    <th>Email</th>
+                                    <th>Floor</th>
+                                    <th>Operation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in this.Model.UserRequestList)
+                                {
+                                    string approveButtonId = "approveuserRequestButton" + @item.ID.ToString();
+                                    string rejectButtonId = "rejectuserRequestButton" + @item.ID.ToString();
+                                    <tr>
+                                        <td id="requestid" style="display:none">
+                                            @item.ID
+                                        </td>
+                                        <td>
+                                            @item.Title
+                                        </td>
+                                        <td>
+                                            @item.Author
+                                        </td>
+                                        <td>
+                                            @item.Publish
+                                        </td>
+                                        <td>
+                                            @item.UserName
+                                        </td>
+                                        <td>
+                                            @item.Email
+                                        </td>
+                                        <td>
+                                            @item.Floor
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-primary" id=@approveButtonId role="button" onclick="approveUserRequestButton(@item.ID);">Approve</a>
+                                            <a class="btn btn-primary" id=@rejectButtonId role="button" onclick="rejectUserRequestDialogShow(@item.ID);">Reject</a>
+                                        </td>
+                                    </tr>
 
-                    <tr>
-                        <td colspan="5">
-                            @Html.ActionLink("More", "WaitingForTake")
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Title
-                        </td>
-                        <td>
-                            User Name
-                        </td>
-                        <td>
-                            Email
-                        </td>
-                        <td>
-                            Floor
-                        </td>
-                        <td>
-                            Operation
-                        </td>
-                    </tr>
-                    @foreach (var item in this.Model.WaitingForTakeModelList)
-                    {
-                        string takeButtonId = "takeWaitingForTakeButton" + @item.ID.ToString();
-                        string revoketButtonId = "revokeWaitingForTakeButton" + @item.ID.ToString();
-                        <tr>
-                            <td>
-                                @item.Title
-                            </td>
-                            <td>
-                                @item.UserName
-                            </td>
-                            <td>
-                                @item.Email
-                            </td>
-                            <td>
-                                @item.Floor
-                            </td>
-                            <td>
-                                <a id=@takeButtonId onclick="takeWaitingForTakeButton(@item.ID);">T</a>
-                                <a id=@revoketButtonId onclick="revokeWaitingForTakeButton(@item.ID);">R</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div style="width:500px; height:500px;border:1px; float:left ">
-            <table style="width:500px;">
-                <caption>Waiting for Return</caption>
-                <thead>
-
-                    <tr>
-                        <td colspan="5">
-                            @Html.ActionLink("More", "WaitingForReturn")
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Title
-                        </td>
-                        <td>
-                            User Name
-                        </td>
-                        <td>
-                            Expiration Day
-                        </td>
-                        <td>
-                            Delay
-                        </td>
-                        <td>
-                            Operation
-                        </td>
-                    </tr>
-                    @foreach (var item in this.Model.WaitingForReturnModelList)
-                    {
-                        string returnButtonId = "returnWaitingForReturnButton" + @item.ID.ToString();
-                        <tr>
-                            <td>
-                                @item.Title
-                            </td>
-                            <td>
-                                @item.UserName
-                            </td>
-                            <td>
-                                @item.ExpirationDay
-                            </td>
-                            <td>
-                                @item.Delay
-                            </td>
-                            <td>
-                                <a id=@returnButtonId onclick="returnWaitingForReturnButton(@item.ID);">RETURN</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                    Waiting For Take
+                </a>
+            </div>
+            <div id="collapseTwo" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td colspan="5">
+                                    @Html.ActionLink("More", "More", new { @ModelType = "Take" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <th>UserName</th>
+                                <th>Email</th>
+                                <th>Floor</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in this.Model.WaitingForTakeModelList)
+                            {
+                                string takeButtonId = "takeWaitingForTakeButton" + @item.ID.ToString();
+                                string revoketButtonId = "revokeWaitingForTakeButton" + @item.ID.ToString();
+                                <tr>
+                                    <td id="take_revokeid" style="display:none">
+                                        @item.ID
+                                    </td>
+                                    <td>
+                                        @item.Title
+                                    </td>
+                                    <td>
+                                        @item.UserName
+                                    </td>
+                                    <td>
+                                        @item.Email
+                                    </td>
+                                    <td>
+                                        @item.Floor
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" id=@takeButtonId role="button" onclick="takeWaitingForTakeButton(@item.ID);">Take</a>
+                                        <a class="btn btn-primary" id=@revoketButtonId role="button" onclick="revokeWaitingForTakeButton(@item.ID);">Revoke</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div style="width:500px; height:500px;border:1px; float:right ">
-            <table style="width:500px;">
-                <caption>Rent History</caption>
-                <thead>
-                    <tr>
-                        <td colspan="4">
-                            @Html.ActionLink("More", "RentHistory")
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            Title
-                        </td>
-                        <td>
-                            User Name
-                        </td>
-                        <td>
-                            Rent Date(Form)
-                        </td>
-                        <td>
-                            Rent Date(To)
-                        </td>
-                    </tr>
-                    @foreach (var item in this.Model.ReadHistoryModelList)
-                    {
-                        <tr>
-                            <td>
-                                @item.Title
-                            </td>
-                            <td>
-                                @item.UserName
-                            </td>
-                            <td>
-                                @item.RentDateFrom
-                            </td>
-                            <td>
-                                @item.RentDateTo
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
+                    Waiting For Return
+                </a>
+            </div>
+            <div id="collapseThree" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td colspan="5">
+                                    @Html.ActionLink("More", "More", new { @ModelType = "Return" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <th>UserName</th>
+                                <th>Expiration Day</th>
+                                <th>Delay</th>
+                                <th>Operation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in this.Model.WaitingForReturnModelList)
+                            {
+                                string returnButtonId = "returnWaitingForReturnButton" + @item.ID.ToString();
+                                <tr>
+                                    <td id="returnid" style="display:none">
+                                        @item.ID
+                                    </td>
+                                    <td>
+                                        @item.Title
+                                    </td>
+                                    <td>
+                                        @item.UserName
+                                    </td>
+                                    <td>
+                                        @item.ExpirationDay
+                                    </td>
+                                    <td>
+                                        @item.Delay
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" id=@returnButtonId onclick="returnWaitingForReturnButton(@item.ID);" role="button">Return</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseFour">
+                    Rent History
+                </a>
+            </div>
+            <div id="collapseFour" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <td colspan="4">
+                                    @Html.ActionLink("More", "More", new { @ModelType = "History" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <th>UserName</th>
+                                <th>Rent Date(From)</th>
+                                <th>Rent Date(To)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in this.Model.ReadHistoryModelList)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Title
+                                    </td>
+                                    <td>
+                                        @item.UserName
+                                    </td>
+                                    <td>
+                                        @item.RentDateFrom
+                                    </td>
+                                    <td>
+                                        @item.RentDateTo
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-}
 
- <div style="display: none" id="RejectUserRequestDialog" title="Reject item">
+
+
+    <div id="RejectUserRequestDialog" title="Reject item">
         <p>
             You will reject this request. Please input your reason.<br />
             <br />
@@ -245,51 +240,53 @@
         </p>
     </div>
 
-<div style="display: none" id="ApproveUserRequestDialog" title="Reject item">
-    <p>
-        <br />
-        You will approve this request, please input your comment.<br />
-        <br />
-        <br />
-        <textarea id="commentsOfApprove" style="width:600px; height:150px">
-            Please come to take you requested book before next Wednesday, 
-            Locate is out door of West 3 Floor. 
-        </textarea>
-    </p>
-</div>
+    <div id="ApproveUserRequestDialog" title="Reject item">
+        <p>
+            <br />
+            You will approve this request, please input your comment.<br />
+            <br />
+            <br />
+            <textarea id="commentsOfApprove" style="width:600px; height:150px">
+                Please come to take you requested book before next Wednesday,
+                Locate is out door of West 3 Floor.
+            </textarea>
+        </p>
+    </div>
 
-<div style="display: none" id="TakeWaitingForTakeDialog" title="Confirm Dialog">
-    <p>
-        <br />
-        This item will be edit and can not be recover.<br />
-        Are you sure user has already taken this book?
-        <br />
-        <br />
-    </p>
-</div>
+    <div id="TakeWaitingForTakeDialog" title="Confirm Dialog">
+        <p>
+            <br />
+            This item will be edit and can not be recover.<br />
+            Are you sure user has already taken this book?
+            <br />
+            <br />
+        </p>
+    </div>
 
-<div style="display: none" id="RevokeWaitingForTakeDialog" title="Confirm Dialog">
-    <p>
-        <br />
-        This item will be edit and can not be recover.<br />
-        Are you sure user hasn't taken this book in time?
-        <br />
-        <br />
-    </p>
-</div>
+    <div id="RevokeWaitingForTakeDialog" title="Confirm Dialog">
+        <p>
+            <br />
+            This item will be edit and can not be recover.<br />
+            Are you sure user hasn't taken this book in time?
+            <br />
+            <br />
+        </p>
+    </div>
 
-<div style="display: none" id="ReturnWaitingForReturnDialog" title="Confirm Dialog">
-    <p>
-        <br />
-        This item will be edit and can not be recover.<br />
-        Are you sure user has return this book in time?
-        <br />
-        <br />
-    </p>
-</div>
+    <div id="ReturnWaitingForReturnDialog" title="Confirm Dialog">
+        <p>
+            <br />
+            This item will be edit and can not be recover.<br />
+            Are you sure user has return this book in time?
+            <br />
+            <br />
+        </p>
+    </div>
 
-<div style="display: none" id="RejectUserRequestURL" requstUrl ="@Url.Action("RejectUserRequest", "RentManage")"></div>
-<div style="display: none" id="ApproveUserRequestURL" requsturl="@Url.Action("ApproveUserRequest", "RentManage")"></div>
-<div style="display: none" id="TakeWaitingForTakeURL" requsturl="@Url.Action("TakeWaitingForTake", "RentManage")"></div>
-<div style="display: none" id="RevokeWaitingForTakeURL" requsturl="@Url.Action("RevokeWaitingForTake", "RentManage")"></div>
-<div style="display: none" id="ReturnWaitingForReturnURL" requsturl="@Url.Action("ReturnWaitingForReturn", "RentManage")"></div>
+    <div style="display: none" id="RejectUserRequestURL" requsturl="@Url.Action("RejectUserRequest", "RentManage")"></div>
+    <div style="display: none" id="ApproveUserRequestURL" requsturl="@Url.Action("ApproveUserRequest", "RentManage")"></div>
+    <div style="display: none" id="TakeWaitingForTakeURL" requsturl="@Url.Action("TakeWaitingForTake", "RentManage")"></div>
+    <div style="display: none" id="RevokeWaitingForTakeURL" requsturl="@Url.Action("RevokeWaitingForTake", "RentManage")"></div>
+    <div style="display: none" id="ReturnWaitingForReturnURL" requsturl="@Url.Action("ReturnWaitingForReturn", "RentManage")"></div>
+
+}

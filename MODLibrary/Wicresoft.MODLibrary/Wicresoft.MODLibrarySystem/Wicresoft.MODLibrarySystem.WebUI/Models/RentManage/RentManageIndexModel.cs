@@ -58,16 +58,17 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
         {
             IBorrowAndReturnRecordInfoDataProvider dataProvider = new BorrowAndReturnRecordInfoDataProvider();
             List<MyRequestModel> returnList = new List<MyRequestModel>();
-            List<BorrowAndReturnRecordInfo> borrowAndReturnRecordInfoList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Pending, userInfo).ToList();
-            List<BorrowAndReturnRecordInfo> approvedList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Approved, userInfo).ToList();
-            
-            if (approvedList.Count() > 0)
-            {
-                foreach (BorrowAndReturnRecordInfo item in approvedList)
-                {
-                    borrowAndReturnRecordInfoList.Add(item);
-                }
-            }
+            List<BorrowAndReturnRecordInfo> borrowAndReturnRecordInfoList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Approved, userInfo).ToList();
+            List<BorrowAndReturnRecordInfo> pendingList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Pending, userInfo).ToList();
+            borrowAndReturnRecordInfoList.AddRange(pendingList);
+
+            //if (pendingList.Count() > 0)
+            //{
+            //    foreach (BorrowAndReturnRecordInfo item in pendingList)
+            //    {
+            //        borrowAndReturnRecordInfoList.Add(item);
+            //    }
+            //}
 
             foreach (BorrowAndReturnRecordInfo item in borrowAndReturnRecordInfoList)
             { 
@@ -87,18 +88,15 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
                 returnList.Add(model);
             }
 
-            returnList.OrderByDescending(c => c.CreateTime);
-
             if (returnList.Count() < 5)
             {
                 borrowAndReturnRecordInfoList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Rejected, userInfo).ToList();
                 List<BorrowAndReturnRecordInfo> revokeList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Revoked, userInfo).ToList();
                 borrowAndReturnRecordInfoList.AddRange(revokeList);
-                borrowAndReturnRecordInfoList.OrderByDescending(c => c.CreateTime);
-
+                
                 if (borrowAndReturnRecordInfoList.Count() > 0)
                 {
-                    borrowAndReturnRecordInfoList.OrderByDescending(c => c.CreateTime);
+                    borrowAndReturnRecordInfoList = borrowAndReturnRecordInfoList.OrderByDescending(c => c.CreateTime).ToList();
                     int includCount = borrowAndReturnRecordInfoList.Count() < 5 - returnList.Count() ? borrowAndReturnRecordInfoList.Count() : 5 - returnList.Count();
                     for (int i = 0; i < includCount;  i++)
                     {
@@ -118,7 +116,6 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
                             model.Status = EnumHelper.GetEnumDescription(borrowAndReturnRecordInfoList[i].Status);
                         }
                         
-
                         IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
                         ProcessRecord processRecord = iProcessRecordDataProvider.GetProcessRecordList().OrderByDescending(c=>c.CreateTime).FirstOrDefault(c => c.BorrowAndReturnRecordInfo.ID == borrowAndReturnRecordInfoList[i].ID);
                         model.Comment = processRecord.Comments;
@@ -183,7 +180,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
                 returnList.Add(model);
             }
 
-            returnList.OrderByDescending(c => c.StartBorrowDay);
+            returnList = returnList.OrderByDescending(c => c.StartBorrowDay).ToList();
                         
             return returnList;
         }
@@ -193,7 +190,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             IBorrowAndReturnRecordInfoDataProvider dataProvider = new BorrowAndReturnRecordInfoDataProvider();
             List<ReadHistoryModel> returnList = new List<ReadHistoryModel>();
             List<BorrowAndReturnRecordInfo> borrowAndReturnRecordInfoList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Returned, userInfo).ToList();
-            borrowAndReturnRecordInfoList.OrderByDescending(c=>c.Return_Date);
+            borrowAndReturnRecordInfoList = borrowAndReturnRecordInfoList.OrderByDescending(c => c.Return_Date).ToList();
 
             int includCount = borrowAndReturnRecordInfoList.Count() < 10 ? borrowAndReturnRecordInfoList.Count() : 10;
             for (int i = 0; i<includCount; i++)

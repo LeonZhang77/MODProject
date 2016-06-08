@@ -110,7 +110,7 @@
                             <td>
                                 @if (this.Model.BookModelList[i].IsAvaliable)
                                 {
-                                    @Html.ActionLink("Reserve", "BookToRent", "RentManage", new { @id = this.Model.BookModelList[i].ID }, new { target = "_blank" })
+                                    @Html.ActionLink("Reserve", "BookToRent", "RentManage", new { @id = this.Model.BookModelList[i].ID }, new { target = "_self"})                                    
                                 }
                                 else
                                 {

@@ -145,9 +145,9 @@ function doRejectUserRequestWork() {
                     if (data == "true") {
                         var approveButtonId = "#approveuserRequestButton" + _id;
                         var rejectButtonId = "#rejectuserRequestButton" + _id;
-                        $(approveButtonId).after("<button disabled=\"disabled\">Y</button>");
-                        var $approveButton = $(approveButtonId).detach();
-                        $(rejectButtonId).after("<button disabled=\"disabled\">N</button>");
+                        $(approveButtonId).after("<button class=\"btn btn-inverse\" disabled = \''disabled\">Approve</button>");
+                        var approveButton = $(approveButtonId).detach();
+                        $(rejectButtonId).after("<button class=\"btn btn-inverse\" disabled = \''disabled\">Reject</button>");
                         var rejectButton = $(rejectButtonId).detach();                        
                     }
                     else {
@@ -209,8 +209,10 @@ function doRevokeWaitingForTakeWork() {
                     if (data == "true") {
                         var takeButtonId = "#takeWaitingForTakeButton" + _id;
                         var revokeButtonId = "#revokeWaitingForTakeButton" + _id;
-                        $(takeButtonId).hide();
-                        $(revokeButtonId).hide();
+                        $(takeButtonId).after("<button class=\"btn btn-inverse\" disabled = \''disabled\">Take</button>");
+                        var takeButtonId = $(takeButtonId).detach();
+                        $(revokeButtonId).after("<button class=\"btn btn-inverse\" disabled = \''disabled\">Revoke</button>");
+                        var revokeButtonId = $(revokeButtonId).detach();
                     }
                     else {
                         alert(data);
