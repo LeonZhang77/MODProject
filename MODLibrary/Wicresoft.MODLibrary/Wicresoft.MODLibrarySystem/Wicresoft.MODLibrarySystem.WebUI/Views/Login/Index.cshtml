@@ -8,46 +8,35 @@
 }
 <h2>MOD Library Login</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @role="form",@class="form-horizontal"}))
 {
     <div class="jumbotron">
-        <table style="width:500px">
-            <thead> Please Login </thead>
-            @if (this.Model.IsFail)
-            {
-                <caption>
-                    <span style="color:red">Login Fail. <br /> Please check username and password is correct</span>
-                </caption>
-            }
-            <tbody>
-                <tr>
-                    <th>
-                        UserName
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(m => this.Model.UserName)<span class="requireSpan">*</span>
-                        <label id="UserName_errorData" errordatamessage="UserName is require." class="errorLable" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Password
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(m => this.Model.Password, new { @type = "password" })<span class="requireSpan">*</span>
-                        <label id="Password_errorData" errordatamessage="Password is require." class="errorLable" />
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2">
-                        <input id="loginButton" name="loginButtion" type="submit" value="Login" />
-                        @Html.ActionLink("Register", "TurnToRegister")
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+      
+          <h2>Please Login</h2>
+        <h2><br></h2>
+        @if (this.Model.IsFail)
+         {
+             <span style="color:red">Login Fail. <br /> Please check username and password is correct</span>
+         }
+        <div class="form-group">
+                <label for="UserName" class="col-sm-3 control-label">UserName: <span class="requireSpan">*</span></label> 
+                @Html.TextBoxFor(m => this.Model.UserName, new { @class = "form-control" })
+                <label id="UserName_errorData" errordatamessage="UserName is require." class="errorLable" />
+        </div>
+
+        <div class="form-group">
+            <label for="UserName" class="col-sm-3 control-label">Password: <span class="requireSpan">*</span></label> 
+            @Html.TextBoxFor(m => this.Model.Password, new { @type = "password", @class="form-control" })
+            <label id="Password_errorData" errordatamessage="Password is require." class="errorLable" />
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-10 col-sm-10">
+                <input class="btn btn-success" id="loginButton" name="loginButtion" type="submit" value="Login" />
+                @Html.ActionLink("Register", "TurnToRegister", "Login", new { @class = "btn btn-primary" })
+            </div>
+        </div>
+
     </div>
 }
 

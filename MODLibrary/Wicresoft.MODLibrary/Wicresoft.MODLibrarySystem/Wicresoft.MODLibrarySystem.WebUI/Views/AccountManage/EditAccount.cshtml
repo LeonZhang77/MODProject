@@ -5,100 +5,84 @@
 @section scripts{
     @Scripts.Render("~/Scripts/AccountManageJS/EditAccount.js")
 }
-<h2>Edit Account</h2>
 
-@using (Html.BeginForm())
+<h2>Edit Account</h2>
+<h2><br /></h2>
+@if (this.Model.IsSave)
+{
+    <h1><label class="label label-success">Update Success.</label></h1>
+}
+@using (Html.BeginForm("EditAccount", "AccountManage", FormMethod.Post, new { @role = "form" }))
 {
     <div class="jumbotron">
-        <table>
-            <caption>
-                Edit Account
-                @if (this.Model.IsSave)
-                {
-                    <span style="color:green">Update Success.</span>
-                }
-            </caption>
-            <tbody>
-                <tr>
-                    <th>LoginName</th>
-                    <td>
-                        @Html.TextBoxFor(m => m.LoginName, new { @readonly = "readonly" })
-                    </td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td>
-                        @Html.TextBoxFor(m => m.Email, new { @readonly = "readonly" })
-                    </td>
-                </tr>
-                <tr>
-                    <th>DisplayName</th>
-                    <td>
-                        @Html.TextBoxFor(m => m.DisplayName) <span class="requireSpan">*</span>
-                        <label id="DisplayName_errorData" errordatamessage="DisplayName is require and length must be less than 6 bytes." class="errorLable" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>RealName</th>
-                    <td>
-                        @Html.TextBoxFor(m => m.RealName) <span class="requireSpan">*</span>
-                        <label id="RealName_errorData" errordatamessage="RealName is require." class="errorLable" />
-                    </td>
-                </tr>
-                <tr>
-                    <th>ChineseName</th>
-                    <td>
-                        @Html.TextBoxFor(m => m.Chinese_Name)
-                    </td>
-                </tr>
-                <tr>
-                    <th>Grade</th>
-                    <td>
-                        @Html.TextBoxFor(m => m.Grade, new { @readonly = "readonly" })
-                    </td>
-                </tr>
-                <tr>
-                    <th>LatePoint</th>
-                    <td>
-                        @Html.TextBoxFor(m => m.Late_point, new { @readonly = "readonly" })
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Wechat
-                    </th>
-                    <td>
-                        @Html.TextBoxFor(m => m.Wechat)
-                    </td>
-                </tr>
-                <tr>
-                    <th>Floor</th>
-                    <td>
-                        @Html.DropDownListFor(m => m.SelectedFloor, this.Model.FloorList)
-                    </td>
-                </tr>
-                <tr>
-                    <th>PM</th>
-                    <td>@Html.TextBoxFor(m => m.PM)</td>
-                </tr>
-                <tr>
-                    <th>Team</th>
-                    <td>@Html.TextBoxFor(m => m.Team)</td>
-                </tr>
+        <div class="form-group">
+            <label for="LoginName" class="col-sm-3 control-label">Login Name:   </label>
+            @Html.TextBoxFor(m => m.LoginName, new { @class = "form-control", @readonly = "readonly" })
+        </div>
 
-                <tr>
-                    <th>Remark</th>
-                    <td>@Html.TextBoxFor(m => m.Remark)</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2">
-                        <input type="submit" value="Edit" onclick="return bindConfrimDialog(this, 'edit', 'b', EditAccountSubmitValidation);" />
-                        @Html.ActionLink("Back", "Index", "Home")
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
+        <div class="form-group">
+            <label for="Email" class="col-sm-3 control-label">Email:   </label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+
+        <div class="form-group">
+            <label for="DisplayName" class="col-sm-3 control-label">Display Name: <span class="requireSpan">*</span> </label>
+            @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control" })
+            <label id="DisplayName_errorData" errordatamessage="DisplayName is require and length must be less than 6 bytes." class="errorLable" />
+        </div>
+
+        <div class="form-group">
+            <label for="RealName" class="col-sm-3 control-label">Real Name: <span class="requireSpan">*</span></label>
+            @Html.TextBoxFor(m => m.RealName, new { @class = "form-control" })
+            <label id="RealName_errorData" errordatamessage="RealName is require." class="errorLable" />
+        </div>
+
+        <div class="form-group">
+            <label for="ChineseName" class="col-sm-3 control-label">Chinese Name:   </label>
+            @Html.TextBoxFor(m => m.Chinese_Name, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label for="Grade" class="col-sm-3 control-label">Grade:   </label>
+            @Html.TextBoxFor(m => m.Grade, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+
+        <div class="form-group">
+            <label for="LatePoint" class="col-sm-3 control-label">Late Point:   </label>
+            @Html.TextBoxFor(m => m.Late_point, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+
+        <div class="form-group">
+            <label for="Wechat" class="col-sm-3 control-label">Wechat:   </label>
+            @Html.TextBoxFor(m => m.Wechat, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label for="Floor" class="col-sm-3 control-label">Floor:   </label>
+            @Html.DropDownListFor(m => m.SelectedFloor, this.Model.FloorList, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label for="PM" class="col-sm-3 control-label">PM:   </label>
+            @Html.TextBoxFor(m => m.PM, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label for="Team" class="col-sm-3 control-label">Team:   </label>
+            @Html.TextBoxFor(m => m.Team, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <label for="Remark" class="col-sm-3 control-label">Remark:   </label>
+            @Html.TextBoxFor(m => m.Remark, new { @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-10 col-sm-10">
+                <input class="btn btn-success" type="submit" value="Edit" onclick="return bindConfrimDialog(this, 'edit', 'b', EditAccountSubmitValidation);" />
+                @Html.ActionLink("Back", "Index", "Home", new { @class = "btn btn-warning" })
+            </div>
+        </div>
+
     </div>
 }

@@ -120,16 +120,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
             IBorrowAndReturnRecordInfoDataProvider dataProvider = new BorrowAndReturnRecordInfoDataProvider();
             List<BorrowAndReturnRecordInfo> tempList = dataProvider.GetBorrowAndReturnRecordListByStatus(RentRecordStatus.Taked).ToList();
             tempList.OrderByDescending(b => b.CreateTime);
-            int count;
-            if (tempList.Count() > 5)
-            {
-                count = 5;
-            }
-            else
-            {
-                count = tempList.Count();
-            }
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < 5 && i < tempList.Count() ; i++)
             {
                 WaitingForReturnModel waitingForReturnModel = new WaitingForReturnModel();
                 waitingForReturnModel.ID = tempList[i].ID;

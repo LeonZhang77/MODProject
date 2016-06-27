@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Wicresoft.MODLibrarySystem.Entity;
 using Wicresoft.MODLibrarySystem.Unity;
+using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
+using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 
 namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
 {
@@ -41,5 +43,16 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             set;
         }
 
+        public DelayRecord GetEntity(UserInfo user, out BorrowAndReturnRecordInfo borrowAndReturnRecordInfo)
+        {
+            IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
+            borrowAndReturnRecordInfo = iBorrowAndReturnRecordInfoDataProviderdataProvider.GetBorrowAndReturnRecordById(this.ID);
+            borrowAndReturnRecordInfo.Forcast_Date = borrowAndReturnRecordInfo.Forcast_Date.AddDays(30);
+
+            DelayRecord delayRecord = new DelayRecord();
+            delayRecord.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
+            delayRecord.UserInfo = user;
+            return delayRecord;
+        }
     }
 }

@@ -7,6 +7,7 @@ using Wicresoft.MODLibrarySystem.Unity;
 using Wicresoft.MODLibrarySystem.WebUI.Models;
 using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
 using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
+using Wicresoft.MODLibrarySystem.WebUI.Models.BookManage;
 
 namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
 {
@@ -122,6 +123,36 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             
             return model;
 
+        }
+
+        public ProcessRecord GetEntity(long id, UserInfo user, out BorrowAndReturnRecordInfo borrowAndReturnRecordInfo, out BookDetailInfo bookDetailInfo, out BookModel bookModel)
+        {
+            IBookDetailInfoDataProvider iBookDetailInfoDataProvider = new BookDetailInfoDataProvider();
+            IBookInfoDataProvider iBookInfoDataProvider = new BookInfoDataProvider();
+
+            ProcessRecord processInfo = new ProcessRecord();
+            borrowAndReturnRecordInfo = new BorrowAndReturnRecordInfo();
+            bookDetailInfo = iBookDetailInfoDataProvider.GetAvaliableBookDetailInfoByBookInfoID(id);
+            BookInfo bookInfo = iBookInfoDataProvider.GetBookInfoByID(bookDetailInfo.BookInfo.ID);
+           
+            borrowAndReturnRecordInfo.BookDetailInfo = bookDetailInfo;
+            borrowAndReturnRecordInfo.UserInfo = user;
+            borrowAndReturnRecordInfo.Status = RentRecordStatus.Pending;
+            borrowAndReturnRecordInfo.Borrow_Date = borrowAndReturnRecordInfo.CreateTime;
+            borrowAndReturnRecordInfo.Forcast_Date = borrowAndReturnRecordInfo.CreateTime;
+            borrowAndReturnRecordInfo.Return_Date = borrowAndReturnRecordInfo.CreateTime;
+
+            processInfo.UserInfo = user;
+            processInfo.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
+            processInfo.Status = RentRecordStatus.Pending;
+
+            bookDetailInfo.Status = BookStatus.Rent;
+
+            bookModel = BookModel.GetViewModel(bookInfo, user);
+            bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory - 1;
+            bookModel.Avaliable_Inventory = bookInfo.Avaliable_Inventory.ToString();
+
+            return processInfo;
         }
 
     }

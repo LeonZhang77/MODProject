@@ -70,42 +70,23 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
                 }
                 else 
                 {
+                    BookToRentModel model = new BookToRentModel();
                     BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = new BorrowAndReturnRecordInfo();
-                    borrowAndReturnRecordInfo.BookDetailInfo = bookDetailInfo;
-                    borrowAndReturnRecordInfo.UserInfo = this.LoginUser();
-                    borrowAndReturnRecordInfo.Status = RentRecordStatus.Pending;
-                    //Borrow_Date,Forcast_Date and Return_Date can't be null, make it as same as createTime.
-                    borrowAndReturnRecordInfo.Borrow_Date = borrowAndReturnRecordInfo.CreateTime;
-                    borrowAndReturnRecordInfo.Forcast_Date = borrowAndReturnRecordInfo.CreateTime;
-                    borrowAndReturnRecordInfo.Return_Date = borrowAndReturnRecordInfo.CreateTime;
+                    BookModel bookModel = new BookModel();
+                    ProcessRecord processRecord = model.GetEntity(id, this.LoginUser(), out borrowAndReturnRecordInfo, out bookDetailInfo, out bookModel);
+                    
                     this.IBorrowAndReturnRecordInfoDataProvider.Add(borrowAndReturnRecordInfo);
-
-                    ProcessRecord processRecord = new ProcessRecord();
-                    processRecord.UserInfo = this.LoginUser();
-                    processRecord.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
-                    processRecord.Status = RentRecordStatus.Pending;
                     this.IProcessRecordDataProvider.Add(processRecord);
-
-                    bookDetailInfo.Status = BookStatus.Rent;
                     this.IBookDetailInfoDataProvider.Update(bookDetailInfo);
-
-                    BookModel bookModel = BookModel.GetViewModel(bookInfo, this.LoginUser());
-                    bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory - 1;
-                    bookModel.Avaliable_Inventory = bookInfo.Avaliable_Inventory.ToString();
                     this.IBookInfoDataProvider.Update(bookModel.GetEntity());
 
                 }
-                //book avaliable -1
-                // books udpate status: pending
-                //borrowAndReturn, new record, status: pending
-                //Process, new record, status: pending
             }
             catch (Exception ex)
             {
                 return ex.Message;
             }
             return "true";
-            //return "false";
         }
 
         public string RenewBookInHand(string q) 
@@ -113,15 +94,13 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             try
             {
                 int id = Convert.ToInt32(q);
-                
-                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = 
-                    this.IBorrowAndReturnRecordInfoDataProvider.GetBorrowAndReturnRecordById(id);
-                borrowAndReturnRecordInfo.Forcast_Date = borrowAndReturnRecordInfo.Forcast_Date.AddDays(30);
-                this.IBorrowAndReturnRecordInfoDataProvider.Update(borrowAndReturnRecordInfo);
+                BookInHandModel model = new BookInHandModel();
+                model.ID = id;
 
-                DelayRecord delayRecord = new DelayRecord();
-                delayRecord.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
-                delayRecord.UserInfo = this.LoginUser();
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = new BorrowAndReturnRecordInfo();
+                DelayRecord delayRecord = model.GetEntity(this.LoginUser(), out borrowAndReturnRecordInfo);
+                
+                this.IBorrowAndReturnRecordInfoDataProvider.Update(borrowAndReturnRecordInfo);
                 this.IDelayRecordDataProvider.Add(delayRecord);
             }
             catch (Exception ex)

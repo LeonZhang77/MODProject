@@ -37,49 +37,22 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             {
                 JObject obj = JObject.Parse(q);
                 long id = long.Parse((string)obj["idStr"]);
-                bool errorOrNot;
-                if ((string)obj["isChecked"] == "true")
-                {
-                    errorOrNot = true;
-                }
-                else
-                {
-                    errorOrNot = false;
-                }
-                string comments = (string)obj["comments"];
+
+                UserRequestModel model = new UserRequestModel();
+                model.ID = id;
 
                 IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
-                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = iBorrowAndReturnRecordInfoDataProviderdataProvider.GetBorrowAndReturnRecordById(id);
                 IBookInfoDataProvider iBookInfoDataProvider = new BookInfoDataProvider();
-                BookInfo bookInfo = iBookInfoDataProvider.GetBookInfoByID(borrowAndReturnRecordInfo.BookDetailInfo.BookInfo.ID);
                 IBookDetailInfoDataProvider iBookDetailInfoDataProvider = new BookDetailInfoDataProvider();
-                BookDetailInfo bookDetailInfo = iBookDetailInfoDataProvider.GetBookDetailInfoByID(borrowAndReturnRecordInfo.BookDetailInfo.ID);
-                
                 IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
-                ProcessRecord processInfo = new ProcessRecord();
-                processInfo.Status = RentRecordStatus.Rejected;
-                processInfo.UserInfo = this.LoginUser();
-                processInfo.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
-                processInfo.Comments = comments;
-                iProcessRecordDataProvider.Add(processInfo);
 
-                borrowAndReturnRecordInfo.Status = RentRecordStatus.Rejected;
-                iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
-
-                BookModel bookModel = BookModel.GetViewModel(bookInfo);
-                if (errorOrNot)
-                {
-                    bookDetailInfo.Status = BookStatus.Error;
-                    bookInfo.Max_Inventory = bookInfo.Max_Inventory - 1;
-                    bookModel.Max_Inventory = bookInfo.Max_Inventory.ToString();
-                }
-                else
-                {
-                    bookDetailInfo.Status = BookStatus.InStore;
-                    bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory + 1;
-                    bookModel.Avaliable_Inventory = bookInfo.Avaliable_Inventory.ToString();
-                }
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = new BorrowAndReturnRecordInfo();
+                BookModel bookModel = new BookModel();
+                BookDetailInfo bookDetailInfo = new BookDetailInfo();
+                ProcessRecord processInfo = model.GetEntity(this.LoginUser(), q, true, out borrowAndReturnRecordInfo, out bookDetailInfo, out bookModel);
                 
+                iProcessRecordDataProvider.Add(processInfo);
+                iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
                 iBookDetailInfoDataProvider.Update(bookDetailInfo);
                 iBookInfoDataProvider.Update(bookModel.GetEntity());
             }
@@ -96,20 +69,19 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             {
                 JObject obj = JObject.Parse(q);
                 long id = long.Parse((string)obj["idStr"]);
-                string comments = (string)obj["comments"];
+
+                UserRequestModel model = new UserRequestModel();
+                model.ID = id;
 
                 IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
-                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = iBorrowAndReturnRecordInfoDataProviderdataProvider.GetBorrowAndReturnRecordById(id);
-               
                 IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
-                ProcessRecord processInfo = new ProcessRecord();
-                processInfo.Status = RentRecordStatus.Approved;
-                processInfo.UserInfo = this.LoginUser();
-                processInfo.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
-                processInfo.Comments = comments;
-                iProcessRecordDataProvider.Add(processInfo);
 
-                borrowAndReturnRecordInfo.Status = RentRecordStatus.Approved;
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = new BorrowAndReturnRecordInfo();
+                BookModel bookModel = new BookModel();
+                BookDetailInfo bookDetailInfo = new BookDetailInfo();
+                ProcessRecord processInfo = model.GetEntity(this.LoginUser(), q, false, out borrowAndReturnRecordInfo, out bookDetailInfo, out bookModel);
+
+                iProcessRecordDataProvider.Add(processInfo);
                 iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
             }
             catch (Exception ex)
@@ -124,22 +96,16 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             try
             {
                 long id = long.Parse(q);
-                
+                WaitingForTakeModel model = new WaitingForTakeModel();
+                model.ID = id;
+
                 IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
-                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = iBorrowAndReturnRecordInfoDataProviderdataProvider.GetBorrowAndReturnRecordById(id);
-
                 IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
-                ProcessRecord processInfo = new ProcessRecord();
-                processInfo.Status = RentRecordStatus.Taked;
-                processInfo.UserInfo = this.LoginUser();
-                processInfo.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
-                processInfo.Comments = "";
-                iProcessRecordDataProvider.Add(processInfo);
 
-                borrowAndReturnRecordInfo.Status = RentRecordStatus.Taked;
-                borrowAndReturnRecordInfo.Borrow_Date = DateTime.Today;
-                borrowAndReturnRecordInfo.Forcast_Date = DateTime.Today.AddDays(30);
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = new BorrowAndReturnRecordInfo();
+                ProcessRecord processInfo = model.GetTakeEntity(out borrowAndReturnRecordInfo, this.LoginUser());
                 
+                iProcessRecordDataProvider.Add(processInfo);
                 iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
             }
             catch (Exception ex)
@@ -154,31 +120,22 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             try
             {
                 long id = long.Parse(q);
-
+                WaitingForTakeModel model = new WaitingForTakeModel();
+                model.ID = id;
                 IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
-                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = iBorrowAndReturnRecordInfoDataProviderdataProvider.GetBorrowAndReturnRecordById(id);
-
                 IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
-                ProcessRecord processInfo = new ProcessRecord();
-                processInfo.Status = RentRecordStatus.Revoked;
-                processInfo.UserInfo = this.LoginUser();
-                processInfo.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
-                processInfo.Comments = "You didn't take your book in limited time.";
-                iProcessRecordDataProvider.Add(processInfo);
-
-                borrowAndReturnRecordInfo.Status = RentRecordStatus.Revoked;
-                iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
-
                 IBookDetailInfoDataProvider iBookDetailInfoDataProvider = new BookDetailInfoDataProvider();
-                BookDetailInfo bookDetailInfo = iBookDetailInfoDataProvider.GetBookDetailInfoByID(borrowAndReturnRecordInfo.BookDetailInfo.ID);
-                bookDetailInfo.Status = BookStatus.InStore;
-                iBookDetailInfoDataProvider.Update(bookDetailInfo);
-
                 IBookInfoDataProvider iBookInfoDataProvider = new BookInfoDataProvider();
-                BookInfo bookInfo = iBookInfoDataProvider.GetBookInfoByID(borrowAndReturnRecordInfo.BookDetailInfo.BookInfo.ID);
-                bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory + 1;
-                BookModel model = BookModel.GetViewModel(bookInfo);
-                iBookInfoDataProvider.Update(model.GetEntity());
+
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = new BorrowAndReturnRecordInfo();
+                BookDetailInfo bookDetailInfo = new BookDetailInfo();
+                BookModel bookModel = new BookModel();
+                ProcessRecord processInfo = model.GetRevokeEntity(out borrowAndReturnRecordInfo, out bookDetailInfo, out bookModel, this.LoginUser());
+                
+                iProcessRecordDataProvider.Add(processInfo);
+                iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
+                iBookDetailInfoDataProvider.Update(bookDetailInfo);
+                iBookInfoDataProvider.Update(bookModel.GetEntity());
             }
             catch (Exception ex)
             {
@@ -192,32 +149,24 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             try
             {
                 long id = long.Parse(q);
+                WaitingForReturnModel model = new WaitingForReturnModel();
+                model.ID = id;
 
                 IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
-                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = iBorrowAndReturnRecordInfoDataProviderdataProvider.GetBorrowAndReturnRecordById(id);
-
                 IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
-                ProcessRecord processInfo = new ProcessRecord();
-                processInfo.Status = RentRecordStatus.Returned;
-                processInfo.UserInfo = this.LoginUser();
-                processInfo.BorrowAndReturnRecordInfo = borrowAndReturnRecordInfo;
-                processInfo.Comments = "";
-                iProcessRecordDataProvider.Add(processInfo);
-
-                borrowAndReturnRecordInfo.Status = RentRecordStatus.Returned;
-                borrowAndReturnRecordInfo.Return_Date = DateTime.Today;
-                iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
-
                 IBookDetailInfoDataProvider iBookDetailInfoDataProvider = new BookDetailInfoDataProvider();
-                BookDetailInfo bookDetailInfo = iBookDetailInfoDataProvider.GetBookDetailInfoByID(borrowAndReturnRecordInfo.BookDetailInfo.ID);
-                bookDetailInfo.Status = BookStatus.InStore;
-                iBookDetailInfoDataProvider.Update(bookDetailInfo);
-
                 IBookInfoDataProvider iBookInfoDataProvider = new BookInfoDataProvider();
-                BookInfo bookInfo = iBookInfoDataProvider.GetBookInfoByID(borrowAndReturnRecordInfo.BookDetailInfo.BookInfo.ID);
-                bookInfo.Avaliable_Inventory = bookInfo.Avaliable_Inventory + 1;
-                BookModel model = BookModel.GetViewModel(bookInfo);
-                iBookInfoDataProvider.Update(model.GetEntity());
+
+                BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = new BorrowAndReturnRecordInfo();
+                BookDetailInfo bookDetailInfo = new BookDetailInfo();
+                BookModel bookModel = new BookModel();
+
+                ProcessRecord processInfo = model.GetEntity(this.LoginUser(), out borrowAndReturnRecordInfo, out bookDetailInfo, out bookModel);
+
+                iProcessRecordDataProvider.Add(processInfo);
+                iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
+                iBookDetailInfoDataProvider.Update(bookDetailInfo);
+                iBookInfoDataProvider.Update(bookModel.GetEntity());
             }
             catch (Exception ex)
             {
