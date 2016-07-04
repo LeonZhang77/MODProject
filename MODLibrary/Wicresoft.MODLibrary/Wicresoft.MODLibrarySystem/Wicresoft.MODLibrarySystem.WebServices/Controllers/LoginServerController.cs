@@ -25,13 +25,13 @@ namespace Wicresoft.MODLibrarySystem.WebServices.Controllers
 
             if (user != null)
             {
-                UserServerModel model = UserServerModel.GetServerModel(user);
+                UserLoginModel model = UserLoginModel.GetServerModel(user);
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
             
             else
             {
-                UserServerModel model = new UserServerModel();
+                UserLoginModel model = new UserLoginModel();
                 model.statusMessage = "Didn't find this User.";
                 return Json(model, JsonRequestBehavior.AllowGet);
             }

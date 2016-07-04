@@ -13,7 +13,7 @@ namespace Wicresoft.MODLibrarySystem.WebServices.Models
             set;
         }
 
-        public DateTime CreateTime
+        public String CreateTime
         {
             get;
             set;

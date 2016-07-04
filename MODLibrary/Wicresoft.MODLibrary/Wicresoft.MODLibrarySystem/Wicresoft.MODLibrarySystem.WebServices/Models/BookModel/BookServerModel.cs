@@ -27,7 +27,7 @@ namespace Wicresoft.MODLibrarySystem.WebServices.Models.BookModel
             model.ID = entity.ID;
             model.BookName = entity.BookName;
             model.ISBN = entity.ISBN;
-            model.CreateTime = entity.CreateTime;
+            model.CreateTime = entity.CreateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
             return model;
         }
