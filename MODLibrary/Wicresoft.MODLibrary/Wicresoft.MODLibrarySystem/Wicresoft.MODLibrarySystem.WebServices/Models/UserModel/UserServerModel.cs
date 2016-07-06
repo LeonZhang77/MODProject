@@ -53,6 +53,19 @@ namespace Wicresoft.MODLibrarySystem.WebServices.Models.UserModel
             return model;
         }
 
+        public UserInfo GetEntity(String DisplayName, String RealName, String LoginName, String Password, String Email, String Wechat)
+        {
+            UserInfo user = new UserInfo();
+            user.DisplayName = DisplayName;
+            user.RealName = RealName;
+            user.LoginName = LoginName;
+            user.Password = Password;
+            user.Email = Email;
+            user.Wechat = Wechat;
+
+            return user;
+        }
+
         public UserInfo UpdateEntity(UserInfo user, String Username, String Password, String Email)
         {
             user.DisplayName = Username;

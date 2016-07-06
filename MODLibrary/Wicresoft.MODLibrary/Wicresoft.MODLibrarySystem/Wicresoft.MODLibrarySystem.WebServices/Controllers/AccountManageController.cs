@@ -40,5 +40,24 @@ namespace Wicresoft.MODLibrarySystem.WebServices.Controllers
                 return Json(model, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult AddAccount(String DisplayName, String RealName, String LoginName, String Password, String Email, String Wechat)
+        {
+            UserServerModel userModel = new UserServerModel();
+            UserInfo userInfo = userModel.GetEntity(DisplayName, RealName, LoginName, Password, Email, Wechat);
+
+            if (this.IUserInfoDataProvider.GetUserListByLoginName(LoginName).Count() > 0)
+            {
+                userModel.statusMessage = "LoginName is exsit";                
+            }
+            else
+            {
+                this.IUserInfoDataProvider.Add(userInfo);
+                userInfo = this.IUserInfoDataProvider.GetUserListByLoginName(LoginName).ToList()[0];
+                userModel = UserServerModel.GetServerModel(userInfo);
+            }
+
+            return Json(userModel, JsonRequestBehavior.AllowGet);
+        }
     }
 }
