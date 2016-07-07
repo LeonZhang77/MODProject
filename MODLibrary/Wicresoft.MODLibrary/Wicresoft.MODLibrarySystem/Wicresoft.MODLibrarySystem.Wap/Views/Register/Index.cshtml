@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "MOD Library Login";
+    Layout = "~/Views/Shared/_NLayout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.Wap.Models.Register.RegisterIndexModel
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+@using (Html.BeginForm(new { id="formhead", onsubmit="return validateCallback(this, navTabAjaxDone)"}))
+{
+    <div class="login-register container">
+        <p class="titil-font" style="font-size: x-large;">
+            <strong>Register</strong>
+        </p><br />
+        <div class="register1">
+            <span class="warning-meaasge" id="email-exist">The email has been used</span>
+            <span class="warning-meaasge" id="email-null">The email is require</span>
+            @Html.TextBoxFor(m => this.Model.Email, new { @type = "email", @placeholder = "Email", @class = "form-control form-control-width", @id = "register-email" })
+            <br />
+        </div>
+        <div class="register2">
+            <span class="warning-meaasge" id="name-exist">The LoginName has been used</span>
+            <span class="warning-meaasge" id="name-null">The LoginName is require</span>
+            @Html.TextBoxFor(m => this.Model.LoginName, new { @placeholder = "Login Name", @class = "form-control form-control-width", id = "register-name" })
+            <br /><span class="warning-meaasge" id="password-null">The pass word is require</span>
+            @Html.TextBoxFor(m => this.Model.Password, new { @type = "password", @placeholder = "Pass Word", @class = "form-control form-control-width", id = "password" })
+            <br /><span class="warning-meaasge" id="display-null">The DisplayName is require</span>
+            @Html.TextBoxFor(m => this.Model.DisplayName, new { @placeholder = "Display Name", @class = "form-control form-control-width",id = "display-name" })
+            <br /><span class="warning-meaasge" id="real-null">The RealName is require</span>
+            @Html.TextBoxFor(m => this.Model.RealName, new { @placeholder = "Real Name", @class = "form-control form-control-width", id = "real-name" })
+            <br />
+            @Html.TextBoxFor(m => this.Model.WeChat, new { @placeholder = "WeChat", @class = "form-control form-control-width" })
+            <br />
+        </div>
+        <a class="btn login-register-btn" id="register-next" contenteditable=" false">Next</a>
+        <button class="btn login-register-btn register2" id="register-submit" disabled="disabled"><strong>Register</strong></button>
+    </div>
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/RegisterJS/Register.js"></script>

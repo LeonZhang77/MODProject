@@ -6843,3 +6843,47 @@ td.visible-print {
 .btn-width{
     width:100%;
 }
+
+.login-register {
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background: #222222;
+}
+.titil-font {
+        margin-top: 50px;
+        text-align: center;
+        color: white;
+        font-family: "ºÚÌå";
+}
+.form-control-width {
+        margin-left: 0;
+        margin-right: 0;
+        margin: auto;
+        max-width:100%;
+    }
+#turn-register{
+        color:#FF6666;
+        text-decoration:none;
+        font-weight:bold;
+    }
+.p-center{
+        text-align:center;
+        color:#FF6666;
+    }
+.login-register-btn{
+    width:100%;
+    color:white;
+    background-color:#FF6666;
+}
+.register2{
+    display: none ;
+}
+.hid{
+    display: none ;
+}
+.warning-meaasge{
+    color:#FF6666;
+}

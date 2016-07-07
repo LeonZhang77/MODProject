@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "MOD Library Login";
+    Layout = "~/Views/Shared/_NLayout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.Wap.Models.Login.LoginIndexModel
+<link href="~/Content/bootstrap.css" rel="stylesheet"  />
+@using (Html.BeginForm())
+{
+    <div class="login-register" >
+        <div class="container">
+            <p class="titil-font" style="font-size: x-large;">
+                <strong>Login to Library</strong>
+            </p>
+            <div align="center">
+                <img style="height:100px" class="img-responsive center-block" src="~/Content/images/Login.png" alt="Responsive image" />
+            </div>
+            @if (this.Model.IsFail)
+            {
+                <p class="warning-meaasge appear">The Login name or the Password is wrong!</p>
+            }             
+            @Html.TextBoxFor(m => this.Model.UserName, new { @placeholder = "Login Name", @class = "form-control form-control-width" })
+            <br>
+            @Html.TextBoxFor(m => this.Model.Password, new { @placeholder = "Pass Word", @type = "password", @class = "form-control form-control-width" })
+            <br>
+            <button class="btn login-register-btn"><strong>Log In</strong></button>
+            <br><br>
+            <p class="p-center">
+                @Html.ActionLink("-Register-", "TurnToRegister", null, new { @id = "turn-register" })
+            </p>
+        </div>
+
+    </div>
+}
+
