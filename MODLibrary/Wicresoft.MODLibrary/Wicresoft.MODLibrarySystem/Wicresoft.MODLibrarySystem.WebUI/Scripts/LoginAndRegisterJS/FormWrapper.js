@@ -66,6 +66,8 @@
     */
     $form_wrapper.find('input[type="submit"]')
                  .click(function (e) {
-                     e.preventDefault();
+                     //e.preventDefault();
+                     $currentForm = $form_wrapper.children('form.active');
+                     $currentForm.submit;
                  });
 });

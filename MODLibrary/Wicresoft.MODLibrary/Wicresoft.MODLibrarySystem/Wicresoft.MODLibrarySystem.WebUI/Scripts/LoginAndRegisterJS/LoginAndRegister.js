@@ -1,9 +1,14 @@
 ﻿$(document).ready(function () {
     var $form_wrapper = $('#form_wrapper');
-    $currentForm = $form_wrapper.children('form.active');
+    $loginForm = $form_wrapper.children('form.login');
+    $registerForm = $form_wrapper.children('form.register');
+    $registerUserForm = $form_wrapper.children('form.registerUser');
     LoginInit();
+    IndexRegisterInit();
+    RegisterUserRegisterInit();
+    
+    
 });
-
 
 function LoginInit() {
     LoginBind();
@@ -11,23 +16,104 @@ function LoginInit() {
 }
 
 function LoginBind() {
-    $("#UserName").bind("change", function () { validateField("UserName", "VN") });
-    $("#Password").bind("change", function () { validateField("Password", "VN") });
+    $("#LoginIndexModel_UserName").bind("change", function () { validateField("LoginIndexModel_UserName", "VN") });
+    $("#LoginIndexModel_Password").bind("change", function () { validateField("LoginIndexModel_Password", "VN") });
 }
 
 function LoginSubmitBind() {
-    $currentForm.bind("submit", function () { return LoginSubmitValidation() });
+    $loginForm.bind("submit", function () { return LoginSubmitValidation() });
 }
 
 function LoginSubmitValidation() {
     var step1, step2;
 
-    step1 = validateField("UserName", "VN");
-    step2 = validateField("Password", "VN");
+    step1 = validateField("LoginIndexModel_UserName", "VN");
+    step2 = validateField("LoginIndexModel_Password", "VN");
     if (step1 && step2) {
         return true;
     }
     else {
         return false;
     }
+}
+
+function IndexRegisterInit() {
+    IndexRegisterBind();
+
+    IndexRegisterSubmitBind();
+}
+
+function IndexRegisterBind() {
+    $("#RegisterIndexModel_Email").bind("change", function () { multipleValidateField("RegisterIndexModel_Email", "VN,VE") });
+}
+
+function IndexRegisterSubmitBind() {
+    $registerForm.bind("submit", function () { return IndexRegisterSubmitValidation() });
+}
+
+function IndexRegisterSubmitValidation() {
+    var step1;
+
+    step1 = multipleValidateField("RegisterIndexModel_Email", "VN,VE");
+    if (step1) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function RegisterUserRegisterInit() {
+    RegisterUserRegisterBind();
+
+    RegisterUserRegisterSubmitBind();
+}
+
+function RegisterUserRegisterBind() {
+    $("#RegisterModel_DisplayName").bind("change", function () { multipleValidateField("RegisterModel_DisplayName", "VN,VL", 6) });
+
+    $("#RegisterModel_RealName").bind("change", function () { validateField("RegisterModel_RealName", "VN") });
+
+    $("#RegisterModel_LoginName").bind("change", function () { validateField("RegisterModel_LoginName", "VN") });
+
+    $("#RegisterModel_Password").bind("change", function () { validateField("RegisterModel_Password", "VN") });
+
+    $("#RegisterModel_Password").bind("change", function () { ConfirmPassword() });
+
+    $("#rePassword").bind("change", function () { ConfirmPassword() });
+
+    $("#RegisterModel_Email").bind("change", function () { multipleValidateField("RegisterModel_Email", "VN,VE") });
+}
+
+function RegisterUserRegisterSubmitBind() {
+    $registerUserForm.bind("submit", function () { return RegisterUserRegisterSubmitValidation() });
+}
+
+function RegisterUserRegisterSubmitValidation() {
+    var step1, step2, step3, step4, step5;
+
+    step1 = multipleValidateField("RegisterModel_DisplayName", "VN,VL", 6);
+    step2 = validateField("RegisterModel_RealName", "VN");
+    step3 = validateField("RegisterModel_LoginName", "VN");
+    step4 = validateField("RegisterModel_Password", "VN");
+    step5 = multipleValidateField("RegisterModel_Email", "VN,VE");
+
+    if (step1 && step2 && step3 && step4 && step5) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+function ConfirmPassword() {
+    var password, repassword, errormsg;
+    errormsg = "Password should be same.";
+    password = $("#RegisterModel_Password").val();
+    repassword = $("#rePassword").val();
+
+    if (password != repassword) {
+        $("#rePassword_errorData").text(errormsg).show();
+    }
+    else { $("rePassword_errorData").text(errormsg).hide(); }
 }

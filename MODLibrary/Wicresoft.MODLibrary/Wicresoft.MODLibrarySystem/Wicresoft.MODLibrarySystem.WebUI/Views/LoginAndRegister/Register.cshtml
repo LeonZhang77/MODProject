@@ -25,6 +25,7 @@
 			Cufon.replace('.back');
 </script>
 <script src="~/Scripts/LoginAndRegisterJS/FormWrapper.js" type="text/javascript"></script>
+<script src="~/Scripts/LoginAndRegisterJS/LoginAndRegister.js" type="text/javascript"></script>
 
 <h2>MOD Library Login</h2>
 
@@ -39,22 +40,22 @@
                     <span style="color:red">Login Fail. <br /> Please check username and password is correct</span>
                 }
                 <div>
-                    <label for="UserName">UserName: <span class="requireSpan">*</span></label>
+                    <label for="LoginIndexModel.UserName">UserName: <span class="requireSpan">*</span></label>
                     @Html.TextBoxFor(m => this.Model.LoginIndexModel.UserName)
-                    <label id="UserName_errorData" errordatamessage="UserName is require." class="errorLable" />
+                    <label id="LoginIndexModel_UserName_errorData" errordatamessage="UserName is require." class="errorLable" />
                 </div>
                 <div>
-                    <label for="Password">Password: <span class="requireSpan">*</span></label>
+                    <label for="LoginIndexModel.Password">Password: <span class="requireSpan">*</span></label>
                     @Html.TextBoxFor(m => this.Model.LoginIndexModel.Password, new { @type = "password" })
-                    <label id="Password_errorData" errordatamessage="Password is require." class="errorLable" />
+                    <label id="LoginIndexModel_Password_errorData" errordatamessage="Password is require." class="errorLable" />
                 </div>
                 <div class="bottom">
                     <input type="submit" value="Login" />
-                    @Html.ActionLink("You don't have an account? Register here", "TurnToRegister", "Login", new { @class = "linkform" })
+                    @Html.ActionLink("You don't have an account? Register here", "TurnToRegister", "LoginAndRegister", new { @class = "linkform", @rel = "register" })
                     <div class="clear"></div>
                 </div>
             }
-            @using (Html.BeginForm("Index", "Register", FormMethod.Post, new { @role = "form", @class = "register active" }))
+            @using (Html.BeginForm("Register", "LoginAndRegister", FormMethod.Post, new { @role = "form", @class = "register active" }))
             {
                 <h3>Please Input Your Email</h3>
                 if (this.Model.RegisterIndexModel.IsExist)
@@ -63,43 +64,44 @@
                 }
                 <div>
                     <label for="Email">Email: <span class="requireSpan">*</span></label>
-                    @Html.TextBoxFor(m => this.Model.RegisterIndexModel, new { @type = "text" })
-                    <label id="Email_errorData" errordatamessage="Email is require and should be a email format." class="errorLable" />
+                    @Html.TextBoxFor(m => this.Model.RegisterIndexModel.Email, new { @type = "text" })
+                    <label id="RegisterIndexModel_Email_errorData" errordatamessage="Email is require and should be a email format." class="errorLable" />
                 </div>
                 <div class="bottom">
                     <input type="submit" value="Next" />
+                    @Html.ActionLink("You have an account already?", "Index", "LoginAndRegister", null, new { @class = "linkform", @rel = "login" })
                     <div class="clear"></div>
                 </div>
             }
-            @using (Html.BeginForm("RegisterUser", "Register", FormMethod.Post, new { @role = "form", @class = "registerUser" }))
+            @using (Html.BeginForm("RegisterUser", "LoginAndRegister", FormMethod.Post, new { @role = "form", @class = "registerUser" }))
             {
                 <h3>Register Information</h3>
                 if (this.Model.RegisterModel.ErrorState)
                 {
                     <span style="color:red">@this.Model.RegisterModel.StateMessage</span>
                 }
-                <div class="column" style="width:200px">
+                <div class="column">
                     <div>
                         <label>DisplayName:<span class="requireSpan">*</span></label>
                         @Html.TextBoxFor(m => m.RegisterModel.DisplayName)
-                        <label id="DisplayName_errorData" errordatamessage="DisplayName is require and length must be less than 6 bytes." class="errorLable" />
+                        <label id="RegisterModel_DisplayName_errorData" errordatamessage="DisplayName is require and length must be less than 6 bytes." class="errorLable" />
                     </div>
                     <div>
                         <label>Real Name:<span class="requireSpan">*</span></label>
                         @Html.TextBoxFor(m => m.RegisterModel.RealName)
-                        <label id="RealName_errorData" errordatamessage="RealName is require." class="errorLable" />
+                        <label id="RegisterModel_RealName_errorData" errordatamessage="RealName is require." class="errorLable" />
                     </div>
                     <div>
                         <label>Login Name:<span class="requireSpan">*</span></label>
                         @Html.TextBoxFor(m => m.RegisterModel.LoginName)
-                        <label id="LoginName_errorData" errordatamessage="LoginName is require." class="errorLable" />
+                        <label id="RegisterModel_LoginName_errorData" errordatamessage="LoginName is require." class="errorLable" />
                     </div>
                 </div>
-                <div class="column" style="width:200px">
+                <div class="column">
                     <div>
                         <label>Password:<span class="requireSpan">*</span></label>
                         @Html.TextBoxFor(m => m.RegisterModel.Password, new { @id = "Password", @type = "password" })
-                        <label id="Password_errorData" errordatamessage="Password is require." class="errorLable" />
+                        <label id="RegisterModel_Password_errorData" errordatamessage="Password is require." class="errorLable" />
                     </div>
                     <div>
                         <label>Confirm Password:<span class="requireSpan">*</span></label>
@@ -109,7 +111,7 @@
                     <div>
                         <label>Email:<span class="requireSpan">*</span></label>
                         @Html.TextBoxFor(m => m.RegisterModel.Email, new Dictionary<string, object>() { { "readonly", "true" } })
-                        <label id="Email_errorData" errordatamessage="Email is require and must be a email address." class="errorLable" />
+                        <label id="RegisterModel_Email_errorData" errordatamessage="Email is require and must be a email address." class="errorLable" />
                     </div>
                     <div>
                         <label>Wechat:</label>
@@ -118,7 +120,7 @@
                 </div>
                 <div class="bottom">
                     <input type="submit" value="Register" />
-                    @Html.ActionLink("You have an account already?", "Index", "LoginAndRegister", null, new { @class = "linkform" })
+                    @Html.ActionLink("You have an account already?", "Index", "LoginAndRegister", null, new { @class = "linkform", @rel = "login" })
                     <div class="clear"></div>
                 </div>
             }

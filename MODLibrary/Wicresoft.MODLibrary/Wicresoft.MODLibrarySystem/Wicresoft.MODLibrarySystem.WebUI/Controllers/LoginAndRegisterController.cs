@@ -46,6 +46,8 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             else
             {
                 model.LoginIndexModel.IsFail = true;
+                model.RegisterIndexModel = new RegisterIndexModel();
+                model.RegisterModel = new RegisterModel();
                 return View(model);
             }
         }
@@ -81,7 +83,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
 
             if (user == null)
             {
-                return RedirectToAction("RegisterUser", "LoginAndRegister", model);
+                return RedirectToAction("RegisterUser", "LoginAndRegister", model.RegisterIndexModel);
             }
             else
             {
@@ -90,20 +92,26 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             }
         }
 
-        //public ActionResult RegisterUser(LoginAndRegisterModel model)
-        //{
-        //    RegisterModel userModel = new RegisterModel();
-        //    userModel.InitRegisterModel(model.RegisterIndexModel);
+        public ActionResult RegisterUser(RegisterIndexModel indexModel)
+        {
+            RegisterModel userModel = new RegisterModel();
+            userModel.InitRegisterModel(indexModel);
 
-        //    if (model.RegisterIndexModel.Email == null)
-        //    {
-        //        return RedirectToAction("Register", "LoginAndRegister", model);
-        //    }
-        //    else
-        //    {
-        //        return View(model);
-        //    }
-        //}
+            LoginAndRegisterModel model = new LoginAndRegisterModel();
+            model.LoginIndexModel = new LoginIndexModel();
+            model.RegisterIndexModel = indexModel;
+            model.RegisterModel = userModel;
+
+            if (indexModel.Email == null)
+            {
+                return RedirectToAction("Register", "LoginAndRegister", model);
+            }
+            else
+            {
+                
+                return View(model);
+            }
+        }
 
         [HttpPost]
         public ActionResult RegisterUser(LoginAndRegisterModel model)
