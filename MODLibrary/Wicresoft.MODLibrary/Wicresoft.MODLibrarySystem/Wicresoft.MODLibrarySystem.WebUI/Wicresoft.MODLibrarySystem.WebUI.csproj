@@ -153,6 +153,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BookManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginAndRegisterController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
@@ -166,6 +167,7 @@
     <Compile Include="Models\BookManage\BookModel.cs" />
     <Compile Include="Models\BookManage\DetailBookModel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
+    <Compile Include="Models\LoginAndRegister\LoginAndRegisterModel.cs" />
     <Compile Include="Models\Login\LoginIndexModel.cs" />
     <Compile Include="Models\Register\RegisterIndexModule.cs" />
     <Compile Include="Models\Register\RegisterModel.cs" />
@@ -186,6 +188,7 @@
     <Content Include="Content\images\memberLevel.jpg" />
     <Content Include="Content\images\objection.png" />
     <Content Include="Content\images\support.png" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\TDNoWarp.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -265,6 +268,8 @@
     <None Include="Properties\PublishProfiles\LocalDeploy.pubxml" />
     <None Include="Properties\PublishProfiles\ToTestEve.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\ChunkFive_400.font.js" />
+    <Content Include="Scripts\cufon-yui.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -272,6 +277,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LoginAndRegisterJS\FormWrapper.js" />
+    <Content Include="Scripts\LoginAndRegisterJS\LoginAndRegister.js" />
     <Content Include="Scripts\LoginJS\Login.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\RegisterJS\IndexRegister.js" />
@@ -533,6 +540,10 @@
     <Content Include="Views\RentManage\MyRequest.cshtml" />
     <Content Include="Views\RentManage\ReadHistory.cshtml" />
     <Content Include="Views\RentManage\BookToRent.cshtml" />
+    <Content Include="Views\LoginAndRegister\Index.cshtml" />
+    <Content Include="Views\LoginAndRegister\NotPermission.cshtml" />
+    <Content Include="Views\LoginAndRegister\Register.cshtml" />
+    <Content Include="Views\LoginAndRegister\RegisterUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

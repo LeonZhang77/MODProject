@@ -7,7 +7,7 @@
 <script>
     $(document).ready(function () {
         if ('@ViewBag.IsLogin' == 'False' && '@ViewBag.IsAuthenticated' == 'True') {
-            window.location = '@Url.Action("NotPermission", "Login", null)';
+            window.location = '@Url.Action("NotPermission", "LoginAndRegister", null)';
         }
     });
 </script>
@@ -31,7 +31,7 @@
     else
     {
         <span style="color:white">
-            @Html.ActionLink("Please to Login", "Index", "Login", null, null)
+            @Html.ActionLink("Please to Login", "Index", "LoginAndRegister", null, null)
         </span>
     }
 </div>
