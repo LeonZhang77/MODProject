@@ -1,14 +1,18 @@
 ﻿$(document).ready(function () {
     var $form_wrapper = $('#form_wrapper');
-    $loginForm = $form_wrapper.children('form.login');
-    $registerForm = $form_wrapper.children('form.register');
-    $registerUserForm = $form_wrapper.children('form.registerUser');
+    _loginForm = $form_wrapper.children('form.login');
+    _registerForm = $form_wrapper.children('form.register');
+    _registerUserForm = $form_wrapper.children('form.registerUser');
     LoginInit();
     IndexRegisterInit();
     RegisterUserRegisterInit();
     
     
 });
+
+var _loginForm;
+var _registerForm;
+var _registerUserForm;
 
 function LoginInit() {
     LoginBind();
@@ -21,7 +25,7 @@ function LoginBind() {
 }
 
 function LoginSubmitBind() {
-    $loginForm.bind("submit", function () { return LoginSubmitValidation() });
+    _loginForm.bind("submit", function () { return LoginSubmitValidation() });
 }
 
 function LoginSubmitValidation() {
@@ -48,7 +52,7 @@ function IndexRegisterBind() {
 }
 
 function IndexRegisterSubmitBind() {
-    $registerForm.bind("submit", function () { return IndexRegisterSubmitValidation() });
+    _registerForm.bind("submit", function () { return IndexRegisterSubmitValidation() });
 }
 
 function IndexRegisterSubmitValidation() {
@@ -86,7 +90,7 @@ function RegisterUserRegisterBind() {
 }
 
 function RegisterUserRegisterSubmitBind() {
-    $registerUserForm.bind("submit", function () { return RegisterUserRegisterSubmitValidation() });
+    _registerUserForm.bind("submit", function () { return RegisterUserRegisterSubmitValidation() });
 }
 
 function RegisterUserRegisterSubmitValidation() {
@@ -115,5 +119,7 @@ function ConfirmPassword() {
     if (password != repassword) {
         $("#rePassword_errorData").text(errormsg).show();
     }
-    else { $("rePassword_errorData").text(errormsg).hide(); }
+    else {
+        $("#rePassword_errorData").text(errormsg).hide();
+    }
 }

@@ -88,6 +88,8 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             else
             {
                 model.RegisterIndexModel.IsExist = true;
+                model.LoginIndexModel = new LoginIndexModel();
+                model.RegisterModel = new RegisterModel();
                 return View(model);
             }
         }
@@ -122,15 +124,16 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
             {
                 userModel.ErrorState = true;
                 userModel.StateMessage = "LoginName is exsit";
-                return View(userModel);
+                model.RegisterModel = userModel;
+                model.LoginIndexModel = new LoginIndexModel();
+                model.RegisterIndexModel = new RegisterIndexModel();
+                return View(model);
             }
             else
             {
                 this.IUserInfoDataProvider.Add(useInfo);
-
                 FormsAuthentication.SignOut();
-                FormsAuthentication.SetAuthCookie(useInfo.ID.ToString(), true);
-                return RedirectToAction("Index", "Home", null);
+                return RedirectToAction("Index", "LoginAndRegister");
             }
         }
     }

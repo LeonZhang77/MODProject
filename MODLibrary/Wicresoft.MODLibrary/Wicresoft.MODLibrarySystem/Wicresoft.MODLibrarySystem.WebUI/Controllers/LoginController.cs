@@ -7,7 +7,6 @@ using Wicresoft.MODLibrarySystem.DataAccess.DataProvider;
 using Wicresoft.MODLibrarySystem.DataAccess.IDataProvider;
 using Wicresoft.MODLibrarySystem.Entity;
 using Wicresoft.MODLibrarySystem.WebUI.Models.Login;
-using Wicresoft.MODLibrarySystem.WebUI.Models.LoginAndRegister;
 using System.Web.Security;
 using System.Security.Claims;
 
@@ -50,7 +49,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
         {
             FormsAuthentication.SignOut();
 
-            return RedirectToAction("Index", "LoginAndRegister",null);
+            return RedirectToAction("Index", "LoginAndRegister");
         }
 
         public ActionResult NotPermission()

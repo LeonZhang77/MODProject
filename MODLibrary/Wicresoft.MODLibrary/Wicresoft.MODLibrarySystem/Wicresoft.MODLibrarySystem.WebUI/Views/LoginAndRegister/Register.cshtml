@@ -10,12 +10,6 @@
 
 @model Wicresoft.MODLibrarySystem.WebUI.Models.LoginAndRegister.LoginAndRegisterModel
 
-@section scripts{
-    @Scripts.Render("~/Scripts/LoginJS/Login.js")
-    @Scripts.Render("~/Scripts/RegisterJS/RegisterUserRegister.js")
-    @Scripts.Render("~/Scripts/RegisterJS/IndexRegister.js")
-}
-
 <script src="~/Scripts/cufon-yui.js" type="text/javascript"></script>
 <script src="~/Scripts/ChunkFive_400.font.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -100,7 +94,7 @@
                 <div class="column">
                     <div>
                         <label>Password:<span class="requireSpan">*</span></label>
-                        @Html.TextBoxFor(m => m.RegisterModel.Password, new { @id = "Password", @type = "password" })
+                        @Html.TextBoxFor(m => m.RegisterModel.Password, new { @type = "password" })
                         <label id="RegisterModel_Password_errorData" errordatamessage="Password is require." class="errorLable" />
                     </div>
                     <div>
