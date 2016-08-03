@@ -84,12 +84,13 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
             }
 
 
-            strContent.Append("<table><tr><td>");
-            strContent.AppendFormat("{0}&nbsp Items,{1}&nbsp Pages,Num.{2}&nbsp;&nbsp;", this.TotalCount, this.TotalPage, displayCurrentIndex);
+            strContent.Append("<table><tr><td id=\"pagesData\">");
+            //strContent.AppendFormat("{0}&nbsp Items,{1}&nbsp Pages,Num.{2}&nbsp;&nbsp;", this.TotalCount, this.TotalPage, displayCurrentIndex);
+            strContent.AppendFormat("Total:{0}, {2}/{1} &nbsp Pages </td></tr><tr><td>", this.TotalCount, this.TotalPage, displayCurrentIndex);
 
             if (this.CurrentPageIndex == 0)
             {
-                strContent.Append("<span>First</span>&nbsp;");
+                strContent.Append("<span id=\"disableFirst\">First</span>&nbsp;");
             }
             else
             {
@@ -113,7 +114,7 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
 
             if (this.CurrentPageIndex == this.TotalPage - 1)
             {
-                strContent.Append("<span>Last</span>&nbsp;");
+                strContent.Append("<span id=\"disableLast\">Last</span>&nbsp;");
             }
             else
             {

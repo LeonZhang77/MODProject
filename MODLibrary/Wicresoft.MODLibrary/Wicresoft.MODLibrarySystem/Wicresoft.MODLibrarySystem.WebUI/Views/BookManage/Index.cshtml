@@ -3,7 +3,7 @@
 }
 @model Wicresoft.MODLibrarySystem.WebUI.Models.BookManage.BookManageIndexModel
 <script type="text/javascript" src="~/Scripts/BookManageJS/BookManage.js"></script>
-<link href="~/Content/TDNoWarp.css" rel="stylesheet" />
+<link href="~/Content/PricingTable.css" rel="stylesheet" />
 
 
 @using (Html.BeginForm("Index", "BookManage", FormMethod.Post, new { @role = "form" }))
@@ -12,19 +12,19 @@
         <div>
            <table class="table table-bordered">
                <tr>
-                   <td>
+                   <td align="center">
                        <div class="form-group">
                            <label for="BookName">Book Name</label>
                            @Html.TextBoxFor(m => m.SearchBookName, new { @class = "form-control" })
                        </div>
                    </td>
-                   <td>
+                   <td align="center">
                        <div class="form-group">
                            <label for="Category">Category</label>
                            @Html.DropDownListFor(m => m.SearchSelectedID, this.Model.SearchCategoryList, new { @class = "form-control" })
                        </div>
                    </td>
-                   <td>
+                   <td align="center">
                        <div class="checkbox">
                            <label for=" CanBeReserve">
                                Can be Reserve
@@ -35,135 +35,67 @@
                </tr>
                <tr>
                    <td colspan="3" align="center">
-                       <input class="btn btn-primary" type="submit" value="Search" />
+                       <input class="action_button" type="submit" value="Search" />
                    </td>
                </tr>
            </table>
         </div>
-        <div>
-            <span>Book Search List</span>
-        </div>
+     
         @if (this.Model.BookModelList.Count > 0)
         {
-            for (int i = 0; i < this.Model.BookModelList.Count; i++)
-            {
-                string relatedStr = "related" + i.ToString();
-                <div class=@relatedStr>@this.Model.BookModelList[i].PublisherDisplayDescription</div>
-                <div style="width:30%;float:left">
-                    <table style="width:300px; height:350px; background:#c9daf8" class="table-condensed">
-                        <tr>
-                            <td rowspan="6" style="height:150px;width:100px"><img width="100" height="150" src="~/Content/images/DefaultPic.jpg" /></td>
-                            <th>
-                                Book
-                            </th>
-                            <td data-toggle="tooltip" title="@this.Model.BookModelList[i].BookName">
-                                @this.Model.BookModelList[i].BookName
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                ISBN
-                            </th>
-                            <td data-toggle="tooltip" title="@this.Model.BookModelList[i].ISBN">
-                                @this.Model.BookModelList[i].ISBN
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Price
-                            </th>
-                            <td>
-                                @this.Model.BookModelList[i].Price_Inventory
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Avaliable
-                            </th>
-                            <td>
-                                @this.Model.BookModelList[i].Avaliable_Inventory
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <img width="30" height="30" src="~/Content/images/support.png" />
-                            </th>
-                            <td>
-                                @this.Model.BookModelList[i].Supports
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <img width="30" height="30" src="~/Content/images/objection.png" />
-                            </th>
-                            <td>
-                                @this.Model.BookModelList[i].Objections
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Publisher
-                            </th>
-                            <td colspan="2" onmouseover="mIn(@i);" onmouseout="mOut(@i);">
-                                @this.Model.BookModelList[i].PublisherName
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Author
-                            </th>
-                            <td colspan="2">
-                                @Html.TextAreaFor(m => this.Model.BookModelList[i].AuthorName, new { @readonly = "readonly" })
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                Catagory
-                            </th>
-                            <td colspan="2">
-                                @Html.TextAreaFor(m => this.Model.BookModelList[i].CatagoryName, new { @readonly = "readonly" })
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="2">
-                                @Html.ActionLink("Detail", "DetailTheBook", new { @id = this.Model.BookModelList[i].ID })
-                            </td>
-                            <td>
-                                @if (this.Model.BookModelList[i].IsAvaliable)
-                                {
-                                    @Html.ActionLink("Reserve", "BookToRent", "RentManage", new { @id = this.Model.BookModelList[i].ID }, new { target = "_self"})                                    
-                                }
-                                else
-                                {
-                                    <span style="color:gray">Reserve</span>
-                                }
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                if (i == 2)
+            <ul class="pricing_table">
+                @for (int i = 0; i < this.Model.BookModelList.Count; i++)
                 {
-                    <div style="width:100%;float:left">
-                        <span>-----------------</span>
-                    </div>
+                    string relatedStr = "related" + i.ToString();
+                    <div class=@relatedStr>@this.Model.BookModelList[i].PublisherDisplayDescription</div>
+                    <li class="price_block">
+                        <h4 data-toggle="tooltip" title="@this.Model.BookModelList[i].BookName">@this.Model.BookModelList[i].BookName</h4>
+                         <div class="price">
+                            <div class="price_figure" style="height:200px">
+                                <span class="price_number">
+                                    <img width="100" height="150" src="~/Content/images/DefaultPic.jpg" />
+                                </span>
+                            </div>                            
+                </div>
+                <ul class="features">
+                    <li ata-toggle="tooltip" title="@this.Model.BookModelList[i].ISBN">@this.Model.BookModelList[i].ISBN</li>
+                    <li>@this.Model.BookModelList[i].Price_Inventory</li>
+                    <li>Avaliable: @this.Model.BookModelList[i].Avaliable_Inventory</li>
+                    <li>
+                        <img width="30" height="30" src="~/Content/images/support.png" />
+                        @this.Model.BookModelList[i].Supports
+                        <img width="30" height="30" src="~/Content/images/objection.png" />
+                        @this.Model.BookModelList[i].Objections
+                    </li>
+                    <li ata-toggle="tooltip" title="@this.Model.BookModelList[i].CatagoryName">
+                        @this.Model.BookModelList[i].CatagoryName,
+                    </li>
+                    <li ata-toggle="tooltip" title="@this.Model.BookModelList[i].AuthorName">
+                        @this.Model.BookModelList[i].AuthorName
+                    </li>
+                    <li colspan="2" onmouseover="mIn(@i);" onmouseout="mOut(@i);">@this.Model.BookModelList[i].PublisherName</li>
+                </ul>
+                <div class="footer">                    
+                    @Html.ActionLink("Detail", "DetailTheBook", new { @id = this.Model.BookModelList[i].ID }, new { @class="action_button"})                
+                </div>
+                <div class="footer">
+                    @if (this.Model.BookModelList[i].IsAvaliable)
+                    {
+                        @Html.ActionLink("Reserve", "BookToRent", "RentManage", new { @id = this.Model.BookModelList[i].ID }, new { @class = "action_button" })
+                    }                                        
+                </div>
+                </li>   
                 }
-            }
+            </ul>
         }
-        else
-        {
-            <div style="width:100%;float:left">
-                <span>No Result.</span>
-            </div>
-        }
-        
-        <div style="width:100%;float:left">
-            <h4><br /></h4>
-            <table>
+        <div style="width:100%;">
+            <table style="width:100%" align="center" class="table table-bordered" id="PagingViewContentTable">
                 <tr>
-                    @Html.Raw(this.Model.PagingContent.PagingViewContent)
+                    <td style="width:100%" align="center">
+                        @Html.Raw(this.Model.PagingContent.PagingViewContent)
+                    </td> 
                 </tr>
-            </table>
+            </table>           
         </div>
     </div>
 }

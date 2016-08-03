@@ -20,3 +20,12 @@ function mOut(i) {
     var relatedStr = ".related" + i.toString();
     jQuery(relatedStr).hide();
 }
+
+$(function () {
+    $("#PagingViewContentTable table").addClass("table table-bordered");
+    $("#PagingViewContentTable td").attr("align", "center");
+    $("#disableFirst").addClass("btn btn-sm action_button_disabled").attr("disabled", "disabled");
+    $("#disableLast").addClass("btn btn-sm action_button_disabled").attr("disabled", "disabled");
+    $("pageData").addClass("features");
+    $("#PagingViewContentTable a").addClass("btn btn-sm action_button");    
+});
