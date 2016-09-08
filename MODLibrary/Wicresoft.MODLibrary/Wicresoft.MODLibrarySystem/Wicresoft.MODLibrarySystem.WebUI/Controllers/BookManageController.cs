@@ -38,7 +38,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Controllers
 
             IEnumerable<BookInfo> books = this.IBookInfoDataProvider.GetBookList(condition);
 
-            PagingContent<BookInfo> paging = new PagingContent<BookInfo>(books, pageIndex, 6);
+            PagingContentFormat2<BookInfo> paging = new PagingContentFormat2<BookInfo>(books, pageIndex, 6);
 
             foreach (var item in paging.EntityList)
             {

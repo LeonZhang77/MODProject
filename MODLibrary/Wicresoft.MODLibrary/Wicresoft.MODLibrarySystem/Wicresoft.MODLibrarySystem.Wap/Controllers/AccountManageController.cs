@@ -16,12 +16,6 @@ namespace Wicresoft.MODLibrarySystem.Wap.Controllers
         // GET: AccountManage
         public ActionResult Index()
         {
-            ViewBag.UserName = this.LoginUser().DisplayName;
-            return View();
-        }
-
-        public ActionResult EditAccount()
-        {
             UserInfo user = this.LoginUser();
             EditAccountModel model = new EditAccountModel();
 
@@ -35,7 +29,7 @@ namespace Wicresoft.MODLibrarySystem.Wap.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditAccount(EditAccountModel model)
+        public ActionResult Index(EditAccountModel model)
         {
             if (model != null)
             {
@@ -44,8 +38,6 @@ namespace Wicresoft.MODLibrarySystem.Wap.Controllers
                 model.FloorList = DropDownListHelper.GetFloorList(model.Floor.ToString());
                 model.IsSave = true;
             }
-
-
             return View(model);
         }
     }

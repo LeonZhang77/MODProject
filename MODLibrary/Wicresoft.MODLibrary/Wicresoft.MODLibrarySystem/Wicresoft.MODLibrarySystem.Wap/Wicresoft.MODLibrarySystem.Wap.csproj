@@ -151,11 +151,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountManageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PersonalCenterController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BookManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginValidateController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -167,6 +167,11 @@
     <Compile Include="Models\BookManage\BookModel.cs" />
     <Compile Include="Models\Login\LoginIndexModel.cs" />
     <Compile Include="Models\Register\RegisterIndexModule.cs" />
+    <Compile Include="Models\RentManage\BookInHandModel.cs" />
+    <Compile Include="Models\RentManage\BookToRentModel.cs" />
+    <Compile Include="Models\RentManage\MyRequestModel.cs" />
+    <Compile Include="Models\RentManage\ReadHistoryModel.cs" />
+    <Compile Include="Models\RentManage\RentManageIndexModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
@@ -175,6 +180,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\DefaultPic.jpg" />
     <Content Include="Content\images\goback.png" />
+    <Content Include="Content\images\Header.jpg" />
     <Content Include="Content\images\Hmoe.PNG" />
     <Content Include="Content\images\loading_16_16.gif" />
     <Content Include="Content\images\Login.png" />
@@ -244,6 +250,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\AccountManageJS\EditAccount.js" />
     <Content Include="Scripts\baseValidation.js" />
     <Content Include="Scripts\baseWebAPP.js" />
     <Content Include="Scripts\BookManageJS\BookManage.js" />
@@ -260,6 +267,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\PersonalCenterJS\BookToRent.js" />
+    <Content Include="Scripts\PersonalCenterJS\PersonalCenter.js" />
     <Content Include="Scripts\RegisterJS\Register.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -482,7 +491,9 @@
     <Content Include="Scripts\ui\minified\jquery.ui.tooltip.min.js" />
     <Content Include="Scripts\ui\minified\jquery.ui.widget.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -504,6 +515,10 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
     <Content Include="Views\Shared\_NLayout.cshtml" />
+    <Content Include="Views\AccountManage\Index.cshtml" />
+    <Content Include="Views\Home\LoginUserDisplay.cshtml" />
+    <Content Include="Views\PersonalCenter\BookToRent.cshtml" />
+    <Content Include="Views\PersonalCenter\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

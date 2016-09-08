@@ -9,73 +9,24 @@ using Wicresoft.MODLibrarySystem.Entity;
 
 namespace Wicresoft.MODLibrarySystem.Unity.Helper
 {
-    public class PagingContent<TEntity>
+    public class PagingContentFormat2 <TEntity> : PagingContent<TEntity>
     {
-        public Int32 PageSize
+        public PagingContentFormat2():base()
         {
-            get;
-            set;
+           
         }
-
-        public Int32 CurrentPageIndex
+        public PagingContentFormat2(IEnumerable<TEntity> list, Int32 pageIndex, Int32 pageSize = UntityContent.PageSize)
+            :base(list, pageIndex, pageSize)
         {
-            get;
-            set;
-        }
-
-        public Int32 TotalCount
-        {
-            get;
-            set;
-        }
-
-        public Int32 TotalPage
-        {
-            get;
-            set;
-        }
-
-        public List<TEntity> EntityList
-        {
-            get;
-            set;
-        }
-
-        public String PagingViewContent
-        {
-            get;
-            set;
-        }
-
-        public PagingContent()
-        {
-            
-        }
-
-        public PagingContent(IEnumerable<TEntity> list, Int32 pageIndex, Int32 pageSize = UntityContent.PageSize)
-        {
-            this.EntityList = new List<TEntity>();
-
-            this.CurrentPageIndex = pageIndex;
-
-            this.PageSize = pageSize;
-
-            this.TotalCount = list.Count();
-
-            this.TotalPage = (int)Math.Ceiling(TotalCount / (double)pageSize);
-
-            EntityList.AddRange(list.Skip(pageIndex * this.PageSize).Take(this.PageSize));
-
             this.PagingViewContent = GetPagingViewContent();
         }
-
-        public String GetPagingViewContent()
+        
+        public new String GetPagingViewContent()
         {
             StringBuilder strContent = new StringBuilder();
             StringBuilder strurl = new StringBuilder();
             Int32 displayCurrentIndex = this.CurrentPageIndex + 1;
             NameValueCollection collection = HttpContext.Current.Request.QueryString;
-
 
             strurl.Append(HttpContext.Current.Request.Url.AbsolutePath + "?pageindex={0}");
             string[] keys = collection.AllKeys;
@@ -89,12 +40,12 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
             }
 
 
-            strContent.Append("<table><tr><td>");
-            strContent.AppendFormat("{0}&nbsp Items,{1}&nbsp Pages,Num.{2}&nbsp;&nbsp;", this.TotalCount, this.TotalPage, displayCurrentIndex);
+            strContent.Append("<table><tr><td id=\"pagesData\">");
+            strContent.AppendFormat("Total:{0}, {2}/{1} &nbsp Pages </td></tr><tr><td>", this.TotalCount, this.TotalPage, displayCurrentIndex);
 
             if (this.CurrentPageIndex == 0)
             {
-                strContent.Append("<span>First</span>&nbsp;");
+                strContent.Append("<span id=\"disableFirst\">First</span>&nbsp;");
             }
             else
             {
@@ -118,7 +69,7 @@ namespace Wicresoft.MODLibrarySystem.Unity.Helper
 
             if (this.CurrentPageIndex == this.TotalPage - 1)
             {
-                strContent.Append("<span>Last</span>&nbsp;");
+                strContent.Append("<span id=\"disableLast\">Last</span>&nbsp;");
             }
             else
             {

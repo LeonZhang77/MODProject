@@ -178,10 +178,14 @@
     <Compile Include="Models\Login\LoginIndexModel.cs" />
     <Compile Include="Models\PublisherManage\PublisherManageIndexModel.cs" />
     <Compile Include="Models\PublisherManage\PublisherModel.cs" />
+    <Compile Include="Models\RentManage\ReadHistoryIndexModel.cs" />
     <Compile Include="Models\RentManage\ReadHistoryModel.cs" />
     <Compile Include="Models\RentManage\RentManageIndexModel.cs" />
+    <Compile Include="Models\RentManage\UserRequestIndexModel.cs" />
     <Compile Include="Models\RentManage\UserRequestModel.cs" />
+    <Compile Include="Models\RentManage\WaitingForReturnIndexModel.cs" />
     <Compile Include="Models\RentManage\WaitingForReturnModel.cs" />
+    <Compile Include="Models\RentManage\WaitingForTakeIndexModel.cs" />
     <Compile Include="Models\RentManage\WaitingForTakeModel.cs" />
     <Compile Include="Models\UserManage\UserManageIndexModel.cs" />
     <Compile Include="Models\UserManage\UserModel.cs" />
@@ -527,6 +531,10 @@
     <Content Include="Views\BookManage\EditBooks.cshtml" />
     <Content Include="Views\Home\MemberHelper.cshtml" />
     <Content Include="Views\Chart\DoughnutChart.cshtml" />
+    <Content Include="Views\RentManage\UserRequestMore.cshtml" />
+    <Content Include="Views\RentManage\WaitingForTakeMore.cshtml" />
+    <Content Include="Views\RentManage\RentHistoryMore.cshtml" />
+    <Content Include="Views\RentManage\WaitingForReturnMore.cshtml" />
     <None Include="Views\UserManage\DetailUser.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

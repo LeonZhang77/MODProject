@@ -31,6 +31,34 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             return View(model);
         }
 
+        public ActionResult UserRequestMore(Int32 pageIndex = 0)
+        {
+            UserRequestIndexModel model = UserRequestIndexModel.GetUserRequestList(pageIndex);
+
+            return View(model);
+        }
+
+        public ActionResult WaitingForTakeMore(Int32 pageIndex = 0)
+        {
+            WaitingForTakeIndexModel model = WaitingForTakeIndexModel.GetWaitingForTakeList(pageIndex);
+
+            return View(model);
+        }
+
+        public ActionResult WaitingForReturnMore(Int32 pageIndex = 0)
+        {
+            WaitingForReturnIndexModel model = WaitingForReturnIndexModel.GetWaitingForReturnList(pageIndex);
+
+            return View(model);
+        }
+
+        public ActionResult RentHistoryMore(Int32 pageIndex = 0)
+        {
+            ReadHistoryIndexModel model = ReadHistoryIndexModel.GetReadHistoryModelList();
+
+            return View(model);
+        }
+
         public string RejectUserRequest(string q)
         {
             try

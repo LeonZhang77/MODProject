@@ -1,0 +1,71 @@
+﻿@{
+    ViewBag.Title = "UserRequestMore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.Web.Models.RentManage.UserRequestIndexModel
+@section scripts{
+    @Scripts.Render("~/Scripts/RentManageJS/RentIndexJS.js")
+}
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <div> User Request </div>
+        <div id="intablebordered">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Publish</th>
+                        <th>UserName</th>
+                        <th>Email</th>
+                        <th>Floor</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="7" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in this.Model.UserRequestList)
+                    {
+                        string approveButtonId = "approveuserRequestButton" + @item.ID.ToString();
+                        string rejectButtonId = "rejectuserRequestButton" + @item.ID.ToString();
+                        <tr>
+                            <td id="requestid" style="display:none">
+                                @item.ID
+                            </td>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td>
+                                @item.Author
+                            </td>
+                            <td>
+                                @item.Publish
+                            </td>
+                            <td>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.Email
+                            </td>
+                            <td>
+                                @item.Floor
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" id=@approveButtonId role="button" onclick="approveUserRequestButton(@item.ID);">Approve</a>
+                                <a class="btn btn-primary" id=@rejectButtonId role="button" onclick="rejectUserRequestDialogShow(@item.ID);">Reject</a>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            @Html.ActionLink("Back to Index", "Index", "RentManage", new { @class = "btn btn-success" })
+        </div>
+    </div>
+}

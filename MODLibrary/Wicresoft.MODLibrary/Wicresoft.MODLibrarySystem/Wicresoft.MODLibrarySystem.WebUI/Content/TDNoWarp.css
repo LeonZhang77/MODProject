@@ -2,9 +2,8 @@
         table-layout: fixed;
     }
 
-    td {
+    td, th{
         white-space: nowrap;
         overflow: hidden;
         word-break: keep-all;
     }
-

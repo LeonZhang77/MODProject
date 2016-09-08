@@ -7136,3 +7136,7 @@ td input{
     height:auto;
     line-height:normal;
 }
+
+#intablebordered table table td,tr{
+    border: 1px solid #ddd !important;
+}

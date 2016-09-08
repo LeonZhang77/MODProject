@@ -1,0 +1,88 @@
+﻿@{
+    ViewBag.Title = "BookToRent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.Wap.Models.RentManage.BookToRentModel
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Scripts/PersonalCenterJS/BookToRent.js"></script>
+@using (Html.BeginForm())
+{
+    <div>
+        <div style="text-align:center">
+            <h3>
+                Confirmation Request
+            </h3>
+        </div>
+        <div class="box-shadow-default">
+            <table class="table table-condensed table-top">
+                <tr>
+                    <th>
+                        @Html.Label("Title")
+                    </th>
+                    <td align="right">
+                        <smail>@this.Model.BookName</smail>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.Label("Author")
+                    </th>
+                    <td align="right">
+                        <smail>@this.Model.AuthorName</smail>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.Label("Publisher")
+                    </th>
+                    <td align="right">
+                        <smail>@this.Model.PublisherName</smail>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="box-shadow-default">
+            <div style="text-align:center">
+                <span>
+                    Personal Level
+                </span>
+            </div>
+            <table class="table table-condensed table-top">
+                <tr>
+                    <th>
+                        @Html.Label("Can borrow up to quantity total")
+                    </th>
+                    <td align="right">
+                        <smail>@this.Model.Can_Borrow_Count</smail>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        @Html.Label("Can borrow up to quantity now")
+                    </th>
+                    <td align="right">
+                        <smail>@this.Model.Still_Can_Borrow_Count</smail>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+
+                    </th>
+                    <td align="right">
+                        @Html.ActionLink("Help", "MemberHelper", "Home", null, null)
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <a href="\PersonalCenter\Index" class="btn btn-success btn-width" id="submit-order" data-bookid=@this.Model.ID>OK</a>
+                </div>
+                <div class="col-xs-6">
+                    <a class="btn btn-default btn-width" href="javascript:;" onclick="javascript: history.back(-1)">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

@@ -110,13 +110,20 @@
     </div>
     <hr />
     <div class="row">
-        <p class="col-xs-12 goback" >
+        <p class="col-xs-12 goback">
             <a href="javascript:;" onclick="javascript: history.back(-1)"><img id="gobackimg" src="~/Content/images/goback.png" /></a>
         </p>
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <a class="btn btn-success btn-width" href="javascript:void(0);" onclick="alert('Coming soon.')">Reserve</a>
+            @if (this.Model.IsAvaliable)
+            {
+                @Html.ActionLink("Reserve", "BookToRent", "PersonalCenter", new { @id = this.Model.ID }, new { @class = "btn btn-success btn-width" })
+            }
+            else
+            {
+                <span style="color:gray">Inventory shortage</span>
+            }
         </div>
     </div>
 }

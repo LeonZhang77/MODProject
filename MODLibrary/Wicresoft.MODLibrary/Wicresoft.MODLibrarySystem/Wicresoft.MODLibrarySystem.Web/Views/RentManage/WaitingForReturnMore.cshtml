@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "WaitingForReturnMore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.Web.Models.RentManage.WaitingForReturnIndexModel
+@section scripts{
+    @Scripts.Render("~/Scripts/RentManageJS/RentIndexJS.js")
+}
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <div> Waiting For Return </div>
+        <div id="intablebordered">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>UserName</th>
+                        <th>Expiration Day</th>
+                        <th>Delay</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in this.Model.WaitingForReturnModelList)
+                    {
+                        if (String.Compare(item.Delay, "7") > 0)
+                        {
+                            <tr class="danger">
+                                <td id="returnid" style="display:none">
+                                    @item.ID
+                                </td>
+                                <td>
+                                    @item.Title
+                                </td>
+                                <td>
+                                    @item.UserName
+                                </td>
+                                <td>
+                                    @item.ExpirationDay
+                                </td>
+                                <td>
+                                    @item.Delay
+                                </td>
+                                <td>
+                                    <a class="btn btn-info" id="returnWaitingForReturnButton" + @item.ID.ToString() onclick="returnWaitingForReturnButton(@item.ID);" role="button">Return</a>
+                                </td>
+                            </tr>
+                        }
+                        else if (0 > String.Compare(item.Delay, "7") && String.Compare(item.Delay, "0") > 0)
+                        {
+                            <tr class="warning">
+                                <td id="returnid" style="display:none">
+                                    @item.ID
+                                </td>
+                                <td>
+                                    @item.Title
+                                </td>
+                                <td>
+                                    @item.UserName
+                                </td>
+                                <td>
+                                    @item.ExpirationDay
+                                </td>
+                                <td>
+                                    @item.Delay
+                                </td>
+                                <td>
+                                    <a class="btn btn-primary" id="returnWaitingForReturnButton" + @item.ID.ToString() onclick="returnWaitingForReturnButton(@item.ID);" role="button">Return</a>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="success">
+                                <td id="returnid" style="display:none">
+                                    @item.ID
+                                </td>
+                                <td>
+                                    @item.Title
+                                </td>
+                                <td>
+                                    @item.UserName
+                                </td>
+                                <td>
+                                    @item.ExpirationDay
+                                </td>
+                                <td>
+                                    @item.Delay
+                                </td>
+                                <td>
+                                    <a class="btn btn-success" id="returnWaitingForReturnButton" + @item.ID.ToString() onclick="returnWaitingForReturnButton(@item.ID);" role="button">Return</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            @Html.ActionLink("Back to Index", "Index", "RentManage", new { @class = "btn btn-success" })
+        </div>
+    </div>
+}
+

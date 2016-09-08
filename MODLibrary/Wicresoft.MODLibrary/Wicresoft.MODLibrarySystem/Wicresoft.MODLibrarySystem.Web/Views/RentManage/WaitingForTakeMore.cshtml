@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "WaitingForTakeMore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.Web.Models.RentManage.WaitingForTakeIndexModel
+@section scripts{
+    @Scripts.Render("~/Scripts/RentManageJS/RentIndexJS.js")
+}
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <div> Waiting For Take </div>
+        <div id="intablebordered">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>UserName</th>
+                        <th>Email</th>
+                        <th>Floor</th>
+                        <th>Operation</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in this.Model.WaitingForTakeModelList)
+                    {
+                        string takeButtonId = "takeWaitingForTakeButton" + @item.ID.ToString();
+                        string revoketButtonId = "revokeWaitingForTakeButton" + @item.ID.ToString();
+                        <tr>
+                            <td id="take_revokeid" style="display:none">
+                                @item.ID
+                            </td>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.Email
+                            </td>
+                            <td>
+                                @item.Floor
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" id=@takeButtonId role="button" onclick="takeWaitingForTakeButton(@item.ID);">Take</a>
+                                <a class="btn btn-primary" id=@revoketButtonId role="button" onclick="revokeWaitingForTakeButton(@item.ID);">Revoke</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.ActionLink("Back to Index", "Index", "RentManage", new { @class = "btn btn-success" })
+        </div>
+    </div>
+}
+
+
+

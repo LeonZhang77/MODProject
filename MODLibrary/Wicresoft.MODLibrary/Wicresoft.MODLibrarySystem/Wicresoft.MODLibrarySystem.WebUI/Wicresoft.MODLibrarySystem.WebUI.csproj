@@ -163,6 +163,7 @@
     <Compile Include="Models\AccountManage\EditAccountModel.cs" />
     <Compile Include="Models\BaseView\BaseIndexListModel.cs" />
     <Compile Include="Models\BaseView\BaseViewModel.cs" />
+    <Compile Include="Models\BaseView\Format2IndexListModel.cs" />
     <Compile Include="Models\BookManage\BookManageIndexModel.cs" />
     <Compile Include="Models\BookManage\BookModel.cs" />
     <Compile Include="Models\BookManage\DetailBookModel.cs" />
@@ -183,6 +184,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\body.jpg" />
     <Content Include="Content\images\DefaultPic.jpg" />
     <Content Include="Content\images\loading_16_16.gif" />
     <Content Include="Content\images\memberLevel.jpg" />
@@ -190,6 +192,7 @@
     <Content Include="Content\images\support.png" />
     <Content Include="Content\PricingTable.css" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\TableStyle.css" />
     <Content Include="Content\TDNoWarp.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

@@ -78,9 +78,9 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
                 string authorNameValue = string.Empty;
                 userRequestModel.Author = BookModel.GetAuthorName(tempList[i].BookDetailInfo.BookInfo, out displayName, out authorNameValue);
                 userRequestModel.Publish = tempList[i].BookDetailInfo.BookInfo.PublisherInfo.PublisherName;
-                userRequestModel.UserName = tempList[i].BookDetailInfo.UserInfo.DisplayName;
-                userRequestModel.Email = tempList[i].BookDetailInfo.UserInfo.Email;
-                userRequestModel.Floor = tempList[i].BookDetailInfo.UserInfo.Floor.ToString();
+                userRequestModel.UserName = tempList[i].UserInfo.DisplayName;
+                userRequestModel.Email = tempList[i].UserInfo.Email;
+                userRequestModel.Floor = tempList[i].UserInfo.Floor.ToString();
                 returnList.Add(userRequestModel);
             }
             return returnList;
@@ -107,8 +107,8 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
                 waitingForTakeModel.ID = tempList[i].ID;
                 waitingForTakeModel.Title = tempList[i].BookDetailInfo.BookInfo.BookName;
                 waitingForTakeModel.UserName = tempList[i].UserInfo.DisplayName;
-                waitingForTakeModel.Email = tempList[i].BookDetailInfo.UserInfo.Email;
-                waitingForTakeModel.Floor = tempList[i].BookDetailInfo.UserInfo.Floor.ToString();
+                waitingForTakeModel.Email = tempList[i].UserInfo.Email;
+                waitingForTakeModel.Floor = tempList[i].UserInfo.Floor.ToString();
                 returnList.Add(waitingForTakeModel);
             }
             return returnList;

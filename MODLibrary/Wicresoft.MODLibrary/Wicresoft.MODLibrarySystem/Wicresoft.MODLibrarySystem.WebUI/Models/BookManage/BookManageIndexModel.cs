@@ -7,7 +7,7 @@ using Wicresoft.MODLibrarySystem.Entity;
 
 namespace Wicresoft.MODLibrarySystem.WebUI.Models.BookManage
 {
-    public class BookManageIndexModel : BaseIndexListModel<BookInfo>
+    public class BookManageIndexModel : Format2IndexListModel<BookInfo>
     {
         public BookManageIndexModel()
         {

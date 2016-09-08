@@ -12,13 +12,14 @@ using Wicresoft.MODLibrarySystem.Wap.Models.BookManage;
 
 namespace Wicresoft.MODLibrarySystem.Wap.Controllers
 {
-    public class BookManageController : Controller
+    public class BookManageController : BaseController
     {
         public IBookInfoDataProvider IBookInfoDataProvider;
-
+        public ISupportORAgainstInfoDataProvider ISupportORAgainstInfoDataProvider;
         public BookManageController()
         {
             this.IBookInfoDataProvider = new BookInfoDataProvider();
+            this.ISupportORAgainstInfoDataProvider = new SupportORAgainstInfoDataProvider();
         }
         // GET: BookManage
         public ActionResult Index(string bookName, long searchselectedID = 0, bool? isAvaliable = null, Int32 pageIndex = 0)
@@ -41,7 +42,7 @@ namespace Wicresoft.MODLibrarySystem.Wap.Controllers
 
             foreach (var item in paging.EntityList)
             {
-                model.BookModelList.Add(BookModel.GetViewModel(item));
+                model.BookModelList.Add(BookModel.GetViewModel(item, this.LoginUser()));
             }
 
             model.SearchBookName = bookName;
@@ -55,7 +56,7 @@ namespace Wicresoft.MODLibrarySystem.Wap.Controllers
             else
             {
                 return View(model);
-            } 
+            }
         }
 
         [HttpPost]
@@ -68,12 +69,36 @@ namespace Wicresoft.MODLibrarySystem.Wap.Controllers
                 isAvaliable = model.IsAvaliable
             });
         }
+        public bool SupportORAgainstBook(string q, bool flag)
+        {
+            try
+            {
+                SupportORAgainst readyToAdd = new SupportORAgainst();
+                if (flag)
+                {
+                    readyToAdd.Status = SupportAgainstStatus.Support;
+                }
+                else
+                {
+                    readyToAdd.Status = SupportAgainstStatus.Against;
+                }
+                readyToAdd.UserInfo = this.LoginUser();
+                readyToAdd.BookInfo = this.IBookInfoDataProvider.GetBookInfoByID(Convert.ToInt32(q));
+                this.ISupportORAgainstInfoDataProvider.Add(readyToAdd);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
 
         public ActionResult BookDetail(long id)
         {
             BookModel bookModel = new BookModel();
             BookInfo bookInfo = this.IBookInfoDataProvider.GetBookInfoByID(id);
-            bookModel = BookModel.GetViewModel(bookInfo);
+            bookModel = BookModel.GetViewModel(bookInfo, this.LoginUser());
 
             return View(bookModel);
         }

@@ -21,16 +21,23 @@
                     <div class="accordion-inner">
                         <table class="table table-bordered">
                             <thead>
-                                <tr><td colspan="7">@Html.ActionLink("More", "More", new { @ModelType = "Request" })</td></tr>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Author</th>
-                                    <th>Publish</th>
-                                    <th>UserName</th>
-                                    <th>Email</th>
-                                    <th>Floor</th>
-                                    <th>Operation</th>
-                                </tr>
+                            <tr>
+                                @if (this.Model.UserRequestList.Count > 10)
+                                {
+                                    <td colspan="7" align="right">
+                                        @Html.ActionLink("More", "UserRequestMore", "RentManage")
+                                    </td>
+                                }
+                            </tr>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Publish</th>
+                                <th>UserName</th>
+                                <th>Email</th>
+                                <th>Floor</th>
+                                <th>Operation</th>
+                            </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in this.Model.UserRequestList)
@@ -83,9 +90,12 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <td colspan="5">
-                                    @Html.ActionLink("More", "More", new { @ModelType = "Take" })
-                                </td>
+                                @if (this.Model.WaitingForTakeModelList.Count > 10)
+                                {
+                                    <td colspan="5" align="right">
+                                        @Html.ActionLink("More", "WaitingForTakeMore", "RentManage")
+                                    </td>
+                                }
                             </tr>
                             <tr>
                                 <th>Title</th>
@@ -138,9 +148,12 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <td colspan="5">
-                                    @Html.ActionLink("More", "More", new { @ModelType = "Return" })
-                                </td>
+                                @if (this.Model.WaitingForReturnModelList.Count > 10)
+                                {
+                                    <td colspan="5" align="right">
+                                        @Html.ActionLink("More", "WaitingForReturnMore", "RentManage")
+                                    </td>
+                                }
                             </tr>
                             <tr>
                                 <th>Title</th>
@@ -191,9 +204,12 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <td colspan="4">
-                                    @Html.ActionLink("More", "More", new { @ModelType = "History" })
-                                </td>
+                                @if (this.Model.ReadHistoryModelList.Count > 10)
+                                {
+                                    <td colspan="4" align="right">
+                                        @Html.ActionLink("More", "RentHistoryMore", "RentManage")
+                                    </td>
+                                }
                             </tr>
                             <tr>
                                 <th>Title</th>

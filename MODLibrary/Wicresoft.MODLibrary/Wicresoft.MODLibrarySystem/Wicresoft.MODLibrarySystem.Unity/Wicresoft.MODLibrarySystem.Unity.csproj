@@ -62,6 +62,7 @@
     <Compile Include="Helper\DataUnity.cs" />
     <Compile Include="Helper\DropDownListHelper.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\PagingContentFormat2.cs" />
     <Compile Include="UntityContent.cs" />
     <Compile Include="Helper\PagingContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

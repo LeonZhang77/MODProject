@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "RentHistoryMore";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.Web.Models.RentManage.ReadHistoryIndexModel
+@section scripts{
+    @Scripts.Render("~/Scripts/RentManageJS/RentIndexJS.js")
+}
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <div> Rent History </div>
+        <div id="intablebordered">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>UserName</th>
+                        <th>Rent Date(From)</th>
+                        <th>Rent Date(To)</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td colspan="5" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in this.Model.ReadHistoryModelList)
+                    {
+                        <tr>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td>
+                                @item.UserName
+                            </td>
+                            <td>
+                                @item.RentDateFrom
+                            </td>
+                            <td>
+                                @item.RentDateTo
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.ActionLink("Back to Index", "Index", "RentManage", new { @class = "btn btn-success" })
+        </div>
+    </div>
+}
+

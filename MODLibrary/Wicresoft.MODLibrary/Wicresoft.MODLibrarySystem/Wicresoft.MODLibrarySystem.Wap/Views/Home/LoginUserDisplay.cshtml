@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<script src="@Url.Content("~/Scripts/jquery-1.10.2.js")"></script>
+<script>
+    $(document).ready(function () {
+        if ('@ViewBag.IsLogin' == 'False' && '@ViewBag.IsAuthenticated' == 'True') {
+            window.location = '@Url.Action("NotPermission", "Login", null)';
+        }
+    });
+</script>
+<div>
+    @if (ViewBag.IsLogin)
+    {
+        <div style="text-align:center">
+            <a href="PersonalCenter">
+                <img style="width:80%; margin:10px" class="img-circle img-responsive" src="~/Content/images/Header.jpg" />
+            </a>            
+            <span style="color:#999999">
+                @ViewBag.LoginName
+            </span>
+            <br />
+            <span>
+                @if (!String.IsNullOrEmpty(System.Web.Configuration.WebConfigurationManager.AppSettings["WEBSITE_AUTH_LOGOUT_PATH"]))
+                {
+                    <a href="@System.Web.Configuration.WebConfigurationManager.AppSettings["WEBSITE_AUTH_LOGOUT_PATH"]">Login out</a>
+                }
+                else
+                {
+                    @Html.ActionLink("Login out", "LoginOut", "Login", null, null)
+                }
+            </span>
+        </div>
+    }
+    else
+    {
+        <span style="color:white">
+            @Html.ActionLink("Please to Login", "Index", "Login", null, null)
+        </span>
+    }
+</div>

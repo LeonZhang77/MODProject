@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "Account Manage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.MODLibrarySystem.Wap.Models.AccountManage.EditAccountModel
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+@section scripts{
+    @Scripts.Render("~/Scripts/AccountManageJS/EditAccount.js")
+}
+@using (Html.BeginForm())
+{
+    <div class="full-screen">
+        <div style="background-color:#CCCCCC;width:100%">
+            <div style="height:20%;background-color:#999999;text-align:center">
+                <img class="img-circle responsive-img" src="~/Content/images/Header.jpg" alt="Responsive image" />
+            </div>
+            <br />
+            <div>
+                <div class="form-group">
+                    <label for="LoginName" class="col-xs-5 control-label">Login Name:</label>
+                    @Html.TextBoxFor(m => m.LoginName, new { @class = "form-control2", @readonly = "readonly" })
+                </div>
+                <div class="form-group">
+                    <label for="Email" class="col-xs-5 control-label">Email:</label>
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control2", @readonly = "readonly" })
+                </div>
+                <div class="form-group">
+                    <label for="DisplayName" class="col-xs-5 control-label">Display Name:<span class="requireSpan">*</span> </label>
+                    @Html.TextBoxFor(m => m.DisplayName, new { @class = "form-control2" })
+                    <label id="DisplayName_errorData" errordatamessage="DisplayName is require and length must be less than 6 bytes." class="errorLable" />
+                </div>
+                <div class="form-group">
+                    <label for="RealName" class="col-xs-5 control-label">Real Name:<span class="requireSpan">*</span></label>
+                    @Html.TextBoxFor(m => m.RealName, new { @class = "form-control2" })
+                    <label id="RealName_errorData" errordatamessage="RealName is require." class="errorLable" />
+                </div>
+                <div class="form-group">
+                    <label for="ChineseName" class="col-xs-5 control-label">Chinese Name:</label>
+                    @Html.TextBoxFor(m => m.Chinese_Name, new { @class = "form-control2" })
+                </div>
+                <div class="form-group">
+                    <label for="Grade" class="col-xs-5 control-label">Grade:</label>
+                    @Html.TextBoxFor(m => m.Grade, new { @class = "form-control2", @readonly = "readonly" })
+                </div>
+                <div class="form-group">
+                    <label for="LatePoint" class="col-xs-5 control-label">Late Point:</label>
+                    @Html.TextBoxFor(m => m.Late_point, new { @class = "form-control2", @readonly = "readonly" })
+                </div>
+                <div class="form-group">
+                    <label for="Wechat" class="col-xs-5 control-label">Wechat:</label>
+                    @Html.TextBoxFor(m => m.Wechat, new { @class = "form-control2" })
+                </div>
+                <div class="form-group">
+                    <label for="Floor" class="col-xs-5 control-label">Floor:</label>
+                    @Html.DropDownListFor(m => m.SelectedFloor, this.Model.FloorList, new { @class = "form-control2" })
+                </div>
+                <div class="form-group">
+                    <label for="PM" class="col-xs-5 control-label">PM:</label>
+                    @Html.TextBoxFor(m => m.PM, new { @class = "form-control2" })
+                </div>
+                <div class="form-group">
+                    <label for="Team" class="col-xs-5 control-label">Team:</label>
+                    @Html.TextBoxFor(m => m.Team, new { @class = "form-control2" })
+                </div>
+                <div class="form-group">
+                    <label for="Remark" class="col-xs-5 control-label">Remark:</label>
+                    @Html.TextBoxFor(m => m.Remark, new { @class = "form-control2" })
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-offset-10 col-xs-10">
+                        <input class="btn btn-success" type="submit" value="Edit" onclick="return bindConfrimDialog(this, 'edit', 'b', EditAccountSubmitValidation);" />
+                        @Html.ActionLink("Back", "Index", "Home", new { @class = "btn btn-warning" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
