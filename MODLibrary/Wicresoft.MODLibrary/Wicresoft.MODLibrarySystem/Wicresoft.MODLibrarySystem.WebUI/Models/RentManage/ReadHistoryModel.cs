@@ -23,5 +23,15 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             get;
             set;
         }
+
+        public static ReadHistoryModel GetViewModel(BorrowAndReturnRecordInfo info)
+        {
+            ReadHistoryModel model = new ReadHistoryModel();
+
+            model.ID = info.ID;
+            model.Title = info.BookDetailInfo.BookInfo.BookName;
+
+            return model;
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Wicresoft.MODLibrarySystem.Azure", "Wicresoft.MODLibrarySystem.Azure\Wicresoft.MODLibrarySystem.Azure.ccproj", "{D9C95879-F907-4FBD-970F-B9AB3B6D184F}"
 EndProject
@@ -42,6 +42,69 @@ EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "Wicresoft.MODLibrarySystem.Resoure.Azure", "Wicresoft.MODLibrarySystem.Resoure.Azure\Wicresoft.MODLibrarySystem.Resoure.Azure.ccproj", "{B1D0840E-1BA1-4E0A-8855-28B693B2B9A4}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 20
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://ws-appdev-01:8080/tfs/modlibrary
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Wicresoft.MODLibrarySystem.Azure\\Wicresoft.MODLibrarySystem.Azure.ccproj
+		SccProjectName1 = Wicresoft.MODLibrarySystem.Azure
+		SccLocalPath1 = Wicresoft.MODLibrarySystem.Azure
+		SccProjectUniqueName2 = Wicresoft.MODLibrarySystem.Web\\Wicresoft.MODLibrarySystem.Web.csproj
+		SccProjectName2 = Wicresoft.MODLibrarySystem.Web
+		SccLocalPath2 = Wicresoft.MODLibrarySystem.Web
+		SccProjectUniqueName3 = Wicresoft.MODLibrarySystem.Web.Tests\\Wicresoft.MODLibrarySystem.Web.Tests.csproj
+		SccProjectName3 = Wicresoft.MODLibrarySystem.Web.Tests
+		SccLocalPath3 = Wicresoft.MODLibrarySystem.Web.Tests
+		SccProjectUniqueName4 = Wicresoft.MODLibrarySystem.Entity\\Wicresoft.MODLibrarySystem.Entity.csproj
+		SccProjectName4 = Wicresoft.MODLibrarySystem.Entity
+		SccLocalPath4 = Wicresoft.MODLibrarySystem.Entity
+		SccProjectUniqueName5 = Wicresoft.MODLibrarySystem.DataAccess\\Wicresoft.MODLibrarySystem.DataAccess.csproj
+		SccProjectName5 = Wicresoft.MODLibrarySystem.DataAccess
+		SccLocalPath5 = Wicresoft.MODLibrarySystem.DataAccess
+		SccProjectUniqueName6 = Wicresoft.MODLibrarySystem.Services\\Wicresoft.MODLibrarySystem.Services.csproj
+		SccProjectName6 = Wicresoft.MODLibrarySystem.Services
+		SccLocalPath6 = Wicresoft.MODLibrarySystem.Services
+		SccProjectUniqueName7 = Wicresoft.MODLibrarySystem.Unity\\Wicresoft.MODLibrarySystem.Unity.csproj
+		SccProjectName7 = Wicresoft.MODLibrarySystem.Unity
+		SccLocalPath7 = Wicresoft.MODLibrarySystem.Unity
+		SccProjectUniqueName8 = Wicresoft.MODLibrarySystem.UnitTest\\Wicresoft.MODLibrarySystem.UnitTest.csproj
+		SccProjectName8 = Wicresoft.MODLibrarySystem.UnitTest
+		SccLocalPath8 = Wicresoft.MODLibrarySystem.UnitTest
+		SccProjectUniqueName9 = Wicresoft.MODLibrarySystem.WebUI.Azure\\Wicresoft.MODLibrarySystem.WebUI.Azure.ccproj
+		SccProjectName9 = Wicresoft.MODLibrarySystem.WebUI.Azure
+		SccLocalPath9 = Wicresoft.MODLibrarySystem.WebUI.Azure
+		SccProjectUniqueName10 = Wicresoft.MODLibrarySystem.WebUI\\Wicresoft.MODLibrarySystem.WebUI.csproj
+		SccProjectName10 = Wicresoft.MODLibrarySystem.WebUI
+		SccLocalPath10 = Wicresoft.MODLibrarySystem.WebUI
+		SccProjectUniqueName11 = Wicresoft.MODLibrarySystem.WebUI.Tests\\Wicresoft.MODLibrarySystem.WebUI.Tests.csproj
+		SccProjectName11 = Wicresoft.MODLibrarySystem.WebUI.Tests
+		SccLocalPath11 = Wicresoft.MODLibrarySystem.WebUI.Tests
+		SccProjectUniqueName12 = Wicresoft.MODLibrarySystem.Wap.Azure\\Wicresoft.MODLibrarySystem.Wap.Azure.ccproj
+		SccProjectName12 = Wicresoft.MODLibrarySystem.Wap.Azure
+		SccLocalPath12 = Wicresoft.MODLibrarySystem.Wap.Azure
+		SccProjectUniqueName13 = Wicresoft.MODLibrarySystem.Wap\\Wicresoft.MODLibrarySystem.Wap.csproj
+		SccProjectName13 = Wicresoft.MODLibrarySystem.Wap
+		SccLocalPath13 = Wicresoft.MODLibrarySystem.Wap
+		SccProjectUniqueName14 = Wicresoft.MODLibrarySystem.Wap.Tests\\Wicresoft.MODLibrarySystem.Wap.Tests.csproj
+		SccProjectName14 = Wicresoft.MODLibrarySystem.Wap.Tests
+		SccLocalPath14 = Wicresoft.MODLibrarySystem.Wap.Tests
+		SccProjectUniqueName15 = Wicresoft.MODLibrarySystem.WebServices.Azure\\Wicresoft.MODLibrarySystem.WebServices.Azure.ccproj
+		SccProjectName15 = Wicresoft.MODLibrarySystem.WebServices.Azure
+		SccLocalPath15 = Wicresoft.MODLibrarySystem.WebServices.Azure
+		SccProjectUniqueName16 = Wicresoft.MODLibrarySystem.WebServices\\Wicresoft.MODLibrarySystem.WebServices.csproj
+		SccProjectName16 = Wicresoft.MODLibrarySystem.WebServices
+		SccLocalPath16 = Wicresoft.MODLibrarySystem.WebServices
+		SccProjectUniqueName17 = Wicresoft.MODLibrarySystem.Resoure\\Wicresoft.MODLibrarySystem.Resoure.csproj
+		SccProjectName17 = Wicresoft.MODLibrarySystem.Resoure
+		SccLocalPath17 = Wicresoft.MODLibrarySystem.Resoure
+		SccProjectUniqueName18 = Wicresoft.MODLibrarySystem.Resoure.Tests\\Wicresoft.MODLibrarySystem.Resoure.Tests.csproj
+		SccProjectName18 = Wicresoft.MODLibrarySystem.Resoure.Tests
+		SccLocalPath18 = Wicresoft.MODLibrarySystem.Resoure.Tests
+		SccProjectUniqueName19 = Wicresoft.MODLibrarySystem.Resoure.Azure\\Wicresoft.MODLibrarySystem.Resoure.Azure.ccproj
+		SccProjectName19 = Wicresoft.MODLibrarySystem.Resoure.Azure
+		SccLocalPath19 = Wicresoft.MODLibrarySystem.Resoure.Azure
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -126,8 +189,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45
 	EndGlobalSection
 EndGlobal

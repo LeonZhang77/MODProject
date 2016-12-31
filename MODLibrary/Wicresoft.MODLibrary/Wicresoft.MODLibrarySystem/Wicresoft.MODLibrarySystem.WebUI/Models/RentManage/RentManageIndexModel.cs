@@ -47,7 +47,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             RentManageIndexModel model = new RentManageIndexModel();
             // renewLevel: true, everybook can be renew once.
             // renewLevel: false, totally can be renew once.
-            model.RenewLevel = Unity.Helper.DataUnity.GetCanRenewLevel(userInfo); 
+            model.RenewLevel = Unity.Helper.DataUnity.GetCanRenewLevel(userInfo);
             model.MyRequestList = GetMyRequestList(userInfo);
             model.BookInHandModelList = GetBookInHandList(userInfo, model.RenewLevel);
             model.ReadHistoryModelList = GetReadHistoryList(userInfo);
@@ -71,7 +71,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             //}
 
             foreach (BorrowAndReturnRecordInfo item in borrowAndReturnRecordInfoList)
-            { 
+            {
                 MyRequestModel model = new MyRequestModel();
                 model.ID = item.ID;
                 model.Title = item.BookDetailInfo.BookInfo.BookName;
@@ -83,7 +83,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
 
                 IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
                 ProcessRecord processRecord = iProcessRecordDataProvider.GetProcessRecordList().OrderByDescending(c => c.CreateTime).FirstOrDefault(c => c.BorrowAndReturnRecordInfo.ID == item.ID);
-                model.Comment = processRecord.Comments; 
+                model.Comment = processRecord.Comments;
 
                 returnList.Add(model);
             }
@@ -93,12 +93,12 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
                 borrowAndReturnRecordInfoList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Rejected, userInfo).ToList();
                 List<BorrowAndReturnRecordInfo> revokeList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Revoked, userInfo).ToList();
                 borrowAndReturnRecordInfoList.AddRange(revokeList);
-                
+
                 if (borrowAndReturnRecordInfoList.Count() > 0)
                 {
                     borrowAndReturnRecordInfoList = borrowAndReturnRecordInfoList.OrderByDescending(c => c.CreateTime).ToList();
                     int includCount = borrowAndReturnRecordInfoList.Count() < 5 - returnList.Count() ? borrowAndReturnRecordInfoList.Count() : 5 - returnList.Count();
-                    for (int i = 0; i < includCount;  i++)
+                    for (int i = 0; i < includCount; i++)
                     {
                         MyRequestModel model = new MyRequestModel();
                         model.ID = borrowAndReturnRecordInfoList[i].ID;
@@ -107,24 +107,17 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
                         string authorNameValue = string.Empty;
                         model.Author = BookModel.GetAuthorName(borrowAndReturnRecordInfoList[i].BookDetailInfo.BookInfo, out displayName, out authorNameValue);
                         model.Publish = borrowAndReturnRecordInfoList[i].BookDetailInfo.BookInfo.PublisherInfo.PublisherName;
-                        if(borrowAndReturnRecordInfoList[i].Status == RentRecordStatus.Revoked)
-                        {
-                            model.Status = "Not Success";
-                        }
-                        else
-                        {
-                            model.Status = EnumHelper.GetEnumDescription(borrowAndReturnRecordInfoList[i].Status);
-                        }
-                        
+                        model.Status = EnumHelper.GetEnumDescription(borrowAndReturnRecordInfoList[i].Status);
+
                         IProcessRecordDataProvider iProcessRecordDataProvider = new ProcessRecordDataProvider();
-                        ProcessRecord processRecord = iProcessRecordDataProvider.GetProcessRecordList().OrderByDescending(c=>c.CreateTime).FirstOrDefault(c => c.BorrowAndReturnRecordInfo.ID == borrowAndReturnRecordInfoList[i].ID);
+                        ProcessRecord processRecord = iProcessRecordDataProvider.GetProcessRecordList().OrderByDescending(c => c.CreateTime).FirstOrDefault(c => c.BorrowAndReturnRecordInfo.ID == borrowAndReturnRecordInfoList[i].ID);
                         model.Comment = processRecord.Comments;
 
                         returnList.Add(model);
                     }
                 }
             }
-            return returnList;            
+            return returnList;
         }
 
         public static List<BookInHandModel> GetBookInHandList(UserInfo userInfo, bool renewLevel)
@@ -134,7 +127,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             List<BorrowAndReturnRecordInfo> borrowAndReturnRecordInfoList = dataProvider.GetBorrowAndReturnRecordListByStatusAndUser(RentRecordStatus.Taked, userInfo).ToList();
 
             IDelayRecordDataProvider dataProvide = new DelayRecordDataProvider();
-           
+
             bool showRenewButton = false;
             if (!renewLevel)
             {
@@ -176,12 +169,12 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
                         model.HasAlreadyRenewed = delayListByBorrowID.Count() == 0 ? false : true;
                     }
                 }
-                
+
                 returnList.Add(model);
             }
 
             returnList = returnList.OrderByDescending(c => c.StartBorrowDay).ToList();
-                        
+
             return returnList;
         }
 
@@ -193,7 +186,7 @@ namespace Wicresoft.MODLibrarySystem.WebUI.Models.RentManage
             borrowAndReturnRecordInfoList = borrowAndReturnRecordInfoList.OrderByDescending(c => c.Return_Date).ToList();
 
             int includCount = borrowAndReturnRecordInfoList.Count() < 10 ? borrowAndReturnRecordInfoList.Count() : 10;
-            for (int i = 0; i<includCount; i++)
+            for (int i = 0; i < includCount; i++)
             {
                 ReadHistoryModel model = new ReadHistoryModel();
                 model.ID = borrowAndReturnRecordInfoList[i].ID;

@@ -21,23 +21,23 @@
                     <div class="accordion-inner">
                         <table class="table table-bordered">
                             <thead>
-                            <tr>
-                                @if (this.Model.UserRequestList.Count > 10)
-                                {
-                                    <td colspan="7" align="right">
-                                        @Html.ActionLink("More", "UserRequestMore", "RentManage")
-                                    </td>
-                                }
-                            </tr>
-                            <tr>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Publish</th>
-                                <th>UserName</th>
-                                <th>Email</th>
-                                <th>Floor</th>
-                                <th>Operation</th>
-                            </tr>
+                                <tr>
+                                    @if (this.Model.UserRequestList.Count >= 5)
+                                    {
+                                        <td colspan="7" align="right">
+                                            @Html.ActionLink("More", "UserRequestMore", "RentManage")
+                                        </td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Publish</th>
+                                    <th>UserName</th>
+                                    <th>Email</th>
+                                    <th>Floor</th>
+                                    <th>Operation</th>
+                                </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in this.Model.UserRequestList)
@@ -67,8 +67,16 @@
                                             @item.Floor
                                         </td>
                                         <td>
+                                          @if (item.IsRejected)
+                                          {
+                                            <button class="btn btn-inverse" disabled='' disabled">Approve</button>
+                                            <button class="btn btn-inverse" disabled='' disabled">Reject</button>
+                                          }
+                                          else
+                                          {
                                             <a class="btn btn-primary" id=@approveButtonId role="button" onclick="approveUserRequestButton(@item.ID);">Approve</a>
                                             <a class="btn btn-primary" id=@rejectButtonId role="button" onclick="rejectUserRequestDialogShow(@item.ID);">Reject</a>
+                                          }
                                         </td>
                                     </tr>
 
@@ -90,7 +98,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                @if (this.Model.WaitingForTakeModelList.Count > 10)
+                                @if (this.Model.WaitingForTakeModelList.Count >= 5)
                                 {
                                     <td colspan="5" align="right">
                                         @Html.ActionLink("More", "WaitingForTakeMore", "RentManage")
@@ -148,7 +156,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                @if (this.Model.WaitingForReturnModelList.Count > 10)
+                                @if (this.Model.WaitingForReturnModelList.Count >= 5)
                                 {
                                     <td colspan="5" align="right">
                                         @Html.ActionLink("More", "WaitingForReturnMore", "RentManage")
@@ -204,7 +212,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                @if (this.Model.ReadHistoryModelList.Count > 10)
+                                @if (this.Model.ReadHistoryModelList.Count >= 5)
                                 {
                                     <td colspan="4" align="right">
                                         @Html.ActionLink("More", "RentHistoryMore", "RentManage")
@@ -242,9 +250,7 @@
             </div>
         </div>
     </div>
-
-
-
+    
     <div id="RejectUserRequestDialog" title="Reject item">
         <p>
             You will reject this request. Please input your reason.<br />
@@ -252,11 +258,11 @@
             <input type="checkbox" id="setThisBookError" />Mark this book's status as "Error".
             <br />
             <br />
-            <input type="text" id="commentsOfReject" style="width:400px; height:100px" value="The mod library is arranging books." />
+            <textarea id="commentsOfReject" style="width:400px; height:100px"></textarea>
         </p>
     </div>
 
-    <div id="ApproveUserRequestDialog" title="Reject item">
+    <div id="ApproveUserRequestDialog" title="Approve item">
         <p>
             <br />
             You will approve this request, please input your comment.<br />
@@ -264,7 +270,7 @@
             <br />
             <textarea id="commentsOfApprove" style="width:600px; height:150px">
                 Please come to take you requested book before next Wednesday,
-                Locate is out door of West 3 Floor.
+                Location is at the OF door,  West 3 Floor.
             </textarea>
         </p>
     </div>

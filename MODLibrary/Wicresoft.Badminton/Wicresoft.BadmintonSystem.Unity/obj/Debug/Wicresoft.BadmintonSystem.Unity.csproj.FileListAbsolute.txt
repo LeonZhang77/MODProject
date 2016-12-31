@@ -1,0 +1,4 @@
+D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Unity\bin\Debug\Wicresoft.BadmintonSystem.Unity.dll
+D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Unity\bin\Debug\Wicresoft.BadmintonSystem.Unity.pdb
+D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Unity\obj\Debug\Wicresoft.BadmintonSystem.Unity.dll
+D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Unity\obj\Debug\Wicresoft.BadmintonSystem.Unity.pdb

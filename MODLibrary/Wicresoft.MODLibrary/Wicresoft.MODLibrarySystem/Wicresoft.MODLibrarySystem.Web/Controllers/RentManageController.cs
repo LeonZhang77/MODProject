@@ -27,7 +27,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             RentManageIndexModel model = new RentManageIndexModel();
 
             model = RentManageIndexModel.GetViewModel();
-            
+
             return View(model);
         }
 
@@ -54,7 +54,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
 
         public ActionResult RentHistoryMore(Int32 pageIndex = 0)
         {
-            ReadHistoryIndexModel model = ReadHistoryIndexModel.GetReadHistoryModelList();
+            ReadHistoryIndexModel model = ReadHistoryIndexModel.GetReadHistoryModelList(pageIndex);
 
             return View(model);
         }
@@ -78,7 +78,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
                 BookModel bookModel = new BookModel();
                 BookDetailInfo bookDetailInfo = new BookDetailInfo();
                 ProcessRecord processInfo = model.GetEntity(this.LoginUser(), q, true, out borrowAndReturnRecordInfo, out bookDetailInfo, out bookModel);
-                
+
                 iProcessRecordDataProvider.Add(processInfo);
                 iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
                 iBookDetailInfoDataProvider.Update(bookDetailInfo);
@@ -132,7 +132,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
 
                 BorrowAndReturnRecordInfo borrowAndReturnRecordInfo = new BorrowAndReturnRecordInfo();
                 ProcessRecord processInfo = model.GetTakeEntity(out borrowAndReturnRecordInfo, this.LoginUser());
-                
+
                 iProcessRecordDataProvider.Add(processInfo);
                 iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
             }
@@ -159,7 +159,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
                 BookDetailInfo bookDetailInfo = new BookDetailInfo();
                 BookModel bookModel = new BookModel();
                 ProcessRecord processInfo = model.GetRevokeEntity(out borrowAndReturnRecordInfo, out bookDetailInfo, out bookModel, this.LoginUser());
-                
+
                 iProcessRecordDataProvider.Add(processInfo);
                 iBorrowAndReturnRecordInfoDataProviderdataProvider.Update(borrowAndReturnRecordInfo);
                 iBookDetailInfoDataProvider.Update(bookDetailInfo);
@@ -202,7 +202,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Controllers
             }
             return "true";
         }
-    
+
     }
- }
+}
 

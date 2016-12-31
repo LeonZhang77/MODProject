@@ -1,54 +1,119 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "MyRequest";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Wicresoft.MODLibrarySystem.WebUI.Models.RentManage.MyRequestModel
 
-<h2>Index</h2>
-
 @using (Html.BeginForm())
-{ <table>
-        <caption>My Request</caption>
-        <tbody>
-            <tr>
-                <td>
-                    Title
-                </td>
-                <td>
-                    Author
-                </td>
-                <td>
-                    Publish
-                </td>
-                <td>
-                    Status
-                </td>
-                <td>
-                    Comment
-                </td>
-            </tr>
-            @foreach (var item in this.Model.MyRequestList)
-            {
-                <tr>
-                    <td>
-                        @item.ID
-                    </td>
-                    <td>
-                        @item.Title
-                    </td>
-                    <td>
-                        @item.Author
-                    </td>
-                    <td>
-                        @item.Publish
-                    </td>
-                    <td>
-                        @item.Status
-                    </td>
-                    <td>
-                        @item.Comment
-                    </td>
-                </tr>
-            }
-    </table>
+{
+    <div class="jumbotron">
+        <div style="width:550px; min-height:400px; border:1px; background:#d9d9d9">
+            <table style="width:500px;margin:auto;text-align:left" class="table table-bordered">
+                <caption> My Request </caption>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            Title
+                        </td>
+                        <td>
+                            Author
+                        </td>
+                        <td>
+                            Publish
+                        </td>
+                        <td>
+                            Status
+                        </td>
+                        <td>
+                            Comment
+                        </td>
+                    </tr>
+                    @foreach (var item in this.Model.MyRequestList)
+                    {
+                        if (item.Status == "Rejected")
+                        {
+                            <tr class="danger">
+                                <td data-toggle="tooltip" title="@item.Title">
+                                    @item.Title
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Author">
+                                    @item.Author
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Publish">
+                                    @item.Publish
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Status">
+                                    @item.Status
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Comment">
+                                    @item.Comment
+                                </td>
+                            </tr>
+                        }
+                        else if (item.Status == "Approved")
+                        {
+                            <tr class="success">
+                                <td data-toggle="tooltip" title="@item.Title">
+                                    @item.Title
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Author">
+                                    @item.Author
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Publish">
+                                    @item.Publish
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Status">
+                                    @item.Status
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Comment">
+                                    @item.Comment
+                                </td>
+                            </tr>
+                        }
+                        else if (item.Status == "Not Success")
+                        {
+                            <tr class="warning">
+                                <td data-toggle="tooltip" title="@item.Title">
+                                    @item.Title
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Author">
+                                    @item.Author
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Publish">
+                                    @item.Publish
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Status">
+                                    @item.Status
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Comment">
+                                    @item.Comment
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td data-toggle="tooltip" title="@item.Title">
+                                    @item.Title
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Author">
+                                    @item.Author
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Publish">
+                                    @item.Publish
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Status">
+                                    @item.Status
+                                </td>
+                                <td data-toggle="tooltip" title="@item.Comment">
+                                    @item.Comment
+                                </td>
+                            </tr>
+                        }
+                    }
+            </table>
+        </div>
+        @Html.ActionLink("Back to Index", "Index", "RentManage", new { @class = "btn btn-success" })
+    </div>
 }

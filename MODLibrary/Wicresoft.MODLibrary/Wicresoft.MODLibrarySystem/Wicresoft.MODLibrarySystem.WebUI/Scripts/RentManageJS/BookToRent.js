@@ -1,4 +1,8 @@
-﻿$(function () {
+﻿var _strFailToSubmit = "Sorry, You Request was failed to Submit.";
+var _strSubmittedSuccessfully = "Your Request has been submitted successfully!.";
+var _strAdminWillHandle = "Our administrator will handle it soon.";
+
+$(function () {
     $("#Rent-Confirm-Dialog").dialog(
     {
         autoOpen: false,
@@ -36,66 +40,58 @@ var bindRentConfirmDialog = function (i) {
     _id = i;
 }
 
-//function bindRentConfirmDialog(i) {
-//        $("#Rent-Confirm-Dialog").dialog("open");
-//        _id = i;
-//}
-
 function doRentWork() {
-    $(function ()
-    {
+    $(function () {
         $.ajax(
             {
-                url:$("#Reserve-Button").attr("requstUrl"),
-                data: {q:_id},
-        success:function(data){
-            if(data == "true")
-            {
-                $(function () {
-                    $("#Submit-Result-Dialog").dialog(
-                    {
-                        buttons: {
-                            "Go My List": function () {
-                                $(this).dialog('close');
-                                self.location = "/RentManage";
-                            },
-                            "Find others": function () {
-                                $(this).dialog('close');
-                                self.location = "/BookManage";
-                            }
-                        }
-                    })
-                });
-                $("#Submit-Result-Dialog").append("<p>" +
-                    "You Request has been submited successfully!." + "<br />" +
-                    "Our administrator will handle it soon." + "<br />" +
-                    "</p>");
-                $("#Submit-Result-Dialog").dialog("open");
-            }
-            else
-            {
-                $(function () {
-                    $("#Submit-Result-Dialog").dialog(
-                    {
-                        buttons: {
-                            "Go To My List": function () {
-                                $(this).dialog('close');
-                                self.location = "/RentManage";
-                            },
-                            "Find another book": function () {
-                                $(this).dialog('close');
-                                self.location = "/BookManage";
-                            }
-                        }
-                    })
-                });
-                $("#Submit-Result-Dialog").append("<p>"+
-                    "Sorry, You Request was failed to Submit." + "<br />" +
-                    data +
-                    "</p>");
-                $("#Submit-Result-Dialog").dialog("open");
-            }
-        }
+                url: $("#Reserve-Button").attr("requstUrl"),
+                data: { q: _id },
+                success: function (data) {
+                    if (data == "true") {
+                        $(function () {
+                            $("#Submit-Result-Dialog").dialog(
+                            {
+                                buttons: {
+                                    "Go My List": function () {
+                                        $(this).dialog('close');
+                                        self.location = "/RentManage";
+                                    },
+                                    "Find others": function () {
+                                        $(this).dialog('close');
+                                        self.location = "/BookManage";
+                                    }
+                                }
+                            })
+                        });
+                        $("#Submit-Result-Dialog").append("<p>" +
+                            _strSubmittedSuccessfully + "<br />" +
+                            _strAdminWillHandle + "<br />" +
+                            "</p>");
+                        $("#Submit-Result-Dialog").dialog("open");
+                    }
+                    else {
+                        $(function () {
+                            $("#Submit-Result-Dialog").dialog(
+                            {
+                                buttons: {
+                                    "Go To My List": function () {
+                                        $(this).dialog('close');
+                                        self.location = "/RentManage";
+                                    },
+                                    "Find another book": function () {
+                                        $(this).dialog('close');
+                                        self.location = "/BookManage";
+                                    }
+                                }
+                            })
+                        });
+                        $("#Submit-Result-Dialog").append("<p>" +
+                            _strFailToSubmit + "<br />" +
+                            data +
+                            "</p>");
+                        $("#Submit-Result-Dialog").dialog("open");
+                    }
+                }
             })
     });
 }

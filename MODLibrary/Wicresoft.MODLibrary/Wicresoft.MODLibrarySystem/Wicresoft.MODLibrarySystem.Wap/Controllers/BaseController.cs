@@ -11,6 +11,7 @@ using Wicresoft.MODLibrarySystem.Entity;
 
 namespace Wicresoft.MODLibrarySystem.Wap.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         public IUserInfoDataProvider IUserInfoDataProvider;
@@ -19,7 +20,6 @@ namespace Wicresoft.MODLibrarySystem.Wap.Controllers
         {
             this.IUserInfoDataProvider = new UserInfoDataProvider();
         }
-
         public UserInfo LoginUser()
         {
             UserInfo user = null;

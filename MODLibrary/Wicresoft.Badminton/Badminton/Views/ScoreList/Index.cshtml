@@ -1,0 +1,167 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Badminton.Models.ScoreList.ScoreListIndexModel
+@section scripts{
+    @Scripts.Render("~/Scripts/ScoreListJS/ScoreListJS.js")
+    @Scripts.Render("~/Scripts/Chart.js")
+}
+
+@using (Html.BeginForm())
+{
+    <div class="jumbotron">
+        <div>
+            <table class="table">             
+                <tr id="functionRow">
+                    <td>
+                        <span>成员姓名</span>
+                        <input type="text" id="selectMemberNameTxt" list="SearchMemberList" />
+                        <datalist id="SearchMemberList">
+                            @foreach (var item in this.Model.SearchMemberList)
+                            {
+                                <option value=@item.Text />
+                            }
+                        </datalist>
+
+                        @Html.DropDownListFor(m => m.SearchSelectedID, this.Model.SearchMemberList, new{style = "display:none"})
+                       
+                                                
+                        <a class="btn btn-primary " onclick="javascript:selectThisGuy()">Select</a>
+                    </td>
+                    <td>
+                        <a onclick="javascript:showSelectedRows()">只显示选中人员</a>                       
+                    </td>
+                    <td>
+                        <a onclick="javascript:showAllRows()">显示全部</a>                                               
+                    </td>
+                    <td>
+                        <a onclick="javascript:showChart()">查看两人对战数据</a>                      
+                    </td>
+                </tr>
+            </table>
+                        
+        </div>
+
+<div id="chart" style="display:none">
+    <p>
+        <br />
+    </p>
+    <table class="table">
+        <caption>两人对战数据</caption>
+        <thead>
+        </thead>
+        <tr style="text-align:center">
+            <td>单打胜率</td>
+            <td>双打胜率</td>
+            <td>混双胜率</td>
+        </tr>
+        <tr>
+            <td>
+                <canvas id="myChart1" height="300" width="300" requesturl="@Url.Action("GetJSONForSingles", "ScoreList")"></canvas>
+            </td>
+            <td>
+                <canvas id="myChart2" height="300" width="300" requesturl="@Url.Action("GetJSONForDoubles", "ScoreList")"></canvas>
+            </td>
+            <td>
+                <canvas id="myChart3" height="300" width="300" requesturl="@Url.Action("GetJSONForMixedDoubles", "ScoreList")"></canvas>
+            </td>
+        </tr>
+        <tr style="text-align:center">
+            <td id ="legend_1" style="background:#F38630"></td>
+            <td></td>
+            <td id ="legend_2" style="background:#E0E4CC"></td>
+        </tr>
+    </table>  
+</div>
+        
+        <table class="table">
+            <caption>积分列表</caption>
+            <thead>                
+            </thead>
+            <tbody>
+                <tr id="firstRow">
+                    <th>
+                        姓名
+                    </th>
+                    <th>
+                        排名
+                    </th>
+                    <th>
+                        积分
+                    </th>
+                    <th>
+                        正规赛胜率
+                    </th>
+                    <th>
+                        平均胜率
+                    </th>
+                    <th>
+                        <input type="checkbox" name="chk_all" id="chk_all" onclick="selectAll();">
+                        全选
+                    </th>
+                </tr>
+                @foreach (var item in this.Model.ScoreList)
+                {
+                    string checkBoxId = "chk_list_" + item.ID;
+                    string rowID = "scoreRow_" + item.ID;
+                    if (!item.Male)
+                    {
+                        <tr id=@rowID>
+                            <td>
+                                @item.MemberName
+                            </td>
+                            <td>
+                                @item.Ranking
+                            </td>
+                            <td>
+                                @item.Score
+                            </td>
+                            <td>
+                                @item.WinRate
+                            </td>
+                            <td>
+                                @item.AverageWinRate
+                            </td>
+                            <td>
+                                <input type="checkbox" name="chk_list" id=@checkBoxId value=@item.ID>
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr id = @rowID style="background-color:#a4c2f4">
+                            <td>
+                                @item.MemberName
+                            </td>
+                            <td>
+                                @item.Ranking
+                            </td>
+                            <td>
+                                @item.Score
+                            </td>
+                            <td>
+                                @item.WinRate
+                            </td>
+                            <td>
+                                @item.AverageWinRate
+                            </td>
+                            <td>
+                                <input type="checkbox" name="chk_list" id=@checkBoxId value=@item.ID>
+                            </td>
+                        </tr>
+                    }
+
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    @*<td colspan="11" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>*@
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+}
+
+
+

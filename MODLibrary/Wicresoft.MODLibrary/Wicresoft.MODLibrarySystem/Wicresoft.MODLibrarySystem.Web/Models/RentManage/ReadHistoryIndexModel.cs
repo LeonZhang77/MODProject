@@ -40,8 +40,7 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
         {
             ReadHistoryIndexModel returnModel = new ReadHistoryIndexModel();
             IBorrowAndReturnRecordInfoDataProvider dataProvider = new BorrowAndReturnRecordInfoDataProvider();
-            List<BorrowAndReturnRecordInfo> tempList = dataProvider.GetBorrowAndReturnRecordListByStatus(RentRecordStatus.Returned).ToList();
-            tempList.OrderByDescending(b => b.Return_Date);
+            List<BorrowAndReturnRecordInfo> tempList = dataProvider.GetBorrowAndReturnRecordListByStatus(RentRecordStatus.Returned).OrderByDescending(b => b.Return_Date).ToList();
 
             PagingContent<BorrowAndReturnRecordInfo> paging = new PagingContent<BorrowAndReturnRecordInfo>(tempList, pageIndex);
 

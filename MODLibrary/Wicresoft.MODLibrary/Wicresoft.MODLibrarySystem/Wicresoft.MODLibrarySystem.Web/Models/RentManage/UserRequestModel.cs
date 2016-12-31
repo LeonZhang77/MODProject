@@ -44,6 +44,12 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
             set;
         }
 
+        public bool IsRejected
+        {
+            get;
+            set;
+        }
+
         public ProcessRecord GetEntity(UserInfo user, string q, bool RejectOrApprove, out BorrowAndReturnRecordInfo borrowAndReturnRecordInfo, out BookDetailInfo bookDetailInfo, out BookModel bookModel)
         {
             JObject obj = JObject.Parse(q);
@@ -51,9 +57,9 @@ namespace Wicresoft.MODLibrarySystem.Web.Models.RentManage
             bool errorOrNot = false;
             if (RejectOrApprove)
             {
-                errorOrNot =( (string)obj["isChecked"] == "true" )? true : false;
+                errorOrNot = ((string)obj["isChecked"] == "true") ? true : false;
             }
-            
+
             IBorrowAndReturnRecordInfoDataProvider iBorrowAndReturnRecordInfoDataProviderdataProvider = new BorrowAndReturnRecordInfoDataProvider();
             IBookDetailInfoDataProvider iBookDetailInfoDataProvider = new BookDetailInfoDataProvider();
             IBookInfoDataProvider iBookInfoDataProvider = new BookInfoDataProvider();

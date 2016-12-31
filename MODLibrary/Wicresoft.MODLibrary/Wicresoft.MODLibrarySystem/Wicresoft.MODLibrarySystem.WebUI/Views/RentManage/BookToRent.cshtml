@@ -57,13 +57,13 @@
                         @if (this.Model.Still_Can_Borrow)
                         {
                             <a id="Reserve-Button" requsturl="@Url.Action("RequstBook","RentManage")" onclick="bindRentConfirmDialog(@this.Model.ID)">Reserve</a>
-                            
+
                         }
                         else
                         {
                             <a disabled="disabled">Reserve</a>
                         }
-                        
+
                     </td>
                 </tr>
             </table>
@@ -74,15 +74,15 @@
 <div style="display: none" id="Rent-Confirm-Dialog" title="confirm Item">
     <p>
         We'll reserve this book for you.<br />
-        Please configm the detail in formation of this book:<br />
+        Please confirm the detail information of this book:<br />
 
         Title: @this.Model.BookName<br />
         Author: @this.Model.AuthorName<br />
         Publisher: @this.Model.PublisherName<br />
-   </p>
+    </p>
 </div>
 
-<div style="display: none" id="Submit-Result-Dialog" title="Submit Item">   
+<div style="display: none" id="Submit-Result-Dialog" title="Submit Item">
 </div>
 
 

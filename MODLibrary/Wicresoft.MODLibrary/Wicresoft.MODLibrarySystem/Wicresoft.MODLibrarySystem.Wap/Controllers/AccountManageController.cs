@@ -13,7 +13,6 @@ namespace Wicresoft.MODLibrarySystem.Wap.Controllers
 {
     public class AccountManageController : BaseController
     {
-        // GET: AccountManage
         public ActionResult Index()
         {
             UserInfo user = this.LoginUser();

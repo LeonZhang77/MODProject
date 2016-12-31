@@ -35,7 +35,7 @@ namespace Wicresoft.MODLibrarySystem.Entity
         Rejected = 2,
         [Description("Taked")]
         Taked = 3,
-        [Description("Revoked")]
+        [Description("Not Success")]
         Revoked = 4,
         [Description("Returned")]
         Returned = 5

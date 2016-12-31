@@ -1,4 +1,9 @@
-﻿$(function () {
+﻿var _strCommentsOfRejectValueIsArranging = "The MOD Library is arranging books."
+var _strCommentsOfRejectValueIsBroken = "This book is broken.";
+var _strActionIsRecord = "Your action is record!";
+
+$(function () {
+    document.getElementById("commentsOfReject").value = _strCommentsOfRejectValue;
     $("#RejectUserRequestDialog").dialog(
     {
         autoOpen: false,
@@ -89,14 +94,13 @@
         }
     });
 
-    $("#setThisBookError").click(function ()
-    {
+    $("#setThisBookError").click(function () {
         var obj = document.getElementById("setThisBookError").checked;
         if (obj) {
-            document.getElementById("commentsOfReject").value = "This book is broken.";
+            document.getElementById("commentsOfReject").value = _strCommentsOfRejectValueIsBroken;
         }
         else {
-            document.getElementById("commentsOfReject").value = "The MOD Library is arranging books.";
+            document.getElementById("commentsOfReject").value = _strCommentsOfRejectValueIsArrange;
         }
     });
 
@@ -116,8 +120,7 @@ function approveUserRequestButton(i) {
     _id = i;
 }
 
-function takeWaitingForTakeButton(i)
-{
+function takeWaitingForTakeButton(i) {
     $("#TakeWaitingForTakeDialog").dialog("open");
     _id = i;
 }
@@ -134,13 +137,13 @@ function returnWaitingForReturnButton(i) {
 
 function doRejectUserRequestWork() {
     _checked = document.getElementById("setThisBookError").checked;
-    _comments = $("#commentsOfReject").val();
+    _comments = document.getElementById("commentsOfReject").value;
     var dataString = "{" + "\"idStr\":\"" + _id + "\",\"isChecked\":\"" + _checked + "\",\"comments\":\"" + _comments + "\"}";
     $(function () {
         $.ajax(
             {
                 url: $("#RejectUserRequestURL").attr("requstUrl"),
-                data: {q:dataString},
+                data: { q: dataString },
                 success: function (data) {
                     if (data == "true") {
                         var approveButtonId = "#approveuserRequestButton" + _id;
@@ -148,7 +151,7 @@ function doRejectUserRequestWork() {
                         $(approveButtonId).after("<button class=\"btn btn-inverse\" disabled = \''disabled\">Approve</button>");
                         var approveButton = $(approveButtonId).detach();
                         $(rejectButtonId).after("<button class=\"btn btn-inverse\" disabled = \''disabled\">Reject</button>");
-                        var rejectButton = $(rejectButtonId).detach();                        
+                        var rejectButton = $(rejectButtonId).detach();
                     }
                     else {
                         alert(data);
@@ -158,8 +161,7 @@ function doRejectUserRequestWork() {
     });
 }
 
-function doApproveUserRequestWork()
-{
+function doApproveUserRequestWork() {
     _comments = $("#commentsOfApprove").val();
     var dataString = "{" + "\"idStr\":\"" + _id + "\",\"comments\":\"" + _comments + "\"}";
     $(function () {
@@ -169,7 +171,7 @@ function doApproveUserRequestWork()
                 data: { q: dataString },
                 success: function (data) {
                     if (data == "true") {
-                        alert("Your action is record!");
+                        alert(_strActionIsRecord);
                         document.execCommand('Refresh');
                     }
                     else {
@@ -188,7 +190,7 @@ function doTakeWaitingForTakeWork() {
                 data: { q: _id },
                 success: function (data) {
                     if (data == "true") {
-                        alert("Your action is record!");
+                        alert(_strActionIsRecord);
                         document.execCommand('Refresh');
                     }
                     else {
@@ -230,7 +232,7 @@ function doReturnWaitingForReturnWork() {
                 data: { q: _id },
                 success: function (data) {
                     if (data == "true") {
-                        alert("Your action is record!");
+                        alert(_strActionIsRecord);
                         document.execCommand('Refresh');
                     }
                     else {
