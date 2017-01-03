@@ -10,12 +10,20 @@ using Newtonsoft.Json.Linq;
 using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
 using Wicresoft.BadmintonSystem.Entity;
+using Wicresoft.BadmintonSystem.Entity;
 
 namespace Badminton.Controllers
 {
     public class ScoreListController : Controller
     {
         // GET: ScoreList
+        IBadmintionDataProvider provider;
+        
+        public ScoreListController()
+        {
+            provider = new BadmintionDataProvider();
+        }
+        
         public ActionResult Index(long searchselectedID = 0)
         {
             ScoreListIndexModel model = new ScoreListIndexModel();
@@ -30,55 +38,90 @@ namespace Badminton.Controllers
         internal List<ScoreMemberModel> GetScoreList()
         {
             List<ScoreMemberModel> returnList = new List<ScoreMemberModel>();
-            IBadmintionDataProvider provider = new BadmintionDataProvider();
             List<MemberInfo> memberList = provider.GetMemberInfos().ToList();
-
+            
+            ScoreMemberModel temp;
             foreach (var item in memberList)
             {
-                ScoreMemberModel temp = new ScoreMemberModel();
+                temp = new ScoreMemberModel();
                 temp.ID = item.ID;
                 temp.MemberName = item.Name;
-                temp.Male = true;
-                temp.Score = 100;
-                temp.WinRate = 0.99;
-                temp.AverageWinRate = 0.55;
-                temp.Ranking = 1;
-                temp.LastUpdateDate = System.DateTime.Now;
-
+                temp.Male = item.Male;
+                temp.Score = item.Score;
+                temp.WinRate = GetWinRate(item.ID);
+                temp.AverageWinRate = GetAverageWinRate(item.ID);
+                //temp.Ranking = 1;                
                 returnList.Add(temp);
+            }                        
+            return returnList;
+        }
+
+        internal double GetWinRate(long ID)
+        {
+            double returnValue = 0;
+            List<MatchInfo> matchList = provider.GetMatchInfos(ID, true,ChampionType.Normal,false).ToList();
+            int WinCount = matchList.Count();
+            matchList = provider.GetMatchInfos(ID, false, ChampionType.Normal, false).ToList();            
+            int LostCount = matchList.Count();
+            if (WinCount != 0 && LostCount != 0)
+            {
+                returnValue = WinCount / (WinCount + LostCount);
+            }
+           
+            return returnValue;
+        }
+
+        internal double GetAverageWinRate(long ID)
+        {
+            double returnValue = 0;
+            List<MatchInfo> matchList = provider.GetMatchInfos(ID, true).ToList();
+            int WinCount = matchList.Count();
+            matchList = provider.GetMatchInfos(ID, false).ToList();
+            int LostCount = matchList.Count();
+            if (WinCount != 0 && LostCount != 0)
+            {
+                returnValue = WinCount / (WinCount + LostCount);
             }
             
-            
-            return returnList;
+            return returnValue;
         }
 
         internal List<SelectListItem> GetSearchMemberList()
         {
             List<SelectListItem> returnList = new List<SelectListItem>();
-            SelectListItem temp = new SelectListItem();
-            temp.Text = "牛江磊";
-            temp.Value = "1";
-            returnList.Add(temp);
-            temp = new SelectListItem();
-            temp.Text = "郭秋浩";
-            temp.Value = "2";
-            returnList.Add(temp);
-            temp = new SelectListItem();
-            temp.Text = "张剑峰";
-            temp.Value = "3";
-            returnList.Add(temp);
-            temp = new SelectListItem();
-            temp.Text = "大花";
-            temp.Value = "4";
-            returnList.Add(temp);
-            temp = new SelectListItem();
-            temp.Text = "二花";
-            temp.Value = "5";
-            returnList.Add(temp);
-            temp = new SelectListItem();
-            temp.Text = "三花";
-            temp.Value = "6";
-            returnList.Add(temp);
+            List<MemberInfo> memberList = provider.GetMemberInfos().ToList();
+            SelectListItem temp;
+            foreach (MemberInfo item in memberList)
+            {
+                temp = new SelectListItem();
+                temp.Text = item.Name;
+                temp.Value = item.ID.ToString();
+                returnList.Add(temp);
+            }
+            //SelectListItem temp = new SelectListItem();
+            //temp.Text = "牛江磊";
+            //temp.Value = "1";
+            //returnList.Add(temp);
+            //temp = new SelectListItem();
+            //temp.Text = "郭秋浩";
+            //temp.Value = "2";
+            //returnList.Add(temp);
+            //temp = new SelectListItem();
+            //temp.Text = "张剑峰";
+            //temp.Value = "3";
+            //returnList.Add(temp);
+            //temp = new SelectListItem();
+            //temp.Text = "大花";
+            //temp.Value = "4";
+            //returnList.Add(temp);
+            //temp = new SelectListItem();
+            //temp.Text = "二花";
+            //temp.Value = "5";
+            //returnList.Add(temp);
+            //temp = new SelectListItem();
+            //temp.Text = "三花";
+            //temp.Value = "6";
+            //returnList.Add(temp);
             return returnList;
         }
 
