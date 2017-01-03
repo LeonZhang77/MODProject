@@ -36,9 +36,43 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             return this.DataSource.MatchInfos;
         }
 
+        public IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost)
+        {
+            IEnumerable<MatchInfo> returnValue = GetMatchInfos();
+            
+            if(WinOrLost)
+            { returnValue = returnValue.Where(u => u.WinnerID.ID==ID || u.WinnerID2.ID == ID); }
+            else
+            { returnValue = returnValue.Where(u => u.LoserID.ID == ID || u.LoserID2.ID == ID); }
+            
+            return returnValue;
+        }
+
+        public IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost, ChampionType championType, Boolean equalOrNot)
+        {
+            IEnumerable<MatchInfo> returnValue = GetMatchInfos(ID, WinOrLost);
+            if (equalOrNot)
+            { returnValue = returnValue.Where(u => u.ChampionID.ChampionType.Equals(championType)); }
+            else
+            { returnValue = returnValue.Where(u => !u.ChampionID.ChampionType.Equals(championType)); }
+            return returnValue;
+        }
+
+        public IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost, CompetingType competingType)
+        {
+            IEnumerable<MatchInfo> returnValue = GetMatchInfos(ID, WinOrLost);
+            returnValue = returnValue.Where(u=>u.ChampionID.CompetingType.Equals(competingType));
+            return returnValue;
+        }
+
         public IEnumerable<MemberInfo> GetMemberInfos()
         {
             return this.DataSource.MemberInfos;
+        }
+
+        public MemberInfo GetMemberInfo(long ID)
+        {
+            return this.DataSource.MemberInfos.FirstOrDefault(u=>u.ID == ID);
         }
 
         public IEnumerable<ScoreInfo> GetScoreInfos()

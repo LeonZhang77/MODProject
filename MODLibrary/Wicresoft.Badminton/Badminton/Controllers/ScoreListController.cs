@@ -10,7 +10,6 @@ using Newtonsoft.Json.Linq;
 using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
 using Wicresoft.BadmintonSystem.Entity;
-using Wicresoft.BadmintonSystem.Entity;
 
 namespace Badminton.Controllers
 {
@@ -158,21 +157,63 @@ namespace Badminton.Controllers
 
             return name1;
         }
+
+        internal double GetPlayer1WinRate(long player1id, long player2id, CompetingType competingType)
+        {
+            double player1WinRate = 0.5;
+            List<MatchInfo> player1WinList = provider.GetMatchInfos(player1id, true, competingType).ToList();
+            foreach (MatchInfo item in player1WinList)
+            {
+                if (competingType.Equals(CompetingType.MaleSin) || competingType.Equals(CompetingType.FemaleSin))
+                {
+                    if (item.LoserID.ID != player2id) player1WinList.Remove(item);
+                }
+                else
+                {
+                    if (item.LoserID.ID != player2id && item.LoserID2.ID != player2id) player1WinList.Remove(item);
+                }                
+            }
+            List<MatchInfo> player1LostList = provider.GetMatchInfos(player1id, false, competingType).ToList();
+            foreach (MatchInfo item in player1LostList)
+            {
+                if (competingType.Equals(CompetingType.MaleSin) || competingType.Equals(CompetingType.FemaleSin))
+                {
+                    if (item.WinnerID.ID != player2id) player1LostList.Remove(item);
+                }
+                else
+                {
+                    if (item.WinnerID.ID != player2id && item.WinnerID2.ID != player2id) player1LostList.Remove(item);
+                }                
+            }
+
+            if (player1WinList.Count() != 0 && player1LostList.Count() != 0)
+            {
+                player1WinRate = player1WinList.Count() / (player1WinList.Count + player1LostList.Count());
+            }
+            return player1WinRate;
+        }
         public JsonResult GetJSONForSingles(String q)
         {
             long player1Id, player2Id;
             String player1Name, player2Name;
             player1Name = GetPlayersNames(q, out player1Id, out player2Id, out player2Name);
 
-            List<ChartModel.returnListForPie> returnList = new List<ChartModel.returnListForPie>();
+            CompetingType competingType;
+            MemberInfo player1Member = provider.GetMemberInfo(player1Id);
+            if (player1Member.Male)
+                competingType = CompetingType.MaleSin;
+            else
+                competingType = CompetingType.FemaleSin;
+            double player1WinRate = GetPlayer1WinRate(player1Id, player2Id, competingType);
 
+            List<ChartModel.returnListForPie> returnList = new List<ChartModel.returnListForPie>();
             ChartModel.returnListForPie temp = new ChartModel.returnListForPie();
-            temp.value = 0.9;
+            temp.value = player1WinRate;
             temp.title = player1Name;
             temp.color = "#F38630";
             returnList.Add(temp);
             temp = new ChartModel.returnListForPie();
-            temp.value = 1 - 0.9;
+            temp.value = 1 - player1WinRate;
             temp.title = player2Name;
             temp.color = "#E0E4CC";
             returnList.Add(temp);
@@ -184,15 +225,22 @@ namespace Badminton.Controllers
             long player1Id, player2Id;
             String player1Name, player2Name;
             player1Name = GetPlayersNames(q, out player1Id, out player2Id, out player2Name);
-            
-            List<ChartModel.returnListForPie> returnList = new List<ChartModel.returnListForPie>();
 
+            CompetingType competingType;
+            MemberInfo player1Member = provider.GetMemberInfo(player1Id);
+            if (player1Member.Male)
+                competingType = CompetingType.MaleDou;
+            else
+                competingType = CompetingType.FemaleDou;
+            double player1WinRate = GetPlayer1WinRate(player1Id, player2Id, competingType);
+
+            List<ChartModel.returnListForPie> returnList = new List<ChartModel.returnListForPie>();
             ChartModel.returnListForPie temp = new ChartModel.returnListForPie();
-            temp.value = 0.6;
+            temp.value = player1WinRate;
             temp.color = "#F38630";
             returnList.Add(temp);
             temp = new ChartModel.returnListForPie();
-            temp.value = 1 - 0.6;
+            temp.value = 1 - player1WinRate;
             temp.color = "#E0E4CC";
             returnList.Add(temp);
             return Json(returnList, JsonRequestBehavior.AllowGet);
@@ -204,14 +252,16 @@ namespace Badminton.Controllers
             String player1Name, player2Name;
             player1Name = GetPlayersNames(q, out player1Id, out player2Id, out player2Name);
 
-            List<ChartModel.returnListForPie> returnList = new List<ChartModel.returnListForPie>();
+            CompetingType competingType = CompetingType.MixDou;
+            double player1WinRate = GetPlayer1WinRate(player1Id, player2Id, competingType);
 
+            List<ChartModel.returnListForPie> returnList = new List<ChartModel.returnListForPie>();
             ChartModel.returnListForPie temp = new ChartModel.returnListForPie();
-            temp.value = 0.75;
+            temp.value = player1WinRate;
             temp.color = "#F38630";
             returnList.Add(temp);
             temp = new ChartModel.returnListForPie();
-            temp.value = 1 - 0.75;
+            temp.value = 1 - player1WinRate;
             temp.color = "#E0E4CC";
             returnList.Add(temp);
             return Json(returnList, JsonRequestBehavior.AllowGet);

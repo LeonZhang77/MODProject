@@ -29,12 +29,18 @@ namespace Wicresoft.BadmintonSystem.DataAccess.IDataProvider
 
         IEnumerable<MatchInfo> GetMatchInfos();
 
+        IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost);
+
+        IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost, ChampionType championType, Boolean equalOrNot);
+
+        IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost, CompetingType competingType);
         void SaveMatchInfo(MatchInfo matchInfo);
 
         void DeleteMatchInfo(MatchInfo matchInfo);
         
         IEnumerable<MemberInfo> GetMemberInfos();
 
+        MemberInfo GetMemberInfo(long ID);
         void SaveMemberInfo(MemberInfo memberInfo);
 
         void DeleteMemberInfo(MemberInfo memberInfo);
