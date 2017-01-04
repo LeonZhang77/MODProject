@@ -163,6 +163,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DataManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ScoreListController.cs" />
@@ -173,10 +174,12 @@
     <Compile Include="Models\BaseIndexListModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\Chart\ChartModel.cs" />
+    <Compile Include="Models\DataManage\ClubModel.cs" />
+    <Compile Include="Models\DataManage\DataManageIndexModel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MemberManage\MemberListModel.cs" />
+    <Compile Include="Models\DataManage\MemberModel.cs" />
     <Compile Include="Models\ScoreList\ScoreListIndexModel.cs" />
     <Compile Include="Models\ScoreList\ScoreMemberModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -242,6 +245,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\ScoreList\Index.cshtml" />
+    <Content Include="Views\DataManage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

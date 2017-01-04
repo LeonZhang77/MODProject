@@ -17,13 +17,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("MOD Badminton Group", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("数据录入", "Index", "ScoreInput", null, null)</li>
+                    <li>@Html.ActionLink("比赛录入", "Index", "ScoreInput", null, null)</li>
                     <li>@Html.ActionLink("排行榜", "Index", "ScoreList", null, null)</li>
-                    <li>@Html.ActionLink("人员管理", "Index", "UserManage", null, null)</li>
+                    <li>@Html.ActionLink("数据管理", "Index", "DataManage", null, null)</li>
+                    <li>@Html.ActionLink("Manage", "Index", "Manage", null, null)</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Badminton.Models.ScoreList;
-using Badminton.Models.MemberManage;
 using Badminton.Models.Chart;
 using Newtonsoft.Json.Linq;
 using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
@@ -15,7 +14,6 @@ namespace Badminton.Controllers
 {
     public class ScoreListController : Controller
     {
-        // GET: ScoreList
         IBadmintionDataProvider provider;
         
         public ScoreListController()
