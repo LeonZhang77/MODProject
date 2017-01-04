@@ -1,9 +1,0 @@
-D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Entity\bin\Debug\Wicresoft.BadmintonSystem.Entity.dll.config
-D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Entity\bin\Debug\Wicresoft.BadmintonSystem.Entity.dll
-D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Entity\bin\Debug\Wicresoft.BadmintonSystem.Entity.pdb
-D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Entity\obj\Debug\Wicresoft.BadmintonSystem.Entity.dll
-D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Entity\obj\Debug\Wicresoft.BadmintonSystem.Entity.pdb
-D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Entity\bin\Debug\EntityFramework.dll
-D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Entity\bin\Debug\EntityFramework.SqlServer.dll
-D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Entity\bin\Debug\EntityFramework.xml
-D:\TFSOline\MODProject\MODLibrary\Wicresoft.Badminton\Wicresoft.BadmintonSystem.Entity\bin\Debug\EntityFramework.SqlServer.xml
