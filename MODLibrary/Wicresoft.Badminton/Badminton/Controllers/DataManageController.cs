@@ -33,10 +33,7 @@ namespace Badminton.Controllers
             MemberModel model;
             foreach (MemberInfo item in memberList)
             {
-                model = new MemberModel();
-                model.ID = item.ID;
-                model.Name = item.Name;
-                model.Male = item.Male;
+                model = MemberModel.GetViewModel(item);
                 returnList.Add(model);
             }
             return returnList;
@@ -50,10 +47,7 @@ namespace Badminton.Controllers
             ClubModel model;
             foreach (ClubInfo item in clubList)
             {
-                model = new ClubModel();
-                model.ID = item.ID;
-                model.Name = item.Name;
-                model.Description = item.Description;
+                model = ClubModel.GetViewModel(item);                
                 returnList.Add(model);
             }
             return returnList;

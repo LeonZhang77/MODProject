@@ -21,6 +21,11 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             return this.DataSource.BonusInfos;
         }
 
+        public IEnumerable<BonusInfo> GetBonusInfos(MemberInfo memberInfo)
+        {
+            return this.DataSource.BonusInfos.Where(u => u.MemberID.ID == memberInfo.ID); ;
+        }
+
         public IEnumerable<ChampionshipInfo> GetChampionshipInfos()
         {
             return this.DataSource.ChampionshipInfos;
@@ -36,9 +41,10 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             return this.DataSource.MatchInfos;
         }
 
-        public IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost)
+        public IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost)
         {
             IEnumerable<MatchInfo> returnValue = GetMatchInfos();
+            long ID = memberInfo.ID;
             
             if(WinOrLost)
             { returnValue = returnValue.Where(u => u.WinnerID.ID==ID || u.WinnerID2.ID == ID); }
@@ -48,9 +54,9 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             return returnValue;
         }
 
-        public IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost, ChampionType championType, Boolean equalOrNot)
+        public IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, ChampionType championType, Boolean equalOrNot)
         {
-            IEnumerable<MatchInfo> returnValue = GetMatchInfos(ID, WinOrLost);
+            IEnumerable<MatchInfo> returnValue = GetMatchInfos(memberInfo, WinOrLost);
             if (equalOrNot)
             { returnValue = returnValue.Where(u => u.ChampionID.ChampionType.Equals(championType)); }
             else
@@ -58,9 +64,9 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             return returnValue;
         }
 
-        public IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost, CompetingType competingType)
+        public IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, CompetingType competingType)
         {
-            IEnumerable<MatchInfo> returnValue = GetMatchInfos(ID, WinOrLost);
+            IEnumerable<MatchInfo> returnValue = GetMatchInfos(memberInfo, WinOrLost);
             returnValue = returnValue.Where(u=>u.ChampionID.CompetingType.Equals(competingType));
             return returnValue;
         }
@@ -189,6 +195,16 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
         public IEnumerable<MemberAndClubRelation> GetMemberAndClubRelations()
         {
             return this.DataSource.MemberAndClubRelations;
+        }
+
+        public IEnumerable<MemberAndClubRelation> GetMemberAndClubRelations(ClubInfo clubInfo)
+        {
+            return this.DataSource.MemberAndClubRelations.Where(u => u.ClubID.ID == clubInfo.ID);
+        }
+
+        public IEnumerable<MemberAndClubRelation> GetMemberAndClubRelations(MemberInfo memberInfo)
+        {
+            return this.DataSource.MemberAndClubRelations.Where(u => u.MemberID.ID == memberInfo.ID);
         }
 
         public void SaveMemberAndClubRelation(MemberAndClubRelation memberAndClubRelation)

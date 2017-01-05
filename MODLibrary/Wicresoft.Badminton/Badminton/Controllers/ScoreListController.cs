@@ -56,9 +56,10 @@ namespace Badminton.Controllers
         internal double GetWinRate(long ID)
         {
             double returnValue = 0;
-            List<MatchInfo> matchList = provider.GetMatchInfos(ID, true,ChampionType.Normal,false).ToList();
+            MemberInfo memberInfo = provider.GetMemberInfo(ID);
+            List<MatchInfo> matchList = provider.GetMatchInfos(memberInfo, true, ChampionType.Normal, false).ToList();
             int WinCount = matchList.Count();
-            matchList = provider.GetMatchInfos(ID, false, ChampionType.Normal, false).ToList();            
+            matchList = provider.GetMatchInfos(memberInfo, false, ChampionType.Normal, false).ToList();            
             int LostCount = matchList.Count();
             if (WinCount != 0 && LostCount != 0)
             {
@@ -71,9 +72,10 @@ namespace Badminton.Controllers
         internal double GetAverageWinRate(long ID)
         {
             double returnValue = 0;
-            List<MatchInfo> matchList = provider.GetMatchInfos(ID, true).ToList();
+            MemberInfo memberInfo = provider.GetMemberInfo(ID);
+            List<MatchInfo> matchList = provider.GetMatchInfos(memberInfo, true).ToList();
             int WinCount = matchList.Count();
-            matchList = provider.GetMatchInfos(ID, false).ToList();
+            matchList = provider.GetMatchInfos(memberInfo, false).ToList();
             int LostCount = matchList.Count();
             if (WinCount != 0 && LostCount != 0)
             {
@@ -94,31 +96,7 @@ namespace Badminton.Controllers
                 temp.Text = item.Name;
                 temp.Value = item.ID.ToString();
                 returnList.Add(temp);
-            }
-            //SelectListItem temp = new SelectListItem();
-            //temp.Text = "牛江磊";
-            //temp.Value = "1";
-            //returnList.Add(temp);
-            //temp = new SelectListItem();
-            //temp.Text = "郭秋浩";
-            //temp.Value = "2";
-            //returnList.Add(temp);
-            //temp = new SelectListItem();
-            //temp.Text = "张剑峰";
-            //temp.Value = "3";
-            //returnList.Add(temp);
-            //temp = new SelectListItem();
-            //temp.Text = "大花";
-            //temp.Value = "4";
-            //returnList.Add(temp);
-            //temp = new SelectListItem();
-            //temp.Text = "二花";
-            //temp.Value = "5";
-            //returnList.Add(temp);
-            //temp = new SelectListItem();
-            //temp.Text = "三花";
-            //temp.Value = "6";
-            //returnList.Add(temp);
+            }            
             return returnList;
         }
 
@@ -159,7 +137,8 @@ namespace Badminton.Controllers
         internal double GetPlayer1WinRate(long player1id, long player2id, CompetingType competingType)
         {
             double player1WinRate = 0.5;
-            List<MatchInfo> player1WinList = provider.GetMatchInfos(player1id, true, competingType).ToList();
+            MemberInfo memberInfo = provider.GetMemberInfo(player1id);
+            List<MatchInfo> player1WinList = provider.GetMatchInfos(memberInfo, true, competingType).ToList();
             foreach (MatchInfo item in player1WinList)
             {
                 if (competingType.Equals(CompetingType.MaleSin) || competingType.Equals(CompetingType.FemaleSin))
@@ -171,7 +150,7 @@ namespace Badminton.Controllers
                     if (item.LoserID.ID != player2id && item.LoserID2.ID != player2id) player1WinList.Remove(item);
                 }                
             }
-            List<MatchInfo> player1LostList = provider.GetMatchInfos(player1id, false, competingType).ToList();
+            List<MatchInfo> player1LostList = provider.GetMatchInfos(memberInfo, false, competingType).ToList();
             foreach (MatchInfo item in player1LostList)
             {
                 if (competingType.Equals(CompetingType.MaleSin) || competingType.Equals(CompetingType.FemaleSin))

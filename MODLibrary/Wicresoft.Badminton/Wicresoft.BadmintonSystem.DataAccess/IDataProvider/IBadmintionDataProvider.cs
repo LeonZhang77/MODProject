@@ -10,11 +10,9 @@ namespace Wicresoft.BadmintonSystem.DataAccess.IDataProvider
     public interface IBadmintionDataProvider : IBaseDataProvider
     {
         IEnumerable<BonusInfo> GetBonusInfos();
-
-        void SaveBonusInfo(BonusInfo bonusInfo);
-
+        IEnumerable<BonusInfo> GetBonusInfos(MemberInfo memberInfo);
+        void SaveBonusInfo(BonusInfo bonusInfo);   
         void DeleteBonusInfo(BonusInfo bonusInfo);
-
         IEnumerable<ChampionshipInfo> GetChampionshipInfos();
 
         void SaveChampionshipInfo(ChampionshipInfo championshipInfo);
@@ -29,11 +27,11 @@ namespace Wicresoft.BadmintonSystem.DataAccess.IDataProvider
 
         IEnumerable<MatchInfo> GetMatchInfos();
 
-        IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost);
+        IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost);
 
-        IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost, ChampionType championType, Boolean equalOrNot);
+        IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, ChampionType championType, Boolean equalOrNot);
 
-        IEnumerable<MatchInfo> GetMatchInfos(long ID, Boolean WinOrLost, CompetingType competingType);
+        IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, CompetingType competingType);
         void SaveMatchInfo(MatchInfo matchInfo);
 
         void DeleteMatchInfo(MatchInfo matchInfo);
@@ -52,6 +50,10 @@ namespace Wicresoft.BadmintonSystem.DataAccess.IDataProvider
         void DeleteScoreInfo(ScoreInfo scoreInfo);
 
         IEnumerable<MemberAndClubRelation> GetMemberAndClubRelations();
+
+        IEnumerable<MemberAndClubRelation> GetMemberAndClubRelations(ClubInfo clubInfo);
+
+        IEnumerable<MemberAndClubRelation> GetMemberAndClubRelations(MemberInfo memberInfo);
 
         void SaveMemberAndClubRelation(MemberAndClubRelation memberAndClubRelation);
 
