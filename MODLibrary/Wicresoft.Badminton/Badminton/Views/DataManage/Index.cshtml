@@ -4,127 +4,141 @@
 }
 @model Badminton.Models.DataManage.DataManageIndexModel
 @section scripts{
-    @Scripts.Render("~/Scripts/DataManageJS/DataManageJS.js")
-   
+    @Scripts.Render("~/Scripts/DataManageJS/DataManageJS.js")   
 }
 
 <br />
 
-<ul id="mainTab" class="nav nav-tabs">
-    <li class="active">
-        <a href="#Clubs" data-toggle="tab">Clubs</a>
-    </li>
-    <li>
-        <a href="#Members" data-toggle="tab">Members</a>
-    </li>
-</ul>
+<div>
+    <ul id="mainTab" class="nav nav-tabs">
+        <li class="active">
+            <a href="#Clubs" data-toggle="tab">Clubs</a>
+        </li>
+        <li>
+            <a href="#Members" data-toggle="tab">Members</a>
+        </li>
+    </ul>
 
-<div id="mainTabContent" class="tab-content">
-    <div class="tab-pane in active" id="Clubs">
-        <table class="table">
-            <caption>Club List</caption>
-            <thead>
-                <tr>
-                    <td colspan="4">
-                        @Html.ActionLink("Add", "AddClub")
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Club Name
-                    </th>
-                    <th>
-                        Club Description
-                    </th>
-                    <th>
-                        Operation
-                    </th>
-                </tr>
-                @foreach (var item in this.Model.ClubList)
-                {
+    <div id="mainTabContent" class="tab-content">
+        <div class="tab-pane in active" id="Clubs">
+            <table class="table">
+                <caption>Club List</caption>
+                <thead>
                     <tr>
-                        <td>
-                            @item.ID
-                        </td>
-                        <td>
-                            @item.Name
-                        </td>
-                        <td>
-                            @item.Description
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "EditClub", new { @id = item.ID })
-                            @if (!item.IsUse)
-                            {
-                                @Html.ActionLink("Delete", "DeleteAuthor", new { @id = item.ID }, new { onclick = "return bindConfrimDialog(this,'delete','a',false);" })
-                            }
+                        <td colspan="4">
+                            @Html.ActionLink("Add", "AddClub")
                         </td>
                     </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr>
-                    
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    <div class="tab-pane" id="Members">
-        <table class="table">
-            <caption>Member List</caption>
-            <thead>
-                <tr>
-                    <td colspan="4">
-                        @Html.ActionLink("Add", "AddMember")
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>
-                        ID
-                    </th>
-                    <th>
-                        Member Name
-                    </th>
-                    <th>
-                        Male
-                    </th>
-                    <th>
-                        Operation
-                    </th>
-                </tr>
-                @foreach (var item in this.Model.MemberList)
-                {
+                </thead>
+                <tbody>
                     <tr>
-                        <td>
-                            @item.ID
-                        </td>
-                        <td>
-                            @item.Name
-                        </td>
-                        <td>
-                            @if (item.Male){<span>男</span>}
-                            @if (!item.Male){<span>女</span>}
-</td>
-                        <td>
-                            @Html.ActionLink("Edit", "EditClub", new { @id = item.ID })
-                            @if (!item.IsUse)
-                            {
-                                @Html.ActionLink("Delete", "DeleteAuthor", new { @id = item.ID }, new { onclick = "return bindConfrimDialog(this,'delete','a',false);" })
-                            }
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Club Name
+                        </th>
+                        <th>
+                            Club Description
+                        </th>
+                        <th>
+                            Operation
+                        </th>
+                    </tr>
+                    @foreach (var item in this.Model.ClubList)
+                    {
+                        string clubRowId = "clubRow" + @item.ID;
+                        <tr id=clubRowId>
+                            <td>
+                                @item.ID
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.Description
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditClub", new { @id = item.ID })
+                                @if (!item.IsUse)
+                                {
+                                    //@Html.ActionLink("Delete", "DeleteAuthor", new { @id = item.ID }, new { onclick = "return bindConfrimDialog(this,'delete','a',false);" })
+                                    <a class="btn btn-primary" onclick="deleteClub(@item.ID);" role="button">Delete</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr></tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="tab-pane" id="Members">
+            <table class="table">
+                <caption>Member List</caption>
+                <thead>
+                    <tr>
+                        <td colspan="4">
+                            @Html.ActionLink("Add", "AddMember")
                         </td>
                     </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr></tr>
-            </tfoot>
-        </table>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Member Name
+                        </th>
+                        <th>
+                            Male
+                        </th>
+                        <th>
+                            Operation
+                        </th>
+                    </tr>
+                    @foreach (var item in this.Model.MemberList)
+                    {
+                        <tr>
+                            <td>
+                                @item.ID
+                            </td>
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @if (item.Male)
+                                {<span>男</span>}
+                                @if (!item.Male)
+                                {<span>女</span>}
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "EditClub", new { @id = item.ID })
+                                @if (!item.IsUse)
+                                {
+                                    @Html.ActionLink("Delete", "DeleteAuthor", new { @id = item.ID }, new { onclick = "return bindConfrimDialog(this,'delete','a',false);" })
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr></tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </div>
+
+    <div id="DeleteClubDialog" title="Confirm Dialog">
+        <p>
+            <br />
+            This Club will be removed and can not be recover.<br />
+            Are you sure ?
+            <br />
+            <br />
+        </p>
+    </div>
+<div style="display: none" id="DeleteClubURL" requsturl="@Url.Action("DeleteClub", "DataManage")"></div>

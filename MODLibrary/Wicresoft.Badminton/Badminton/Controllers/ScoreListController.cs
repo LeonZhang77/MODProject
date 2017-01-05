@@ -56,7 +56,7 @@ namespace Badminton.Controllers
         internal double GetWinRate(long ID)
         {
             double returnValue = 0;
-            MemberInfo memberInfo = provider.GetMemberInfo(ID);
+            MemberInfo memberInfo = provider.GetMemberInfoByID(ID);
             List<MatchInfo> matchList = provider.GetMatchInfos(memberInfo, true, ChampionType.Normal, false).ToList();
             int WinCount = matchList.Count();
             matchList = provider.GetMatchInfos(memberInfo, false, ChampionType.Normal, false).ToList();            
@@ -72,7 +72,7 @@ namespace Badminton.Controllers
         internal double GetAverageWinRate(long ID)
         {
             double returnValue = 0;
-            MemberInfo memberInfo = provider.GetMemberInfo(ID);
+            MemberInfo memberInfo = provider.GetMemberInfoByID(ID);
             List<MatchInfo> matchList = provider.GetMatchInfos(memberInfo, true).ToList();
             int WinCount = matchList.Count();
             matchList = provider.GetMatchInfos(memberInfo, false).ToList();
@@ -137,7 +137,7 @@ namespace Badminton.Controllers
         internal double GetPlayer1WinRate(long player1id, long player2id, CompetingType competingType)
         {
             double player1WinRate = 0.5;
-            MemberInfo memberInfo = provider.GetMemberInfo(player1id);
+            MemberInfo memberInfo = provider.GetMemberInfoByID(player1id);
             List<MatchInfo> player1WinList = provider.GetMatchInfos(memberInfo, true, competingType).ToList();
             foreach (MatchInfo item in player1WinList)
             {
@@ -176,7 +176,7 @@ namespace Badminton.Controllers
             player1Name = GetPlayersNames(q, out player1Id, out player2Id, out player2Name);
 
             CompetingType competingType;
-            MemberInfo player1Member = provider.GetMemberInfo(player1Id);
+            MemberInfo player1Member = provider.GetMemberInfoByID(player1Id);
             if (player1Member.Male)
                 competingType = CompetingType.MaleSin;
             else
@@ -204,7 +204,7 @@ namespace Badminton.Controllers
             player1Name = GetPlayersNames(q, out player1Id, out player2Id, out player2Name);
 
             CompetingType competingType;
-            MemberInfo player1Member = provider.GetMemberInfo(player1Id);
+            MemberInfo player1Member = provider.GetMemberInfoByID(player1Id);
             if (player1Member.Male)
                 competingType = CompetingType.MaleDou;
             else

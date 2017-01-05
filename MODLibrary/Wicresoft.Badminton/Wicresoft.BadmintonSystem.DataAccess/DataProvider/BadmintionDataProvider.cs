@@ -36,6 +36,11 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             return this.DataSource.ClubInfos;
         }
 
+        public ClubInfo GetClubInfoByID(long ID)
+        { 
+            return this.DataSource.ClubInfos.FirstOrDefault(u=>u.ID==ID);
+        }
+
         public IEnumerable<MatchInfo> GetMatchInfos()
         {
             return this.DataSource.MatchInfos;
@@ -76,7 +81,7 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             return this.DataSource.MemberInfos;
         }
 
-        public MemberInfo GetMemberInfo(long ID)
+        public MemberInfo GetMemberInfoByID(long ID)
         {
             return this.DataSource.MemberInfos.FirstOrDefault(u=>u.ID == ID);
         }

@@ -4,8 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - MOD Badminton</title>
-    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/Scripts/jquery-1.10.2.js")
+    @Scripts.Render("~/Scripts/ui/jquery-ui.js")
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/themes/base/jquery.ui.all.css")
+    @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    
 
 </head>
 <body>
@@ -40,8 +49,9 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+ @Scripts.Render("~/Scripts/ui/jquery-ui.js")
+@Scripts.Render("~/Scripts/ui/jquery.ui.core.js")
+@Scripts.Render("~/Scripts/ui/jquery.ui.widget.js")
+
 </body>
 </html>

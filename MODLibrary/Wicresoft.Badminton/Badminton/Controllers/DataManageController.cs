@@ -52,5 +52,17 @@ namespace Badminton.Controllers
             }
             return returnList;
         }
+
+        public string DeleteClub(long q)
+        {
+            try
+            {
+                ClubInfo clubInfo = provider.GetClubInfoByID(q);
+                provider.DeleteClubInfo(clubInfo);
+            }
+            catch (Exception ex) { return ex.Message; };
+
+            return "true";
+        }
     }
 }
