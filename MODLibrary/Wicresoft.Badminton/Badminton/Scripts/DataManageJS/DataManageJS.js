@@ -167,7 +167,7 @@ function addChampionship()
     $("#AddChampionshipDialog").dialog("open");
 }
 
-function doAddChampionship() {
+function doEditChampionship() {
     var dataString = "{" + "\"title\":\"" + $("#ChampionshipTitle").val() +
         "\",\"stratDate\":\"" + $("#startDatePicker").val() +
         "\",\"endDate\":\"" + $("#endDatePicker").val() +
@@ -198,7 +198,35 @@ function doAddChampionship() {
 
 function editChampionship(i) {
     var rowID = "#championshipRow" + i;
-    var title = $(rowID).child(0).val();
+    var titleID = rowID + "Title";
+    var ChampionshiptypeID = rowID + "ChampionType";
+    var CompetingtypeID = rowID + "CompetingType";
+    var StartDateID = rowID + "StartDate";
+    var EndDateID = rowID + "EndDate";
+    
+    $("#EditChampionshipTitle").val($(titleID).text().trim());
+    
+    var dropdownList = document.getElementById("EditChampionshipSelected");
+    for (var i = 0; i < dropdownList.options.length; i++)
+    {
+        if (dropdownList.options[i].text == $(ChampionshiptypeID).text().trim())
+        {
+            dropdownList.options[i].selected = true;
+            break;
+        }
+    }
+
+    dropdownList = document.getElementById("EditCompetingSelected");
+    for (var i = 0; i < dropdownList.options.length; i++) {
+        if (dropdownList.options[i].text == $(CompetingtypeID).text().trim()) {
+            dropdownList.options[i].selected = true;
+            break;
+        }
+    }
+
+    $("#startDatePickerEdit").val($(StartDateID).text().trim());
+    $("#endDatePickerEdit").val($(EndDateID).text().trim());
+
     $("#EditChampionshipDialog").dialog("open");
     _id = i;
 }

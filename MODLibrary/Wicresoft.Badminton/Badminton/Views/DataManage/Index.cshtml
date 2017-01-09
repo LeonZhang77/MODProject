@@ -50,8 +50,8 @@
                     </tr>
                     @foreach (var item in this.Model.ClubList)
                     {
-                        string clubRowId = "clubRow" + @item.ID;
-                        <tr id=clubRowId>
+                        string clubRowId = "clubRow" + @item.ID.ToString();
+                        <tr id=@clubRowId>
                             <td>
                                 @item.ID
                             </td>
@@ -167,24 +167,31 @@
                     </tr>
                     @foreach (var item in this.Model.ChampionshipList)
                     {
-                        string championshipRowID = "championshipRow" + @item.ID;
-                        <tr id=championshipRowID>
-                            <td>
+                        string championshipRowID = "championshipRow" + @item.ID.ToString();
+                        string championshipIDTDID = championshipRowID + "ID";
+                        string championshipIDTDTitle = championshipRowID + "Title";
+                        string championshipIDTDChampionType = championshipRowID + "ChampionType";
+                        string championshipIDTDCompetingType = championshipRowID + "CompetingType";
+                        string championshipIDTDStartDate = championshipRowID + "StartDate";
+                        string championshipIDTDEndDate = championshipRowID + "EndDate";
+                                        
+                        <tr id=@championshipRowID>
+                            <td id=@championshipIDTDID>
                                 @item.ID
                             </td>
-                            <td>
+                            <td id=@championshipIDTDTitle>
                                 @item.Title
                             </td>
-                            <td>
+                            <td id=@championshipIDTDChampionType>
                                 @item.ChampionType
                             </td>
-                            <td>
+                            <td id=@championshipIDTDCompetingType>
                                 @item.CompetingType
                             </td>
-                            <td>
+                            <td id=@championshipIDTDStartDate>
                                 @item.StartDate
                             </td>
-                            <td>
+                            <td id=@championshipIDTDEndDate>
                                 @item.EndDate
                             </td>
                             <td>
@@ -260,22 +267,22 @@
     <table>
         <tr>
             <td>Title</td>
-            <td><input type="text" id="EditChampionshipTitle" /></td>
+            <td><input type="text" id="EditChampionshipTitle"/></td>
         </tr>
         <tr>
             <td>Start Date:</td>
-            <td><input type="text" id="startDatePickerEdit" /></td>
+            <td><input type="text" id="startDatePickerEdit"/></td>
         </tr>
         <tr>
             <td>End Date:</td>
-            <td><input type="text" id="endDatePickerEdit" /></td>
+            <td><input type="text" id="endDatePickerEdit"/></td>
         </tr>
         <tr>
             <td>ChampionshipTypeSelectList:</td>
             <td>@Html.DropDownList("EditChampionshipSelected", this.Model.ChampionshipTypeSelectList);</td>
         </tr>
         <tr>
-            <td>ChampionshipSelected:</td>
+            <td>CompetingTypeSelectList:</td>
             <td>@Html.DropDownList("EditCompetingSelected", this.Model.CompetingTypeSelectList);</td>
         </tr>
     </table>
