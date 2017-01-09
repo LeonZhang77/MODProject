@@ -31,6 +31,11 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             return this.DataSource.ChampionshipInfos;
         }
 
+        public ChampionshipInfo GetChampionshipInfoByID(long ID)
+        {
+            return this.DataSource.ChampionshipInfos.ToList().FirstOrDefault(m => m.ID == ID);
+        }
+
         public IEnumerable<ClubInfo> GetClubInfoInfos()
         {
             return this.DataSource.ClubInfos;
@@ -44,6 +49,11 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
         public IEnumerable<MatchInfo> GetMatchInfos()
         {
             return this.DataSource.MatchInfos;
+        }
+
+        public IEnumerable<MatchInfo> GetMatchInfos(ChampionshipInfo championshipInfo)
+        {
+            return GetMatchInfos().Where(u => u.ChampionID.ID == championshipInfo.ID);         
         }
 
         public IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost)

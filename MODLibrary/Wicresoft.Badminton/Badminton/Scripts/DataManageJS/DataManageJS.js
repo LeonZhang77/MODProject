@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿var _strActionIsRecord = "Your action is record!";
+
+$(function () {
     $("#DeleteClubDialog").dialog(
     {
         autoOpen: false,
@@ -16,18 +18,75 @@
             }
         }
     });
+
+    $("#DeleteChampionshipDialog").dialog(
+    {
+        autoOpen: false,
+        resizable: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "OK": function () {
+                $(this).dialog('close');
+                doDeleteChampionship();
+            },
+            "Cancel": function () {
+                $(this).dialog('close');
+            }
+        }
+    });
+
+    $("#AddChampionshipDialog").dialog(
+    {
+        autoOpen: false,
+        resizable: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "OK": function () {
+                $(this).dialog('close');
+                doAddChampionship();
+            },
+            "Cancel": function () {
+                $(this).dialog('close');
+            }
+        }
+    });
+    $("#startDatePicker").datepicker();
+    $("#endDatePicker").datepicker();
+
+    $("#EditChampionshipDialog").dialog(
+    {
+        autoOpen: false,
+        resizable: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "OK": function () {
+                $(this).dialog('close');
+                doEditChampionship();
+            },
+            "Cancel": function () {
+                $(this).dialog('close');
+            }
+        }
+    });
+    $("#startDatePickerEdit").datepicker();
+    $("#endDatePickerEdit").datepicker();
 });
 
 var _id;
 
 function doDeleteClub()
 {
-    alert("DeleteClub");
     $(function () {
         $.ajax(
             {
                 url: $("#DeleteClubURL").attr("requstUrl"),
-                data: { q: i },
+                data: { q: _id },
                 success: function (data) {
                     if (data == "true") {
                         var approveButtonId = "clubRow" + _id;
@@ -47,3 +106,99 @@ function deleteClub(i)
     _id = i;
 }
 
+
+function doDeleteChampionship() {
+    alert($("#DeleteChampionshipURL").attr("requstUrl"));
+    $(function () {
+        $.ajax(
+            {
+                url: $("#DeleteChampionshipURL").attr("requstUrl"),
+                data: { q: _id },
+                success: function (data) {
+                    if (data == "true") {
+                        var approveButtonId = "#championshipRow" + _id;
+                        $(approveButtonId).hide();
+                    }
+                    else {
+                        alert(data);
+                    }
+                }
+            })
+    });
+}
+
+function deleteChampionship(i) {
+    $("#DeleteChampionshipDialog").dialog("open");
+    _id = i;
+}
+
+function doAddChampionship()
+{
+    var dataString = "{" + "\"title\":\"" + $("#ChampionshipTitle").val() +
+        "\",\"stratDate\":\"" + $("#startDatePicker").val() +
+        "\",\"endDate\":\"" + $("#endDatePicker").val() +
+        "\",\"Championtype\":\"" + $('#ChampionshipSelected option:selected').val() +
+        "\",\"Competingtype\":\"" + $('#CompetingSelected option:selected').val() +
+        "\"}";   
+    $(function () {
+        $.ajax(
+            {
+                url: $("#AddChampionshipURL").attr("requstUrl"),
+                data: { q: dataString },
+                success: function (data) {
+                    if (data == "true") {
+                        alert(_strActionIsRecord);
+                        $("#ChampionshipTitle").val("");
+                        $("#startDatePicker").val("");
+                        $("#endDatePicker").val("");
+                        location.reload(true);
+                        $("#mainTabContent").tabs({ active: 2 });
+                    }
+                    else {
+                        alert(data);
+                    }
+                }
+            })
+    });
+}
+
+function addChampionship()
+{
+    $("#AddChampionshipDialog").dialog("open");
+}
+
+function doAddChampionship() {
+    var dataString = "{" + "\"title\":\"" + $("#ChampionshipTitle").val() +
+        "\",\"stratDate\":\"" + $("#startDatePicker").val() +
+        "\",\"endDate\":\"" + $("#endDatePicker").val() +
+        "\",\"Championtype\":\"" + $('#ChampionshipSelected option:selected').val() +
+        "\",\"Competingtype\":\"" + $('#CompetingSelected option:selected').val() +
+        "\"}";
+    $(function () {
+        $.ajax(
+            {
+                url: $("#AddChampionshipURL").attr("requstUrl"),
+                data: { q: dataString },
+                success: function (data) {
+                    if (data == "true") {
+                        alert(_strActionIsRecord);
+                        $("#ChampionshipTitle").val("");
+                        $("#startDatePicker").val("");
+                        $("#endDatePicker").val("");
+                        location.reload(true);
+                        $("#mainTabContent").tabs({ active: 2 });
+                    }
+                    else {
+                        alert(data);
+                    }
+                }
+            })
+    });
+}
+
+function editChampionship(i) {
+    var rowID = "#championshipRow" + i;
+    var title = $(rowID).child(0).val();
+    $("#EditChampionshipDialog").dialog("open");
+    _id = i;
+}

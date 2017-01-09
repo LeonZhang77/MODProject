@@ -17,6 +17,9 @@
         <li>
             <a href="#Members" data-toggle="tab">Members</a>
         </li>
+        <li>
+            <a href="#Championships" data-toggle="tab">Championships</a>
+        </li>
     </ul>
 
     <div id="mainTabContent" class="tab-content">
@@ -62,7 +65,6 @@
                                 @Html.ActionLink("Edit", "EditClub", new { @id = item.ID })
                                 @if (!item.IsUse)
                                 {
-                                    //@Html.ActionLink("Delete", "DeleteAuthor", new { @id = item.ID }, new { onclick = "return bindConfrimDialog(this,'delete','a',false);" })
                                     <a class="btn btn-primary" onclick="deleteClub(@item.ID);" role="button">Delete</a>
                                 }
                             </td>
@@ -129,16 +131,154 @@
                 </tfoot>
             </table>
         </div>
+        <div class="tab-pane" id="Championships">
+            <table class="table">
+                <caption>Championship List</caption>
+                <thead>
+                    <tr>
+                        <td colspan="7">
+                            <a class="btn btn-primary" onclick="addChampionship();" role="button">Add</a>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Chompion Type
+                        </th>
+                        <th>
+                            Competing Type
+                        </th>
+                        <th>
+                            Start Date
+                        </th>
+                        <th>
+                            End Date
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                    @foreach (var item in this.Model.ChampionshipList)
+                    {
+                        string championshipRowID = "championshipRow" + @item.ID;
+                        <tr id=championshipRowID>
+                            <td>
+                                @item.ID
+                            </td>
+                            <td>
+                                @item.Title
+                            </td>
+                            <td>
+                                @item.ChampionType
+                            </td>
+                            <td>
+                                @item.CompetingType
+                            </td>
+                            <td>
+                                @item.StartDate
+                            </td>
+                            <td>
+                                @item.EndDate
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" onclick="editChampionship(@item.ID);" role="button">Edit</a>
+                                @if (!item.IsUse)
+                                {
+                                    <a class="btn btn-primary" onclick="deleteChampionship(@item.ID);" role="button">Delete</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr></tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 </div>
 
-    <div id="DeleteClubDialog" title="Confirm Dialog">
-        <p>
-            <br />
-            This Club will be removed and can not be recover.<br />
-            Are you sure ?
-            <br />
-            <br />
-        </p>
-    </div>
+<div id="DeleteClubDialog" title="Confirm Dialog">
+    <p>
+        <br />
+        This Club will be removed and can not be recover.<br />
+        Are you sure ?
+        <br />
+        <br />
+    </p>
+</div>
 <div style="display: none" id="DeleteClubURL" requsturl="@Url.Action("DeleteClub", "DataManage")"></div>
+
+<div id="DeleteChampionshipDialog" title="Confirm Dialog">
+    <p>
+        <br />
+        This Chompionship will be removed and can not be recover.<br />
+        Are you sure ?
+        <br />
+        <br />
+    </p>
+</div>
+<div style="display: none" id="DeleteChampionshipURL" requsturl="@Url.Action("DeleteChampionship", "DataManage")"></></div>
+
+<div id="AddChampionshipDialog" title="Confirm Dialog">
+    <br />
+    <table>
+        <tr>
+            <td>Title</td>
+            <td><input type="text" id="ChampionshipTitle" /></td>
+        </tr>
+        <tr>
+            <td>Start Date:</td>
+            <td><input type="text" id="startDatePicker" /></td>
+        </tr>
+        <tr>
+            <td>End Date:</td>
+            <td><input type="text" id="endDatePicker" /></td>
+        </tr>
+        <tr>
+            <td>ChampionshipTypeSelectList:</td>
+            <td>@Html.DropDownList("ChampionshipSelected", this.Model.ChampionshipTypeSelectList);</td>
+        </tr>
+        <tr>
+            <td>ChampionshipSelected:</td>
+            <td>@Html.DropDownList("CompetingSelected", this.Model.CompetingTypeSelectList);</td>
+        </tr>
+    </table>   
+</div>
+
+<div style="display: none" id="AddChampionshipURL" requsturl="@Url.Action("AddChampionship", "DataManage")"></div>
+
+<div id="EditChampionshipDialog" title="Confirm Dialog">
+    <br />
+    <table>
+        <tr>
+            <td>Title</td>
+            <td><input type="text" id="EditChampionshipTitle" /></td>
+        </tr>
+        <tr>
+            <td>Start Date:</td>
+            <td><input type="text" id="startDatePickerEdit" /></td>
+        </tr>
+        <tr>
+            <td>End Date:</td>
+            <td><input type="text" id="endDatePickerEdit" /></td>
+        </tr>
+        <tr>
+            <td>ChampionshipTypeSelectList:</td>
+            <td>@Html.DropDownList("EditChampionshipSelected", this.Model.ChampionshipTypeSelectList);</td>
+        </tr>
+        <tr>
+            <td>ChampionshipSelected:</td>
+            <td>@Html.DropDownList("EditCompetingSelected", this.Model.CompetingTypeSelectList);</td>
+        </tr>
+    </table>
+</div>
+
+<div style="display: none" id="AddChampionshipURL" requsturl="@Url.Action("EditChampionship", "DataManage")"></div>

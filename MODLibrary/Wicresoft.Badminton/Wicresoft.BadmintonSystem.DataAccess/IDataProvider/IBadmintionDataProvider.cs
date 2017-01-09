@@ -14,6 +14,8 @@ namespace Wicresoft.BadmintonSystem.DataAccess.IDataProvider
         void SaveBonusInfo(BonusInfo bonusInfo);   
         void DeleteBonusInfo(BonusInfo bonusInfo);
         IEnumerable<ChampionshipInfo> GetChampionshipInfos();
+
+        ChampionshipInfo GetChampionshipInfoByID(long ID);
         void SaveChampionshipInfo(ChampionshipInfo championshipInfo);
         void DeleteChampionshipInfo(ChampionshipInfo championshipInfo);
         IEnumerable<ClubInfo> GetClubInfoInfos();
@@ -21,6 +23,7 @@ namespace Wicresoft.BadmintonSystem.DataAccess.IDataProvider
         void SaveClubInfo(ClubInfo clubInfo);
         void DeleteClubInfo(ClubInfo clubInfo);
         IEnumerable<MatchInfo> GetMatchInfos();
+        IEnumerable<MatchInfo> GetMatchInfos(ChampionshipInfo championshipInfo);
         IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost);
         IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, ChampionType championType, Boolean equalOrNot);
         IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, CompetingType competingType);

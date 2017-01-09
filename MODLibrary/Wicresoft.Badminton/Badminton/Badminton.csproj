@@ -174,6 +174,7 @@
     <Compile Include="Models\BaseIndexListModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\Chart\ChartModel.cs" />
+    <Compile Include="Models\DataManage\ChampionshipModel.cs" />
     <Compile Include="Models\DataManage\ClubModel.cs" />
     <Compile Include="Models\DataManage\DataManageIndexModel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
@@ -530,7 +531,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\ScoreList\Index.cshtml" />
     <Content Include="Views\DataManage\Index.cshtml" />
-    <Content Include="Views\Shared\ConfrimDialog.cshtml" />
     <Content Include="Scripts\ui\.jshintrc" />
   </ItemGroup>
   <ItemGroup>

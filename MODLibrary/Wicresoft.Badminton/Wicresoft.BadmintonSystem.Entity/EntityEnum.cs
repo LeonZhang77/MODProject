@@ -28,17 +28,17 @@ namespace Wicresoft.BadmintonSystem.Entity
 
     public enum CompetingType
     {
-        [Description("Mix Sin")]
+        [Description("Mixed Singles")]
         MixSin = 1,
-        [Description("Male Sin")]
+        [Description("Men's Singles")]
         MaleSin = 2,
-        [Description("Female Sin")]
+        [Description("Female's Singles")]
         FemaleSin = 3,
-        [Description("Male Dou")]
+        [Description("Male's Double")]
         MaleDou = 4,
-        [Description("Female Dou")]
+        [Description("Female's Double")]
         FemaleDou = 5,
-        [Description("Mix Dou")]
+        [Description("Mixed Double")]
         MixDou = 6,
 
     }
