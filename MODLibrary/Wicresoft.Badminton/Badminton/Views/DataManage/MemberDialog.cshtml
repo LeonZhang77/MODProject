@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+
+<div id="DeleteMemberDialog" title="Delete Member">
+    <p>
+        <br />
+        This Member will be removed and can not be recover.<br />
+        Are you sure ?
+        <br />
+        <br />
+    </p>
+</div>
+<div style="display: none" id="DeleteMemberURL" requsturl="@Url.Action("DeleteMember", "DataManage")"></div>
+
+<div id="AddMemberDialog" title="Add Championship">
+    <br />
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" id="MemberName" /></td>
+        </tr>
+        <tr>
+            <td>Male:</td>
+            <td>
+                <input type="radio" value="true" name="MaleOrFemale"/>男
+                <input type="radio" value="false" name="MaleOrFemale"/>女
+            </td>
+        </tr>        
+    </table>
+</div>
+
+<div style="display: none" id="AddMemberURL" requsturl="@Url.Action("AddMember", "DataManage")"></div>
+
+<div id="EditMemberDialog" title="Edit Championship">
+    <br />
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" id="EditMemberName" /></td>
+        </tr>
+        <tr>
+            <td>Male:</td>
+            <td>
+                <input type="radio" value="true" name="EditMaleOrFemale" />男
+                <input type="radio" value="false" name="EditMaleOrFemale" />女
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div style="display: none" id="EditMemberURL" requsturl="@Url.Action("EditMember", "DataManage")"></div>

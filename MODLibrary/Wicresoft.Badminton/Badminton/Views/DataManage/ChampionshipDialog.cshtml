@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+
+@model Badminton.Models.DataManage.DataManageIndexModel
+
+<div id="DeleteChampionshipDialog" title="Confirm Dialog">
+    <p>
+        <br />
+        This Chompionship will be removed and can not be recover.<br />
+        Are you sure ?
+        <br />
+        <br />
+    </p>
+</div>
+<div style="display: none" id="DeleteChampionshipURL" requsturl="@Url.Action("DeleteChampionship", "DataManage")"></></div>
+
+<div id="AddChampionshipDialog" title="Add Championship">
+    <br />
+    <table>
+        <tr>
+            <td>Title</td>
+            <td><input type="text" id="ChampionshipTitle" /></td>
+        </tr>
+        <tr>
+            <td>Start Date:</td>
+            <td><input type="text" id="startDatePicker" /></td>
+        </tr>
+        <tr>
+            <td>End Date:</td>
+            <td><input type="text" id="endDatePicker" /></td>
+        </tr>
+        <tr>
+            <td>ChampionshipTypeSelectList:</td>
+            <td>@Html.DropDownList("ChampionshipSelected", this.Model.ChampionshipTypeSelectList);</td>
+        </tr>
+        <tr>
+            <td>ChampionshipSelected:</td>
+            <td>@Html.DropDownList("CompetingSelected", this.Model.CompetingTypeSelectList);</td>
+        </tr>
+    </table>
+</div>
+
+<div style="display: none" id="AddChampionshipURL" requsturl="@Url.Action("AddChampionship", "DataManage")"></div>
+
+<div id="EditChampionshipDialog" title="Edit Championship">
+    <br />
+    <table>
+        <tr>
+            <td>Title</td>
+            <td><input type="text" id="EditChampionshipTitle" /></td>
+        </tr>
+        <tr>
+            <td>Start Date:</td>
+            <td><input type="text" id="EditStartDatePickerEdit" /></td>
+        </tr>
+        <tr>
+            <td>End Date:</td>
+            <td><input type="text" id="EditEndDatePickerEdit" /></td>
+        </tr>
+        <tr>
+            <td>ChampionshipTypeSelectList:</td>
+            <td>@Html.DropDownList("EditChampionshipSelected", this.Model.ChampionshipTypeSelectList);</td>
+        </tr>
+        <tr>
+            <td>CompetingTypeSelectList:</td>
+            <td>@Html.DropDownList("EditCompetingSelected", this.Model.CompetingTypeSelectList);</td>
+        </tr>
+    </table>
+</div>
+
+<div style="display: none" id="EditChampionshipURL" requsturl="@Url.Action("EditChampionship", "DataManage")"></div>

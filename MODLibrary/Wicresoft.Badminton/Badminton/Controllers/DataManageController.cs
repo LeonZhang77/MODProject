@@ -9,7 +9,6 @@ using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
 using Wicresoft.BadmintonSystem.Entity;
 using Wicresoft.BadmintonSystem.Unity;
 using Newtonsoft.Json.Linq;
-using Wicresoft.BadmintonSystem.Unity;
 
 namespace Badminton.Controllers
 {
@@ -84,12 +83,46 @@ namespace Badminton.Controllers
             return "true";
         }
 
+        public string DeleteMember(long q)
+        {
+            try
+            {
+                MemberInfo memberInfo = provider.GetMemberInfoByID(q);
+                provider.DeleteMemberInfo(memberInfo);
+            }
+            catch (Exception ex) { return ex.Message; };
+
+            return "true";
+        }
+
         public string DeleteChampionship(long q)
         {
             try
             {
                 ChampionshipInfo info = provider.GetChampionshipInfoByID(q);
                 provider.DeleteChampionshipInfo(info);
+            }
+            catch (Exception ex) { return ex.Message; };
+
+            return "true";
+        }
+
+
+        public string AddMember(string q)
+        {
+            try
+            {
+                JObject obj = JObject.Parse(q);
+                string Name = (string)obj["Name"];
+                bool Male = bool.Parse((string)obj["Male"]);
+
+                MemberInfo info = new MemberInfo();
+                info.Name = Name;
+                info.Male = Male;
+                info.CreateTime = DateTime.Now;
+                info.UpdateDate = info.CreateTime;
+
+                provider.SaveMemberInfo(info);
             }
             catch (Exception ex) { return ex.Message; };
 
@@ -115,6 +148,55 @@ namespace Badminton.Controllers
                 info.CompetingType = (CompetingType)Enum.ToObject(typeof(CompetingType), Competingtype);
 
                 provider.SaveChampionshipInfo(info);
+            }
+            catch (Exception ex) { return ex.Message; };
+
+            return "true";
+        }
+
+        public string EditMember(string q)
+        {
+            try
+            {
+                JObject obj = JObject.Parse(q);
+                long ID = long.Parse((string)obj["strID"]);
+                string Name = (string)obj["Name"];
+                bool Male = bool.Parse((string)obj["Male"]);
+
+                MemberInfo info = provider.GetMemberInfoByID(ID);
+                info.Name = Name;
+                info.Male = Male;
+                info.UpdateDate = DateTime.Now;
+
+                provider.UpdateMemberInfo(info);
+
+            }
+            catch (Exception ex) { return ex.Message; };
+
+            return "true";
+        }
+
+        public string EditChampionship(string q)
+        {
+            try
+            {
+                JObject obj = JObject.Parse(q);
+                long ID = long.Parse((string)obj["strID"]);
+                string title = (string)obj["title"];
+                DateTime startDate = DateTime.Parse((string)obj["stratDate"]);
+                DateTime endDate = DateTime.Parse((string)obj["endDate"]);
+                int Championtype = int.Parse((string)obj["Championtype"]);
+                int Competingtype = int.Parse((string)obj["Competingtype"]);
+
+                ChampionshipInfo info = provider.GetChampionshipInfoByID(ID);
+                info.Title = title;
+                info.StartDate = startDate;
+                info.EndDate = endDate;
+                info.ChampionType = (ChampionType)Enum.ToObject(typeof(ChampionType), Championtype);
+                info.CompetingType = (CompetingType)Enum.ToObject(typeof(CompetingType), Competingtype);
+
+                provider.UpdateChampionshipInfo(info);
+                
             }
             catch (Exception ex) { return ex.Message; };
 

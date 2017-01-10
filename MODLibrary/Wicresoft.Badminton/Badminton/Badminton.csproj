@@ -263,7 +263,10 @@
     <None Include="Properties\PublishProfiles\LocalDeploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\DataManageJS\DataManageChampsionshipJS.js" />
+    <Content Include="Scripts\DataManageJS\DataManageClubJS.js" />
     <Content Include="Scripts\DataManageJS\DataManageJS.js" />
+    <Content Include="Scripts\DataManageJS\DataManageMemberJS.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -532,6 +535,9 @@
     <Content Include="Views\ScoreList\Index.cshtml" />
     <Content Include="Views\DataManage\Index.cshtml" />
     <Content Include="Scripts\ui\.jshintrc" />
+    <Content Include="Views\DataManage\ClubDialog.cshtml" />
+    <Content Include="Views\DataManage\ChampionshipDialog.cshtml" />
+    <Content Include="Views\DataManage\MemberDialog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

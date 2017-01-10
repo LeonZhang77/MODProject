@@ -83,8 +83,8 @@ namespace Badminton.Models.DataManage
             ChampionshipModel model = new ChampionshipModel();
             model.ID = championshipInfo.ID;
             model.Title = championshipInfo.Title;
-            model.StartDate = championshipInfo.StartDate.ToString("MM-dd-yyyy");
-            model.EndDate = championshipInfo.EndDate.ToString("MM-dd-yyyy");
+            model.StartDate = championshipInfo.StartDate.ToString("MM/dd/yyyy");
+            model.EndDate = championshipInfo.EndDate.ToString("MM/dd/yyyy");
             model.CompetingType = EnumHelper.GetEnumDescription(championshipInfo.CompetingType);
             model.ChampionType = EnumHelper.GetEnumDescription(championshipInfo.ChampionType);
             

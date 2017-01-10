@@ -125,6 +125,18 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             }
         }
 
+        public void UpdateChampionshipInfo(ChampionshipInfo championshipInfo)
+        {
+            ChampionshipInfo championship = this.GetChampionshipInfoByID(championshipInfo.ID);
+            championship.Title = championshipInfo.Title;
+            championship.CompetingType = championshipInfo.CompetingType;
+            championship.ChampionType = championshipInfo.ChampionType;
+            championship.StartDate = championshipInfo.StartDate;
+            championship.EndDate = championshipInfo.EndDate;
+
+            this.DataSource.SaveChanges();
+        }
+
         public void DeleteChampionshipInfo(ChampionshipInfo championshipInfo)
         {
             if (championshipInfo != null)
@@ -179,6 +191,15 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             }
         }
 
+        public void UpdateMemberInfo(MemberInfo memberInfo)
+        {
+            MemberInfo member = this.GetMemberInfoByID(memberInfo.ID);
+            member.Name = memberInfo.Name;
+            member.Male = memberInfo.Male;
+            member.UpdateDate = memberInfo.UpdateDate;
+            
+            this.DataSource.SaveChanges();
+        }
         public void DeleteMemberInfo(MemberInfo memberInfo)
         {
             if (memberInfo != null)
