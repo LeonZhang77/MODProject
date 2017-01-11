@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
 using Wicresoft.BadmintonSystem.Entity;
+using Wicresoft.BadmintonSystem.Unity;
 
 namespace Badminton.Controllers
 {
@@ -57,9 +58,9 @@ namespace Badminton.Controllers
         {
             double returnValue = 0;
             MemberInfo memberInfo = provider.GetMemberInfoByID(ID);
-            List<MatchInfo> matchList = provider.GetMatchInfos(memberInfo, true, ChampionType.Normal, false).ToList();
+            List<MatchInfo> matchList = DataHelper.GetMatchInfos(memberInfo, true, ChampionType.Normal, false).ToList();
             int WinCount = matchList.Count();
-            matchList = provider.GetMatchInfos(memberInfo, false, ChampionType.Normal, false).ToList();            
+            matchList = DataHelper.GetMatchInfos(memberInfo, false, ChampionType.Normal, false).ToList();            
             int LostCount = matchList.Count();
             if (WinCount != 0 && LostCount != 0)
             {
@@ -73,9 +74,9 @@ namespace Badminton.Controllers
         {
             double returnValue = 0;
             MemberInfo memberInfo = provider.GetMemberInfoByID(ID);
-            List<MatchInfo> matchList = provider.GetMatchInfos(memberInfo, true).ToList();
+            List<MatchInfo> matchList = DataHelper.GetMatchInfos(memberInfo, true).ToList();
             int WinCount = matchList.Count();
-            matchList = provider.GetMatchInfos(memberInfo, false).ToList();
+            matchList = DataHelper.GetMatchInfos(memberInfo, false).ToList();
             int LostCount = matchList.Count();
             if (WinCount != 0 && LostCount != 0)
             {
@@ -138,7 +139,7 @@ namespace Badminton.Controllers
         {
             double player1WinRate = 0.5;
             MemberInfo memberInfo = provider.GetMemberInfoByID(player1id);
-            List<MatchInfo> player1WinList = provider.GetMatchInfos(memberInfo, true, competingType).ToList();
+            List<MatchInfo> player1WinList = DataHelper.GetMatchInfos(memberInfo, true, competingType).ToList();
             foreach (MatchInfo item in player1WinList)
             {
                 if (competingType.Equals(CompetingType.MaleSin) || competingType.Equals(CompetingType.FemaleSin))
@@ -150,7 +151,7 @@ namespace Badminton.Controllers
                     if (item.LoserID.ID != player2id && item.LoserID2.ID != player2id) player1WinList.Remove(item);
                 }                
             }
-            List<MatchInfo> player1LostList = provider.GetMatchInfos(memberInfo, false, competingType).ToList();
+            List<MatchInfo> player1LostList = DataHelper.GetMatchInfos(memberInfo, false, competingType).ToList();
             foreach (MatchInfo item in player1LostList)
             {
                 if (competingType.Equals(CompetingType.MaleSin) || competingType.Equals(CompetingType.FemaleSin))

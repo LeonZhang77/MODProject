@@ -89,7 +89,6 @@ namespace Badminton.Models.DataManage
             model.ChampionType = EnumHelper.GetEnumDescription(championshipInfo.ChampionType);
             
             model.IsUse = false;
-            if (provider.GetMatchInfos(championshipInfo).Count() > 0) model.IsUse = true;
 
             return model;
         }    

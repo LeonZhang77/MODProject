@@ -45,8 +45,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataHelper.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Wicresoft.BadmintonSystem.DataAccess\Wicresoft.BadmintonSystem.DataAccess.csproj">
+      <Project>{34bf669c-dccf-459c-89f3-021588c74392}</Project>
+      <Name>Wicresoft.BadmintonSystem.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Wicresoft.BadmintonSystem.Entity\Wicresoft.BadmintonSystem.Entity.csproj">
+      <Project>{bf0a5d17-d60e-4955-b7df-d9810fab220f}</Project>
+      <Name>Wicresoft.BadmintonSystem.Entity</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Badminton.Models.MatchInput.MatchInputModel
+
+<br />
+<div>
+    <span>请选择赛事</span>
+    @Html.DropDownList("SelectChampionship", this.Model.ChampionshipList)
+</div>
+<div>
+
+
+</div>
+
+
+
+

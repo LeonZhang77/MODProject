@@ -5,6 +5,7 @@ using System.Web;
 using Wicresoft.BadmintonSystem.Entity;
 using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
 using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
+using Wicresoft.BadmintonSystem.Unity;
 
 
 namespace Badminton.Models.DataManage
@@ -53,8 +54,8 @@ namespace Badminton.Models.DataManage
             model.IsUse = false;
             if (provider.GetMemberAndClubRelations(memberInfo).Count() > 0) model.IsUse = true;
             if (provider.GetBonusInfos(memberInfo).Count() > 0) model.IsUse = true;
-            if (provider.GetMatchInfos(memberInfo, true).Count() > 0) model.IsUse = true;
-            if (provider.GetMatchInfos(memberInfo, false).Count() > 0) model.IsUse = true;
+            if (DataHelper.GetMatchInfos(memberInfo, true).Count() > 0) model.IsUse = true;
+            if (DataHelper.GetMatchInfos(memberInfo, false).Count() > 0) model.IsUse = true;
 
             return model;
         }
