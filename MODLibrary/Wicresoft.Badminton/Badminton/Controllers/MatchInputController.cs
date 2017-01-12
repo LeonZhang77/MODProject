@@ -7,6 +7,7 @@ using Badminton.Models.MatchInput;
 using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
 using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 using Wicresoft.BadmintonSystem.Entity;
+using Wicresoft.BadmintonSystem.Unity;
 
 namespace Badminton.Controllers
 {
@@ -22,6 +23,8 @@ namespace Badminton.Controllers
         {
             MatchInputModel model = new MatchInputModel();
             model.ChampionshipList = GetChampionshipList();
+            model.ChampionshipCompetingTypeList = GetChampionshipCompetingTypeList();
+            model.CompetingList = EnumHelper.GetEnumIEnumerable(CompetingType.FemaleDou);
             model.SearchMemberList = GetSearchMemberList();
             model.SearchMaleMemberList = GetSearchMemberList(true);
             model.SearchFemaleMemberList = GetSearchMemberList(false);                
@@ -37,6 +40,22 @@ namespace Badminton.Controllers
             {
                 item = new SelectListItem();
                 item.Text = info.Title;
+                item.Value = info.ID.ToString();
+                returnList.Add(item);
+            }
+            return returnList;
+        }
+
+        internal List<SelectListItem> GetChampionshipCompetingTypeList()
+        {
+            List<SelectListItem> returnList = new List<SelectListItem>();
+            List<ChampionshipInfo> infoList = provider.GetChampionshipInfos().ToList();
+            SelectListItem item;
+            foreach (ChampionshipInfo info in infoList)
+            {
+                item = new SelectListItem();
+                //item.Text = info.CompetingType.ToString();
+                item.Text = EnumHelper.GetEnumDescription(info.CompetingType);
                 item.Value = info.ID.ToString();
                 returnList.Add(item);
             }

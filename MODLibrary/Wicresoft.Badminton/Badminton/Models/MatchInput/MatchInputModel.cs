@@ -16,12 +16,20 @@ namespace Badminton.Models.MatchInput
         public MatchInputModel()
         {
             this.provider = new BadmintionDataProvider();
-            this.ChampionshipList = new List<SelectListItem>(); 
+            this.ChampionshipList = new List<SelectListItem>();
+            this.ChampionshipCompetingTypeList = new List<SelectListItem>();
+            this.CompetingList = new List<SelectListItem>();
             this.SearchMemberList = new List<SelectListItem>();
             this.SearchMaleMemberList = new List<SelectListItem>();
             this.SearchFemaleMemberList = new List<SelectListItem>();
         }
         public string ChampionshipID
+        {
+            get;
+            set;
+        }
+
+        public string CompetingTypeID
         {
             get;
             set;
@@ -88,6 +96,12 @@ namespace Badminton.Models.MatchInput
             get;
             set;
         }
+
+        public List<SelectListItem> CompetingList
+        {
+            get;
+            set;
+        }
         public List<SelectListItem> SearchMemberList
         {
             get;
@@ -105,6 +119,12 @@ namespace Badminton.Models.MatchInput
             get;
             set;
         }
+
+        public List<SelectListItem> ChampionshipCompetingTypeList
+        {
+            get;
+            set;
+        }        
 
         public MatchInfo GetEntity()
         {
