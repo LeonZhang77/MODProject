@@ -11,6 +11,14 @@
 <div style="display:none">
     @Html.DropDownList("ChompionshipCompetingTypeList", this.Model.ChampionshipCompetingTypeList)
     @Html.DropDownList("SelectCompetingType", this.Model.CompetingList)
+    @Html.DropDownList("MemberList", this.Model.SearchMemberList);
+    @Html.DropDownList("MaleMemberList", this.Model.SearchMaleMemberList);
+    @Html.DropDownList("FemaleMemberList", this.Model.SearchFemaleMemberList);
+    @Html.HiddenFor(m =>m.ChampionshipID);
+    @Html.HiddenFor(m => m.Winner1ID);
+    @Html.HiddenFor(m => m.Winner2ID);
+    @Html.HiddenFor(m => m.Loser1ID);
+    @Html.HiddenFor(m => m.Loser2ID);
 </div>
 
 <div>
@@ -18,13 +26,62 @@
     @Html.DropDownList("SelectChampionship", this.Model.ChampionshipList, new { onchange="setCompetingType()"})
     
     <span>赛事类型:</span>
-    <input type="tel" id="CompetingType" value="等待你选择" />
+    <input type="tel" id="CompetingType" value="等待你选择" readonly="readonly"/>
+</div>
+
+<div id="inputFeild">
+        <table class="table">
+            <thead></thead>
+            <tbody>
+                <tr id="MatchDateTR">
+                    <th>Match Date</th>
+                    <td>@Html.TextBoxFor(m=>m.MatchDate)</td>
+                </tr>
+                <tr id="WinnerPointsTR">
+                    <th>Winner Points</th>
+                    <td>@Html.TextBoxFor(m => m.WinnerPoints)</td>
+                </tr>
+                <tr id="LoserPointsTR">
+                    <th>Loser Points</th>
+                    <td>@Html.TextBoxFor(m => m.LoserPoints)</td>
+                </tr>
+                <tr id="Winner1TR">
+                    <th>Winner1:</th>
+                    <td>@Html.DropDownList("Winner1List", this.Model.SearchMemberList)</td>
+                </tr>
+                <tr id="Winner2TR">
+                    <th>Winner2:</th>
+                    <td>@Html.DropDownList("Winner1List", this.Model.SearchMemberList)</td>
+                </tr>
+                <tr id="Loser1TR">
+                    <th>Loser1:</th>
+                    <td>@Html.DropDownList("Loser1List", this.Model.SearchMemberList)</td>
+                </tr>
+                <tr id="Loser2TR">
+                    <th>Loser2:</th>
+                    <td>@Html.DropDownList("Loser2List", this.Model.SearchMemberList)</td>
+                </tr>
+            </tbody>
+            <tfoot >
+                <tr>
+                    <td colspan="2">
+                        <a class="btn btn-primary" onclick="addMatch()" role="button">Save</a>
+                    </td>
+                </tr>           
+        </table>
 </div>
 
 <br />
-<div>
-
+<div id="AddMatchDialog" title="Input Match">
+    <p>
+        <br />
+        This Match will be upload,<br />
+        Are you sure ?
+        <br />
+        <br />
+    </p>
 </div>
+<div style="display: none" id="AddMatchURL" requsturl="@Url.Action("AddMatch", "MatchInput")"></></div>
 
 
 
