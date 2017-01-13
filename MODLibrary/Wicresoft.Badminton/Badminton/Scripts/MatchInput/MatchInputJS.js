@@ -26,7 +26,6 @@ function setCompetingType()
 {
     var selectedChampionshipID = $("#SelectChampionship option:selected").val();
     
-    alert(selectedChampionshipID);
     var CompetingType;
     var dropdownList = document.getElementById("ChompionshipCompetingTypeList");
     for (var index = 0; index < dropdownList.options.length; index++) {
@@ -45,7 +44,10 @@ function setCompetingType()
     }
    
     $("#CompetingType").val(CompetingType);
-   // if (CompetingType == "" || CompetingType == "" || CompetingType == "" || CompetingType.contains("Singles"))
+    
+    $("#Winner2TR").show();
+    $("#Loser2TR").show();
+
     if (CompetingType.indexOf("Singles")!=-1)
     {
         $("#Winner2TR").hide();
@@ -54,14 +56,37 @@ function setCompetingType()
 
     if (CompetingType.indexOf("Male's") != -1)
     {
-      
+        $("#Winner1List option").remove();
+        $("#Winner2List option").remove();
+        $("#Loser1List option").remove();
+        $("#Loser2List option").remove();
+        $("#MaleMemberList option").clone(true).appendTo("#Winner1List");
+        $("#MaleMemberList option").clone(true).appendTo("#Winner2List");
+        $("#MaleMemberList option").clone(true).appendTo("#Loser1List");
+        $("#MaleMemberList option").clone(true).appendTo("#Loser2List");
     }
 
     if (CompetingType.indexOf("Female's") != -1)
     {
-        $("Winner1List").empty();
+        $("#Winner1List option").remove();
+        $("#Winner2List option").remove();
+        $("#Loser1List option").remove();
+        $("#Loser2List option").remove();
+        $("#FemaleMemberList option").clone(true).appendTo("#Winner1List");
+        $("#FemaleMemberList option").clone(true).appendTo("#Winner2List");
+        $("#FemaleMemberList option").clone(true).appendTo("#Loser1List");
+        $("#FemaleMemberList option").clone(true).appendTo("#Loser2List");
+    }
 
-
+    if (CompetingType.indexOf("Mixed") != -1) {
+        $("#Winner1List option").remove();
+        $("#Winner2List option").remove();
+        $("#Loser1List option").remove();
+        $("#Loser2List option").remove();
+        $("#MemberList option").clone(true).appendTo("#Winner1List");
+        $("#MemberList option").clone(true).appendTo("#Winner2List");
+        $("#MemberList option").clone(true).appendTo("#Loser1List");
+        $("#MemberList option").clone(true).appendTo("#Loser2List");
     }
 
     $("#inputFeild").show();
