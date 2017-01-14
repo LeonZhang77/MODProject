@@ -1,4 +1,6 @@
-﻿$(function(){
+﻿var _strActionIsRecord = "Your action is record!";
+
+$(function () {
     $("#MatchDate").datepicker();
     $("#inputFeild").hide();
 
@@ -24,11 +26,6 @@
 
 var _CompetingType;
 var _ChampionshipID;
-//var _InputPersonID;
-//var _Winner1ID;
-//var _Winner2ID;
-//var _Loser1ID;
-//var _Loser2ID;
 
 function setCompetingType()
 {
@@ -100,36 +97,8 @@ function setCompetingType()
     $("#inputFeild").show();
 }
 
-//function setInputPersonID() {
-//    _InputPersonID = $("#InputPersonList option:selected").val();
-//}
-
-//function setWinner1ID()
-//{
-//    _Winner1ID = $("#Winner1List option:selected").val();
-//}
-
-//function setWinner2ID() {
-//    _Winner2ID = $("#Winner2List option:selected").val();
-//}
-
-//function setLoser1ID() {
-//    _Loser1ID = $("#Loser1List option:selected").val();
-//}
-
-//function setLoser2ID() {
-//    _Loser2ID = $("#Loser2List option:selected").val();
-//}
-
 function doAddMatch()
 {
-    //var dataString = "{" + "\"InputPersonID\":\"" + _InputPersonID +
-    //    "\",\"Championship\":\"" + _ChampionshipID +
-    //    "\",\"Winner1ID\":\"" + _Winner1ID +
-    //    "\",\"Loser1ID\":\"" + _Loser1ID +
-    //    "\",\"WinnerPoints\":\"" + $('#WinnerPoints').val() +
-    //    "\",\"LoserPoints\":\"" + $('#LoserPoints').val() +
-    //    "\",\"MatchDate\":\"" + $('#MatchDate').val();
     var dataString = "{" + "\"InputPersonID\":\"" + $("#InputPersonList option:selected").val() +
        "\",\"Championship\":\"" + $("#SelectChampionship option:selected").val() +
        "\",\"Winner1ID\":\"" + $("#Winner1List option:selected").val() +

@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MatchInputController.cs" />
+    <Compile Include="Controllers\MatchVerifyController.cs" />
     <Compile Include="Controllers\ScoreListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -183,6 +184,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\DataManage\MemberModel.cs" />
     <Compile Include="Models\MatchInput\MatchInputModel.cs" />
+    <Compile Include="Models\MatchVerify\MatchModel.cs" />
+    <Compile Include="Models\MatchVerify\MatchVerifyIndexModel.cs" />
     <Compile Include="Models\ScoreList\ScoreListIndexModel.cs" />
     <Compile Include="Models\ScoreList\ScoreMemberModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -542,6 +545,7 @@
     <Content Include="Views\DataManage\ChampionshipDialog.cshtml" />
     <Content Include="Views\DataManage\MemberDialog.cshtml" />
     <Content Include="Views\MatchInput\Index.cshtml" />
+    <Content Include="Views\MatchVerify\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
