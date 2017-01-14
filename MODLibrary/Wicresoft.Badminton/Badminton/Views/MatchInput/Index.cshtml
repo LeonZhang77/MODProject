@@ -14,13 +14,7 @@
     @Html.DropDownList("MemberList", this.Model.SearchMemberList);
     @Html.DropDownList("MaleMemberList", this.Model.SearchMaleMemberList);
     @Html.DropDownList("FemaleMemberList", this.Model.SearchFemaleMemberList);
-    @Html.HiddenFor(m =>m.ChampionshipID);
-    @Html.HiddenFor(m => m.Winner1ID);
-    @Html.HiddenFor(m => m.Winner2ID);
-    @Html.HiddenFor(m => m.Loser1ID);
-    @Html.HiddenFor(m => m.Loser2ID);
 </div>
-
 <div>
     <span>请选择赛事:</span>
     @Html.DropDownList("SelectChampionship", this.Model.ChampionshipList, new { onchange="setCompetingType()"})
@@ -33,9 +27,13 @@
         <table class="table">
             <thead></thead>
             <tbody>
-                <tr id="MatchDateTR">
+                <tr>
                     <th>Match Date</th>
                     <td>@Html.TextBoxFor(m=>m.MatchDate)</td>
+                </tr>
+                <tr>
+                    <th>提交者</th>
+                    <td>@Html.DropDownList("InputPersonList", this.Model.SearchMemberList)</td>
                 </tr>
                 <tr id="WinnerPointsTR">
                     <th>Winner Points</th>

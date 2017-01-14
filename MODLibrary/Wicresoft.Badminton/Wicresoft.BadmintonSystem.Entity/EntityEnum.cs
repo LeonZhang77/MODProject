@@ -30,7 +30,7 @@ namespace Wicresoft.BadmintonSystem.Entity
     {
         [Description("Mixed Singles")]
         MixSin = 1,
-        [Description("Men's Singles")]
+        [Description("Male's Singles")]
         MaleSin = 2,
         [Description("Female's Singles")]
         FemaleSin = 3,

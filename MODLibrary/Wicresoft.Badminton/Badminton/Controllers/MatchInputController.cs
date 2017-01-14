@@ -8,6 +8,8 @@ using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
 using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 using Wicresoft.BadmintonSystem.Entity;
 using Wicresoft.BadmintonSystem.Unity;
+using Newtonsoft.Json.Linq;
+using Wicresoft.BadmintonSystem.Unity;
 
 namespace Badminton.Controllers
 {
@@ -93,6 +95,38 @@ namespace Badminton.Controllers
                 }            
             }
             return returnList;
+        }
+
+        public string AddMatch(string q)
+        {
+            try
+            {
+                JObject obj = JObject.Parse(q);
+                
+                MatchInfo info = new MatchInfo();
+                info.ChampionID = provider.GetChampionshipInfoByID(long.Parse((string)obj["Championship"]));
+                info.CreateTime = DateTime.Now;
+                info.LoserID = provider.GetMemberInfoByID(long.Parse((string)obj["Loser1ID"]));
+                //info.LoserID2 = new MemberInfo();
+                info.LoserPoints = Int32.Parse((string)obj["LoserPoints"]);
+                info.MatchDate = DateTime.Parse((string)obj["MatchDate"]);
+                info.WinnerID = provider.GetMemberInfoByID(long.Parse((string)obj["Winner1ID"]));
+                //info.WinnerID2 = new MemberInfo();
+                info.WinnerPoints = Int32.Parse((string)obj["WinnerPoints"]);
+                //info.Compensation = 0;
+                //info.Updated = false;
+                //info.InputPerson, waiting for Jacky
+                
+                if (!EnumHelper.GetEnumDescription((info.ChampionID.CompetingType)).Contains("Singles"))
+                {
+                    info.WinnerID2 = provider.GetMemberInfoByID(long.Parse((string)obj["Winner2ID"]));
+                    info.LoserID2 = provider.GetMemberInfoByID(long.Parse((string)obj["Loser2ID"]));
+                }
+                provider.SaveMatchInfo(info);
+            }
+            catch (Exception ex) { return ex.Message; };
+
+            return "true";
         }
     }
 }
