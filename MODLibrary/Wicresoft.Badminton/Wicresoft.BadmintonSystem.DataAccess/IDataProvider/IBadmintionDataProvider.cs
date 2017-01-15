@@ -26,7 +26,10 @@ namespace Wicresoft.BadmintonSystem.DataAccess.IDataProvider
         void DeleteClubInfo(ClubInfo clubInfo);
         
         IEnumerable<MatchInfo> GetMatchInfos();
+        MatchInfo GetMatchInfoByID(long ID);
         void SaveMatchInfo(MatchInfo matchInfo);
+        void UpdateMatchInfo(MatchInfo matchInfo);
+
         void DeleteMatchInfo(MatchInfo matchInfo);        
         
         IEnumerable<MemberInfo> GetMemberInfos();

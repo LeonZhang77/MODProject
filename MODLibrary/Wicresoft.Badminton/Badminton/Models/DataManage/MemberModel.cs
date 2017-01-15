@@ -54,9 +54,17 @@ namespace Badminton.Models.DataManage
             model.IsUse = false;
             if (provider.GetMemberAndClubRelations(memberInfo).Count() > 0) model.IsUse = true;
             if (provider.GetBonusInfos(memberInfo).Count() > 0) model.IsUse = true;
-            if (DataHelper.GetMatchInfos(memberInfo, true).Count() > 0) model.IsUse = true;
-            if (DataHelper.GetMatchInfos(memberInfo, false).Count() > 0) model.IsUse = true;
-
+            List<MatchInfo> matchList = provider.GetMatchInfos().ToList();
+            foreach (MatchInfo item in matchList)
+            {
+                if (item.InputPersonID.ID == memberInfo.ID ||
+                    item.WinnerID.ID == memberInfo.ID || item.WinnerID2.ID == memberInfo.ID ||
+                    item.LoserID.ID == memberInfo.ID || item.LoserID2.ID == memberInfo.ID)
+                {
+                    model.IsUse = true;
+                    break;
+                }
+            }
             return model;
         }
     }

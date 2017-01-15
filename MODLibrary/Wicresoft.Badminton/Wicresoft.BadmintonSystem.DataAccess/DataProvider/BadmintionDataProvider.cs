@@ -43,12 +43,17 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
 
         public ClubInfo GetClubInfoByID(long ID)
         { 
-            return this.DataSource.ClubInfos.FirstOrDefault(u=>u.ID==ID);
+            return this.DataSource.ClubInfos.FirstOrDefault(u=>u.ID == ID);
         }
 
         public IEnumerable<MatchInfo> GetMatchInfos()
         {
             return this.DataSource.MatchInfos;
+        }
+
+        public MatchInfo GetMatchInfoByID(long ID)
+        {
+            return this.DataSource.MatchInfos.FirstOrDefault(u => u.ID == ID);
         }
 
         public IEnumerable<MemberInfo> GetMemberInfos()
@@ -142,9 +147,32 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
 
                 this.DataSource.MatchInfos.Add(matchInfo);
                 this.DataSource.SaveChanges();
-            }
+            }            
         }
 
+        public void UpdateMatchInfo(MatchInfo matchInfo)
+        {
+            MatchInfo match = this.GetMatchInfoByID(matchInfo.ID);
+            
+            match.Compensation = matchInfo.Compensation;
+            match.CreateTime = matchInfo.CreateTime;
+            match.Ignore = matchInfo.Ignore;
+            match.LoserPoints = matchInfo.LoserPoints;
+            match.MatchDate = matchInfo.MatchDate;
+            match.Updated = matchInfo.Updated;
+            match.VerifyDate = matchInfo.VerifyDate;
+            match.Verified = matchInfo.Verified;
+            
+            if (matchInfo.ChampionID != null) { match.ChampionID = this.DataSource.ChampionshipInfos.Find(matchInfo.ChampionID.ID); }
+            if (matchInfo.InputPersonID != null) { match.InputPersonID = this.DataSource.MemberInfos.Find(matchInfo.InputPersonID.ID); }
+            if (matchInfo.WinnerID != null) { match.WinnerID = this.DataSource.MemberInfos.Find(matchInfo.WinnerID.ID); }
+            if (matchInfo.WinnerID2 != null) { match.WinnerID2 = this.DataSource.MemberInfos.Find(matchInfo.WinnerID2.ID); }
+            if (matchInfo.LoserID != null) { match.WinnerID = this.DataSource.MemberInfos.Find(matchInfo.LoserID.ID); }
+            if (matchInfo.LoserID2 != null) { match.WinnerID = this.DataSource.MemberInfos.Find(matchInfo.LoserID2.ID); }
+
+
+            this.DataSource.SaveChanges();
+        }
         public void DeleteMatchInfo(MatchInfo matchInfo)
         {
             if (matchInfo != null)

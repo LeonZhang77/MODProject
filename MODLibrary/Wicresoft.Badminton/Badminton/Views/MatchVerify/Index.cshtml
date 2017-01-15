@@ -4,7 +4,7 @@
 }
 @model Badminton.Models.MatchVerify.MatchVerifyIndexModel
 @section scripts{
-    @Scripts.Render("~/Scripts/RentManageJS/RentIndexJS.js")
+    @Scripts.Render("~/Scripts/MatchVerify/MatchVerifyJS.js")
 }
 
 @using (Html.BeginForm())
@@ -30,6 +30,7 @@
                                     <th>获胜选手2</th>
                                     <th>失败选手1</th>
                                     <th>失败选手2</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,6 +64,11 @@
                                         <td>
                                             @item.Loser2Name
                                         </td>
+                                        <td>
+                                            <a class="btn btn-primary" onclick="deleteMatch(@item.ID);" role="button">Delete</a>
+                                            <a class="btn btn-primary" onclick="validMatch(@item.ID);" role="button">Valid</a>                                            
+                                        </td>
+                                        
                                     </tr>
 
                                 }
@@ -91,10 +97,11 @@
                                 <th>获胜选手2</th>
                                 <th>失败选手1</th>
                                 <th>失败选手2</th>
+                                <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in this.Model.WaitingForVerifyList)
+                            @foreach (var item in this.Model.WaitingForScoreList)
                             {
                                 <tr>
                                     <td id="requestid" style="display:none">
@@ -124,7 +131,10 @@
                                     <td>
                                         @item.Loser2Name
                                     </td>
-                                </tr>
+                                    <td>                                    
+                                        
+                                        <a class="btn btn-primary" onclick="notValidMatch(@item.ID);" role="button">Not Valid</a>
+                                    </td>                          
 
                             }
                         </tbody>
@@ -138,7 +148,34 @@
 }
     
 
-    <div style="display: none" id="RejectUserRequestURL" requsturl="@Url.Action("RejectUserRequest", "RentManage")"></div>
-    
+    <div style="display: none" id="DeleteMatchURL" requsturl="@Url.Action("DeleteMatch", "MatchVerify")"></div>
+    <div style="display: none" id="ValidMatchURL" requsturl="@Url.Action("ValidMatch", "MatchVerify")"></div>
+    <div style="display: none" id="NotValidMatchURL" requsturl="@Url.Action("NotValidMatch", "MatchVerify")"></div>
 
+<div id="DeleteMatchDialog" title="Confirm Dialog">
+    <p>
+        <br />
+        This Match will be removed and can not be recover.<br />
+        Are you sure ?
+        <br />
+        <br />
+    </p>
+</div>
 
+<div id="ValidMatchDialog" title="Confirm Dialog">
+    <p>
+        <br />
+        This Match record is acceptable?
+        <br />
+        <br />
+    </p>
+</div>
+
+<div id="NotValidMatchDialog" title="Confirm Dialog">
+    <p>
+        <br />
+        This Match record isn't acceptable?
+        <br />
+        <br />
+    </p>
+</div>

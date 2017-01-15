@@ -40,5 +40,46 @@ namespace Badminton.Controllers
             }
             return View(model);
         }
+
+        public string DeleteMatch(long q)
+        {
+            try
+            {
+                MatchInfo info = provider.GetMatchInfoByID(q);
+                provider.DeleteMatchInfo(info);
+            }
+            catch (Exception ex) { return ex.Message; };
+
+            return "true";
+        }
+
+        public string ValidMatch(long q)
+        {
+            try
+            {
+                MatchInfo info = provider.GetMatchInfoByID(q);
+                info.Verified = true;
+                info.VerifyDate = DateTime.Now;                
+                provider.UpdateMatchInfo(info);
+            }
+            catch (Exception ex) { return ex.Message; };
+
+            return "true";
+        }
+
+        public string NotValidMatch(long q)
+        {
+            try
+            {
+                MatchInfo info = provider.GetMatchInfoByID(q);
+                info.Verified = false;
+                info.VerifyDate = DateTime.Now;
+                provider.UpdateMatchInfo(info);
+            }
+            catch (Exception ex) { return ex.Message; };
+
+            return "true";
+        }
+        
     }
 }
