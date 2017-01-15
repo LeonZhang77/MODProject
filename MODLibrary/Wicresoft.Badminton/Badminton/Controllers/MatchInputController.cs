@@ -107,15 +107,15 @@ namespace Badminton.Controllers
                 info.ChampionID = provider.GetChampionshipInfoByID(long.Parse((string)obj["Championship"]));
                 info.CreateTime = DateTime.Now;
                 info.LoserID = provider.GetMemberInfoByID(long.Parse((string)obj["Loser1ID"]));
-                //info.LoserID2 = new MemberInfo();
                 info.LoserPoints = Int32.Parse((string)obj["LoserPoints"]);
                 info.MatchDate = DateTime.Parse((string)obj["MatchDate"]);
                 info.WinnerID = provider.GetMemberInfoByID(long.Parse((string)obj["Winner1ID"]));
-                //info.WinnerID2 = new MemberInfo();
                 info.WinnerPoints = Int32.Parse((string)obj["WinnerPoints"]);
-                //info.Compensation = 0;
-                //info.Updated = false;
-                //info.InputPerson, waiting for Jacky
+                info.Compensation = 0;
+                info.Updated = false;
+                info.InputPersonID = provider.GetMemberInfoByID(long.Parse((string)obj["InputPersonID"]));
+                info.VerifyDate = DateTime.Parse("01/01/1900");
+                info.Verified = false;
                 
                 if (!EnumHelper.GetEnumDescription((info.ChampionID.CompetingType)).Contains("Singles"))
                 {

@@ -27,10 +27,16 @@ namespace Badminton.Controllers
             foreach (MatchInfo item in matchList)
             {
                 matchModel = MatchModel.GetViewModel(item);
-                // Waiting for Jacky
-                //if(item.isVerified?)
-                model.WaitingForVerifyList.Add(matchModel);
-                model.WaitingForScoreList.Add(matchModel);
+                if (item.Verified)
+                {
+                    model.WaitingForScoreList.Add(matchModel); 
+                }
+                else 
+                { 
+                    model.WaitingForVerifyList.Add(matchModel); 
+                }
+                
+               
             }
             return View(model);
         }

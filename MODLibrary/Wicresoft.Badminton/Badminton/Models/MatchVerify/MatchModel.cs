@@ -59,6 +59,7 @@ namespace Badminton.Models.MatchVerify
             MatchModel matchModel = new MatchModel();
             matchModel.ID = item.ID;
             matchModel.MatchDate = item.MatchDate.ToString("MM/dd/yyyy");
+            matchModel.InputPersonName = item.InputPersonID.Name;
             matchModel.ChampionshipTitle = item.ChampionID.Title;
             matchModel.WinLosePoints = item.WinnerPoints.ToString() + ":" + item.LoserPoints.ToString();
             matchModel.Winner1Name = item.WinnerID.Name;

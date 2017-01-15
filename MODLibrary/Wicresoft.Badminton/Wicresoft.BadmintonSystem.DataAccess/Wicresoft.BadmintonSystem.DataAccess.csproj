@@ -62,6 +62,10 @@
     <Compile Include="Migrations\201612301218254_InitialMigration.Designer.cs">
       <DependentUpon>201612301218254_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701150351144_Add3ColumnsToMatchInfo.cs" />
+    <Compile Include="Migrations\201701150351144_Add3ColumnsToMatchInfo.Designer.cs">
+      <DependentUpon>201701150351144_Add3ColumnsToMatchInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,6 +82,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612301218254_InitialMigration.resx">
       <DependentUpon>201612301218254_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701150351144_Add3ColumnsToMatchInfo.resx">
+      <DependentUpon>201701150351144_Add3ColumnsToMatchInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

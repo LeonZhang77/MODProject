@@ -73,5 +73,23 @@ namespace Wicresoft.BadmintonSystem.Entity
             get;
             set;
         }
+
+        public virtual MemberInfo InputPersonID
+        {
+            get;
+            set;
+        }
+
+        public virtual DateTime VerifyDate
+        {
+            get;
+            set;
+        }
+
+        public virtual Boolean Verified
+        {
+            get;
+            set;
+        }
     }
 }
