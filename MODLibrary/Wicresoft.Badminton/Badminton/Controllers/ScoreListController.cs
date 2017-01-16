@@ -46,23 +46,23 @@ namespace Badminton.Controllers
                 temp.MemberName = item.Name;
                 temp.Male = item.Male;
                 temp.Score = item.Score;
-                temp.WinRate = GetWinRate(item.ID);
-                temp.AverageWinRate = GetAverageWinRate(item.ID);
+                temp.WinRate = GetWinRate(item);
+                temp.AverageWinRate = GetAverageWinRate(item);
                 //temp.Ranking = 1;                
                 returnList.Add(temp);
             }                        
             return returnList;
         }
 
-        internal double GetWinRate(long ID)
+        internal double GetWinRate(MemberInfo memberInfo)
         {
             double returnValue = 0;
-            MemberInfo memberInfo = provider.GetMemberInfoByID(ID);
-            List<MatchInfo> matchList = DataHelper.GetMatchInfos(memberInfo, true, ChampionType.Normal, false).ToList();
+            List<MatchInfo> matchInfos = provider.GetMatchInfos().ToList();
+            List<MatchInfo> matchList = DataHelper.GetMatchInfos(memberInfo, true, ChampionType.Normal, false, matchInfos).ToList();
             int WinCount = matchList.Count();
-            matchList = DataHelper.GetMatchInfos(memberInfo, false, ChampionType.Normal, false).ToList();            
+            matchList = DataHelper.GetMatchInfos(memberInfo, false, ChampionType.Normal, false, matchInfos).ToList();            
             int LostCount = matchList.Count();
-            if (WinCount != 0 && LostCount != 0)
+            if ((WinCount + LostCount) != 0)
             {
                 returnValue = WinCount / (WinCount + LostCount);
             }
@@ -70,15 +70,15 @@ namespace Badminton.Controllers
             return returnValue;
         }
 
-        internal double GetAverageWinRate(long ID)
+        internal double GetAverageWinRate(MemberInfo memberInfo)
         {
             double returnValue = 0;
-            MemberInfo memberInfo = provider.GetMemberInfoByID(ID);
-            List<MatchInfo> matchList = DataHelper.GetMatchInfos(memberInfo, true).ToList();
+            List<MatchInfo> matchInfos = provider.GetMatchInfos().ToList();
+            List<MatchInfo> matchList = DataHelper.GetMatchInfos(memberInfo, true, matchInfos).ToList();
             int WinCount = matchList.Count();
-            matchList = DataHelper.GetMatchInfos(memberInfo, false).ToList();
+            matchList = DataHelper.GetMatchInfos(memberInfo, false, matchInfos).ToList();
             int LostCount = matchList.Count();
-            if (WinCount != 0 && LostCount != 0)
+            if ((WinCount + LostCount) != 0)
             {
                 returnValue = WinCount / (WinCount + LostCount);
             }
@@ -139,10 +139,21 @@ namespace Badminton.Controllers
         {
             double player1WinRate = 0.5;
             MemberInfo memberInfo = provider.GetMemberInfoByID(player1id);
-            List<MatchInfo> player1WinList = DataHelper.GetMatchInfos(memberInfo, true, competingType).ToList();
+            List<MatchInfo> matchInfos = provider.GetMatchInfos().ToList();
+            List<MatchInfo> player1WinList = DataHelper.GetMatchInfos(memberInfo, true, competingType, matchInfos).ToList();
+            List<MatchInfo> tempList;
+            if (EnumHelper.GetEnumDescription(competingType).Contains("Singles"))
+            {
+                tempList = DataHelper.GetMatchInfos(memberInfo, true, CompetingType.MixSin, matchInfos).ToList();
+                foreach (MatchInfo info in tempList)
+                {
+                    player1WinList.Add(info);
+                }
+            }
+
             foreach (MatchInfo item in player1WinList)
             {
-                if (competingType.Equals(CompetingType.MaleSin) || competingType.Equals(CompetingType.FemaleSin))
+                if (EnumHelper.GetEnumDescription(competingType).Contains("Singles"))
                 {
                     if (item.LoserID.ID != player2id) player1WinList.Remove(item);
                 }
@@ -151,10 +162,19 @@ namespace Badminton.Controllers
                     if (item.LoserID.ID != player2id && item.LoserID2.ID != player2id) player1WinList.Remove(item);
                 }                
             }
-            List<MatchInfo> player1LostList = DataHelper.GetMatchInfos(memberInfo, false, competingType).ToList();
+            List<MatchInfo> player1LostList = DataHelper.GetMatchInfos(memberInfo, false, competingType, matchInfos).ToList();
+            if (EnumHelper.GetEnumDescription(competingType).Contains("Singles"))
+            {
+                tempList = DataHelper.GetMatchInfos(memberInfo, false, CompetingType.MixSin, matchInfos).ToList();
+                foreach (MatchInfo info in tempList)
+                {
+                    player1WinList.Add(info);
+                }
+            }
+
             foreach (MatchInfo item in player1LostList)
             {
-                if (competingType.Equals(CompetingType.MaleSin) || competingType.Equals(CompetingType.FemaleSin))
+                if (EnumHelper.GetEnumDescription(competingType).Contains("Singles"))
                 {
                     if (item.WinnerID.ID != player2id) player1LostList.Remove(item);
                 }
@@ -164,7 +184,7 @@ namespace Badminton.Controllers
                 }                
             }
 
-            if (player1WinList.Count() != 0 && player1LostList.Count() != 0)
+            if ((player1WinList.Count + player1LostList.Count()) != 0)
             {
                 player1WinRate = player1WinList.Count() / (player1WinList.Count + player1LostList.Count());
             }

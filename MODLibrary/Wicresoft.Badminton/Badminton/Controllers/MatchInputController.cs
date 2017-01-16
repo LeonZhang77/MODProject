@@ -56,7 +56,6 @@ namespace Badminton.Controllers
             foreach (ChampionshipInfo info in infoList)
             {
                 item = new SelectListItem();
-                //item.Text = info.CompetingType.ToString();
                 item.Text = EnumHelper.GetEnumDescription(info.CompetingType);
                 item.Value = info.ID.ToString();
                 returnList.Add(item);

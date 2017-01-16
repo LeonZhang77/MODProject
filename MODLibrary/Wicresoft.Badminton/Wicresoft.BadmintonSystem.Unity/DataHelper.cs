@@ -3,48 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Wicresoft.BadmintonSystem.Entity;
-using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
-using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
 
 namespace Wicresoft.BadmintonSystem.Unity
 {
     public class DataHelper
     {
-                   
-        public static IEnumerable<MatchInfo> GetMatchInfos(ChampionshipInfo championshipInfo)
+        public static List<MatchInfo> GetMatchInfos(ChampionshipInfo championshipInfo, List<MatchInfo> matchInfos)
         {
-            IBadmintionDataProvider provider = new BadmintionDataProvider(); 
-            return provider.GetMatchInfos().Where(u => u.ChampionID.ID == championshipInfo.ID);
+            return matchInfos.Where(u => u.ChampionID.ID == championshipInfo.ID).ToList();
         }
 
-        public static IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost)
+        public static List<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, List<MatchInfo> matchInfos)
         {
-            IBadmintionDataProvider provider = new BadmintionDataProvider(); 
-            IEnumerable<MatchInfo> returnValue = provider.GetMatchInfos();
+            List<MatchInfo> returnValue = matchInfos;
             long ID = memberInfo.ID;
 
             if (WinOrLost)
-            { returnValue = returnValue.Where(u => u.WinnerID.ID == ID || u.WinnerID2.ID == ID); }
+            { returnValue = returnValue.Where(u => u.WinnerID.ID == ID || (u.WinnerID2 != null && u.WinnerID2.ID==ID)).ToList(); }
             else
-            { returnValue = returnValue.Where(u => u.LoserID.ID == ID || u.LoserID2.ID == ID); }
+            { returnValue = returnValue.Where(u => u.LoserID.ID == ID || (u.LoserID2 != null && u.LoserID2.ID == ID)).ToList(); }
 
             return returnValue;
         }
 
-        public  static IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, ChampionType championType, Boolean equalOrNot)
+        public static List<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, ChampionType championType, Boolean equalOrNot, List<MatchInfo> matchInfos)
         {
-            IEnumerable<MatchInfo> returnValue = GetMatchInfos(memberInfo, WinOrLost);
+            List<MatchInfo> returnValue = GetMatchInfos(memberInfo, WinOrLost, matchInfos);
             if (equalOrNot)
-            { returnValue = returnValue.Where(u => u.ChampionID.ChampionType.Equals(championType)); }
+            { returnValue = returnValue.Where(u => u.ChampionID.ChampionType.Equals(championType)).ToList(); }
             else
-            { returnValue = returnValue.Where(u => !u.ChampionID.ChampionType.Equals(championType)); }
+            { returnValue = returnValue.Where(u => !u.ChampionID.ChampionType.Equals(championType)).ToList(); }
             return returnValue;
         }
 
-        public static IEnumerable<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, CompetingType competingType)
+        public static List<MatchInfo> GetMatchInfos(MemberInfo memberInfo, Boolean WinOrLost, CompetingType competingType, List<MatchInfo> matchInfos)
         {
-            IEnumerable<MatchInfo> returnValue = GetMatchInfos(memberInfo, WinOrLost);
-            returnValue = returnValue.Where(u => u.ChampionID.CompetingType.Equals(competingType));
+            List<MatchInfo> returnValue = GetMatchInfos(memberInfo, WinOrLost, matchInfos);
+            returnValue = returnValue.Where(u => u.ChampionID.CompetingType.Equals(competingType)).ToList();
             return returnValue;
         }
     }

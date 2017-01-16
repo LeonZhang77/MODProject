@@ -2,13 +2,14 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @model Badminton.Models.MatchVerify.MatchVerifyIndexModel
+
 @section scripts{
     @Scripts.Render("~/Scripts/MatchVerify/MatchVerifyJS.js")
 }
+<br />
 
-@using (Html.BeginForm())
-{
     <div class="jumbotron">
         <div class="accordion" id="accordion2">
             <div class="accordion-group">
@@ -134,9 +135,9 @@
                                     <td>                                    
                                         
                                         <a class="btn btn-primary" onclick="notValidMatch(@item.ID);" role="button">Not Valid</a>
-                                    </td>                          
-
-                            }
+                                    </td>
+                                  </tr>                          
+                            }                        
                         </tbody>
                     </table>
                 </div>
@@ -145,7 +146,6 @@
         
     </div>
 
-}
     
 
     <div style="display: none" id="DeleteMatchURL" requsturl="@Url.Action("DeleteMatch", "MatchVerify")"></div>

@@ -142,8 +142,8 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
                 if (matchInfo.InputPersonID != null) { matchInfo.InputPersonID = this.DataSource.MemberInfos.Find(matchInfo.InputPersonID.ID); }
                 if (matchInfo.WinnerID != null) { matchInfo.WinnerID = this.DataSource.MemberInfos.Find(matchInfo.WinnerID.ID); }
                 if (matchInfo.WinnerID2 != null) { matchInfo.WinnerID2 = this.DataSource.MemberInfos.Find(matchInfo.WinnerID2.ID); }
-                if (matchInfo.LoserID != null) { matchInfo.WinnerID = this.DataSource.MemberInfos.Find(matchInfo.LoserID.ID); }
-                if (matchInfo.LoserID2 != null) { matchInfo.WinnerID = this.DataSource.MemberInfos.Find(matchInfo.LoserID2.ID); }
+                if (matchInfo.LoserID != null) { matchInfo.LoserID = this.DataSource.MemberInfos.Find(matchInfo.LoserID.ID); }
+                if (matchInfo.LoserID2 != null) { matchInfo.LoserID2 = this.DataSource.MemberInfos.Find(matchInfo.LoserID2.ID); }
 
                 this.DataSource.MatchInfos.Add(matchInfo);
                 this.DataSource.SaveChanges();

@@ -58,8 +58,8 @@ namespace Badminton.Models.DataManage
             foreach (MatchInfo item in matchList)
             {
                 if (item.InputPersonID.ID == memberInfo.ID ||
-                    item.WinnerID.ID == memberInfo.ID || item.WinnerID2.ID == memberInfo.ID ||
-                    item.LoserID.ID == memberInfo.ID || item.LoserID2.ID == memberInfo.ID)
+                    item.WinnerID.ID == memberInfo.ID || (item.WinnerID2 != null && item.WinnerID2.ID == memberInfo.ID) ||
+                    item.LoserID.ID == memberInfo.ID || (item.LoserID2 != null && item.LoserID2.ID == memberInfo.ID))
                 {
                     model.IsUse = true;
                     break;
