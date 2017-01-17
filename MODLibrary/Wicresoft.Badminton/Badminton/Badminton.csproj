@@ -188,6 +188,8 @@
     <Compile Include="Models\MatchVerify\MatchVerifyIndexModel.cs" />
     <Compile Include="Models\ScoreList\ScoreListIndexModel.cs" />
     <Compile Include="Models\ScoreList\ScoreMemberModel.cs" />
+    <Compile Include="Models\ScoreManage\InitialScore\InitialScoreIndex.cs" />
+    <Compile Include="Models\ScoreManage\InitialScore\InitialScoreMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
