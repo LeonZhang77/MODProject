@@ -17,6 +17,7 @@ namespace Badminton.Controllers
         IBadmintionDataProvider provider;
         List<DataHelper.MemberRank> rankList;
         List<MatchInfo> matchList;
+        ScoreCalcIndexModel model;
         public ScoreCalcController()
         {
             provider = new BadmintionDataProvider();
@@ -24,12 +25,13 @@ namespace Badminton.Controllers
             rankList = DataHelper.GetMemberRank(memberList);
             matchList = provider.GetMatchInfos().ToList();
             matchList = matchList.Where(u => !u.Updated && u.Verified).ToList();
+            model = new ScoreCalcIndexModel();
+            model.WaitingMatchList = GetWaitingMatchList(matchList);
         }
 
         public ActionResult Index(long searchselectedID = 0)
         {
-            ScoreCalcIndexModel model = new ScoreCalcIndexModel();
-            model.WaitingMatchList = GetWaitingMatchList(matchList);            
+                        
             return View(model);
         }
 
@@ -37,8 +39,49 @@ namespace Badminton.Controllers
         public ActionResult Index(ScoreCalcIndexModel modelInput)
         {
             modelInput.WaitingMatchList = GetWaitingMatchList(matchList);
-            ScoreCalcIndexModel model = CalcAndGoToReview(modelInput);
+            model = CalcAndGoToReview(modelInput);
             return View(model);
+        }
+
+        public string RecordToDB()
+        {
+
+            try
+            {
+                SaveBonusInfors(model.AddBonusInfoList);
+                SaveScoreinfors(model.AddScoreInfoList);
+                UpdateMemberScore(model.UpdateMemberList);
+            }
+            catch (Exception ex) { return ex.Message; };
+
+            return "true";
+        }
+
+        internal void SaveBonusInfors(List<AddBonusInfo> AddBonusInfoList)
+        {
+            foreach (AddBonusInfo item in AddBonusInfoList)
+            {
+                BonusInfo info = AddBonusInfo.GetEntity(item);
+                provider.SaveBonusInfo(info);
+            }
+        }
+
+        internal void SaveScoreinfors(List<AddScoreInfo> AddScoreInfoList)
+        {
+            foreach (AddScoreInfo item in AddScoreInfoList)
+            {
+                ScoreInfo info = AddScoreInfo.GetEntity(item);
+                provider.SaveScoreInfo(info);
+            }
+        }
+
+        internal void UpdateMemberScore(List<ScoreUpdateMember> UpdateMemberList)
+        {
+            foreach (ScoreUpdateMember item in UpdateMemberList)
+            {
+                MemberInfo info = ScoreUpdateMember.GetEntity(item);
+                provider.UpdateMemberInfo(info);
+            }
         }
         public ScoreCalcIndexModel CalcAndGoToReview(ScoreCalcIndexModel model)
         {
@@ -263,6 +306,7 @@ namespace Badminton.Controllers
             AddBonusInfo info = new AddBonusInfo();
             info.ChampionID = matchInfo.ChampionID.ID;
             info.ChampionTitle = matchInfo.ChampionID.Title;
+            info.MatchID = matchInfo.ID;
             info.CreateTime = DateTime.Now;            
             return info;
         }

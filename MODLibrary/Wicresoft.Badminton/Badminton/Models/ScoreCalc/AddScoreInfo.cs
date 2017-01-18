@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Wicresoft.BadmintonSystem.Entity;
+using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
+using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 
 namespace Badminton.Models.ScoreCalc
 {
@@ -29,6 +32,17 @@ namespace Badminton.Models.ScoreCalc
         {
             get;
             set;
+        }
+
+        public static ScoreInfo GetEntity(AddScoreInfo item)
+        {
+            IBadmintionDataProvider provider = new BadmintionDataProvider();
+            ScoreInfo scoreInfo= new ScoreInfo();
+            scoreInfo.MemberID = provider.GetMemberInfoByID(item.MemberID);
+            scoreInfo.Score = Int32.Parse(item.Score.ToString());
+            scoreInfo.CreateTime = DateTime.Now;
+            scoreInfo.Comment = item.Comments;
+            return scoreInfo;
         }
     }
 }

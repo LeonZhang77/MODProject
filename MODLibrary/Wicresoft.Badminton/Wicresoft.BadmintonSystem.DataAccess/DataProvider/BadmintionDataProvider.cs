@@ -196,6 +196,7 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             MemberInfo member = this.GetMemberInfoByID(memberInfo.ID);
             member.Name = memberInfo.Name;
             member.Male = memberInfo.Male;
+            member.Score = memberInfo.Score;
             member.UpdateDate = memberInfo.UpdateDate;
             
             this.DataSource.SaveChanges();
