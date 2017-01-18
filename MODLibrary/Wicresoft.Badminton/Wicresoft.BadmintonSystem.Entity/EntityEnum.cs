@@ -13,6 +13,8 @@ namespace Wicresoft.BadmintonSystem.Entity
         Rank = 1,
         [Description("Final")]
         Final = 2,
+        [Description("Base")]
+        Base = 3,
     }
 
     public enum ChampionType

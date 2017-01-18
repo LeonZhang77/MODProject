@@ -37,7 +37,7 @@ namespace Badminton.Controllers
         {
             List<ScoreMemberModel> returnList = new List<ScoreMemberModel>();
             List<MemberInfo> memberList = provider.GetMemberInfos().ToList();
-            
+            List<DataHelper.MemberRank> rankList = DataHelper.GetMemberRank(memberList);
             ScoreMemberModel temp;
             foreach (var item in memberList)
             {
@@ -48,11 +48,11 @@ namespace Badminton.Controllers
                 temp.Score = item.Score;
                 temp.WinRate = GetWinRate(item);
                 temp.AverageWinRate = GetAverageWinRate(item);
-                //temp.Ranking = 1;                
+                temp.Ranking = rankList.Find(u => u.MemberID == item.ID).Rank;
                 returnList.Add(temp);
             }                        
             return returnList;
-        }
+        }       
 
         internal double GetWinRate(MemberInfo memberInfo)
         {

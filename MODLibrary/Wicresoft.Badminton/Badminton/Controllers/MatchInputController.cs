@@ -9,7 +9,6 @@ using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 using Wicresoft.BadmintonSystem.Entity;
 using Wicresoft.BadmintonSystem.Unity;
 using Newtonsoft.Json.Linq;
-using Wicresoft.BadmintonSystem.Unity;
 
 namespace Badminton.Controllers
 {

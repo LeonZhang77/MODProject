@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Badminton.Models.ScoreCalc.ScoreCalcIndexModel
+@section scripts{
+    @Scripts.Render("~/Scripts/ScoreCaleJS/ScoreCalcJS.js")    
+}
+
+@using (Html.BeginForm())
+{
+    <div style="width:1100px">
+    <div style="width:600px; height:600px;border:1px;float:right; text-align:center;border:double;overflow:scroll;">        
+        <table>
+            <caption>参数设置</caption>
+            <thead></thead>
+            <tbody>
+                <tr>
+                    <td style="width:100px;">单打忽略差距值：</td>
+                    <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.SingleIngore)</td>
+                    <td style="width:100px;">双打忽略差距值：</td>
+                    <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DoubleIngore)</td>
+                </tr>
+                <tr>
+                    <td>单打胜：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.SingleWin)</td>
+                    <td>单打负：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.SingleLose)</td>
+                </tr>
+                <tr>
+                    <td>双打胜：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.DoubleWin)</td>
+                    <td>双打负：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.DoubleLose)</td>
+                </tr>
+                <tr>
+                    <td>排名奖励1：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.RankBonus1)</td>
+                    <td>对手排名高于：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.Rank1End)</td>
+                </tr>
+                <tr>
+                    <td>排名奖励2：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.RankBonus2)</td>
+                    <td>对手排名高于：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.Rank2End)</td>
+                </tr>
+                <tr>
+                    <td>排名奖励3：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.RankBonus3)</td>
+                    <td>对手排名高于：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.Rank3End)</td>
+                </tr>
+                <tr>
+                    <td>排名奖励4：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.RankBonus4)</td>
+                    <td>对手排名高于：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.Rank4End)</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr><td colspan="4"><input type="submit" class="ui-button ui-button-icon-primary" value="开始计算" /></td></tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div style="width:500px; height:600px;border:1px;float:left; text-align:center;border:double;overflow:scroll;">
+        <table class="table">
+            <caption>本次将被更新的成员</caption>
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>姓名</td>
+                    <td>原积分</td>
+                    <td>更新后积分</td>
+                    <td>Comments</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in this.Model.UpdateMemberList)
+                { 
+                    <tr>
+                        <td>@item.ID</td>
+                        <td>@item.MemberName</td>
+                        <td>@item.OriginalScore</td>
+                        <td>@item.UpdateScore</td>
+                        <td>@item.Comments</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div style="width:600px; height:600px;border:1px;float:right; text-align:center;border:double;overflow:scroll;">
+        <table class="table">
+            <caption>本次将增加的积分记录(BonusInfo)</caption>
+            <thead>
+                <tr>
+                    <td>姓名</td>
+                    <td>赛事</td>
+                    <td>积分</td>
+                    <td>积分类型</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in this.Model.AddBonusInfoList)
+                {
+                    <tr>
+                        <td>@item.MembernName</td>
+                        <td>@item.ChampionTitle</td>
+                        <td>@item.Score</td>
+                        <td>@item.BonusTypeDescription</td>                        
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div style="width:500px; height:600px;border:1px;float:left; text-align:center;border:double;overflow:scroll;">
+        <table class="table">
+            <caption>本次将增加的汇总记录(ScoreInfo)</caption>
+            <thead>
+                <tr>
+                    <td>姓名</td>
+                    <td>更新的积分</td>                    
+                    <td>Comments</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in this.Model.AddScoreInfoList)
+                {
+                    <tr>
+                        <td>@item.MemberName</td>
+                        <td>@item.Score</td>
+                        <td>@item.Comments</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div style="width:1100px;border:1px;float:left; text-align:center;border:double;overflow:scroll;">
+        <table class="table">
+            <caption>本次将更新的比赛记录</caption>
+            <thead>
+                <tr>                
+                    <th>比赛时间</th>
+                    <th>所属赛事</th>
+                    <th>比分</th>
+                    <th>获胜选手1</th>
+                    <th>获胜选手2</th>
+                    <th>失败选手1</th>
+                    <th>失败选手2</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in this.Model.WaitingMatchList)
+                {
+                    <tr>
+                        <td>@item.MatchDate</td>
+                        <td>@item.MatchTitle</td>
+                        <td>@item.MatchScore</td>
+                        <td>@item.Winner1Name</td>
+                        <td>@item.Winner2Name</td>
+                        <td>@item.Loser1Name</td>
+                        <td>@item.Loser2Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+   </div>    
+}

@@ -8,6 +8,26 @@ namespace Wicresoft.BadmintonSystem.Unity
 {
     public class DataHelper
     {
+        public class MemberRank
+        {
+            public long MemberID;
+            public long Rank;
+        }
+        public static List<MemberRank> GetMemberRank(List<MemberInfo> memberInfos)
+        {
+            List<MemberRank> returnValue = new List<MemberRank>();
+            memberInfos = memberInfos.OrderByDescending(a => a.Score).ThenBy(a => a.CreateTime).ToList();
+            int i = 0;
+            foreach (MemberInfo item in memberInfos)
+            {
+                MemberRank rankItem = new MemberRank();
+                rankItem.MemberID = item.ID;
+                rankItem.Rank = ++i;
+                returnValue.Add(rankItem);
+            }
+            return returnValue;
+        }
+        
         public static List<MatchInfo> GetMatchInfos(ChampionshipInfo championshipInfo, List<MatchInfo> matchInfos)
         {
             return matchInfos.Where(u => u.ChampionID.ID == championshipInfo.ID).ToList();
