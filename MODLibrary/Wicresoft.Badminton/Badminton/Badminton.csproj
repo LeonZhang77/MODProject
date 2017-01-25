@@ -165,6 +165,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DataManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MatchInputController.cs" />
     <Compile Include="Controllers\MatchVerifyController.cs" />
@@ -182,6 +183,8 @@
     <Compile Include="Models\DataManage\DataManageIndexModel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Login\LoginIndexModel.cs" />
+    <Compile Include="Models\Login\ResetPasswordModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\DataManage\MemberModel.cs" />
     <Compile Include="Models\MatchInput\MatchInputModel.cs" />
@@ -286,6 +289,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\LoginJS\ResetPasswordJS.js" />
     <Content Include="Scripts\MatchInput\MatchInputJS.js" />
     <Content Include="Scripts\MatchVerify\MatchVerifyJS.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -555,6 +559,10 @@
     <Content Include="Views\MatchInput\Index.cshtml" />
     <Content Include="Views\MatchVerify\Index.cshtml" />
     <Content Include="Views\ScoreCalc\Index.cshtml" />
+    <Content Include="Views\Home\LoginUserDisplay.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\NotPermission.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

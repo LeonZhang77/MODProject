@@ -145,7 +145,7 @@ namespace Badminton.Controllers
                 else
                 {
                     info.Score = info.Score + item.Score;
-                    info.Comments = info.Comments + "\r\n" + item.ChampionTitle + "/" + item.BonusTypeDescription + "/" + item.Score.ToString();
+                    info.Comments = info.Comments + "; " + item.ChampionTitle + "/" + item.BonusTypeDescription + "/" + item.Score.ToString();
                 }
             }
             return model.AddScoreInfoList;
@@ -261,12 +261,13 @@ namespace Badminton.Controllers
             info.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Base).ToString());
             info.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Base);
             info.MemberID = matchInfo.WinnerID.ID;
+            
             info.MembernName = matchInfo.WinnerID.Name;
             if (isSingles)
             { info.Score = model.Parameters.SingleWin; }
             else
             { info.Score = model.Parameters.DoubleWin; }
-            model.AddBonusInfoList.Add(info);
+            model.AddBonusInfoList.Add(info);            
 
             info = InitinalAddBonusInfo(matchInfo);
             info.MemberID = matchInfo.LoserID.ID;

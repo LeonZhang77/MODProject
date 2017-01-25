@@ -42,7 +42,6 @@ namespace Wicresoft.BadmintonSystem.Entity
         FemaleDou = 5,
         [Description("Mixed Double")]
         MixDou = 6,
-
     }
 
     public enum IgnoreType

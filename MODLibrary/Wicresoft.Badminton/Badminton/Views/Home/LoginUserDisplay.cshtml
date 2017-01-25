@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+}
+@if (ViewBag.IsLogin)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="#">
+                您好，@if (ViewBag.IsAdmin)
+                { <b>管理员</b> }
+                else
+                {<b>会员</b>}
+                <b id="Account">@ViewBag.Email</b>
+            </a>
+        </li>
+        @if (ViewBag.IsAdmin)
+        {
+            <li>@Html.ActionLink("修改密码", "ResetPassword", "Login", null, null)</li>
+        }
+        <li>@Html.ActionLink("登出", "LoginOut", "Login", null, null)</li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a>您好，<b>游客</b></a></li>
+        <li>@Html.ActionLink("注册", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("登陆", "Index", "Login", routeValues: null, htmlAttributes: new { id = "LoginLink" })</li>
+    </ul>
+}

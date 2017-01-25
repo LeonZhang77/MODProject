@@ -16,9 +16,9 @@
             <thead></thead>
             <tbody>
                 <tr>
-                    <td style="width:100px;">单打忽略差距值：</td>
+                    <td style="width:100px;">单打忽略值：</td>
                     <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.SingleIngore)</td>
-                    <td style="width:100px;">双打忽略差距值：</td>
+                    <td style="width:100px;">双打忽略值：</td>
                     <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DoubleIngore)</td>
                 </tr>
                 <tr>
@@ -73,7 +73,7 @@
                     <td>姓名</td>
                     <td>原积分</td>
                     <td>更新后积分</td>
-                    <td>Comments</td>
+                    <td style="text-align:left">Comments</td>
                 </tr>
             </thead>
             <tbody>
@@ -84,7 +84,7 @@
                         <td>@item.MemberName</td>
                         <td>@item.OriginalScore</td>
                         <td>@item.UpdateScore</td>
-                        <td>@item.Comments</td>
+                        <td style="text-align:left">@item.Comments</td>
                     </tr>
                 }
             </tbody>
@@ -123,7 +123,7 @@
                 <tr>
                     <td>姓名</td>
                     <td>更新的积分</td>                    
-                    <td>Comments</td>
+                    <td style="text-align:left">Comments</td>
                 </tr>
             </thead>
             <tbody>
@@ -132,14 +132,14 @@
                     <tr>
                         <td>@item.MemberName</td>
                         <td>@item.Score</td>
-                        <td>@item.Comments</td>
+                        <td style="text-align:left">@item.Comments</td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
 
-    <div style="width:1100px;border:1px;float:left; text-align:center;border:double;overflow:scroll;">
+    <div style="width:1100px;border:1px;float:left; text-align:left;border:double;overflow:scroll;">
         <table class="table">
             <caption>本次将更新的比赛记录</caption>
             <thead>
@@ -150,7 +150,8 @@
                     <th>获胜选手1</th>
                     <th>获胜选手2</th>
                     <th>失败选手1</th>
-                    <th>失败选手2</th>                    
+                    <th>失败选手2</th>
+                    <th style="text-align:left">Commnets</th>                    
                 </tr>
             </thead>
             <tbody>
@@ -164,6 +165,7 @@
                         <td>@item.Winner2Name</td>
                         <td>@item.Loser1Name</td>
                         <td>@item.Loser2Name</td>
+                        <td style="text-align:left">@item.Comments</td>
                     </tr>
                 }
             </tbody>
