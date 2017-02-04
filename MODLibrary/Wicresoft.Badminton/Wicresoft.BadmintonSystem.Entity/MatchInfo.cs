@@ -91,5 +91,11 @@ namespace Wicresoft.BadmintonSystem.Entity
             get;
             set;
         }
+
+        public virtual MatchType MatchType
+        {
+            get;
+            set;
+        }
     }
 }

@@ -103,6 +103,7 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             championship.ChampionType = championshipInfo.ChampionType;
             championship.StartDate = championshipInfo.StartDate;
             championship.EndDate = championshipInfo.EndDate;
+            championship.IsActive = championship.IsActive;
 
             this.DataSource.SaveChanges();
         }
@@ -162,6 +163,7 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             match.Updated = matchInfo.Updated;
             match.VerifyDate = matchInfo.VerifyDate;
             match.Verified = matchInfo.Verified;
+            match.MatchType = matchInfo.MatchType;
             
             if (matchInfo.ChampionID != null) { match.ChampionID = this.DataSource.ChampionshipInfos.Find(matchInfo.ChampionID.ID); }
             if (matchInfo.InputPersonID != null) { match.InputPersonID = this.DataSource.MemberInfos.Find(matchInfo.InputPersonID.ID); }

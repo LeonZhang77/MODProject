@@ -53,4 +53,14 @@ namespace Wicresoft.BadmintonSystem.Entity
         [Description("Both")]
         Both = 3
     }
+
+    public enum MatchType
+    {
+        [Description("Finals")]
+        Finals = 1,
+        [Description("Top4")]
+        Top4 = 2,
+        [Description("Top8")]
+        Top8 = 3
+    }
 }

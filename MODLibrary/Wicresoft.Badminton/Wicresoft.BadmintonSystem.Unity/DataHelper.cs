@@ -16,13 +16,26 @@ namespace Wicresoft.BadmintonSystem.Unity
         public static List<MemberRank> GetMemberRank(List<MemberInfo> memberInfos)
         {
             List<MemberRank> returnValue = new List<MemberRank>();
-            memberInfos = memberInfos.OrderByDescending(a => a.Score).ThenBy(a => a.CreateTime).ToList();
-            int i = 0;
+            memberInfos = memberInfos.OrderByDescending(a => a.Score).ToList();
+            int currentScore = -1;
+            int currentRank = 1;
+            int nextRank = 1;
             foreach (MemberInfo item in memberInfos)
             {
                 MemberRank rankItem = new MemberRank();
                 rankItem.MemberID = item.ID;
-                rankItem.Rank = ++i;
+                if (currentScore == -1) { currentScore = item.Score; }
+                if (item.Score == currentScore)
+                {
+                    rankItem.Rank = currentRank;
+                    nextRank++;
+                }
+                else
+                {
+                    currentRank = nextRank++;
+                    rankItem.Rank = currentRank;
+                    currentScore = item.Score;
+                }
                 returnValue.Add(rankItem);
             }
             return returnValue;

@@ -28,6 +28,12 @@ namespace Wicresoft.BadmintonSystem.Entity
             set;
         }
 
+        public virtual Boolean IsActive
+        {
+            get;
+            set;
+        }
+
         [Required]
         public virtual ChampionType ChampionType
         {

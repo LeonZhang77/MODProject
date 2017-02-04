@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201701150351144_Add3ColumnsToMatchInfo.Designer.cs">
       <DependentUpon>201701150351144_Add3ColumnsToMatchInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702040545069_AddIsActiveInChampionshipAndAddMatchTypeInMatchInfo.cs" />
+    <Compile Include="Migrations\201702040545069_AddIsActiveInChampionshipAndAddMatchTypeInMatchInfo.Designer.cs">
+      <DependentUpon>201702040545069_AddIsActiveInChampionshipAndAddMatchTypeInMatchInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -85,6 +89,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701150351144_Add3ColumnsToMatchInfo.resx">
       <DependentUpon>201701150351144_Add3ColumnsToMatchInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702040545069_AddIsActiveInChampionshipAndAddMatchTypeInMatchInfo.resx">
+      <DependentUpon>201702040545069_AddIsActiveInChampionshipAndAddMatchTypeInMatchInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
