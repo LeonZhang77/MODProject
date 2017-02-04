@@ -29,6 +29,18 @@ namespace Badminton.Models.ScoreCalc
             set;
         }
 
+        public long OriginalRank
+        {
+            get;
+            set;
+        }
+
+        public long UpdateRank
+        {
+            get;
+            set;
+        }
+
         public String Comments
         {
             get;

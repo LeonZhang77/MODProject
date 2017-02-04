@@ -21,6 +21,7 @@
                     <td style="width:100px;">双打忽略值：</td>
                     <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DoubleIngore)</td>
                 </tr>
+                <tr><td colspan="4">基本输赢奖励</td></tr>
                 <tr>
                     <td>单打胜：</td>
                     <td>@Html.TextBoxFor(m => m.Parameters.SingleWin)</td>
@@ -33,6 +34,7 @@
                     <td>双打负：</td>
                     <td>@Html.TextBoxFor(m => m.Parameters.DoubleLose)</td>
                 </tr>
+                <tr><td colspan="4">排名奖励</td></tr>
                 <tr>
                     <td>排名奖励1：</td>
                     <td>@Html.TextBoxFor(m => m.Parameters.RankBonus1)</td>
@@ -57,6 +59,25 @@
                     <td>对手排名高于：</td>
                     <td>@Html.TextBoxFor(m => m.Parameters.Rank4End)</td>
                 </tr>
+                <tr><td colspan="4">决赛区奖励</td></tr>
+                <tr>
+                    <td>决赛胜：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.FinalWin)</td>
+                    <td>决赛负：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.FinalLose)</td>
+                </tr>
+                <tr>
+                    <td>四强胜：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.Top4Win)</td>
+                    <td>四强负:</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.Top4Lose)</td>
+                </tr>
+                <tr>
+                    <td>八强胜：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.Top8Win)</td>
+                    <td>八强负：</td>
+                    <td>@Html.TextBoxFor(m => m.Parameters.Top8Lose)</td>
+                </tr>                
             </tbody>
             <tfoot>
                 <tr><td colspan="4"><input type="submit" class="ui-button ui-button-icon-primary" value="开始计算" /></td></tr>
@@ -71,9 +92,8 @@
                 <tr>
                     <td>ID</td>
                     <td>姓名</td>
-                    <td>原积分</td>
-                    <td>更新后积分</td>
-                    <td style="text-align:left">Comments</td>
+                    <td>积分变化</td>
+                    <td>名次变化</td>                    
                 </tr>
             </thead>
             <tbody>
@@ -82,16 +102,15 @@
                     <tr>
                         <td>@item.ID</td>
                         <td>@item.MemberName</td>
-                        <td>@item.OriginalScore</td>
-                        <td>@item.UpdateScore</td>
-                        <td style="text-align:left">@item.Comments</td>
+                        <td data-toggle="tooltip" title="@item.Comments">@item.OriginalScore -> @item.UpdateScore </td>
+                        <td data-toggle ="tooltip" title="@item.Comments">@item.OriginalRank -> @item.UpdateRank</td>                        
                     </tr>
                 }
             </tbody>
         </table>
     </div>
 
-    <div style="width:600px; height:600px;border:1px;float:right; text-align:center;border:double;overflow:scroll;">
+    <div style="width:800px; height:600px;border:1px;float:right; text-align:center;border:double;overflow:scroll;">
         <table class="table">
             <caption>本次将增加的积分记录(BonusInfo)</caption>
             <thead>
@@ -107,7 +126,7 @@
                 {
                     <tr>
                         <td>@item.MembernName</td>
-                        <td>@item.ChampionTitle</td>
+                        <td data-toggle="tooltip" title="@item.ChampionTitle">@item.MatchID</td>
                         <td>@item.Score</td>
                         <td>@item.BonusTypeDescription</td>                        
                     </tr>
@@ -116,14 +135,13 @@
         </table>
     </div>
 
-    <div style="width:500px; height:600px;border:1px;float:left; text-align:center;border:double;overflow:scroll;">
+    <div style="width:300px; height:600px;border:1px;float:left; text-align:center;border:double;overflow:scroll;">
         <table class="table">
             <caption>本次将增加的汇总记录(ScoreInfo)</caption>
             <thead>
                 <tr>
                     <td>姓名</td>
-                    <td>更新的积分</td>                    
-                    <td style="text-align:left">Comments</td>
+                    <td>更新的积分</td>                                        
                 </tr>
             </thead>
             <tbody>
@@ -131,8 +149,7 @@
                 {
                     <tr>
                         <td>@item.MemberName</td>
-                        <td>@item.Score</td>
-                        <td style="text-align:left">@item.Comments</td>
+                        <td data-toggle="tooltip" title="@item.Comments">@item.Score</td>                        
                     </tr>
                 }
             </tbody>

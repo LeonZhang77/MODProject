@@ -164,6 +164,18 @@ namespace Badminton.Controllers
                 udpateMember.UpdateScore = item.Score;
                 model.UpdateMemberList.Add(udpateMember);
             }
+
+            List<MemberInfo> tempMemberInfoList = provider.GetMemberInfos().ToList();
+            foreach (ScoreUpdateMember item in model.UpdateMemberList)
+            {
+                item.OriginalRank = rankList.Find(u => u.MemberID == item.ID).Rank;
+                tempMemberInfoList.Find(u => u.ID == item.ID).Score = Int32.Parse(item.UpdateScore.ToString());
+            }
+            List<DataHelper.MemberRank> tempRankList = DataHelper.GetMemberRank(tempMemberInfoList);
+            foreach (ScoreUpdateMember item in model.UpdateMemberList)
+            {
+                item.UpdateRank = tempRankList.Find(u => u.MemberID == item.ID).Rank;                
+            }
             return model.UpdateMemberList;
         }
 
@@ -174,7 +186,73 @@ namespace Badminton.Controllers
             model.AddBonusInfoList = CalcBaseScore(model, matchInfo);
             //排名积分
             model.AddBonusInfoList = CalcRankScore(model, matchInfo);
+            //决赛区积分
+            if(matchInfo.MatchType!=null)
+            {
+                model.AddBonusInfoList = CalcFinalScore(model, matchInfo);
+            }
+
             return model;
+        }
+
+        internal List<AddBonusInfo> CalcFinalScore(ScoreCalcIndexModel model, MatchInfo matchInfo)
+        {
+            Boolean isSingles = false;
+            AddBonusInfo info;
+            long WinScore = model.Parameters.Top8Win;
+            long LoseScore = model.Parameters.Top8Lose;
+
+            if (EnumHelper.GetEnumDescription(matchInfo.ChampionID.CompetingType).Contains("Single"))
+            {
+                isSingles = true;
+            }
+            String matchType = EnumHelper.GetEnumDescription(matchInfo.MatchType);
+            if (matchType.Equals("Final"))
+            {
+                WinScore = model.Parameters.FinalWin;
+                LoseScore = model.Parameters.FinalLose;
+            }
+            else if (matchType.Equals("Top4"))
+            {
+                WinScore = model.Parameters.Top8Win;
+                LoseScore = model.Parameters.Top8Lose;
+            }
+
+            info = InitinalAddBonusInfo(matchInfo);
+            info.MemberID = matchInfo.WinnerID.ID;
+            info.MembernName = matchInfo.WinnerID.Name;
+            info.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Final).ToString());
+            info.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Final);
+            info.Score = WinScore;
+            model.AddBonusInfoList.Add(info);
+
+            info = InitinalAddBonusInfo(matchInfo);
+            info.MemberID = matchInfo.LoserID.ID;
+            info.MembernName = matchInfo.LoserID.Name;
+            info.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Final).ToString());
+            info.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Final);
+            info.Score = LoseScore;
+            model.AddBonusInfoList.Add(info);
+
+            if (!isSingles)
+            {
+                info = InitinalAddBonusInfo(matchInfo);
+                info.MemberID = matchInfo.WinnerID2.ID;
+                info.MembernName = matchInfo.WinnerID2.Name;
+                info.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Final).ToString());
+                info.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Final);
+                info.Score = WinScore;
+                model.AddBonusInfoList.Add(info);
+
+                info = InitinalAddBonusInfo(matchInfo);
+                info.MemberID = matchInfo.LoserID2.ID;
+                info.MembernName = matchInfo.LoserID2.Name;
+                info.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Final).ToString());
+                info.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Final);
+                info.Score = LoseScore;
+                model.AddBonusInfoList.Add(info);
+            }
+            return model.AddBonusInfoList;
         }
 
         internal List<AddBonusInfo> CalcRankScore(ScoreCalcIndexModel model, MatchInfo matchInfo)
@@ -306,7 +384,15 @@ namespace Badminton.Controllers
         {
             AddBonusInfo info = new AddBonusInfo();
             info.ChampionID = matchInfo.ChampionID.ID;
-            info.ChampionTitle = matchInfo.ChampionID.Title;
+            info.ChampionTitle = matchInfo.MatchDate.ToShortDateString()+ "-" + matchInfo.ChampionID.Title + "/";
+            if (EnumHelper.GetEnumDescription(matchInfo.ChampionID.CompetingType).Contains("Single"))
+            { 
+                info.ChampionTitle = info.ChampionTitle + matchInfo.WinnerID.Name + ">" + matchInfo.LoserID.Name;
+            }
+            else
+            {
+                info.ChampionTitle = info.ChampionTitle + matchInfo.WinnerID.Name + "/" + matchInfo.WinnerID2.Name + ">" + matchInfo.LoserID.Name + "/" + matchInfo.LoserID2.Name;
+            }
             info.MatchID = matchInfo.ID;
             info.CreateTime = DateTime.Now;            
             return info;
