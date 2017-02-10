@@ -50,7 +50,8 @@ namespace Badminton.Controllers
                 temp.AverageWinRate = GetAverageWinRate(item);
                 temp.Ranking = rankList.Find(u => u.MemberID == item.ID).Rank;
                 returnList.Add(temp);
-            }                        
+            }
+            returnList = returnList.OrderByDescending(u => u.Ranking).ToList();       
             return returnList;
         }       
 
@@ -142,7 +143,7 @@ namespace Badminton.Controllers
             List<MatchInfo> matchInfos = provider.GetMatchInfos().ToList();
             List<MatchInfo> player1WinList = DataHelper.GetMatchInfos(memberInfo, true, competingType, matchInfos).ToList();
             List<MatchInfo> tempList;
-            if (EnumHelper.GetEnumDescription(competingType).Contains("Singles"))
+            if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
             {
                 tempList = DataHelper.GetMatchInfos(memberInfo, true, CompetingType.MixSin, matchInfos).ToList();
                 foreach (MatchInfo info in tempList)
@@ -153,7 +154,7 @@ namespace Badminton.Controllers
 
             foreach (MatchInfo item in player1WinList)
             {
-                if (EnumHelper.GetEnumDescription(competingType).Contains("Singles"))
+                if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
                 {
                     if (item.LoserID.ID != player2id) player1WinList.Remove(item);
                 }
@@ -163,7 +164,7 @@ namespace Badminton.Controllers
                 }                
             }
             List<MatchInfo> player1LostList = DataHelper.GetMatchInfos(memberInfo, false, competingType, matchInfos).ToList();
-            if (EnumHelper.GetEnumDescription(competingType).Contains("Singles"))
+            if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
             {
                 tempList = DataHelper.GetMatchInfos(memberInfo, false, CompetingType.MixSin, matchInfos).ToList();
                 foreach (MatchInfo info in tempList)
@@ -174,7 +175,7 @@ namespace Badminton.Controllers
 
             foreach (MatchInfo item in player1LostList)
             {
-                if (EnumHelper.GetEnumDescription(competingType).Contains("Singles"))
+                if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
                 {
                     if (item.WinnerID.ID != player2id) player1LostList.Remove(item);
                 }

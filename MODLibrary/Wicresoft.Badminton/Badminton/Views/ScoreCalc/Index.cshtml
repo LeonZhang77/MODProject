@@ -2,17 +2,17 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @model Badminton.Models.ScoreCalc.ScoreCalcIndexModel
 @section scripts{
-    @Scripts.Render("~/Scripts/ScoreCaleJS/ScoreCalcJS.js")    
+    @Scripts.Render("~/Scripts/ScoreCalcJS/ScoreCalcJS.js")    
 }
 
-@using (Html.BeginForm())
 {
     <div style="width:1100px">
-    <div style="width:600px; height:600px;border:1px;float:right; text-align:center;border:double;overflow:scroll;">        
+    <div style="width:600px; height:800px;border:1px;float:right; text-align:center;border:double;overflow:scroll;">        
         <table>
-            <caption>参数设置</caption>
+            <caption>积分计算参数设置</caption>
             <thead></thead>
             <tbody>
                 <tr>
@@ -80,12 +80,62 @@
                 </tr>                
             </tbody>
             <tfoot>
-                <tr><td colspan="4"><input type="submit" class="ui-button ui-button-icon-primary" value="开始计算" /></td></tr>
+                <tr><td colspan="2"><input type="submit" class="action-button" value="模拟计算并预览" /></td>
+                <td>@Html.ActionLink("模拟周期调整并预览", "AdjustAccordingToDateRange", "ScoreCalc", new { @class = "action_button" })</td>
+                <td>@Html.ActionLink("保存到数据库", "SaveScoreEntry", "ScoreCalc", new { @class = "button action_button" })</td></tr>
+            </tfoot>
+        </table>
+        <br />
+        <table style="background-color:aqua">
+            <caption>周期调整参数设置</caption>
+            <thead></thead>
+            <tbody>
+                <tr>
+                    <td style="width:100px;">周期1：</td>
+                    <td style="width:100px;text-align:right">最近</td>
+                    <td style="width:50px"> @Html.TextBoxFor(m => m.Parameters.DateRange1)</td>
+                    <td style="width:100px;text-align:left">周</td>
+                    <td style="width:100px;">比例：</td>
+                    <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate1)</td>
+                </tr>
+                <tr>
+                    <td style="width:100px;">周期2：</td>
+                    <td style="width:100px;text-align:right">最近</td>
+                    <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DateRange2)</td>
+                    <td style="width:100px;text-align:left">周</td>
+                    <td style="width:100px;">比例：</td>
+                    <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate2)</td>
+                </tr>
+                <tr>
+                    <td style="width:100px;">周期3：</td>
+                    <td style="width:100px;text-align:right">最近</td>
+                    <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DateRange3)</td>
+                    <td style="width:100px;text-align:left">周</td>
+                    <td style="width:100px;">比例：</td>
+                    <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate3)</td>
+                </tr>
+                <tr>
+                    <td style="width:100px;">周期4：</td>
+                    <td style="width:100px;text-align:right">最近</td>
+                    <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DateRange4)</td>
+                    <td style="width:100px;text-align:left">周</td>
+                    <td style="width:100px;">比例：</td>
+                    <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate4)</td>
+                </tr>
+                <tr>
+                    <td style="width:100px; text-align:right" colspan="4">更早期的</td>                    
+                    <td style="width:100px;">比例：</td>
+                    <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate5)</td>
+                </tr>
+               
+            </tbody>
+            <tfoot>
+                <tr><td colspan="4"><input type="submit" class="ui-button ui-button-icon-primary" value="开始周期调整" /></td></tr>
             </tfoot>
         </table>
     </div>
 
-    <div style="width:500px; height:600px;border:1px;float:left; text-align:center;border:double;overflow:scroll;">
+    <div style="width:500px; height:800px;border:1px;float:left; text-align:center;border:double;overflow:scroll;">
         <table class="table">
             <caption>本次将被更新的成员</caption>
             <thead>

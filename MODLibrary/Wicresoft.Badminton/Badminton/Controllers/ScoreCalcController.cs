@@ -43,26 +43,49 @@ namespace Badminton.Controllers
             return View(model);
         }
 
-        public string RecordToDB()
+       
+        public ActionResult SaveScoreEntry(ScoreCalcIndexModel modelInput)
+        {
+            model = modelInput;
+            Boolean flag = RecordScoreEntryToDB();
+            if (flag)
+            {
+                return Content("<script>alert('" + "保存成功！" + "');location.href='/ScoreCalc/Index'</script>");
+            }
+            else
+            {
+                return Content("<script>alert('" + "保存没有成功！" + "');location.href='/ScoreCalc/Index'</script>");
+            }
+            
+            
+            
+        }
+
+        public Boolean RecordScoreEntryToDB()
         {
 
             try
             {
                 SaveBonusInfors(model.AddBonusInfoList);
                 SaveScoreinfors(model.AddScoreInfoList);
-                UpdateMemberScore(model.UpdateMemberList);
             }
-            catch (Exception ex) { return ex.Message; };
+            catch (Exception ex) { return false; };
 
-            return "true";
+            return true;
         }
 
         internal void SaveBonusInfors(List<AddBonusInfo> AddBonusInfoList)
         {
             foreach (AddBonusInfo item in AddBonusInfoList)
             {
-                BonusInfo info = AddBonusInfo.GetEntity(item);
+                BonusInfo info = AddBonusInfo.GetEntity(item);                
                 provider.SaveBonusInfo(info);
+                MatchInfo matchInfo = provider.GetMatchInfoByID(info.MatchID);
+                if (matchInfo.Updated == null || matchInfo.Updated == false)
+                {
+                    matchInfo.Updated = true;
+                    provider.SaveMatchInfo(matchInfo);
+                }
             }
         }
 
