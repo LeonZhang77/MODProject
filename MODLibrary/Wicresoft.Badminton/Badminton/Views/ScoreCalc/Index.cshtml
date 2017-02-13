@@ -8,7 +8,6 @@
     @Scripts.Render("~/Scripts/ScoreCalcJS/ScoreCalcJS.js")    
 }
 
-{
 <form name="ParamaterSetup" method="post">
     <div style="width:1100px">
         <div style="width:600px; height:800px;border:1px;float:right; text-align:center;border:double;overflow:scroll;">
@@ -215,6 +214,22 @@
         </div>
 
         <div style="width:1100px;border:1px;float:left; text-align:left;border:double;overflow:scroll;">
+            @for (var index = 0; index < this.Model.WaitingMatchList.Count; index++)
+            {
+                @Html.HiddenFor(m => m.WaitingMatchList[index].ID)
+                @Html.HiddenFor(m => m.WaitingMatchList[index].Winner1ID)
+                @Html.HiddenFor(m => m.WaitingMatchList[index].Winner2ID)
+                @Html.HiddenFor(m => m.WaitingMatchList[index].Loser1ID)
+                @Html.HiddenFor(m => m.WaitingMatchList[index].Loser2ID)
+                
+                
+                @Html.HiddenFor(m => m.WaitingMatchList[index].MatchDate)
+                @Html.HiddenFor(m => m.WaitingMatchList[index].MatchTitle)               
+                @Html.HiddenFor(m => m.WaitingMatchList[index].Winner1Name)                    
+                @Html.HiddenFor(m => m.WaitingMatchList[index].Winner2Name)                
+                @Html.HiddenFor(m => m.WaitingMatchList[index].Loser1Name)                
+                @Html.HiddenFor(m => m.WaitingMatchList[index].Loser2Name)
+            }
             <table class="table">
                 <caption>本次将更新的比赛记录</caption>
                 <thead>
@@ -229,9 +244,12 @@
                         <th style="text-align:left">Commnets</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody>                    
+                    
+
                     @foreach (var item in this.Model.WaitingMatchList)
-                    {
+                    {                  
+                        
                         <tr>
                             <td>@item.MatchDate</td>
                             <td>@item.MatchTitle</td>
@@ -247,5 +265,5 @@
             </table>
         </div>
     </div>
-    </form>
-        }
+</form>
+        

@@ -16,35 +16,32 @@ namespace Badminton.Controllers
     {
         IBadmintionDataProvider provider;
         List<DataHelper.MemberRank> rankList;
-        List<MatchInfo> matchList;
-        ScoreCalcIndexModel model;
+        List<MatchInfo> matchList;        
         public ScoreCalcController()
         {
             provider = new BadmintionDataProvider();
             List<MemberInfo> memberList = provider.GetMemberInfos().ToList();
             rankList = DataHelper.GetMemberRank(memberList);
             matchList = provider.GetMatchInfos().ToList();
-            matchList = matchList.Where(u => !u.Updated && u.Verified).ToList();
-            model = new ScoreCalcIndexModel();
-            model.WaitingMatchList = GetWaitingMatchList(matchList);
+            matchList = matchList.Where(u => !u.Updated && u.Verified).ToList();            
         }
 
         public ActionResult Index(long searchselectedID = 0)
         {
-                        
+            ScoreCalcIndexModel model = new ScoreCalcIndexModel();
+            model.WaitingMatchList = GetWaitingMatchList(matchList);
             return View(model);
         }        
 
         public ActionResult CalcToReview(ScoreCalcIndexModel modelInput)
         {
-            if (matchList.Count == 0)
+            if (modelInput.WaitingMatchList.Count == 0)
             {
                 return Content("<script>alert('" + "没有等待计算积分的比赛，请返回录入数据审核心页面检查！" + "');location.href='/ScoreCalc/Index'</script>");
             }
             else
             {
-                modelInput.WaitingMatchList = GetWaitingMatchList(matchList);
-                model = CalcAndGoToReview(modelInput);
+                ScoreCalcIndexModel model = CalcAndGoToReview(modelInput);
                 return View("Index", model);
             }
         }
@@ -58,22 +55,22 @@ namespace Badminton.Controllers
             else
             {
                 List<ScoreInfo> scoreInfoList = provider.GetScoreInfos().ToList();
-                model = modelInput;
+                ScoreCalcIndexModel model = modelInput;
                 ScoreInfo tempInfo;
                 foreach (AddScoreInfo item in model.AddScoreInfoList)
                 {
                     tempInfo = AddScoreInfo.GetEntity(item);
                     scoreInfoList.Add(tempInfo);
                 }
-                model.UpdateMemberList = GetUpdateMemberList(scoreInfoList);
-                return View("Index", "Model");
+                model.UpdateMemberList = GetUpdateMemberList(scoreInfoList, model);
+                return View("Index", model);
             }
         }
        
         public ActionResult SaveBonusAndScoreEntry(ScoreCalcIndexModel modelInput)
         {
-            model = modelInput;
-            Boolean flag = RecordScoreEntryToDB();            
+            
+            Boolean flag = RecordScoreEntryToDB(modelInput);            
             if (flag)
             {
                 return Content("<script>alert('" + "保存成功, 请记得去按周期调整积分！" + "');location.href='/ScoreCalc/Index'</script>");
@@ -92,16 +89,17 @@ namespace Badminton.Controllers
             }
             else
             {
-                model = modelInput;
-                model.UpdateMemberList = GetUpdateMemberList(provider.GetScoreInfos().ToList());
-                return View("Index", "Model");
+                ScoreCalcIndexModel model = modelInput;
+                model.UpdateMemberList = GetUpdateMemberList(provider.GetScoreInfos().ToList(), model);
+                return View("Index", model);
             }
         }
 
-        internal List<ScoreUpdateMember> GetUpdateMemberList(List<ScoreInfo> ScoreInfoList)
+        internal List<ScoreUpdateMember> GetUpdateMemberList(List<ScoreInfo> ScoreInfoList, ScoreCalcIndexModel modelInput)
         {
             ScoreUpdateMember updateMember;
             List<MemberInfo>  memberInfoList = provider.GetMemberInfos().ToList();
+            ScoreCalcIndexModel model = modelInput;
             //初始化 model.UpdateMemberList.
             foreach (MemberInfo item in memberInfoList)
             {
@@ -167,17 +165,17 @@ namespace Badminton.Controllers
             }
             else
             {
-                return View("Index", "Model");
+                return View("Index");
             }
         }
 
-        public Boolean RecordScoreEntryToDB()
+        public Boolean RecordScoreEntryToDB(ScoreCalcIndexModel modelInput)
         {
 
             try
             {
-                SaveBonusInfors(model.AddBonusInfoList);
-                SaveScoreinfors(model.AddScoreInfoList);
+                SaveBonusInfors(modelInput.AddBonusInfoList);
+                SaveScoreinfors(modelInput.AddScoreInfoList);
             }
             catch (Exception ex) { return false; };
 
