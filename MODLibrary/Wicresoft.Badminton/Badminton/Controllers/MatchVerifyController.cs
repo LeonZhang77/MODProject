@@ -41,19 +41,19 @@ namespace Badminton.Controllers
             return View(model);
         }
 
-        public string DeleteMatch(long q)
+        public bool DeleteMatch(long q)
         {
             try
             {
                 MatchInfo info = provider.GetMatchInfoByID(q);
                 provider.DeleteMatchInfo(info);
             }
-            catch (Exception ex) { return ex.Message; };
+            catch (Exception ex) { return false; };
 
-            return "true";
+            return true;
         }
 
-        public string ValidMatch(long q)
+        public bool ValidMatch(long q)
         {
             try
             {
@@ -62,12 +62,12 @@ namespace Badminton.Controllers
                 info.VerifyDate = DateTime.Now;                
                 provider.UpdateMatchInfo(info);
             }
-            catch (Exception ex) { return ex.Message; };
+            catch (Exception ex) { return false; };
 
-            return "true";
+            return true;
         }
 
-        public string NotValidMatch(long q)
+        public bool NotValidMatch(long q)
         {
             try
             {
@@ -76,9 +76,9 @@ namespace Badminton.Controllers
                 info.VerifyDate = DateTime.Now;
                 provider.UpdateMatchInfo(info);
             }
-            catch (Exception ex) { return ex.Message; };
+            catch (Exception ex) { return false; };
 
-            return "true";
+            return true;
         }
         
     }

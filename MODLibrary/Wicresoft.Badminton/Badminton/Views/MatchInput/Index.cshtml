@@ -15,58 +15,150 @@
     @Html.DropDownList("MaleMemberList", this.Model.SearchMaleMemberList);
     @Html.DropDownList("FemaleMemberList", this.Model.SearchFemaleMemberList);
 </div>
-<div>
-    <span>请选择赛事:</span>
-    @Html.DropDownList("SelectChampionship", this.Model.ChampionshipList, new { onchange="setCompetingType()"})
-    
-    <span>赛事类型:</span>
-    <input type="tel" id="CompetingType" value="等待你选择" readonly="readonly"/>
+<div class="form-horizontal">
+    <div class="form-group">
+        <span class="col-md-1">选择赛事</span>
+        <div class="col-md-4">
+            @Html.DropDownList("SelectChampionship", this.Model.ChampionshipList, new { onchange = "setCompetingType()", @class = "form-control" })
+        </div>
+
+    </div>
 </div>
 
-<div id="inputFeild">
-        <table class="table">
-            <thead></thead>
-            <tbody>
-                <tr>
-                    <th>Match Date</th>
-                    <td>@Html.TextBoxFor(m=>m.MatchDate)</td>
-                </tr>
-                <tr>
-                    <th>提交者</th>
-                    <td>@Html.DropDownList("InputPersonList", this.Model.SearchMemberList)</td>
-                </tr>
-                <tr id="WinnerPointsTR">
-                    <th>Winner Points</th>
-                    <td>@Html.TextBoxFor(m => m.WinnerPoints)</td>
-                </tr>
-                <tr id="LoserPointsTR">
-                    <th>Loser Points</th>
-                    <td>@Html.TextBoxFor(m => m.LoserPoints)</td>
-                </tr>
-                <tr id="Winner1TR">
-                    <th>Winner1:</th>
-                    <td>@Html.DropDownList("Winner1List", this.Model.SearchMemberList)</td>
-                </tr>
-                <tr id="Winner2TR">
-                    <th>Winner2:</th>
-                    <td>@Html.DropDownList("Winner2List", this.Model.SearchMemberList)</td>
-                </tr>
-                <tr id="Loser1TR">
-                    <th>Loser1:</th>
-                    <td>@Html.DropDownList("Loser1List", this.Model.SearchMemberList)</td>
-                </tr>
-                <tr id="Loser2TR">
-                    <th>Loser2:</th>
-                    <td>@Html.DropDownList("Loser2List", this.Model.SearchMemberList)</td>
-                </tr>
-            </tbody>
-            <tfoot >
-                <tr>
-                    <td colspan="2">
-                        <a class="btn btn-primary" onclick="addMatch()" role="button">Save</a>
-                    </td>
-                </tr>           
-        </table>
+<div id="inputFeild" class="panel panel-info" hidden="hidden">
+    <div class="panel-heading text-center">
+        <b id="CompetingType"></b>&nbsp;&nbsp;<img src="~/Content/images/wing.png" height="40" width="40" />
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-xs-12">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label>比赛日期</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.MatchDate, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group" id="Winner1TR">
+                        <div class="col-md-2">
+                            <label>胜者1</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("Winner1List", this.Model.SearchMemberList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group" id="Winner2TR">
+                        <div class="col-md-2">
+                            <label>胜者2</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("Winner2List", this.Model.SearchMemberList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group" id="WinnerPointsTR">
+                        <div class="col-md-2">
+                            <label>胜者分数</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.WinnerPoints, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            <label>提交者</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("InputPersonList", this.Model.SearchMemberList, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group" id="Loser1TR">
+                        <div class="col-md-2">
+                            <label>败者1</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("Loser1List", this.Model.SearchMemberList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group" id="Loser2TR">
+                        <div class="col-md-2">
+                            <label>败者2</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.DropDownList("Loser2List", this.Model.SearchMemberList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group" id="LoserPointsTR">
+                        <div class="col-md-2">
+                            <label>败者分数</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.LoserPoints, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-lg-offset-4 col-sm-offset-12 col-md-2 col-xs-5">
+                    <button class=" btn btn-info btn-block" onclick="addMatch()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<table class="table">
+        <thead></thead>
+        <tbody>
+            <tr>
+                <th>比赛日期</th>
+                <td>@Html.TextBoxFor(m => m.MatchDate)</td>
+            </tr>
+            <tr>
+                <th>提交者</th>
+                <td>@Html.DropDownList("InputPersonList", this.Model.SearchMemberList)</td>
+            </tr>
+            <tr id="WinnerPointsTR">
+                <th>Winner Points</th>
+                <td>@Html.TextBoxFor(m => m.WinnerPoints)</td>
+            </tr>
+            <tr id="LoserPointsTR">
+                <th>Loser Points</th>
+                <td>@Html.TextBoxFor(m => m.LoserPoints)</td>
+            </tr>
+            <tr id="Winner1TR">
+                <th>Winner1:</th>
+                <td>@Html.DropDownList("Winner1List", this.Model.SearchMemberList)</td>
+            </tr>
+            <tr id="Winner2TR">
+                <th>Winner2:</th>
+                <td>@Html.DropDownList("Winner2List", this.Model.SearchMemberList)</td>
+            </tr>
+            <tr id="Loser1TR">
+                <th>Loser1:</th>
+                <td>@Html.DropDownList("Loser1List", this.Model.SearchMemberList)</td>
+            </tr>
+            <tr id="Loser2TR">
+                <th>Loser2:</th>
+                <td>@Html.DropDownList("Loser2List", this.Model.SearchMemberList)</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2">
+                    <a class="btn btn-primary" onclick="addMatch()" role="button">Save</a>
+                </td>
+            </tr>
+    </table>*@
 </div>
 
 <br />

@@ -9,7 +9,7 @@ function ModifyInit() {
     ModifySubmitBind();
 }
 
-function ModifyBind() {
+function ModifyBind(){
     $("#ConfirmPassword").bind("change", function () { ModifySubmitValidation(); });
 }
 
@@ -22,7 +22,7 @@ function ModifySubmitValidation() {
         $("#message").empty();
         return true;
     } else {
-        $("#message").css("color", "Red");
+        $("#message").css("color","Red");
         $("#message").empty().append("两次密码不一致");
         return false;
     }

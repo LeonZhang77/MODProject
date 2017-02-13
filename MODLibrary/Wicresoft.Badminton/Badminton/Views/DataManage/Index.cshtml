@@ -27,199 +27,237 @@
 
     <div id="mainTabContent" class="tab-content">
         <div class="tab-pane" id="Clubs">
-            <table class="table">
-                <caption>Club List</caption>
-                <thead>
-                    <tr>
-                        <td colspan="4">
-                            @Html.ActionLink("Add", "AddClub")
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>
-                            ID
-                        </th>
-                        <th>
-                            Club Name
-                        </th>
-                        <th>
-                            Club Description
-                        </th>
-                        <th>
-                            Operation
-                        </th>
-                    </tr>
-                    @foreach (var item in this.Model.ClubList)
-                    {
-                        string clubRowId = "clubRow" + @item.ID.ToString();
-                        <tr id=@clubRowId>
-                            <td>
-                                @item.ID
-                            </td>
-                            <td>
-                                @item.Name
-                            </td>
-                            <td>
-                                @item.Description
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "EditClub", new { @id = item.ID })
-                                @if (!item.IsUse)
-                                {
-                                    <a class="btn btn-primary" onclick="deleteClub(@item.ID);" role="button">Delete</a>
-                                }
-                            </td>
+            <br />
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <span><b>Club List</b></span>
+                    <span class=" pull-right"><b><a onclick="addClub()" role="button">Add</a></b></span>
+                </div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Club Name
+                            </th>
+                            <th>
+                                Captain
+                            </th>
+                            <th>
+                                Club Description
+                            </th>
+                            <th>
+                                Edit
+                            </th>
+                            <th>
+                                Remove
+                            </th>
                         </tr>
-                    }
-                </tbody>
-                <tfoot>
-                    <tr></tr>
-                </tfoot>
-            </table>
+                        @foreach (var item in this.Model.ClubList)
+                        {
+                            string clubRowId = "clubRow" + @item.ID.ToString();
+                            string clubRowName = clubRowId + "Name";
+                            string clubRowCaptain = clubRowId + "Captain";
+                            string clubRowDescription = clubRowId + "Description";
+                            
+                            <tr>
+                                <td id="@clubRowId">
+                                    @item.ID
+                                </td>
+                                <td id="@clubRowName">
+                                    @item.Name
+                                </td>
+                                <td id="@clubRowCaptain">
+                                    @item.CaptainName
+                                </td>
+                                <td id="@clubRowDescription">
+                                    @item.Description
+                                </td>
+                                <td>
+                                    <i class="btn btn-warning btn-sm glyphicon glyphicon-edit" onclick="editClub(@item.ID)"></i>
+                                </td>
+                                <td>
+                                    @if (!item.IsUse)
+                                    {
+                                        <i class="btn btn-danger btn-sm glyphicon glyphicon-remove" onclick="deleteClub(@item.ID);"></i>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr></tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
         <div class="tab-pane in active" id="Members">
-            <table class="table">
-                <caption>Member List</caption>
-                <thead>
-                    <tr>
-                        <td colspan="4">
-                            <a class="btn btn-primary" onclick="addMember();" role="button">Add</a>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>
-                            ID
-                        </th>
-                        <th>
-                            Member Name
-                        </th>
-                        <th>
-                            Male
-                        </th>
-                        <th>
-                            Operation
-                        </th>
-                    </tr>
-                    @foreach (var item in this.Model.MemberList)
-                    {
-                        string memberRowID = "memberRow" + @item.ID.ToString();
-                        string memberRowIDName = memberRowID + "Name";
-                        string memberRowIDMale = memberRowID + "Male";
-                        <tr id=@memberRowID>
-                            <td>
-                                @item.ID
-                            </td>
-                            <td id=@memberRowIDName>
-                                @item.Name
-                            </td>
-                            <td id=@memberRowIDMale>
-                                @if (item.Male)
-                                {<span>男</span>}
-                                @if (!item.Male)
-                                {<span>女</span>}
-                            </td>
-                            <td>
-                                <a class="btn btn-primary" onclick="editMember(@item.ID);" role="button">Edit</a>
-                                @if (!item.IsUse)
-                                {
-                                    <a class="btn btn-primary" onclick="deleteMember(@item.ID);" role="button">Delete</a>
-                                }
-                            </td>
+            <br />
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <span><b>Member List</b></span>
+                    <span class=" pull-right"><b><a onclick="addMember()" role="button">Add</a></b></span>
+                </div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>
+                                ID
+                            </th>
+                            <th>
+                                Member Name
+                            </th>
+                            <th>
+                                Male
+                            </th>
+                            <th>
+                                Club
+                            </th>
+                            <th>
+                                Edit
+                            </th>
+                            <th>
+                                Remove
+                            </th>
                         </tr>
-                    }
-                </tbody>
-                <tfoot>
-                    <tr></tr>
-                </tfoot>
-            </table>
+                        @foreach (var item in this.Model.MemberList)
+                        {
+                            string memberRowID = "memberRow" + @item.ID.ToString();
+                            string memberRowIDName = memberRowID + "Name";
+                            string memberRowIDMale = memberRowID + "Male";
+                            string memberRowIDClub = memberRowID + "Club";
+                            <tr id=@memberRowID>
+                                <td>
+                                    @item.ID
+                                </td>
+                                <td id=@memberRowIDName>
+                                    @item.Name
+                                </td>
+                                <td id=@memberRowIDMale>
+                                    @if (item.Male)
+                                    {<span>男</span>}
+                                    @if (!item.Male)
+                                    {<span>女</span>}
+                                </td>
+                                <td id="@memberRowIDClub">
+                                    @if (item.MemberAndClubRelations != null)
+                                    {
+                                        @item.MemberAndClubRelations.ClubID.Name
+                                    }
+                                </td>
+                                <td>
+                                    <i class="btn btn-warning btn-sm glyphicon glyphicon-edit" onclick="editMember(@item.ID)"></i>
+                                </td>
+                                <td>
+                                    @if (!item.IsUse)
+                                    {
+                                        <i class="btn btn-danger btn-sm glyphicon glyphicon-remove" onclick="deleteMember(@item.ID)"></i>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr></tr>
+                    </tfoot>
+                </table>
+            </div>
         </div>
         <div class="tab-pane" id="Championships">
-            <table class="table">
-                <caption>Championship List</caption>
-                <thead>
-                    <tr>
-                        <td colspan="7">
-                            <a class="btn btn-primary" onclick="addChampionship();" role="button">Add</a>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>
-                            ID
-                        </th>
-                        <th>
-                            Title
-                        </th>
-                        <th>
-                            Chompion Type
-                        </th>
-                        <th>
-                            Competing Type
-                        </th>
-                        <th>
-                            Start Date
-                        </th>
-                        <th>
-                            End Date
-                        </th>
-                        <th>
-                            Action
-                        </th>
-                    </tr>
-                    @foreach (var item in this.Model.ChampionshipList)
-                    {
-                        string championshipRowID = "championshipRow" + @item.ID.ToString();
-                        string championshipIDTDID = championshipRowID + "ID";
-                        string championshipIDTDTitle = championshipRowID + "Title";
-                        string championshipIDTDChampionType = championshipRowID + "ChampionType";
-                        string championshipIDTDCompetingType = championshipRowID + "CompetingType";
-                        string championshipIDTDStartDate = championshipRowID + "StartDate";
-                        string championshipIDTDEndDate = championshipRowID + "EndDate";
+                <br />
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <span><b>Championship List</b></span>
+                        <span class="pull-right"><a onclick="addChampionship()">Add</a></span>
+                    </div>
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>
+                                    ID
+                                </th>
+                                <th>
+                                    Title
+                                </th>
+                                <th>
+                                    Chompion Type
+                                </th>
+                                <th>
+                                    Competing Type
+                                </th>
+                                <th>
+                                    Start Date
+                                </th>
+                                <th>
+                                    End Date
+                                </th>
+                                <th>
+                                    Edit
+                                </th>
+                                <th>
+                                    Remove
+                                </th>
+                                <th>
+                                    Statue
+                                </th>
+                            </tr>
+                            @foreach (var item in this.Model.ChampionshipList)
+                            {
+                                string championshipRowID = "championshipRow" + @item.ID.ToString();
+                                string championshipIDTDID = championshipRowID + "ID";
+                                string championshipIDTDTitle = championshipRowID + "Title";
+                                string championshipIDTDChampionType = championshipRowID + "ChampionType";
+                                string championshipIDTDCompetingType = championshipRowID + "CompetingType";
+                                string championshipIDTDStartDate = championshipRowID + "StartDate";
+                                string championshipIDTDEndDate = championshipRowID + "EndDate";
+
+                                <tr id=@championshipRowID>
+                                    <td id=@championshipIDTDID>
+                                        @item.ID
+                                    </td>
+                                    <td id=@championshipIDTDTitle>
+                                        @item.Title
+                                    </td>
+                                    <td id=@championshipIDTDChampionType>
+                                        @item.ChampionType
+                                    </td>
+                                    <td id=@championshipIDTDCompetingType>
+                                        @item.CompetingType
+                                    </td>
+                                    <td id=@championshipIDTDStartDate>
+                                        @item.StartDate
+                                    </td>
+                                    <td id=@championshipIDTDEndDate>
+                                        @item.EndDate
+                                    </td>
+                                    <td>
+                                        <i class="btn btn-warning btn-sm glyphicon glyphicon-edit" onclick="editChampionship(@item.ID);"></i>
+
+                                    </td>
+                                    <td>
+                                        @if (!item.IsUse)
+                                        {
+                                            <i class="btn btn-danger btn-sm glyphicon glyphicon-remove" onclick="deleteChampionship(@item.ID);" role="button"></i>
+                                        }
+                                    </td>
+                                    <td>
                                         
-                        <tr id=@championshipRowID>
-                            <td id=@championshipIDTDID>
-                                @item.ID
-                            </td>
-                            <td id=@championshipIDTDTitle>
-                                @item.Title
-                            </td>
-                            <td id=@championshipIDTDChampionType>
-                                @item.ChampionType
-                            </td>
-                            <td id=@championshipIDTDCompetingType>
-                                @item.CompetingType
-                            </td>
-                            <td id=@championshipIDTDStartDate>
-                                @item.StartDate
-                            </td>
-                            <td id=@championshipIDTDEndDate>
-                                @item.EndDate
-                            </td>
-                            <td>
-                                <a class="btn btn-primary" onclick="editChampionship(@item.ID);" role="button">Edit</a>
-                                @if (!item.IsUse)
-                                {
-                                    <a class="btn btn-primary" onclick="deleteChampionship(@item.ID);" role="button">Delete</a>
-                                }
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-                <tfoot>
-                    <tr></tr>
-                </tfoot>
-            </table>
-        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr></tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
     </div>
 </div>
-
 @{Html.RenderPartial("ClubDialog");}
-@{Html.RenderPartial("ChampionshipDialog",this.Model);}
+@{Html.RenderPartial("ChampionshipDialog", this.Model);}
 @{Html.RenderPartial("MemberDialog");}
 
 

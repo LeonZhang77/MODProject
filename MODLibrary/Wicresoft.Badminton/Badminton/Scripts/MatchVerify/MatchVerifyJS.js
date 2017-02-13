@@ -1,4 +1,5 @@
 ﻿var _strActionIsRecord = "Your action is record!";
+var _strActionIsNotRecord = "Something is wrong, your action isn't recored";
 
 $(function () {
     $("#DeleteMatchDialog").dialog(
@@ -83,11 +84,11 @@ function doNotValidMatch(i) {
                 url: $("#NotValidMatchURL").attr("requstUrl"),
                 data: { q: _id },
                 success: function (data) {
-                    if (data == "true") {
+                    if (data) {
                         location.reload();
                     }
                     else {
-                        alert(data);
+                        alert(_strActionIsNotRecord);
                     }
                 }
             })
@@ -101,11 +102,11 @@ function doValidMatch(i) {
                 url: $("#ValidMatchURL").attr("requstUrl"),
                 data: { q: _id },
                 success: function (data) {
-                    if (data == "true") {
+                    if (data) {
                         location.reload();
                     }
                     else {
-                        alert(data);
+                        alert(_strActionIsNotRecord);
                     }
                 }
             })
@@ -119,11 +120,11 @@ function doDeleteMatch(i) {
                 url: $("#DeleteMatchURL").attr("requstUrl"),
                 data: { q: _id },
                 success: function (data) {
-                    if (data == "true") {
+                    if (data) {
                         location.reload();
                     }
                     else {
-                        alert(data);
+                        alert(_strActionIsNotRecord);
                     }
                 }
             })

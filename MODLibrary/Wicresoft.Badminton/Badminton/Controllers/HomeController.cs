@@ -36,7 +36,7 @@ namespace Badminton.Controllers
                 {
                     ViewBag.IsAdmin = true;
                 }
-
+                
             }
 
             return View();

@@ -64,9 +64,7 @@ namespace Badminton.Models.MatchVerify
             matchModel.WinLosePoints = item.WinnerPoints.ToString() + ":" + item.LoserPoints.ToString();
             matchModel.Winner1Name = item.WinnerID.Name;
             matchModel.Loser1Name = item.LoserID.Name;
-            if (item.ChampionID.CompetingType.Equals(CompetingType.MaleSin) ||
-                    item.ChampionID.CompetingType.Equals(CompetingType.FemaleSin) ||
-                    item.ChampionID.CompetingType.Equals(CompetingType.MixSin))
+            if (item.ChampionID.CompetingType == CompetingType.FemaleSin || item.ChampionID.CompetingType == CompetingType.MaleSin || item.ChampionID.CompetingType == CompetingType.MixSin)
             {
                 matchModel.Winner2Name = "";
                 matchModel.Loser2Name = "";

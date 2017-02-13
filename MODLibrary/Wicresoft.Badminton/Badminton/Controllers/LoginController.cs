@@ -15,9 +15,8 @@ namespace Badminton.Controllers
     public class LoginController : Controller
     {
 
-        public LoginController()
-        {
-
+        public LoginController() {
+           
         }
 
         // GET: Login
@@ -28,7 +27,7 @@ namespace Badminton.Controllers
         }
         // Post
         [HttpPost]
-        public ActionResult Index(LoginIndexModel model)
+        public ActionResult Index(LoginIndexModel model) 
         {
             string Role = "User";
             bool IsAdmin = VerifyWebConfigByUserNameAndPassword(model.Account, model.Password);
@@ -43,15 +42,15 @@ namespace Badminton.Controllers
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(ticket));
             cookie.HttpOnly = true;
             HttpContext.Response.Cookies.Add(cookie);
-
-            return RedirectToAction("Index", "Home", null);
+           
+           return RedirectToAction("Index","Home",null);
         }
 
-        public bool VerifyWebConfigByUserNameAndPassword(String userName, String password)
+        public bool VerifyWebConfigByUserNameAndPassword(String userName,String password) 
         {
             String Account = null;
             String Password = null;
-            if (ConfigurationManager.AppSettings.HasKeys())
+            if(ConfigurationManager.AppSettings.HasKeys())
             {
                 Account = ConfigurationManager.AppSettings.GetValues("Account").First();
                 Password = ConfigurationManager.AppSettings.GetValues("Password").First();
@@ -69,12 +68,12 @@ namespace Badminton.Controllers
             return View(model);
         }
 
-        public ActionResult LoginOut()
+        public ActionResult LoginOut() 
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index");
         }
-
+        
         public ActionResult NotPermission()
         {
             return View();

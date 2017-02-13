@@ -15,10 +15,19 @@
     @RenderSection("scripts", required: false)
 
     
+    <style>
+        .bgBadminImgBottom {
+            background: url(/Content/images/PlayBadmin.png) bottom right no-repeat;
+        }
+
+        .bgBadminImgTop {
+            background: url(/Content/images/PlayBadmin2.png) top left no-repeat;
+        }
+    </style>
 
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body class="bgBadminImgBottom">
+    <div class="navbar navbar-inverse navbar-fixed-top " style="background-color:rgba(216, 236, 246, 1);border:none;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -26,34 +35,33 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("MOD Badminton Group", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="/Home/Index">M<img src='/Content/images/Badmin.png' height="20" />D Badminton Group</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav text-primary">
                     <li>@Html.ActionLink("比赛录入", "Index", "MatchInput", null, null)</li>
                     <li>@Html.ActionLink("排行榜", "Index", "ScoreList", null, null)</li>
                     <li>@Html.ActionLink("数据管理", "Index", "DataManage", null, null)</li>
                     <li>@Html.ActionLink("录入数据审核", "Index", "MatchVerify", null, null)</li>
-                    <li>@Html.ActionLink("积分计算", "Index", "ScoreCalc", null, null)</li>                        
-                    @*<li>@Html.ActionLink("Manage", "Index", "Manage", null, null)</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
+                    <li>@Html.ActionLink("积分计算", "Index", "ScoreCalc", null, null)</li>
                 </ul>
-               @Html.Action("LoginUserDisplay", "Home")
+                @Html.Action("LoginUserDisplay", "Home")
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <div class="bgBadminImgTop" style="width:100%">
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <center><p>&copy; @DateTime.Now.Year - MOD Badminton Group Management</p></center>
+            </footer>
+        </div>
     </div>
 
- @Scripts.Render("~/Scripts/ui/jquery-ui.js")
-@Scripts.Render("~/Scripts/ui/jquery.ui.core.js")
-@Scripts.Render("~/Scripts/ui/jquery.ui.widget.js")
+    @Scripts.Render("~/Scripts/ui/jquery-ui.js")
+    @Scripts.Render("~/Scripts/ui/jquery.ui.core.js")
+    @Scripts.Render("~/Scripts/ui/jquery.ui.widget.js")
 
 </body>
 </html>

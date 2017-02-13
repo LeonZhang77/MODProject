@@ -10,75 +10,67 @@
 
 @using (Html.BeginForm())
 {
-    <div class="jumbotron">
-        <div>
-            <table class="table">             
-                <tr id="functionRow">
-                    <td>
-                        <span>成员姓名</span>
-                        <input type="text" id="selectMemberNameTxt" list="SearchMemberList" />
-                        <datalist id="SearchMemberList">
-                            @foreach (var item in this.Model.SearchMemberList)
-                            {
-                                <option value=@item.Text />
-                            }
-                        </datalist>
-
-                        @Html.DropDownListFor(m => m.SearchSelectedID, this.Model.SearchMemberList, new{style = "display:none"})
-                       
-                                                
-                        <a class="btn btn-primary " onclick="javascript:selectThisGuy()">Select</a>
-                    </td>
-                    <td>
-                        <a onclick="javascript:showSelectedRows()">只显示选中人员</a>                       
-                    </td>
-                    <td>
-                        <a onclick="javascript:showAllRows()">显示全部</a>                                               
-                    </td>
-                    <td>
-                        <a onclick="javascript:showChart()">查看两人对战数据</a>                      
-                    </td>
-                </tr>
-            </table>
-                        
+    <br />
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-md-1">成员姓名</label>
+                    <div class="col-md-3 col-sm-3">
+                        <input class="form-control" type="text" id="selectMemberNameTxt" list="SearchMemberList" />
+                    </div>
+                    <datalist id="SearchMemberList">
+                        @foreach (var item in this.Model.SearchMemberList)
+                        {
+                            <option value=@item.Text />
+                        }
+                    </datalist>
+                    @Html.DropDownListFor(m => m.SearchSelectedID, this.Model.SearchMemberList, new { style = "display:none" })
+                    <div class="col-sm-1">
+                        <a class="btn btn-info" onclick="javascript:selectThisGuy()">Select</a>
+                    </div>
+                    <div class="col-md-5">
+                        <a href="#" onclick="javascript:showSelectedRows()">只显示选中人员</a>
+                        <a href="#" onclick="javascript:showAllRows()">显示全部</a>
+                        <a href="#" onclick="javascript:showChart()">查看两人对战数据</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-<div id="chart" style="display:none">
-    <p>
-        <br />
-    </p>
-    <table class="table">
-        <caption>两人对战数据</caption>
-        <thead>
-        </thead>
-        <tr style="text-align:center">
-            <td>单打胜率</td>
-            <td>双打胜率</td>
-            <td>混双胜率</td>
-        </tr>
-        <tr>
-            <td>
-                <canvas id="myChart1" height="300" width="300" requesturl="@Url.Action("GetJSONForSingles", "ScoreList")"></canvas>
-            </td>
-            <td>
-                <canvas id="myChart2" height="300" width="300" requesturl="@Url.Action("GetJSONForDoubles", "ScoreList")"></canvas>
-            </td>
-            <td>
-                <canvas id="myChart3" height="300" width="300" requesturl="@Url.Action("GetJSONForMixedDoubles", "ScoreList")"></canvas>
-            </td>
-        </tr>
-        <tr style="text-align:center">
-            <td id ="legend_1" style="background:#F38630"></td>
-            <td></td>
-            <td id ="legend_2" style="background:#E0E4CC"></td>
-        </tr>
-    </table>  
-</div>
-        
+        <div id="chart" style="display:none">
+            <p>
+                <br />
+            </p>
+            <table class="table">
+                <caption><h3>两人对战数据</h3></caption>
+                <tr style="text-align:center">
+                    <td>单打胜率</td>
+                    <td>双打胜率</td>
+                    <td>混双胜率</td>
+                </tr>
+                <tr>
+                    <td>
+                        <canvas id="myChart1" height="300" width="300" requesturl="@Url.Action("GetJSONForSingles", "ScoreList")"></canvas>
+                    </td>
+                    <td>
+                        <canvas id="myChart2" height="300" width="300" requesturl="@Url.Action("GetJSONForDoubles", "ScoreList")"></canvas>
+                    </td>
+                    <td>
+                        <canvas id="myChart3" height="300" width="300" requesturl="@Url.Action("GetJSONForMixedDoubles", "ScoreList")"></canvas>
+                    </td>
+                </tr>
+                <tr style="text-align:center">
+                    <td id="legend_1" style="background:#F38630"></td>
+                    <td></td>
+                    <td id="legend_2" style="background:#E0E4CC"></td>
+                </tr>
+            </table>
+        </div>
+
+        <h3 class="text-center">积分列表</h3>
         <table class="table">
-            <caption>积分列表</caption>
-            <thead>                
-            </thead>
+
             <tbody>
                 <tr id="firstRow">
                     <th>
@@ -112,7 +104,21 @@
                                 @item.MemberName
                             </td>
                             <td>
-                                @item.Ranking
+                                @if (item.Score != 0)
+                                {
+                                    if (item.Ranking == 1)
+                                    { <img src="~/Content/images/1st.png" height="32" width="32" />}
+                                    else if (item.Ranking == 2)
+                                    { <img src="~/Content/images/2st.png" height="32" width="32" />}
+                                    else if (item.Ranking == 3)
+                                    { <img src="~/Content/images/3st.png" height="32" width="32" />}
+                                    else
+                                    {<span>&nbsp;&nbsp;&nbsp;@item.Ranking</span> }
+                                }
+                                else
+                                {
+                                    <span>&nbsp;&nbsp;&nbsp;@item.Ranking</span>
+                                }
                             </td>
                             <td>
                                 @item.Score
@@ -130,12 +136,26 @@
                     }
                     else
                     {
-                        <tr id = @rowID style="background-color:#a4c2f4">
+                        <tr id=@rowID style="background-color:rgba(244, 244, 244, 1)">
                             <td>
                                 @item.MemberName
                             </td>
                             <td>
-                                @item.Ranking
+                                @if (item.Score != 0)
+                                {
+                                    if (item.Ranking == 1)
+                                    { <img src="~/Content/images/1st.png" height="32" width="32" />}
+                                    else if (item.Ranking == 2)
+                                    { <img src="~/Content/images/2st.png" height="32" width="32" />}
+                                    else if (item.Ranking == 3)
+                                    { <img src="~/Content/images/3st.png" height="32" width="32" />}
+                                    else
+                                    {<span>&nbsp;&nbsp;&nbsp;@item.Ranking</span> }
+                                }
+                                else
+                                {
+                                    <span>&nbsp;&nbsp;&nbsp;@item.Ranking</span>
+                                }
                             </td>
                             <td>
                                 @item.Score

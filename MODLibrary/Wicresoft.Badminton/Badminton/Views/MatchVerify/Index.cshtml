@@ -9,150 +9,135 @@
     @Scripts.Render("~/Scripts/MatchVerify/MatchVerifyJS.js")
 }
 <br />
-
-    <div class="jumbotron">
-        <div class="accordion" id="accordion2">
-            <div class="accordion-group">
-                <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-                        等待审核的比赛数据
-                    </a>
-                </div>
-                <div id="collapseOne" class="accordion-body collapse in">
-                    <div class="accordion-inner">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>提交人</th>
-                                    <th>比赛时间</th>
-                                    <th>所属赛事</th>
-                                    <th>比分</th>
-                                    <th>获胜选手1</th>
-                                    <th>获胜选手2</th>
-                                    <th>失败选手1</th>
-                                    <th>失败选手2</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in this.Model.WaitingForVerifyList)
-                                {
-                                    <tr>
-                                        <td id="requestid" style="display:none">
-                                            @item.ID
-                                        </td>
-                                        <td>
-                                            @item.InputPersonName
-                                       </td>
-                                        <td>
-                                            @item.MatchDate
-                                        </td>
-                                        <td>
-                                            @item.ChampionshipTitle
-                                        </td>
-                                        <td>
-                                            @item.WinLosePoints
-                                        </td>
-                                        <td>
-                                            @item.Winner1Name
-                                        </td>
-                                        <td>
-                                            @item.Winner2Name
-                                        </td>
-                                        <td>
-                                            @item.Loser1Name
-                                        </td>
-                                        <td>
-                                            @item.Loser2Name
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-primary" onclick="deleteMatch(@item.ID);" role="button">Delete</a>
-                                            <a class="btn btn-primary" onclick="validMatch(@item.ID);" role="button">Valid</a>                                            
-                                        </td>
-                                        
-                                    </tr>
-
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
-                    以下比赛可以去计算积分
-                </a>
-            </div>
-            <div id="collapseTwo" class=" accordion-body collapse in">
-                <div class="accordion-inner">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>提交人</th>
-                                <th>比赛时间</th>
-                                <th>所属赛事</th>
-                                <th>比分</th>
-                                <th>获胜选手1</th>
-                                <th>获胜选手2</th>
-                                <th>失败选手1</th>
-                                <th>失败选手2</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in this.Model.WaitingForScoreList)
-                            {
-                                <tr>
-                                    <td id="requestid" style="display:none">
-                                        @item.ID
-                                    </td>
-                                    <td>
-                                        @item.InputPersonName
-                                    </td>
-                                    <td>
-                                        @item.MatchDate
-                                    </td>
-                                    <td>
-                                        @item.ChampionshipTitle
-                                    </td>
-                                    <td>
-                                        @item.WinLosePoints
-                                    </td>
-                                    <td>
-                                        @item.Winner1Name
-                                    </td>
-                                    <td>
-                                        @item.Winner2Name
-                                    </td>
-                                    <td>
-                                        @item.Loser1Name
-                                    </td>
-                                    <td>
-                                        @item.Loser2Name
-                                    </td>
-                                    <td>
-
-                                        <a class="btn btn-primary" onclick="notValidMatch(@item.ID);" role="button">Not Valid</a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
+<div class="panel panel-warning">
+    <div class="panel-heading">
+        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">等待审核的比赛数据</a>
     </div>
+    <table class="table" id="collapseOne">
+        <thead>
+            <tr>
+                <th>提交人</th>
+                <th>比赛时间</th>
+                <th>所属赛事</th>
+                <th>比分</th>
+                <th>获胜选手1</th>
+                <th>获胜选手2</th>
+                <th>失败选手1</th>
+                <th>失败选手2</th>
+                <th>Valid</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in this.Model.WaitingForVerifyList)
+            {
+                <tr>
+                    <td id="requestid" style="display:none">
+                        @item.ID
+                    </td>
+                    <td>
+                        @item.InputPersonName
+                    </td>
+                    <td>
+                        @item.MatchDate
+                    </td>
+                    <td>
+                        @item.ChampionshipTitle
+                    </td>
+                    <td>
+                        @item.WinLosePoints
+                    </td>
+                    <td>
+                        @item.Winner1Name
+                    </td>
+                    <td>
+                        @item.Winner2Name
+                    </td>
+                    <td>
+                        @item.Loser1Name
+                    </td>
+                    <td>
+                        @item.Loser2Name
+                    </td>
+                    <td>
+                        <i class="btn btn-success btn-sm glyphicon glyphicon-ok" onclick="validMatch(@item.ID);" role="button"></i>
+                    </td>
+                    <td>
+                        <i class="btn btn-danger btn-sm glyphicon glyphicon-remove" onclick="deleteMatch(@item.ID);" role="button"></i>
+                    </td>
 
-    
+                </tr>
 
-    <div style="display: none" id="DeleteMatchURL" requsturl="@Url.Action("DeleteMatch", "MatchVerify")"></div>
-    <div style="display: none" id="ValidMatchURL" requsturl="@Url.Action("ValidMatch", "MatchVerify")"></div>
-    <div style="display: none" id="NotValidMatchURL" requsturl="@Url.Action("NotValidMatch", "MatchVerify")"></div>
+            }
+        </tbody>
+    </table>
+</div>
 
-<div id="DeleteMatchDialog" title="Confirm Dialog">
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+            以下比赛可以去计算积分
+        </a>
+    </div>
+    <table class="table" id="collapseTwo">
+        <thead>
+            <tr>
+                <th>提交人</th>
+                <th>比赛时间</th>
+                <th>所属赛事</th>
+                <th>比分</th>
+                <th>获胜选手1</th>
+                <th>获胜选手2</th>
+                <th>失败选手1</th>
+                <th>失败选手2</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in this.Model.WaitingForScoreList)
+            {
+                <tr>
+                    <td id="requestid" style="display:none">
+                        @item.ID
+                    </td>
+                    <td>
+                        @item.InputPersonName
+                    </td>
+                    <td>
+                        @item.MatchDate
+                    </td>
+                    <td>
+                        @item.ChampionshipTitle
+                    </td>
+                    <td>
+                        @item.WinLosePoints
+                    </td>
+                    <td>
+                        @item.Winner1Name
+                    </td>
+                    <td>
+                        @item.Winner2Name
+                    </td>
+                    <td>
+                        @item.Loser1Name
+                    </td>
+                    <td>
+                        @item.Loser2Name
+                    </td>
+                    <td>
+                        <i class="btn btn-warning btn-sm" onclick="notValidMatch(@item.ID);" role="button"><img src="~/Content/images/replay.png" height="15" width="15" /></i>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div style="display: none" id="DeleteMatchURL" requsturl="@Url.Action("DeleteMatch", "MatchVerify")"></div>
+<div style="display: none" id="ValidMatchURL" requsturl="@Url.Action("ValidMatch", "MatchVerify")"></div>
+<div style="display: none" id="NotValidMatchURL" requsturl="@Url.Action("NotValidMatch", "MatchVerify")"></div>
+
+<div id="DeleteMatchDialog" title="Delete Confirm Dialog" hidden="hidden">
     <p>
         <br />
         This Match will be removed and can not be recover.<br />
@@ -162,7 +147,7 @@
     </p>
 </div>
 
-<div id="ValidMatchDialog" title="Confirm Dialog">
+<div id="ValidMatchDialog" title="Valid Confirm Dialog" hidden="hidden">
     <p>
         <br />
         This Match record is acceptable?

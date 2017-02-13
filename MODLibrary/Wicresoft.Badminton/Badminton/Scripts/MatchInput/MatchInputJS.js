@@ -1,4 +1,5 @@
 ﻿var _strActionIsRecord = "Your action is record!";
+var _strActionIsNotRecord = "Something is wrong, your action isn't recored";
 
 $(function () {
     $("#MatchDate").datepicker();
@@ -48,7 +49,7 @@ function setCompetingType()
         }
     }
    
-    $("#CompetingType").val(_CompetingType);
+    $("#CompetingType").empty().text(_CompetingType);
     
     $("#Winner2TR").show();
     $("#Loser2TR").show();
@@ -124,12 +125,12 @@ function doAddMatch()
                 url: $("#AddMatchURL").attr("requstUrl"),
                 data: { q: dataString },
                 success: function (data) {
-                    if (data == "true") {
+                    if (data) {
                         alert(_strActionIsRecord);
                         location.reload(true);                        
                     }
                     else {
-                        alert(data);
+                        alert(_strActionIsNotRecord);
                     }
                 }
             })

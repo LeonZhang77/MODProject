@@ -13,13 +13,13 @@ namespace Badminton.Models.Login
             set;
         }
 
-        public String NewPassword
+        public String NewPassword 
         {
             get;
             set;
         }
 
-        public String ConfirmPassword
+        public String ConfirmPassword 
         {
             get;
             set;

@@ -9,6 +9,7 @@ using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 using Wicresoft.BadmintonSystem.Entity;
 using Wicresoft.BadmintonSystem.Unity;
 using Newtonsoft.Json.Linq;
+using Wicresoft.BadmintonSystem.Unity;
 
 namespace Badminton.Controllers
 {
@@ -95,7 +96,7 @@ namespace Badminton.Controllers
             return returnList;
         }
 
-        public string AddMatch(string q)
+        public bool AddMatch(string q)
         {
             try
             {
@@ -115,18 +116,16 @@ namespace Badminton.Controllers
                 info.VerifyDate = DateTime.Parse("01/01/1900");
                 info.Verified = false;
                 
-                if (info.ChampionID.CompetingType.Equals(CompetingType.MaleSin) ||
-                    info.ChampionID.CompetingType.Equals(CompetingType.FemaleSin) ||
-                    info.ChampionID.CompetingType.Equals(CompetingType.MixSin))
+                if (!EnumHelper.GetEnumDescription((info.ChampionID.CompetingType)).Contains("Singles"))
                 {
                     info.WinnerID2 = provider.GetMemberInfoByID(long.Parse((string)obj["Winner2ID"]));
                     info.LoserID2 = provider.GetMemberInfoByID(long.Parse((string)obj["Loser2ID"]));
                 }
                 provider.SaveMatchInfo(info);
             }
-            catch (Exception ex) { return ex.Message; };
+            catch (Exception ex) { return false; };
 
-            return "true";
+            return true;
         }
     }
 }
