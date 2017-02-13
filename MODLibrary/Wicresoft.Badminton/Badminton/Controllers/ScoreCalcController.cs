@@ -33,32 +33,142 @@ namespace Badminton.Controllers
         {
                         
             return View(model);
-        }
+        }        
 
-        [HttpPost]
-        public ActionResult Index(ScoreCalcIndexModel modelInput)
+        public ActionResult CalcToReview(ScoreCalcIndexModel modelInput)
         {
-            modelInput.WaitingMatchList = GetWaitingMatchList(matchList);
-            model = CalcAndGoToReview(modelInput);
-            return View(model);
+            if (matchList.Count == 0)
+            {
+                return Content("<script>alert('" + "没有等待计算积分的比赛，请返回录入数据审核心页面检查！" + "');location.href='/ScoreCalc/Index'</script>");
+            }
+            else
+            {
+                modelInput.WaitingMatchList = GetWaitingMatchList(matchList);
+                model = CalcAndGoToReview(modelInput);
+                return View("Index", model);
+            }
         }
 
+        public ActionResult AdjustAccordingToDateRange(ScoreCalcIndexModel modelInput)
+        {
+            if (modelInput.AddScoreInfoList.Count == 0 && modelInput.WaitingMatchList.Count != 0)
+            {
+                return Content("<script>alert('" + "还有等待计算积分的比赛，请先计算积分!" + "');location.href='/ScoreCalc/Index'</script>");
+            }
+            else
+            {
+                List<ScoreInfo> scoreInfoList = provider.GetScoreInfos().ToList();
+                model = modelInput;
+                ScoreInfo tempInfo;
+                foreach (AddScoreInfo item in model.AddScoreInfoList)
+                {
+                    tempInfo = AddScoreInfo.GetEntity(item);
+                    scoreInfoList.Add(tempInfo);
+                }
+                model.UpdateMemberList = GetUpdateMemberList(scoreInfoList);
+                return View("Index", "Model");
+            }
+        }
        
-        public ActionResult SaveScoreEntry(ScoreCalcIndexModel modelInput)
+        public ActionResult SaveBonusAndScoreEntry(ScoreCalcIndexModel modelInput)
         {
             model = modelInput;
-            Boolean flag = RecordScoreEntryToDB();
+            Boolean flag = RecordScoreEntryToDB();            
             if (flag)
             {
-                return Content("<script>alert('" + "保存成功！" + "');location.href='/ScoreCalc/Index'</script>");
+                return Content("<script>alert('" + "保存成功, 请记得去按周期调整积分！" + "');location.href='/ScoreCalc/Index'</script>");
             }
             else
             {
                 return Content("<script>alert('" + "保存没有成功！" + "');location.href='/ScoreCalc/Index'</script>");
             }
-            
-            
-            
+        }
+
+        public ActionResult OnlyAdjustAccordingToDateRange(ScoreCalcIndexModel modelInput)
+        {
+            if(modelInput.WaitingMatchList.Count != 0)
+            {
+                return Content("<script>alert('" + "还有等待计算积分的比赛，请先计算积分并保存！" + "');location.href='/ScoreCalc/Index'</script>");
+            }
+            else
+            {
+                model = modelInput;
+                model.UpdateMemberList = GetUpdateMemberList(provider.GetScoreInfos().ToList());
+                return View("Index", "Model");
+            }
+        }
+
+        internal List<ScoreUpdateMember> GetUpdateMemberList(List<ScoreInfo> ScoreInfoList)
+        {
+            ScoreUpdateMember updateMember;
+            List<MemberInfo>  memberInfoList = provider.GetMemberInfos().ToList();
+            //初始化 model.UpdateMemberList.
+            foreach (MemberInfo item in memberInfoList)
+            {
+                updateMember = new ScoreUpdateMember();
+                updateMember.ID = item.ID;
+                updateMember.MemberName = item.Name;
+                updateMember.OriginalScore = item.Score;
+                updateMember.OriginalRank = rankList.Find(u => u.MemberID == item.ID).Rank;
+                updateMember.UpdateScore = 100;
+                model.UpdateMemberList.Add(updateMember);
+            }
+
+            // 更新 update Score 和 Comments.
+            ScoreInfoList = ScoreInfoList.OrderBy(u => u.CalculateDate).ToList();
+            foreach (ScoreInfo item in ScoreInfoList)
+            {
+                TimeSpan timeSpan = DateTime.Now - item.CalculateDate;
+                if ((int)timeSpan.TotalDays > 7*model.Parameters.DateRange4)
+                {
+                    model.UpdateMemberList.Find(u => u.ID == item.MemberID.ID).UpdateScore += long.Parse(Math.Round(model.Parameters.Rate5 * item.Score).ToString());
+
+                }
+                else if((int)timeSpan.TotalDays > 7*model.Parameters.DateRange3)
+                { 
+                    model.UpdateMemberList.Find(u => u.ID == item.MemberID.ID).UpdateScore += long.Parse(Math.Round(model.Parameters.Rate4 * item.Score).ToString());
+                }
+                else if((int)timeSpan.TotalDays > 7*model.Parameters.DateRange2)
+                { 
+                    model.UpdateMemberList.Find(u => u.ID == item.MemberID.ID).UpdateScore += long.Parse(Math.Round(model.Parameters.Rate3 * item.Score).ToString());
+                }
+                else if ((int)timeSpan.TotalDays > 7 * model.Parameters.DateRange1)
+                { 
+                    model.UpdateMemberList.Find(u => u.ID == item.MemberID.ID).UpdateScore += long.Parse(Math.Round(model.Parameters.Rate2 * item.Score).ToString());
+                }
+                else 
+                { 
+                    model.UpdateMemberList.Find(u => u.ID == item.MemberID.ID).UpdateScore += long.Parse(Math.Round(model.Parameters.Rate1 * item.Score).ToString());
+                }
+                model.UpdateMemberList.Find(u=>u.ID == item.MemberID.ID).Comments += "/" + item.Comment.ToString();
+            }
+
+            //更新 Rank
+            List<MemberInfo> tempMemberInfoList = provider.GetMemberInfos().ToList();
+            foreach (ScoreUpdateMember item in model.UpdateMemberList)
+            {
+                tempMemberInfoList.Find(u => u.ID == item.ID).Score = Int32.Parse(item.UpdateScore.ToString());
+            }
+            List<DataHelper.MemberRank> tempRankList = DataHelper.GetMemberRank(tempMemberInfoList);
+            foreach (ScoreUpdateMember item in model.UpdateMemberList)
+            {
+                item.UpdateRank = tempRankList.Find(u => u.MemberID == item.ID).Rank;
+            }
+                        
+            return model.UpdateMemberList;
+        }
+
+        public ActionResult SaveScoreAfterAdjustAccordingToDateRange(ScoreCalcIndexModel modelInput)
+        {
+            Boolean flag = UpdateMemberScore(modelInput.UpdateMemberList);
+            if (flag)
+            {
+                return Content("<script>alert('" + "还有等待计算积分的比赛，请先计算积分并保存！" + "');location.href='/ScoreCalc/Index'</script>");
+            }
+            else
+            {
+                return View("Index", "Model");
+            }
         }
 
         public Boolean RecordScoreEntryToDB()
@@ -98,13 +208,22 @@ namespace Badminton.Controllers
             }
         }
 
-        internal void UpdateMemberScore(List<ScoreUpdateMember> UpdateMemberList)
+        internal Boolean UpdateMemberScore(List<ScoreUpdateMember> UpdateMemberList)
         {
-            foreach (ScoreUpdateMember item in UpdateMemberList)
+            try
             {
-                MemberInfo info = ScoreUpdateMember.GetEntity(item);
-                provider.UpdateMemberInfo(info);
+                foreach (ScoreUpdateMember item in UpdateMemberList)
+                {
+                    MemberInfo info = ScoreUpdateMember.GetEntity(item);
+                    provider.UpdateMemberInfo(info);
+                }
             }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;            
         }
         public ScoreCalcIndexModel CalcAndGoToReview(ScoreCalcIndexModel model)
         {
@@ -118,7 +237,7 @@ namespace Badminton.Controllers
                     if(Math.Abs(provider.GetMemberInfoByID(waitingMatch.Winner1ID).Score +
                         provider.GetMemberInfoByID(waitingMatch.Winner2ID).Score -
                         provider.GetMemberInfoByID(waitingMatch.Loser1ID).Score -
-                        provider.GetMemberInfoByID(waitingMatch.Loser2ID).Score) > 150)
+                        provider.GetMemberInfoByID(waitingMatch.Loser2ID).Score) > model.Parameters.DoubleIngore)
                     {
                         flag=true;
                     }
@@ -126,7 +245,7 @@ namespace Badminton.Controllers
                 else
                 {
                     if(Math.Abs(provider.GetMemberInfoByID(waitingMatch.Winner1ID).Score - 
-                        provider.GetMemberInfoByID(waitingMatch.Loser1ID).Score) > 200)
+                        provider.GetMemberInfoByID(waitingMatch.Loser1ID).Score) > model.Parameters.SingleIngore)
                     {
                         flag=true;
                     }
@@ -142,10 +261,7 @@ namespace Badminton.Controllers
                 }
             }
             model.AddScoreInfoList = new List<AddScoreInfo>();
-            model.AddScoreInfoList = GetAddScoreInfo(model);
-
-            model.UpdateMemberList = new List<ScoreUpdateMember>();
-            model.UpdateMemberList = GetUpdateMemberList(model);
+            model.AddScoreInfoList = GetAddScoreInfo(model);     
 
             return model;
         }
@@ -172,35 +288,7 @@ namespace Badminton.Controllers
                 }
             }
             return model.AddScoreInfoList;
-        }
-
-        internal List<ScoreUpdateMember> GetUpdateMemberList(ScoreCalcIndexModel model)
-        {
-            ScoreUpdateMember udpateMember;
-            foreach (AddScoreInfo item in model.AddScoreInfoList)
-            {
-                udpateMember = new ScoreUpdateMember();
-                udpateMember.ID = item.MemberID;
-                udpateMember.MemberName = item.MemberName;                
-                udpateMember.Comments = item.Comments;
-                udpateMember.OriginalScore = provider.GetMemberInfoByID(item.MemberID).Score;
-                udpateMember.UpdateScore = item.Score;
-                model.UpdateMemberList.Add(udpateMember);
-            }
-
-            List<MemberInfo> tempMemberInfoList = provider.GetMemberInfos().ToList();
-            foreach (ScoreUpdateMember item in model.UpdateMemberList)
-            {
-                item.OriginalRank = rankList.Find(u => u.MemberID == item.ID).Rank;
-                tempMemberInfoList.Find(u => u.ID == item.ID).Score = Int32.Parse(item.UpdateScore.ToString());
-            }
-            List<DataHelper.MemberRank> tempRankList = DataHelper.GetMemberRank(tempMemberInfoList);
-            foreach (ScoreUpdateMember item in model.UpdateMemberList)
-            {
-                item.UpdateRank = tempRankList.Find(u => u.MemberID == item.ID).Rank;                
-            }
-            return model.UpdateMemberList;
-        }
+        }        
 
         internal ScoreCalcIndexModel CalcScore(ScoreCalcIndexModel model, WaitingMatchModel waitingMatch)
         {
@@ -353,7 +441,9 @@ namespace Badminton.Controllers
         {
             AddBonusInfo info;
             Boolean isSingles = false;
-            if (EnumHelper.GetEnumDescription(matchInfo.ChampionID.CompetingType).Contains("Single"))
+            if (matchInfo.ChampionID.CompetingType.Equals(CompetingType.MaleSin) ||
+                    matchInfo.ChampionID.CompetingType.Equals(CompetingType.FemaleSin) || 
+                    matchInfo.ChampionID.CompetingType.Equals(CompetingType.MixSin))
             {
                 isSingles = true;
             }
@@ -420,6 +510,7 @@ namespace Badminton.Controllers
             info.CreateTime = DateTime.Now;            
             return info;
         }
+
         internal List<WaitingMatchModel> GetWaitingMatchList(List<MatchInfo> matchList)
         {
             List<WaitingMatchModel> returnList = new List<WaitingMatchModel>();

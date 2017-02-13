@@ -115,7 +115,9 @@ namespace Badminton.Controllers
                 info.VerifyDate = DateTime.Parse("01/01/1900");
                 info.Verified = false;
                 
-                if (!EnumHelper.GetEnumDescription((info.ChampionID.CompetingType)).Contains("Singles"))
+                if (info.ChampionID.CompetingType.Equals(CompetingType.MaleSin) ||
+                    info.ChampionID.CompetingType.Equals(CompetingType.FemaleSin) ||
+                    info.ChampionID.CompetingType.Equals(CompetingType.MixSin))
                 {
                     info.WinnerID2 = provider.GetMemberInfoByID(long.Parse((string)obj["Winner2ID"]));
                     info.LoserID2 = provider.GetMemberInfoByID(long.Parse((string)obj["Loser2ID"]));
