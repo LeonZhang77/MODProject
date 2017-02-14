@@ -69,7 +69,11 @@ namespace Badminton.Controllers
        
         public ActionResult SaveBonusAndScoreEntry(ScoreCalcIndexModel modelInput)
         {
-            
+            if(modelInput.AddBonusInfoList.Count == 0 && modelInput.AddScoreInfoList.Count == 0)
+            {
+                return Content("<script>alert('" + "没有需要保存的Score和Bonus, 请先计算并检查！" + "');location.href='/ScoreCalc/Index'</script>");
+            }
+
             Boolean flag = RecordScoreEntryToDB(modelInput);            
             if (flag)
             {
@@ -113,10 +117,10 @@ namespace Badminton.Controllers
             }
 
             // 更新 update Score 和 Comments.
-            ScoreInfoList = ScoreInfoList.OrderBy(u => u.CalculateDate).ToList();
+            ScoreInfoList = ScoreInfoList.OrderBy(u => u.PeriodEnd).ToList();
             foreach (ScoreInfo item in ScoreInfoList)
             {
-                TimeSpan timeSpan = DateTime.Now - item.CalculateDate;
+                TimeSpan timeSpan = DateTime.Now - item.PeriodEnd;
                 if ((int)timeSpan.TotalDays > 7*model.Parameters.DateRange4)
                 {
                     model.UpdateMemberList.Find(u => u.ID == item.MemberID.ID).UpdateScore += long.Parse(Math.Round(model.Parameters.Rate5 * item.Score).ToString());
@@ -152,7 +156,7 @@ namespace Badminton.Controllers
             {
                 item.UpdateRank = tempRankList.Find(u => u.MemberID == item.ID).Rank;
             }
-                        
+            model.UpdateMemberList = model.UpdateMemberList.OrderBy(u => u.UpdateRank).ToList();            
             return model.UpdateMemberList;
         }
 
@@ -161,11 +165,11 @@ namespace Badminton.Controllers
             Boolean flag = UpdateMemberScore(modelInput.UpdateMemberList);
             if (flag)
             {
-                return Content("<script>alert('" + "还有等待计算积分的比赛，请先计算积分并保存！" + "');location.href='/ScoreCalc/Index'</script>");
+                return Content("<script>alert('" + "保存成功！" + "');location.href='/ScoreList/Index'</script>");                
             }
             else
             {
-                return View("Index");
+                return Content("<script>alert('" + "还有等待计算积分的比赛，请先计算积分并保存！" + "');location.href='/ScoreCalc/Index'</script>");                
             }
         }
 
@@ -192,7 +196,7 @@ namespace Badminton.Controllers
                 if (matchInfo.Updated == null || matchInfo.Updated == false)
                 {
                     matchInfo.Updated = true;
-                    provider.SaveMatchInfo(matchInfo);
+                    provider.UpdateMatchInfo(matchInfo);
                 }
             }
         }
@@ -212,7 +216,7 @@ namespace Badminton.Controllers
             {
                 foreach (ScoreUpdateMember item in UpdateMemberList)
                 {
-                    MemberInfo info = ScoreUpdateMember.GetEntity(item);
+                    MemberInfo info = ScoreUpdateMember.GetEntity(item);                    
                     provider.UpdateMemberInfo(info);
                 }
             }
@@ -277,11 +281,14 @@ namespace Badminton.Controllers
                     info.MemberName = item.MembernName;
                     info.Score = item.Score;
                     info.Comments = item.ChampionTitle + "/" + item.BonusTypeDescription +"/" + item.Score.ToString();
+                    info.PeriodEnd = provider.GetMatchInfoByID(item.MatchID).MatchDate;                        
                     model.AddScoreInfoList.Add(info);
                 }
                 else
                 {
                     info.Score = info.Score + item.Score;
+                    info.PeriodEnd = DateTime.Compare(info.PeriodEnd, provider.GetMatchInfoByID(item.MatchID).MatchDate) > 0?
+                     info.PeriodEnd : provider.GetMatchInfoByID(item.MatchID).MatchDate;
                     info.Comments = info.Comments + "; " + item.ChampionTitle + "/" + item.BonusTypeDescription + "/" + item.Score.ToString();
                 }
             }

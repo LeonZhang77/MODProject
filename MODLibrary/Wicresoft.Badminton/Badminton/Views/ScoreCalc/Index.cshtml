@@ -8,143 +8,193 @@
     @Scripts.Render("~/Scripts/ScoreCalcJS/ScoreCalcJS.js")    
 }
 
-<form name="ParamaterSetup" method="post">
+
     <div style="width:1100px">
         <div style="width:600px; height:800px;border:1px;float:right; text-align:center;border:double;overflow:scroll;">
+            <form name="ParamaterSetup" method="post">
+                @for (var index = 0; index < this.Model.WaitingMatchList.Count; index++)
+                {
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].ID)
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].MatchDate)
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].MatchTitle)
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].MatchScore)
 
-            <table>
-                <caption>积分计算参数设置</caption>
-                <thead></thead>
-                <tbody>
-                    <tr>
-                        <td style="width:100px;">单打忽略值：</td>
-                        <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.SingleIngore)</td>
-                        <td style="width:100px;">双打忽略值：</td>
-                        <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DoubleIngore)</td>
-                    </tr>
-                    <tr><td colspan="4">基本输赢奖励</td></tr>
-                    <tr>
-                        <td>单打胜：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.SingleWin)</td>
-                        <td>单打负：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.SingleLose)</td>
-                    </tr>
-                    <tr>
-                        <td>双打胜：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.DoubleWin)</td>
-                        <td>双打负：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.DoubleLose)</td>
-                    </tr>
-                    <tr><td colspan="4">排名奖励</td></tr>
-                    <tr>
-                        <td>排名奖励1：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.RankBonus1)</td>
-                        <td>对手排名高于：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.Rank1End)</td>
-                    </tr>
-                    <tr>
-                        <td>排名奖励2：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.RankBonus2)</td>
-                        <td>对手排名高于：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.Rank2End)</td>
-                    </tr>
-                    <tr>
-                        <td>排名奖励3：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.RankBonus3)</td>
-                        <td>对手排名高于：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.Rank3End)</td>
-                    </tr>
-                    <tr>
-                        <td>排名奖励4：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.RankBonus4)</td>
-                        <td>对手排名高于：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.Rank4End)</td>
-                    </tr>
-                    <tr><td colspan="4">决赛区奖励</td></tr>
-                    <tr>
-                        <td>决赛胜：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.FinalWin)</td>
-                        <td>决赛负：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.FinalLose)</td>
-                    </tr>
-                    <tr>
-                        <td>四强胜：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.Top4Win)</td>
-                        <td>四强负:</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.Top4Lose)</td>
-                    </tr>
-                    <tr>
-                        <td>八强胜：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.Top8Win)</td>
-                        <td>八强负：</td>
-                        <td>@Html.TextBoxFor(m => m.Parameters.Top8Lose)</td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="2"><input type="submit" value="模拟计算并预览" onclick="toCalcToReview()" /></td>
-                        <td><input type="submit" value="模拟周期调整并预览" onclick="toAdjustAccordingToDateRange()" /></td>
-                        <td><input type="submit" value="保存Bonus和ScoreEntry到数据库" onclick="toSaveScoreEntry()" /></td>
-                    </tr>
-                </tfoot>
-            </table>
-            <br />
-            <table style="background-color:aqua">
-                <caption>周期调整参数设置</caption>
-                <thead></thead>
-                <tbody>
-                    <tr>
-                        <td style="width:100px;">周期1：</td>
-                        <td style="width:100px;text-align:right">最近</td>
-                        <td style="width:50px"> @Html.TextBoxFor(m => m.Parameters.DateRange1)</td>
-                        <td style="width:100px;text-align:left">周</td>
-                        <td style="width:100px;">比例：</td>
-                        <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate1)</td>
-                    </tr>
-                    <tr>
-                        <td style="width:100px;">周期2：</td>
-                        <td style="width:100px;text-align:right">最近</td>
-                        <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DateRange2)</td>
-                        <td style="width:100px;text-align:left">周</td>
-                        <td style="width:100px;">比例：</td>
-                        <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate2)</td>
-                    </tr>
-                    <tr>
-                        <td style="width:100px;">周期3：</td>
-                        <td style="width:100px;text-align:right">最近</td>
-                        <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DateRange3)</td>
-                        <td style="width:100px;text-align:left">周</td>
-                        <td style="width:100px;">比例：</td>
-                        <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate3)</td>
-                    </tr>
-                    <tr>
-                        <td style="width:100px;">周期4：</td>
-                        <td style="width:100px;text-align:right">最近</td>
-                        <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DateRange4)</td>
-                        <td style="width:100px;text-align:left">周</td>
-                        <td style="width:100px;">比例：</td>
-                        <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate4)</td>
-                    </tr>
-                    <tr>
-                        <td style="width:100px; text-align:right" colspan="4">更早期的</td>
-                        <td style="width:100px;">比例：</td>
-                        <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate5)</td>
-                    </tr>
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].Winner1ID)
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].Winner2ID)
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].Loser1ID)
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].Loser2ID)
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].Winner1Name)
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].Winner2Name)
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].Loser1Name)
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].Loser2Name)
 
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="4">
-                        <td><input type="submit" value="周期调整并预览" onclick="toOnlyAdjustAccordingToDateRange()" /></td>
-                        <td><input type="submit" value="保存周期调整结果到数据库" onclick="toSaveUpdateMemberScore()" /></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
+                    @Html.HiddenFor(m => m.WaitingMatchList[index].Comments)
+                }
+                @for (var index = 0; index < this.Model.AddBonusInfoList.Count; index++)
+                {
+                    @Html.HiddenFor(m => m.AddBonusInfoList[index].ID)
+                    @Html.HiddenFor(m => m.AddBonusInfoList[index].MatchID)
+                    @Html.HiddenFor(m => m.AddBonusInfoList[index].MemberID)
+                    @Html.HiddenFor(m => m.AddBonusInfoList[index].MembernName)
+                    @Html.HiddenFor(m => m.AddBonusInfoList[index].ChampionID)
+                    @Html.HiddenFor(m => m.AddBonusInfoList[index].ChampionTitle)
+                    @Html.HiddenFor(m => m.AddBonusInfoList[index].BonusTypeID)
+                    @Html.HiddenFor(m => m.AddBonusInfoList[index].BonusTypeDescription)
+                    @Html.HiddenFor(m => m.AddBonusInfoList[index].Score)
+                }
+                @for (var index = 0; index < this.Model.AddScoreInfoList.Count; index++)
+                {
+                    @Html.HiddenFor(m => m.AddScoreInfoList[index].ID)
+                    @Html.HiddenFor(m => m.AddScoreInfoList[index].MemberID)
+                    @Html.HiddenFor(m => m.AddScoreInfoList[index].Score)
+                    @Html.HiddenFor(m => m.AddScoreInfoList[index].Comments)
+                    @Html.HiddenFor(m => m.AddScoreInfoList[index].PeriodEnd)
+                }
+                @for (var index = 0; index < this.Model.UpdateMemberList.Count; index++)
+                {
+                    @Html.HiddenFor(m => m.UpdateMemberList[index].ID)
+                    @Html.HiddenFor(m => m.UpdateMemberList[index].MemberName)
+                    @Html.HiddenFor(m => m.UpdateMemberList[index].OriginalScore)
+                    @Html.HiddenFor(m => m.UpdateMemberList[index].UpdateScore)
+                    @Html.HiddenFor(m => m.UpdateMemberList[index].OriginalRank)
+                    @Html.HiddenFor(m => m.UpdateMemberList[index].UpdateRank)
+                    @Html.HiddenFor(m => m.UpdateMemberList[index].Comments)
+                }
+
+                <table>
+                    <caption>积分计算参数设置</caption>
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <td style="width:100px;">单打忽略值：</td>
+                            <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.SingleIngore)</td>
+                            <td style="width:100px;">双打忽略值：</td>
+                            <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DoubleIngore)</td>
+                        </tr>
+                        <tr><td colspan="4">基本输赢奖励</td></tr>
+                        <tr>
+                            <td>单打胜：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.SingleWin)</td>
+                            <td>单打负：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.SingleLose)</td>
+                        </tr>
+                        <tr>
+                            <td>双打胜：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.DoubleWin)</td>
+                            <td>双打负：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.DoubleLose)</td>
+                        </tr>
+                        <tr><td colspan="4">排名奖励</td></tr>
+                        <tr>
+                            <td>排名奖励1：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.RankBonus1)</td>
+                            <td>对手排名高于：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.Rank1End)</td>
+                        </tr>
+                        <tr>
+                            <td>排名奖励2：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.RankBonus2)</td>
+                            <td>对手排名高于：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.Rank2End)</td>
+                        </tr>
+                        <tr>
+                            <td>排名奖励3：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.RankBonus3)</td>
+                            <td>对手排名高于：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.Rank3End)</td>
+                        </tr>
+                        <tr>
+                            <td>排名奖励4：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.RankBonus4)</td>
+                            <td>对手排名高于：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.Rank4End)</td>
+                        </tr>
+                        <tr><td colspan="4">决赛区奖励</td></tr>
+                        <tr>
+                            <td>决赛胜：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.FinalWin)</td>
+                            <td>决赛负：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.FinalLose)</td>
+                        </tr>
+                        <tr>
+                            <td>四强胜：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.Top4Win)</td>
+                            <td>四强负:</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.Top4Lose)</td>
+                        </tr>
+                        <tr>
+                            <td>八强胜：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.Top8Win)</td>
+                            <td>八强负：</td>
+                            <td>@Html.TextBoxFor(m => m.Parameters.Top8Lose)</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><input type="submit" value="模拟计算并预览" onclick="toCalcToReview()" /></td>
+                            <td><input type="submit" value="模拟周期调整并预览" onclick="toAdjustAccordingToDateRange()" /></td>
+                            <td colspan="2"><input type="submit" value="保存Bonus和ScoreEntry到数据库" onclick="toSaveScoreEntry()" /></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <br />
+                <table style="background-color:aqua">
+                    <caption>周期调整参数设置</caption>
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <td style="width:100px;">周期1：</td>
+                            <td style="width:100px;text-align:right">最近</td>
+                            <td style="width:50px"> @Html.TextBoxFor(m => m.Parameters.DateRange1)</td>
+                            <td style="width:100px;text-align:left">周</td>
+                            <td style="width:100px;">比例：</td>
+                            <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate1)</td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px;">周期2：</td>
+                            <td style="width:100px;text-align:right">最近</td>
+                            <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DateRange2)</td>
+                            <td style="width:100px;text-align:left">周</td>
+                            <td style="width:100px;">比例：</td>
+                            <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate2)</td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px;">周期3：</td>
+                            <td style="width:100px;text-align:right">最近</td>
+                            <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DateRange3)</td>
+                            <td style="width:100px;text-align:left">周</td>
+                            <td style="width:100px;">比例：</td>
+                            <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate3)</td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px;">周期4：</td>
+                            <td style="width:100px;text-align:right">最近</td>
+                            <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.DateRange4)</td>
+                            <td style="width:100px;text-align:left">周</td>
+                            <td style="width:100px;">比例：</td>
+                            <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate4)</td>
+                        </tr>
+                        <tr>
+                            <td style="width:100px; text-align:right" colspan="4">更早期的</td>
+                            <td style="width:100px;">比例：</td>
+                            <td style="width:50px;">@Html.TextBoxFor(m => m.Parameters.Rate5)</td>
+                        </tr>
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                            <td><input type="submit" value="周期调整并预览" onclick="toOnlyAdjustAccordingToDateRange()" /></td>
+                            <td><input type="submit" value="保存周期调整结果到数据库" onclick="toSaveUpdateMemberScore()" /></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                </form>
+</div>
 
         <div style="width:500px; height:800px;border:1px;float:left; text-align:center;border:double;overflow:scroll;">
             <table class="table">
-                <caption>本次将被更新的成员</caption>
+                <caption>本次周期调整后的排行榜</caption>
                 <thead>
                     <tr>
                         <td>ID</td>
@@ -199,6 +249,7 @@
                     <tr>
                         <td>姓名</td>
                         <td>更新的积分</td>
+                        <td>PeriodEnd</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -207,31 +258,16 @@
                         <tr>
                             <td>@item.MemberName</td>
                             <td data-toggle="tooltip" title="@item.Comments">@item.Score</td>
+                            <td>@item.PeriodEnd</td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
 
-        <div style="width:1100px;border:1px;float:left; text-align:left;border:double;overflow:scroll;">
-            @for (var index = 0; index < this.Model.WaitingMatchList.Count; index++)
-            {
-                @Html.HiddenFor(m => m.WaitingMatchList[index].ID)
-                @Html.HiddenFor(m => m.WaitingMatchList[index].Winner1ID)
-                @Html.HiddenFor(m => m.WaitingMatchList[index].Winner2ID)
-                @Html.HiddenFor(m => m.WaitingMatchList[index].Loser1ID)
-                @Html.HiddenFor(m => m.WaitingMatchList[index].Loser2ID)
-                
-                
-                @Html.HiddenFor(m => m.WaitingMatchList[index].MatchDate)
-                @Html.HiddenFor(m => m.WaitingMatchList[index].MatchTitle)               
-                @Html.HiddenFor(m => m.WaitingMatchList[index].Winner1Name)                    
-                @Html.HiddenFor(m => m.WaitingMatchList[index].Winner2Name)                
-                @Html.HiddenFor(m => m.WaitingMatchList[index].Loser1Name)                
-                @Html.HiddenFor(m => m.WaitingMatchList[index].Loser2Name)
-            }
+        <div style="width:1100px;border:1px;float:left; text-align:left;border:double;overflow:scroll;">            
             <table class="table">
-                <caption>本次将更新的比赛记录</caption>
+                <caption>等待计算的比赛记录</caption>
                 <thead>
                     <tr>
                         <th>比赛时间</th>
@@ -244,9 +280,7 @@
                         <th style="text-align:left">Commnets</th>
                     </tr>
                 </thead>
-                <tbody>                    
-                    
-
+                <tbody>
                     @foreach (var item in this.Model.WaitingMatchList)
                     {                  
                         
@@ -265,5 +299,5 @@
             </table>
         </div>
     </div>
-</form>
+
         

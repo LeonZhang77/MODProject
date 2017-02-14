@@ -51,7 +51,7 @@ namespace Badminton.Controllers
                 temp.Ranking = rankList.Find(u => u.MemberID == item.ID).Rank;
                 returnList.Add(temp);
             }
-            returnList = returnList.OrderByDescending(u => u.Ranking).ToList();       
+            returnList = returnList.OrderBy(u => u.Ranking).ToList();       
             return returnList;
         }       
 

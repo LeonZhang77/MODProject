@@ -73,8 +73,14 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
 
         public void SaveBonusInfo(BonusInfo bonusInfo)
         {
-            this.DataSource.BonusInfos.Add(bonusInfo);
-            this.DataSource.SaveChanges();
+            if (bonusInfo != null) 
+            {
+                bonusInfo.ChampionID = this.GetChampionshipInfoByID(bonusInfo.ChampionID.ID);
+                bonusInfo.MemberID = this.GetMemberInfoByID(bonusInfo.MemberID.ID);
+                this.DataSource.BonusInfos.Add(bonusInfo);
+                this.DataSource.SaveChanges();
+            }
+            
         }
 
         public void DeleteBonusInfo(BonusInfo bonusInfo)
@@ -216,6 +222,7 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
         {
             if (scoreInfo != null)
             {
+                scoreInfo.MemberID = this.GetMemberInfoByID(scoreInfo.MemberID.ID);
                 this.DataSource.ScoreInfos.Add(scoreInfo);
                 this.DataSource.SaveChanges();
             }

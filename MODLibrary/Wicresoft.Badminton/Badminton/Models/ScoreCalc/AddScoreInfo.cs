@@ -34,13 +34,21 @@ namespace Badminton.Models.ScoreCalc
             set;
         }
 
+        public DateTime PeriodEnd
+        {
+            get;
+            set;
+        }
+
         public static ScoreInfo GetEntity(AddScoreInfo item)
         {
             IBadmintionDataProvider provider = new BadmintionDataProvider();
             ScoreInfo scoreInfo= new ScoreInfo();
             scoreInfo.MemberID = provider.GetMemberInfoByID(item.MemberID);
             scoreInfo.Score = Int32.Parse(item.Score.ToString());
+            scoreInfo.PeriodEnd = item.PeriodEnd;
             scoreInfo.CreateTime = DateTime.Now;
+            scoreInfo.CalculateDate = DateTime.Now;
             scoreInfo.Comment = item.Comments;
             return scoreInfo;
         }
