@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Wicresoft.BadmintonSystem.Wap.Models.ScoreList.ScoreListIndexModel
+@section scripts{
+    @Scripts.Render("~/Scripts/ScoreListJS/ScoreListJS.js")
+    @Scripts.Render("~/Scripts/Chart.js")
+}
+
+@using (Html.BeginForm())
+{
+    <br />
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-xs-6">成员姓名</label>
+                    <div class="col-xs-9">
+                        <input class="form-control col-xs-9" type="text" id="selectMemberNameTxt" list="SearchMemberList" />
+                        <datalist id="SearchMemberList" style="border:none">
+                            @foreach (var item in this.Model.SearchMemberList)
+                            {
+                                <option value=@item.Text />
+                            }
+                        </datalist>
+                        @Html.DropDownListFor(m => m.SearchSelectedID, this.Model.SearchMemberList, new { style = "display:none" })
+                    </div>
+                    <div class="col-xs-3">
+                        <i class="glyphicon glyphicon-search btn" style="padding-top:7px;" onclick="javascript:selectThisGuy()"></i>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="form-group row">
+                <div class="col-xs-4">
+                    <a href="#" class="btn btn-block btn-danger" onclick="javascript:showSelectedRows()">显示选中</a>
+                </div>
+                <div class="col-xs-4">
+                    <a href="#" class="btn btn-block btn-danger" onclick="javascript:showAllRows()">显示全部</a>
+                </div>
+                <div class="col-xs-4">
+                    <a href="#" class="btn btn-block btn-danger" onclick="javascript:showChart()">查看对战</a>
+                </div>
+            </div>
+            <div id="chart" style="display:none" >
+                <div class="col-xs-12 text-center">
+                    <h3>两人对战数据</h3>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-xs-4 text-center">单打胜率</div>
+                    <div class="col-xs-4 text-center">双打胜率</div>
+                    <div class="col-xs-4 text-center">混双胜率</div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 text-center"><canvas id="myChart1" width="80" height="80" requesturl="@Url.Action("GetJSONForSingles", "ScoreList")"></canvas></div>
+                    <div class="col-xs-4 text-center"><canvas id="myChart2" width="80" height="80" requesturl="@Url.Action("GetJSONForDoubles", "ScoreList")"></canvas></div>
+                    <div class="col-xs-4 text-center"><canvas id="myChart3" width="80" height="80" requesturl="@Url.Action("GetJSONForMixedDoubles", "ScoreList")"></canvas></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 text-center" id="legend_1" style="background:#F38630"></div>
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4 text-center" id="legend_2" style="background:#E0E4CC"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <hr />
+        
+    <div class="panel">
+        <div class="panel-heading text-center"><b>积分列表</b></div>
+        <ul class="list-group">
+           <li class="list-group-item text-right">全选：<input type="checkbox" name="chk_all" id="chk_all" onclick="selectAll();"></li>
+        @foreach (var item in this.Model.ScoreList)
+        {
+            string checkBoxId = "chk_list_" + item.ID;
+            string rowID = "scoreRow_" + item.ID;
+            if (!item.Male)
+            {
+            <li class="list-group-item" id=@rowID>
+                <div class="row">
+                    <div class="col-xs-3">
+                        @if (item.Score != 0)
+                        {
+                            if (item.Ranking == 1)
+                            { <img src="~/Content/images/1st.png" height="32" width="32" />}
+                            else if (item.Ranking == 2)
+                            { <img src="~/Content/images/2st.png" height="32" width="32" />}
+                            else if (item.Ranking == 3)
+                            { <img src="~/Content/images/3st.png" height="32" width="32" />}
+                            else
+                            {<span><b>排名:</b>@item.Ranking</span>}
+                        }
+                        else
+                        {
+                            <span><b>排名:</b>@item.Ranking</span>
+                        }
+                    </div>
+                    <div class="col-xs-7">@item.MemberName</div>
+                    <div class="col-xs-2">
+                        <input type="checkbox" class="checkbox" name="chk_list" id=@checkBoxId value=@item.ID>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="color:gray">
+                        <b>积分：</b><span>@item.Score</span>&nbsp;&nbsp;&nbsp;
+                        <b>正规赛胜率：</b><span>@item.WinRate</span>&nbsp;&nbsp;&nbsp;<br />
+                        <b>平均胜率：</b><span>@item.AverageWinRate</span>&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            </li>
+            }
+            else
+            {
+            <li class="list-group-item" id=@rowID style="background-color:rgba(244, 244, 244, 1)">
+                <div class="row">
+                    <div class="col-xs-3">
+                        @if (item.Score != 0)
+                        {
+                            if (item.Ranking == 1)
+                            { <img src="~/Content/images/1st.png" height="32" width="32" />}
+                            else if (item.Ranking == 2)
+                            { <img src="~/Content/images/2st.png" height="32" width="32" />}
+                            else if (item.Ranking == 3)
+                            { <img src="~/Content/images/3st.png" height="32" width="32" />}
+                            else
+                            {<span><b>排名:</b>@item.Ranking</span> }
+                        }
+                        else
+                        {
+                            <span><b>排名:</b>@item.Ranking</span>
+                        }
+                    </div>
+                    <div class="col-xs-7">@item.MemberName</div>
+                    <div class="col-xs-2">
+                        <input type="checkbox" name="chk_list" id=@checkBoxId value=@item.ID>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12" style="color:gray">
+                        <b>积分：</b><span>@item.Score</span>&nbsp;&nbsp;&nbsp;
+                        <b>正规赛胜率：</b><span>@item.WinRate</span>&nbsp;&nbsp;&nbsp;<br />
+                        <b>平均胜率：</b><span>@item.AverageWinRate</span>&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+            </li>
+            }
+        }
+        </ul>
+        <div class="panel-footer">
+            @*<td colspan="11" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>*@
+        </div>
+    </div>
+        
+           
+}
+        
+        
+                    
+
+
+

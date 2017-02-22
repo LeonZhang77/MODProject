@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>@ViewBag.Title - MOD Badminton</title>
+    @Scripts.Render("~/Scripts/jquery-1.10.2.js")
+    @Scripts.Render("~/Scripts/ui/jquery-ui.js")
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/themes/base/jquery.ui.all.css")
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top " style="background-color:rgba(216, 236, 246, 1);border:none;">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/Home/Index">M<img src='/Content/images/Badmin.png' height="20" />D Badminton Group</a>
+            </div>
+        </div>
+        <div class="row text-center">
+            <div class="col-xs-6" style="background-color:rgba(216, 236, 246, 1)">@Html.ActionLink("比赛录入", "Index", "MatchInput", null, new { @style = "color:gray" })</div>
+            <div class="col-xs-6" style="background-color:rgba(216, 236, 246, 1)">@Html.ActionLink("排行榜", "Index", "ScoreList", null, new { @style = "color:gray" })</div>
+        </div>
+    </div>
+    
+    <div class="container body-content">
+        <br />
+        @RenderBody()
+        <hr />
+        <footer>
+            <center><p>&copy; @DateTime.Now.Year - MOD Badminton Group Management</p></center>
+        </footer>
+    </div>
+
+
+    @Scripts.Render("~/Scripts/ui/jquery-ui.js")
+    @Scripts.Render("~/Scripts/ui/jquery.ui.core.js")
+    @Scripts.Render("~/Scripts/ui/jquery.ui.widget.js")
+
+</body>
+</html>
