@@ -9,8 +9,8 @@ namespace Badminton.Models.ScoreCalc
     {
         public ParametersModel()
         {
-            this.SingleIngore = 200;
-            this.DoubleIngore = 150;
+            this.SingleIgnore = 200;
+            this.DoubleIgnore = 150;
             this.SingleWin = 5;
             this.SingleLose = 2;
             this.DoubleWin = 4;
@@ -50,15 +50,18 @@ namespace Badminton.Models.ScoreCalc
             this.Rate4 = 0.6;
 
             this.Rate5 = 0.45;
+
+            this.ActionSteps = 0;
+            this.StandDate = DateTime.Now;
         }
 
-        public long SingleIngore
+        public long SingleIgnore
         {
             get;
             set;
         }
 
-        public long DoubleIngore
+        public long DoubleIgnore
         {
             get;
             set;
@@ -224,6 +227,16 @@ namespace Badminton.Models.ScoreCalc
             set;
         }
 
+        public long ActionSteps
+        {
+            get;
+            set;
+        }
 
+        public DateTime StandDate
+        {
+            get;
+            set;
+        }
     }
 }

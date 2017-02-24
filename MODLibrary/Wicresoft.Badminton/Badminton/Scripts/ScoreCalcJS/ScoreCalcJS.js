@@ -1,24 +1,42 @@
-﻿function toCalcToReview() {
-    document.ParamaterSetup.action = "/ScoreCalc/CalcToReview";
-    document.ParamaterSetup.submit();
+﻿
+
+$(function () {    
+    
+    $("#StateMessageDialog").dialog(
+    {
+        autoOpen: false,
+        resizable: false,
+        height: 400,
+        width: 500,
+        modal: true,
+        buttons: {
+            "OK": function () {
+                $(this).dialog('close');
+            }
+        }
+    });
+
+    $("#StateMessageDialog").dialog("open");
+
+    $("#EditStandDatePickerEdit").datepicker();
+})
+
+function toCalcToReview() {
+    $("#Parameters_ActionSteps").val("1");
 }
 
 function toAdjustAccordingToDateRange() {
-    document.ParamaterSetup.action = "/ScoreCalc/AdjustAccordingToDateRange";
-    document.ParamaterSetup.submit();
+    $("#Parameters_ActionSteps").val("2");    
 }
 
 function toSaveScoreEntry() {
-    document.ParamaterSetup.action = "/ScoreCalc/SaveBonusAndScoreEntry";
-    document.ParamaterSetup.submit();
+    $("#Parameters_ActionSteps").val("3");    
 }
 
 function toOnlyAdjustAccordingToDateRange() {
-    document.ParamaterSetup.action = "/ScoreCalc/OnlyAdjustAccordingToDateRange";
-    document.ParamaterSetup.submit();
+    $("#Parameters_ActionSteps").val("4");    
 }
 
 function toSaveUpdateMemberScore() {
-    document.ParamaterSetup.action = "/ScoreCalc/SaveScoreAfterAdjustAccordingToDateRange";
-    document.ParamaterSetup.submit();
+    $("#Parameters_ActionSteps").val("5");   
 }

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Badminton.Models.ScoreCalc
 {
-    public class ScoreCalcIndexModel
+    public class ScoreCalcIndexModel:BaseViewModel
     {
 
         public ScoreCalcIndexModel()
@@ -16,6 +16,8 @@ namespace Badminton.Models.ScoreCalc
             this.UpdateMemberList = new List<ScoreUpdateMember>();
             this.AddBonusInfoList = new List<AddBonusInfo>();
             this.AddScoreInfoList = new List<AddScoreInfo>();
+            this.StateMessage = "";
+            this.ErrorState = false;
         }
 
 
