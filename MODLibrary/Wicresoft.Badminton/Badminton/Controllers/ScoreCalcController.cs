@@ -42,31 +42,30 @@ namespace Badminton.Controllers
             switch(modelInput.Parameters.ActionSteps) 
             {
                 case 1:
-                    returnAction = CalcToReview(modelInput);
+                    modelInput = CalcToReview(modelInput);
                     break;
                 case 2:
-                    returnAction = AdjustAccordingToDateRange(modelInput);
+                    modelInput = AdjustAccordingToDateRange(modelInput);
                     break;
                 case 3:
-                    returnAction = SaveBonusAndScoreEntry(modelInput);
+                    modelInput = SaveBonusAndScoreEntry(modelInput);
                     break;
                 case 4:
-                    returnAction = OnlyAdjustAccordingToDateRange(modelInput);
+                    modelInput = OnlyAdjustAccordingToDateRange(modelInput);
                     break;
                 case 5:
-                    returnAction = SaveScoreAfterAdjustAccordingToDateRange(modelInput);
+                    modelInput = SaveScoreAfterAdjustAccordingToDateRange(modelInput);
                     break;
                 default:
-                    modelInput = new ScoreCalcIndexModel();
-                    returnAction = View("Index", modelInput);
+                    modelInput = new ScoreCalcIndexModel();                    
                     break;
 
             }
 
-            return returnAction;
+            return View("Index", modelInput);
         }
 
-        public ActionResult CalcToReview(ScoreCalcIndexModel modelInput)        
+        public ScoreCalcIndexModel CalcToReview(ScoreCalcIndexModel modelInput)        
         {
 
             if (modelInput.WaitingMatchList.Count == 0)
@@ -78,10 +77,10 @@ namespace Badminton.Controllers
             {
                 modelInput = CalcAndGoToReview(modelInput);               
             }
-            return View("Index", modelInput);
+            return modelInput;
         }
 
-        public ActionResult AdjustAccordingToDateRange(ScoreCalcIndexModel modelInput)
+        public ScoreCalcIndexModel AdjustAccordingToDateRange(ScoreCalcIndexModel modelInput)
         {
             if (modelInput.AddScoreInfoList.Count == 0 && modelInput.WaitingMatchList.Count != 0)
             {
@@ -100,16 +99,16 @@ namespace Badminton.Controllers
                 modelInput.UpdateMemberList = GetUpdateMemberList(scoreInfoList, modelInput);
                 
             }
-            return View("Index", modelInput);
+            return modelInput;
         }
 
-        public ActionResult SaveBonusAndScoreEntry(ScoreCalcIndexModel modelInput)
+        public ScoreCalcIndexModel SaveBonusAndScoreEntry(ScoreCalcIndexModel modelInput)
         {
             if(modelInput.AddBonusInfoList.Count == 0 && modelInput.AddScoreInfoList.Count == 0)
             {
                 modelInput.StateMessage =  "没有需要保存的Score和Bonus, 请先计算并检查！";
                 modelInput.ErrorState = true;
-                return View("Index", modelInput);
+                return modelInput;
             }
 
             Boolean flag = RecordScoreEntryToDB(modelInput);            
@@ -125,10 +124,10 @@ namespace Badminton.Controllers
                 modelInput.ErrorState = true;
             }
 
-            return View("Index", modelInput);
+            return modelInput;
         }
 
-        public ActionResult OnlyAdjustAccordingToDateRange(ScoreCalcIndexModel modelInput)
+        public ScoreCalcIndexModel OnlyAdjustAccordingToDateRange(ScoreCalcIndexModel modelInput)
         {
             if(modelInput.WaitingMatchList.Count != 0)
             {
@@ -140,7 +139,7 @@ namespace Badminton.Controllers
                 modelInput.UpdateMemberList = GetUpdateMemberList(provider.GetScoreInfos().ToList(), modelInput);
                 
             }
-            return View("Index", modelInput);
+            return modelInput;
         }
 
         internal List<ScoreUpdateMember> GetUpdateMemberList(List<ScoreInfo> ScoreInfoList, ScoreCalcIndexModel modelInput)
@@ -204,20 +203,20 @@ namespace Badminton.Controllers
             return model.UpdateMemberList;
         }
 
-        public ActionResult SaveScoreAfterAdjustAccordingToDateRange(ScoreCalcIndexModel modelInput)
+        public ScoreCalcIndexModel SaveScoreAfterAdjustAccordingToDateRange(ScoreCalcIndexModel modelInput)
         {
             if(modelInput.UpdateMemberList.Count == 0)
             {
                 modelInput.StateMessage = "请先进行周期调整计算并预览！";
                 modelInput.ErrorState = true;
-                return View("Index", modelInput);
+                return modelInput;
             }
 
             if (modelInput.WaitingMatchList.Count != 0)
             {
                 modelInput.StateMessage = "还有等待计算积分的比赛，请先计算积分并保存！";
                 modelInput.ErrorState = true;
-                return View("Index", modelInput);
+                return modelInput;
             }
             
             Boolean flag = UpdateMemberScore(modelInput.UpdateMemberList);
@@ -233,7 +232,7 @@ namespace Badminton.Controllers
                 modelInput.ErrorState = true;
             }
 
-            return View("Index", modelInput);
+            return modelInput;
         }
 
         public Boolean RecordScoreEntryToDB(ScoreCalcIndexModel modelInput)
