@@ -9,9 +9,8 @@ using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 using Wicresoft.BadmintonSystem.Entity;
 using Wicresoft.BadmintonSystem.Unity;
 using Newtonsoft.Json.Linq;
-using Wicresoft.BadmintonSystem.Unity;
 
-namespace Badminton.Controllers
+namespace Wicresoft.BadmintonSystem.Wap.Controllers
 {
     public class MatchInputController : Controller
     {
@@ -25,12 +24,13 @@ namespace Badminton.Controllers
         {
             MatchInputModel model = new MatchInputModel();
             model.ChampionshipList = GetChampionshipList();
-            model.TrueActiveChampionshipList = GetTrueActiveChampionshipList();  
             model.ChampionshipCompetingTypeList = GetChampionshipCompetingTypeList();
             model.CompetingList = EnumHelper.GetEnumIEnumerable(CompetingType.FemaleDou);
             model.SearchMemberList = GetSearchMemberList();
             model.SearchMaleMemberList = GetSearchMemberList(true);
             model.SearchFemaleMemberList = GetSearchMemberList(false);
+            model.TrueActiveChampionshipList = GetTrueActiveChampionshipList();
+            model.TipMessage = this.TempData["message"] as String;
             return View(model);
         }
 
@@ -48,6 +48,7 @@ namespace Badminton.Controllers
             }
             return returnList;
         }
+
         public List<SelectListItem> GetTrueActiveChampionshipList()
         {
             List<SelectListItem> returnList = new List<SelectListItem>();
@@ -109,41 +110,47 @@ namespace Badminton.Controllers
                     item.Text = info.Name;
                     item.Value = info.ID.ToString();
                     returnList.Add(item);
-                }            
+                }
             }
             return returnList;
         }
-
-        public bool AddMatch(string q)
+        [HttpPost]
+        public ActionResult AddMatch(MatchInputModel model)
         {
+
             try
             {
-                JObject obj = JObject.Parse(q);
-                
                 MatchInfo info = new MatchInfo();
-                info.ChampionID = provider.GetChampionshipInfoByID(long.Parse((string)obj["Championship"]));
-                info.CreateTime = DateTime.Now;
-                info.LoserID = provider.GetMemberInfoByID(long.Parse((string)obj["Loser1ID"]));
-                info.LoserPoints = Int32.Parse((string)obj["LoserPoints"]);
-                info.MatchDate = DateTime.Parse((string)obj["MatchDate"]);
-                info.WinnerID = provider.GetMemberInfoByID(long.Parse((string)obj["Winner1ID"]));
-                info.WinnerPoints = Int32.Parse((string)obj["WinnerPoints"]);
+                info.ChampionID = provider.GetChampionshipInfoByID(Convert.ToInt32(model.ChampionshipID));
+                info.InputPersonID = provider.GetMemberInfoByID(Convert.ToInt32(model.InputPersonID));
+                info.MatchDate = DateTime.Parse(model.MatchDate);
+                info.WinnerID = provider.GetMemberInfoByID(Convert.ToInt32(model.Winner1ID));
+                info.LoserID = provider.GetMemberInfoByID(Convert.ToInt32(model.Loser1ID));
+                info.LoserPoints = int.Parse(model.LoserPoints);
+                info.WinnerPoints = int.Parse(model.WinnerPoints);
                 info.Compensation = 0;
                 info.Updated = false;
-                info.InputPersonID = provider.GetMemberInfoByID(long.Parse((string)obj["InputPersonID"]));
-                info.VerifyDate = DateTime.Parse("01/01/1900");
                 info.Verified = false;
-                
-                if (!EnumHelper.GetEnumDescription((info.ChampionID.CompetingType)).Contains("Singles"))
+                info.VerifyDate = DateTime.Parse("01/01/1900");
+                if (info.ChampionID.CompetingType.Equals(CompetingType.MaleDou) ||
+                    info.ChampionID.CompetingType.Equals(CompetingType.FemaleDou) ||
+                    info.ChampionID.CompetingType.Equals(CompetingType.MixDou))
                 {
-                    info.WinnerID2 = provider.GetMemberInfoByID(long.Parse((string)obj["Winner2ID"]));
-                    info.LoserID2 = provider.GetMemberInfoByID(long.Parse((string)obj["Loser2ID"]));
+                    info.WinnerID2 = provider.GetMemberInfoByID(Convert.ToInt32(model.Winner2ID));
+                    info.LoserID2 = provider.GetMemberInfoByID(Convert.ToInt32(model.Loser2ID));
                 }
+                info.CreateTime = DateTime.Now;
                 provider.SaveMatchInfo(info);
             }
-            catch (Exception ex) { return false; };
-
-            return true;
+            catch (Exception ex)
+            {
+                this.TempData["message"] = EnumHelper.GetEnumDescription(MessagePoint.AddFail);
+                return RedirectToAction("Index", "MatchInput");
+            };
+            this.TempData["message"] = EnumHelper.GetEnumDescription(MessagePoint.AddSucc);
+            return RedirectToAction("Index", "MatchInput");
         }
+
+
     }
 }

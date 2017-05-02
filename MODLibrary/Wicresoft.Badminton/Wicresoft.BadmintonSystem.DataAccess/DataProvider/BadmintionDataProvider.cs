@@ -16,6 +16,7 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             this.DataSource = new DBSource();
         }
 
+
         public IEnumerable<BonusInfo> GetBonusInfos()
         {
             return this.DataSource.BonusInfos;
@@ -30,12 +31,20 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
         {
             return this.DataSource.ChampionshipInfos;
         }
+        public IEnumerable<ChampionshipInfo> GetActiveChampionshipInfos()
+        {
+            return this.DataSource.ChampionshipInfos.Where(u=>u.IsActive==true);
+        }
 
         public ChampionshipInfo GetChampionshipInfoByID(long ID)
         {
             return this.DataSource.ChampionshipInfos.ToList().FirstOrDefault(m => m.ID == ID);
         }
-
+        public ChampionshipInfo GetChampionshipInfoByName(string Title)
+        {
+            return this.DataSource.ChampionshipInfos.ToList().FirstOrDefault(m => m.Title == Title);
+        }
+        
         public IEnumerable<ClubInfo> GetClubInfoInfos()
         {
             return this.DataSource.ClubInfos;
@@ -44,6 +53,11 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
         public ClubInfo GetClubInfoByID(long ID)
         { 
             return this.DataSource.ClubInfos.FirstOrDefault(u=>u.ID == ID);
+        }
+
+        public ClubInfo GetClubInfoByName(string Name)
+        {
+            return this.DataSource.ClubInfos.FirstOrDefault(u => u.Name == Name);
         }
 
         public IEnumerable<MatchInfo> GetMatchInfos()
@@ -65,7 +79,18 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
         {
             return this.DataSource.MemberInfos.FirstOrDefault(u=>u.ID == ID);
         }
+        public MemberInfo GetMemberInfoByName(string Name)
+        {
+            return this.DataSource.MemberInfos.FirstOrDefault(u => u.Name == Name);
+        }
+        public void UpdateClubInfo(ClubInfo clubInfo)
+        {
+            ClubInfo info = this.GetClubInfoByID(clubInfo.ID);
+            info.Name = clubInfo.Name;
+            info.Description = clubInfo.Description;
 
+            this.DataSource.SaveChanges();
+        }
         public IEnumerable<ScoreInfo> GetScoreInfos()
         {
             return this.DataSource.ScoreInfos;
@@ -157,6 +182,11 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             }            
         }
 
+        public IEnumerable<MatchInfo> GetMatchInfoByChampionID(long ID) 
+        {
+            return this.DataSource.MatchInfos.Where(u => u.ChampionID.ID == ID);
+        }
+
         public void UpdateMatchInfo(MatchInfo matchInfo)
         {
             MatchInfo match = this.GetMatchInfoByID(matchInfo.ID);
@@ -170,7 +200,7 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             match.VerifyDate = matchInfo.VerifyDate;
             match.Verified = matchInfo.Verified;
             match.MatchType = matchInfo.MatchType;
-            
+
             if (matchInfo.ChampionID != null) { match.ChampionID = this.DataSource.ChampionshipInfos.Find(matchInfo.ChampionID.ID); }
             if (matchInfo.InputPersonID != null) { match.InputPersonID = this.DataSource.MemberInfos.Find(matchInfo.InputPersonID.ID); }
             if (matchInfo.WinnerID != null) { match.WinnerID = this.DataSource.MemberInfos.Find(matchInfo.WinnerID.ID); }
@@ -181,6 +211,18 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
 
             this.DataSource.SaveChanges();
         }
+
+        public void BatchUpdateMatchInfoValid(List<MatchInfo> matchList) 
+        {
+            foreach (MatchInfo item in matchList)
+            {
+                MatchInfo match = this.GetMatchInfoByID(item.ID);
+                match.Verified = item.Verified;
+                match.VerifyDate = item.VerifyDate;
+            }
+            this.DataSource.SaveChanges();
+        }
+
         public void DeleteMatchInfo(MatchInfo matchInfo)
         {
             if (matchInfo != null)
@@ -243,6 +285,11 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             return this.DataSource.MemberAndClubRelations;
         }
 
+        public MemberAndClubRelation GetMemberAndClubRelationByID(long ID)
+        {
+            return this.DataSource.MemberAndClubRelations.FirstOrDefault(u => u.ID == ID);
+        }
+
         public IEnumerable<MemberAndClubRelation> GetMemberAndClubRelations(ClubInfo clubInfo)
         {
             return this.DataSource.MemberAndClubRelations.Where(u => u.ClubID.ID == clubInfo.ID);
@@ -251,6 +298,18 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
         public IEnumerable<MemberAndClubRelation> GetMemberAndClubRelations(MemberInfo memberInfo)
         {
             return this.DataSource.MemberAndClubRelations.Where(u => u.MemberID.ID == memberInfo.ID);
+        }
+        public void UpdateMemberAndClubRelation(MemberAndClubRelation memberAndClubRelation)
+        {
+            if (memberAndClubRelation != null)
+            {
+                MemberAndClubRelation info = this.GetMemberAndClubRelations(memberAndClubRelation.MemberID).FirstOrDefault();
+                info.ClubID = memberAndClubRelation.ClubID;
+                info.MemberID = memberAndClubRelation.MemberID;
+                info.IsCaption = memberAndClubRelation.IsCaption;
+                this.DataSource.SaveChanges();
+            }
+
         }
 
         public void SaveMemberAndClubRelation(MemberAndClubRelation memberAndClubRelation)
@@ -269,6 +328,23 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
                 this.DataSource.MemberAndClubRelations.Remove(memberAndClubRelation);
                 this.DataSource.SaveChanges();
             }
+        }
+
+        public void BatchDeleteMemberAndClubRelation(List<MemberAndClubRelation> memberAndClubRelation) 
+        {
+            foreach (MemberAndClubRelation item in memberAndClubRelation) 
+            {
+                this.DataSource.MemberAndClubRelations.Remove(item);
+            }
+            this.DataSource.SaveChanges();
+        }
+        public void BatchAddMemberAndClubRelation(List<MemberAndClubRelation> memberAndClubRelation) 
+        {
+            foreach (MemberAndClubRelation item in memberAndClubRelation)
+            {
+                this.DataSource.MemberAndClubRelations.Add(item);
+            }
+            this.DataSource.SaveChanges();
         }
     }
 }

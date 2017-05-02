@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+
+@if (this.Model.TipMessage != null)
+{
+    string message = "提示消息：" + this.Model.TipMessage;
+    string statue = "danger";
+    if (message.Contains("成功"))
+    {
+        statue = "success";
+    }
+    
+    <script>
+        new $.zui.Messager('@message', {
+            icon: 'bell',
+            type: '@statue'
+        }).show();
+    </script>
+}

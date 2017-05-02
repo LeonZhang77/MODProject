@@ -1,14 +1,153 @@
 ﻿@{
     Layout = null;
 }
+@model Badminton.Models.DataManage.DataManageIndexModel
 
-<div id="DeleteClubDialog" title="Delete Club">
-    <p>
-        <br />
-        This Club will be removed and can not be recover.<br />
-        Are you sure ?
-        <br />
-        <br />
-    </p>
+<div class="modal fade" id="DeleteClubDialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <p>
+                <br />
+                一旦删除该俱乐部，将不能恢复<br />
+                确定删除？
+                <br />
+                <br />
+            </p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="doDeleteClub()">确定</button>
+            </div>
+
+        </div>
+    </div>
 </div>
 <div style="display: none" id="DeleteClubURL" requsturl="@Url.Action("DeleteClub", "DataManage")"></div>
+<div style="display: none" id="CheckClubNameURL" requsturl="@Url.Action("CheckClubNameRepeat", "DataManage")"></div>
+
+<div class="modal fade" id="AddClubDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">添加俱乐部</h4>
+            </div>
+        @using (Html.BeginForm("AddClub", "DataManage"))
+        {
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 required">名称:</label>
+                        <div class="col-md-6">
+                            @Html.TextBox("Name", null, new { @id="ClubName",@required = "required", @class = "form-control" })
+                            <div class="text-danger" id="ClubAddTip"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2">队长:</label>
+                        <div class="col-md-6">
+                           @Html.DropDownList("CaptainID", this.Model.MemberWithoutClub, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 required">俱乐部简介:</label>
+                        <div class="col-md-8">
+                           @Html.TextArea("Description", null, new {@rows="10", @required = "required", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary" id="clubSave">保存</button>
+            </div>
+        }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="EditClubDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">修改俱乐部信息</h4>
+            </div>
+            @using (Html.BeginForm("EditClub", "DataManage"))
+            {
+                <input type="number" name="ID" id="EditID" hidden="hidden"/>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 required">名称:</label>
+                            <div class="col-md-6">
+                                <input name="Name" id="EditClubName" type="text" class="form-control" required />
+                                <div class="text-danger" id="ClubEditTip"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2">队长:</label>
+                            <div class="col-md-6">
+                                <select name="CaptainID" id="EditCaptain" class="form-control">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 required">俱乐部简介:</label>
+                            <div class="col-md-8">
+                                <textarea name="Description" id="EditDescription" rows="10" cols="25" maxlength="100" title="字符长度在1-100" required class="form-control text-left"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" id="clubEditSave">保存</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="BatchAddMemberDialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="panel">
+                <div class="panel-heading">
+                    全选:<input type="checkbox" id="AllMembers" onclick="checkedAll()" />
+                </div>
+                <ul class="list-group">
+                    @foreach (var item in this.Model.MemberWithoutClub)
+                    {
+                        <li class="list-group-item"><span><input type="checkbox" name="AddMemberBox" id="'member+@item.Value'" value="@item.Value" />@item.Text</span></li>
+                    }
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="doBatchAddMember()">确定</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div style="display: none" id="BatchAddMemberURL" requsturl="@Url.Action("BatchAddMemberToClub", "DataManage")"></div>
+
+<div class="modal fade" id="BatchRemoveMemberDialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="panel">
+                <div class="panel-heading">
+                    全选:<input type="checkbox" id="RemoveAllMembers" onclick="checkedAll()" />
+                </div>
+                <ul class="list-group" id="RemoveClubMemberList"></ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="doBatchRemoveMember()">确定</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div style="display: none" id="BatchRemoveMemberURL" requsturl="@Url.Action("BatchRemoveMemberFromClub", "DataManage")"></div>

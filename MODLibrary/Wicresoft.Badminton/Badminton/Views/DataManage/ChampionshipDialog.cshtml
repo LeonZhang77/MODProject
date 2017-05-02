@@ -1,72 +1,133 @@
 ﻿@{
     Layout = null;
 }
-
 @model Badminton.Models.DataManage.DataManageIndexModel
 
-<div id="DeleteChampionshipDialog" title="Confirm Dialog">
-    <p>
-        <br />
-        This Chompionship will be removed and can not be recover.<br />
-        Are you sure ?
-        <br />
-        <br />
-    </p>
+<div class="modal fade" id="DeleteChampionshipDialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-header">删除赛事</div>
+        <div class="modal-content">
+            <p>
+                <br />
+               该比赛信息将被删除，删除后不可恢复，点击“确定”按钮继续
+            </p>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="doDeleteChampionship()">确定</button>
+            </div>
+        </div>
+    </div>
 </div>
 <div style="display: none" id="DeleteChampionshipURL" requsturl="@Url.Action("DeleteChampionship", "DataManage")"></></div>
+<div style="display: none" id="CheckChampionNameURL" requsturl="@Url.Action("CheckChampionNameRepeat", "DataManage")"></div>
 
-<div id="AddChampionshipDialog" title="Add Championship">
-    <br />
-    <table>
-        <tr>
-            <td>Title</td>
-            <td><input type="text" id="ChampionshipTitle" /></td>
-        </tr>
-        <tr>
-            <td>Start Date:</td>
-            <td><input type="text" id="startDatePicker" /></td>
-        </tr>
-        <tr>
-            <td>End Date:</td>
-            <td><input type="text" id="endDatePicker" /></td>
-        </tr>
-        <tr>
-            <td>ChampionshipTypeSelectList:</td>
-            <td>@Html.DropDownList("ChampionshipSelected", this.Model.ChampionshipTypeSelectList);</td>
-        </tr>
-        <tr>
-            <td>ChampionshipSelected:</td>
-            <td>@Html.DropDownList("CompetingSelected", this.Model.CompetingTypeSelectList);</td>
-        </tr>
-    </table>
+<div class="modal fade" id="AddChampionshipDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">增加赛事信息</h4>
+            </div>
+            @using (Html.BeginForm("AddChampionship", "DataManage"))
+            {
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <lable class="col-sm-2 required">名称</lable>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="Title" required/>
+                                <div class="text-danger" id="ChampionAddTip"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <lable class="col-sm-2 required">开始时间</lable>
+                            <div class="col-md-6">
+                                <input type="text" id="startDatePicker" class="form-control" name="StartDate" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <lable class="col-sm-2 required">结束时间</lable>
+                            <div class="col-md-6">
+                                <input type="text" id="endDatePicker" class="form-control" name="EndDate" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <lable class="col-sm-2 required">比赛方式</lable>
+                            <div class="col-md-6">
+                                @Html.DropDownList("ChampionTypeID", this.Model.ChampionshipTypeSelectList, new { @required = "required", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <lable class="col-sm-2 required">比赛类型</lable>
+                            <div class="col-md-6">
+                                @Html.DropDownList("CompetingTypeID", this.Model.CompetingTypeSelectList, new { @required = "required", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary" id="championSave">保存</button>
+                </div>
+            }
+            
+        </div>
+    </div>
 </div>
 
-<div style="display: none" id="AddChampionshipURL" requsturl="@Url.Action("AddChampionship", "DataManage")"></div>
-
-<div id="EditChampionshipDialog" title="Edit Championship">
-    <br />
-    <table>
-        <tr>
-            <td>Title</td>
-            <td><input type="text" id="EditChampionshipTitle" /></td>
-        </tr>
-        <tr>
-            <td>Start Date:</td>
-            <td><input type="text" id="EditStartDatePickerEdit" /></td>
-        </tr>
-        <tr>
-            <td>End Date:</td>
-            <td><input type="text" id="EditEndDatePickerEdit" /></td>
-        </tr>
-        <tr>
-            <td>ChampionshipTypeSelectList:</td>
-            <td>@Html.DropDownList("EditChampionshipSelected", this.Model.ChampionshipTypeSelectList);</td>
-        </tr>
-        <tr>
-            <td>CompetingTypeSelectList:</td>
-            <td>@Html.DropDownList("EditCompetingSelected", this.Model.CompetingTypeSelectList);</td>
-        </tr>
-    </table>
+<div class="modal fade" id="EditChampionshipDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">修改赛事信息</h4>
+            </div>
+        @using (Html.BeginForm("EditChampionship", "DataManage"))
+        {
+            <input type="number" hidden="hidden" name="ID" id="EditChampion"/>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <lable class="col-sm-2 required">名称</lable>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="Title" id="EditChampionshipTitle" required />
+                            <div class="text-danger" id="ChampionEditTip"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-sm-2 required">开始时间</lable>
+                        <div class="col-md-6">
+                            <input type="text" id="EditStartDatePickerEdit" class="form-control" name="StartDate" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-sm-2 required">结束时间</lable>
+                        <div class="col-md-6">
+                            <input type="text" id="EditEndDatePickerEdit" class="form-control" name="EndDate" required />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-sm-2 required">比赛方式</lable>
+                        <div class="col-md-6">
+                            @Html.DropDownList("ChampionTypeID", this.Model.ChampionshipTypeSelectList, new { @id = "EditChampionshipSelected", @required = "required", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable class="col-sm-2 required">比赛类型</lable>
+                        <div class="col-md-6">
+                            @Html.DropDownList("CompetingTypeID", this.Model.CompetingTypeSelectList, new { @id = "EditCompetingSelected", @required = "required", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary" id="championEditSave">保存</button>
+            </div>
+        }         
+        </div>  
+    </div>
 </div>
-
 <div style="display: none" id="EditChampionshipURL" requsturl="@Url.Action("EditChampionship", "DataManage")"></div>
+
+<div style="display: none" id="ActiveChampionshipURL" requsturl="@Url.Action("SetChampionToActive", "DataManage")"></></div>

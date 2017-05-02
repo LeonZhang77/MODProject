@@ -12,13 +12,6 @@ namespace Badminton.Models.DataManage
 {
     public class ChampionshipModel:BaseViewModel
     {
-        static IBadmintionDataProvider provider;
-
-        public ChampionshipModel()
-        {
-            provider = new BadmintionDataProvider();            
-        }
-
         
         public String Title
         {
@@ -42,6 +35,11 @@ namespace Badminton.Models.DataManage
             get;
             set;
         }
+        public int ChampionTypeID
+        {
+            get;
+            set;
+        }
         public ChampionType ChampionTypeSelected
         {
             get;
@@ -49,6 +47,11 @@ namespace Badminton.Models.DataManage
         }
 
         public string CompetingType
+        {
+            get;
+            set;
+        }
+        public int CompetingTypeID
         {
             get;
             set;
@@ -64,6 +67,12 @@ namespace Badminton.Models.DataManage
             set;
         }
 
+        public bool IsActive 
+        {
+            get;
+            set;
+        }
+
         public ChampionshipInfo GetEntity()
         {
             ChampionshipInfo returnInfo = new ChampionshipInfo();
@@ -74,11 +83,12 @@ namespace Badminton.Models.DataManage
             returnInfo.ChampionType = this.ChampionTypeSelected;
             returnInfo.CompetingType = this.CompetingTypeSelected;
             returnInfo.CreateTime = DateTime.Now;
+            returnInfo.IsActive = this.IsActive;
 
             return returnInfo;
         }
 
-        public static ChampionshipModel GetViewModel(ChampionshipInfo championshipInfo)
+        public static ChampionshipModel GetViewModel(ChampionshipInfo championshipInfo,IBadmintionDataProvider provider)
         {
             ChampionshipModel model = new ChampionshipModel();
             model.ID = championshipInfo.ID;
@@ -87,8 +97,13 @@ namespace Badminton.Models.DataManage
             model.EndDate = championshipInfo.EndDate.ToString("MM/dd/yyyy");
             model.CompetingType = EnumHelper.GetEnumDescription(championshipInfo.CompetingType);
             model.ChampionType = EnumHelper.GetEnumDescription(championshipInfo.ChampionType);
-            
+            model.IsActive = championshipInfo.IsActive;
             model.IsUse = false;
+            if (provider.GetMatchInfoByChampionID(championshipInfo.ID).Count()>0) 
+            {
+                model.IsUse = true;
+            }
+            
 
             return model;
         }    

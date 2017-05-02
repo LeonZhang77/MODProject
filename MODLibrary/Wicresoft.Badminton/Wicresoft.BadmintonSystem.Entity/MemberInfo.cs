@@ -40,10 +40,6 @@ namespace Wicresoft.BadmintonSystem.Entity
             set;
         }
 
-        public virtual ICollection<MemberAndClubRelation> MemberAndClubRelations
-        {
-            get;
-            set;
-        }
+       
     }
 }

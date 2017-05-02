@@ -12,11 +12,9 @@ namespace Badminton.Models.DataManage
 {
     public class MemberModel:BaseViewModel
     {
-        static IBadmintionDataProvider provider;
-
-        public MemberModel()
+        public MemberModel() 
         {
-            provider = new BadmintionDataProvider();
+        
         }
         public String Name
         {
@@ -35,6 +33,17 @@ namespace Badminton.Models.DataManage
             set;
         }
 
+        public String ClubName 
+        {
+            get;
+            set;
+        }
+
+        public int ClubID 
+        {
+            get;
+            set;
+        }
         public MemberInfo GetEntity()
         {
             MemberInfo memberInfo = new MemberInfo();
@@ -44,15 +53,20 @@ namespace Badminton.Models.DataManage
             return memberInfo;
         }
 
-        public static MemberModel GetViewModel(MemberInfo memberInfo)
+        public static MemberModel GetViewModel(MemberInfo memberInfo, IBadmintionDataProvider provider)
         {
             MemberModel model = new MemberModel();
             model.ID = memberInfo.ID;
             model.Name = memberInfo.Name;
             model.Male = memberInfo.Male;
 
+            model.ClubName = null;
             model.IsUse = false;
-            if (provider.GetMemberAndClubRelations(memberInfo).Count() > 0) model.IsUse = true;
+            if (provider.GetMemberAndClubRelations(memberInfo).Count() > 0)
+            {
+                model.ClubName = provider.GetMemberAndClubRelations(memberInfo).FirstOrDefault().ClubID.Name;
+                model.IsUse = true;
+            }
             if (provider.GetBonusInfos(memberInfo).Count() > 0) model.IsUse = true;
             List<MatchInfo> matchList = provider.GetMatchInfos().ToList();
             foreach (MatchInfo item in matchList)

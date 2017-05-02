@@ -1,112 +1,85 @@
-﻿var _strActionIsRecord = "Your action is record!";
-var _strActionIsNotRecord = "Something is wrong, your action isn't recored";
-
-$(function () {
-    $("#DeleteMatchDialog").dialog(
-    {
-        autoOpen: false,
-        resizable: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            "OK": function () {
-                $(this).dialog('close');
-                doDeleteMatch();
-            },
-            "Cancel": function () {
-                $(this).dialog('close');
-            }
-        }
-    });
-
-    $("#ValidMatchDialog").dialog(
-    {
-        autoOpen: false,
-        resizable: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            "OK": function () {
-                $(this).dialog('close');
-                doValidMatch();
-            },
-            "Cancel": function () {
-                $(this).dialog('close');
-            }
-        }
-    });
-
-    $("#NotValidMatchDialog").dialog(
-    {
-        autoOpen: false,
-        resizable: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            "OK": function () {
-                $(this).dialog('close');
-                doNotValidMatch();
-            },
-            "Cancel": function () {
-                $(this).dialog('close');
-            }
-        }
-    });
-
-});
+﻿var _strActionIsRecord = "已保存记录!";
+var _strActionIsNotRecord = "保存记录失败";
+var _strActionIsNull = "请先选择要审核的数据";
+	
 
 var _id;
-
-
-function notValidMatch(i)
+function changeValue(x)
 {
-    $("#NotValidMatchDialog").dialog("open");
-    _id = i;
+    $("#" + x).addClass("text-danger");
+    var Digit = x.substr(21, 1);
+    $("#WaitingForVerifyList_" + Digit + "__IsChange").val("true");
+   
 }
 
-function validMatch(i) {
-    $("#ValidMatchDialog").dialog("open");
-    _id = i;
+function notValidMatch()
+{
+    $("#NotValidMatchDialog").modal('show','center');
+}
+
+function validMatch() {
+    $("#ValidMatchDialog").modal('show', 'center');
 }
 
 function deleteMatch(i) {
-    $("#DeleteMatchDialog").dialog("open");
+    $("#DeleteMatchDialog").modal('show', 'center');
     _id = i;
 }
 
-function doNotValidMatch(i) {
+function doNotValidMatch() {
+    var NotValiedList = [];
+    $("input[name='NoMatchValid']:checked").each(function (){
+        NotValiedList.push($(this).val());
+    });
+    NotValiedList.join(",");
+    if (NotValiedList.length <= 0) {
+        alert(_strActionIsNull);
+        return false;
+    }
+
     $(function () {
         $.ajax(
             {
                 url: $("#NotValidMatchURL").attr("requstUrl"),
-                data: { q: _id },
+                data: { q: NotValiedList },
+                datatype: 'json',
+                type:'post',
                 success: function (data) {
                     if (data) {
-                        location.reload();
+                        location.reload(true);
                     }
                     else {
-                        alert(_strActionIsNotRecord);
+                        location.reload(true);
                     }
                 }
             })
     });
 }
 
-function doValidMatch(i) {
+function doValidMatch() {
+    var ValidList = [];
+    $("input[name=MatchValid]:checked").each(function () {
+        ValidList.push($(this).val());
+    });
+    ValidList.join(",");
+    if(ValidList.length <= 0)
+    {
+        alert(_strActionIsNull);
+        return false;
+    }
     $(function () {
         $.ajax(
             {
                 url: $("#ValidMatchURL").attr("requstUrl"),
-                data: { q: _id },
+                data: { q: ValidList },
+                datatype: 'json',
+                type:'post',
                 success: function (data) {
                     if (data) {
-                        location.reload();
+                        location.reload(true);
                     }
                     else {
-                        alert(_strActionIsNotRecord);
+                        location.reload(true);
                     }
                 }
             })
@@ -121,12 +94,24 @@ function doDeleteMatch(i) {
                 data: { q: _id },
                 success: function (data) {
                     if (data) {
-                        location.reload();
+                        location.reload(true);
                     }
                     else {
-                        alert(_strActionIsNotRecord);
+                        location.reload(true);
                     }
                 }
             })
     });
+}
+
+function ValidCheckedAll() {
+    if ($("#ValidAll").is(':checked'))
+    { $("input[name='MatchValid']").prop('checked', true); }
+    else
+    { $("input[name='MatchValid']").removeAttr("checked"); }
+
+    if ($("#NoValidAll").is(':checked'))
+    { $("input[name='NoMatchValid']").prop('checked', true); }
+    else
+    { $("input[name='NoMatchValid']").removeAttr("checked"); }
 }

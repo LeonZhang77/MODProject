@@ -2,76 +2,114 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @model Badminton.Models.MatchVerify.MatchVerifyIndexModel
 
 @section scripts{
     @Scripts.Render("~/Scripts/MatchVerify/MatchVerifyJS.js")
 }
-<br />
-<div class="panel panel-warning">
+@{Html.RenderPartial("Tip",this.Model);}
+<style>
+    .width8{
+        width:75px;
+    }
+    .width80 {
+        width:80px;
+    }
+    .width4 {
+        width:22px;
+    }
+
+</style>
+<div style="display:none">
+    @Html.DropDownList("ChompionshipCompetingTypeList", this.Model.ChampionshipCompetingTypeList)
+    @Html.DropDownList("SelectCompetingType", this.Model.CompetingList)
+    @Html.DropDownList("MemberList", this.Model.SearchMemberList)
+    @Html.DropDownList("MaleMemberList", this.Model.SearchMaleMemberList)
+    @Html.DropDownList("FemaleMemberList", this.Model.SearchFemaleMemberList);
+</div>
+
+@using(Html.BeginForm("BatchEditMatch", "MatchVerify")){
+    <div class="panel panel-warning">
     <div class="panel-heading">
-        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">等待审核的比赛数据</a>
-    </div>
-    <table class="table" id="collapseOne">
-        <thead>
-            <tr>
-                <th>提交人</th>
-                <th>比赛时间</th>
-                <th>所属赛事</th>
-                <th>比分</th>
-                <th>获胜选手1</th>
-                <th>获胜选手2</th>
-                <th>失败选手1</th>
-                <th>失败选手2</th>
-                <th>Valid</th>
-                <th>Remove</th>
+        等待审核的比赛数据
+    </div>  
+    <div class="panel-body">
+        <table class="table  datatable" id="collapseOne">
+    <thead>
+        <tr>
+            <th>编号</th>
+            <th>提交人</th>
+            <th>比赛时间</th>
+            <th>所属赛事</th>
+            <th>赛事类型</th>
+            <th colspan="2">比分（胜/负）</th>
+            <th>获胜选手1</th>
+            <th>获胜选手2</th>
+            <th>失败选手1</th>
+            <th>失败选手2</th>
+            <th>审核</th>
+            <th>删除</th>
             </tr>
         </thead>
-        <tbody>
-            @foreach (var item in this.Model.WaitingForVerifyList)
+        <tbody id="NotVerifyList">
+            @for (int i = 0; i < this.Model.WaitingForVerifyList.Count; i++)
             {
                 <tr>
-                    <td id="requestid" style="display:none">
-                        @item.ID
+                    <td>
+                        @(i+1)
+                        @Html.HiddenFor(m => m.WaitingForVerifyList[i].ID)
+                        @Html.HiddenFor(m => m.WaitingForVerifyList[i].IsChange)
                     </td>
                     <td>
-                        @item.InputPersonName
+                        @Html.TextBoxFor(m => m.WaitingForVerifyList[i].InputPerson, new { @class = "width8", @onchange = "changeValue(this.id)", @readonly = "readonly" })
                     </td>
                     <td>
-                        @item.MatchDate
+                        @Html.TextBoxFor(m => m.WaitingForVerifyList[i].MatchDate, new { @class = "width8", @onchange = "changeValue(this.id)" })
                     </td>
                     <td>
-                        @item.ChampionshipTitle
+                        @Html.DropDownListFor(m => m.WaitingForVerifyList[i].ChampionshipID, this.Model.WaitingForVerifyList[i].ChampionshipTitle, new { @class = "width8", @onchange = "changeValue(this.id)" })
                     </td>
                     <td>
-                        @item.WinLosePoints
+                        @Html.DropDownListFor(m => m.WaitingForVerifyList[i].MatchTypeID, this.Model.WaitingForVerifyList[i].MatchType, new { @class = "width8", @onchange = "changeValue(this.id)" })
                     </td>
                     <td>
-                        @item.Winner1Name
+                        @Html.TextBoxFor(m => m.WaitingForVerifyList[i].WinPoints, new { @class = "width4", @onchange = "changeValue(this.id)" })
                     </td>
                     <td>
-                        @item.Winner2Name
+                        @Html.TextBoxFor(m => m.WaitingForVerifyList[i].LosePoints, new { @class = "width4", @onchange = "changeValue(this.id)" })
                     </td>
                     <td>
-                        @item.Loser1Name
+                        @Html.DropDownListFor(m => m.WaitingForVerifyList[i].WinnerID1, this.Model.WaitingForVerifyList[i].Winner1, new { @class = "width8", @onchange = "changeValue(this.id)" })
                     </td>
                     <td>
-                        @item.Loser2Name
+                        @if (this.Model.WaitingForVerifyList[i].Winner2 != null)
+                        {
+                            @Html.DropDownListFor(m => m.WaitingForVerifyList[i].WinnerID2, this.Model.WaitingForVerifyList[i].Winner2, new { @class = "width8", @onchange = "changeValue(this.id)" })
+                        }
                     </td>
                     <td>
-                        <i class="btn btn-success btn-sm glyphicon glyphicon-ok" onclick="validMatch(@item.ID);" role="button"></i>
+                        @Html.DropDownListFor(m => m.WaitingForVerifyList[i].LoserID1, this.Model.WaitingForVerifyList[i].Loser1, new { @class = "width8", @onchange = "changeValue(this.id)" })
                     </td>
                     <td>
-                        <i class="btn btn-danger btn-sm glyphicon glyphicon-remove" onclick="deleteMatch(@item.ID);" role="button"></i>
+                        @if (this.Model.WaitingForVerifyList[i].Winner2 != null)
+                        {
+                            @Html.DropDownListFor(m => m.WaitingForVerifyList[i].LoserID2, this.Model.WaitingForVerifyList[i].Loser2, new { @class = "width8", @onchange = "changeValue(this.id)" })
+                        }
                     </td>
-
+                    <td><input type='checkbox' name='MatchValid' value="@this.Model.WaitingForVerifyList[i].ID" class='checkbox' /></td>
+                    <td><i class='btn btn-danger btn-sm icon icon-remove' onclick="deleteMatch(@this.Model.WaitingForVerifyList[i].ID)" role='button'></i></td>
                 </tr>
-
             }
         </tbody>
     </table>
+    </div>
+    <div class="panel-footer">
+        <span class="pull-right" style=" padding-right: 47px; ">:全选</span>&nbsp;&nbsp;<input type="checkbox" class="pull-right" name="ValidAll" id="ValidAll" onclick="ValidCheckedAll()" />
+        <a class="btn btn-link pull-right" style="line-height:8px;" role="button" onclick="validMatch()">审核选中</a>
+        <button class="btn btn-success btn-sm pull-right" type="submit">批量保存</button>
+    </div>
 </div>
+}
 
 <div class="panel panel-success">
     <div class="panel-heading">
@@ -79,88 +117,108 @@
             以下比赛可以去计算积分
         </a>
     </div>
-    <table class="table" id="collapseTwo">
+    <table class="table datatable" id="collapseTwo">
         <thead>
             <tr>
+                <th>编号</th>
                 <th>提交人</th>
                 <th>比赛时间</th>
                 <th>所属赛事</th>
+                <th>赛事类型</th>
                 <th>比分</th>
                 <th>获胜选手1</th>
                 <th>获胜选手2</th>
                 <th>失败选手1</th>
                 <th>失败选手2</th>
-                <th>操作</th>
+                <th>撤销审核</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in this.Model.WaitingForScoreList)
+            @for(int j = 0; j < this.Model.WaitingForScoreList.Count; j++)
             {
                 <tr>
-                    <td id="requestid" style="display:none">
-                        @item.ID
-                    </td>
-                    <td>
-                        @item.InputPersonName
-                    </td>
-                    <td>
-                        @item.MatchDate
-                    </td>
-                    <td>
-                        @item.ChampionshipTitle
-                    </td>
-                    <td>
-                        @item.WinLosePoints
-                    </td>
-                    <td>
-                        @item.Winner1Name
-                    </td>
-                    <td>
-                        @item.Winner2Name
-                    </td>
-                    <td>
-                        @item.Loser1Name
-                    </td>
-                    <td>
-                        @item.Loser2Name
-                    </td>
-                    <td>
-                        <i class="btn btn-warning btn-sm" onclick="notValidMatch(@item.ID);" role="button"><img src="~/Content/images/replay.png" height="15" width="15" /></i>
-                    </td>
+                    <td>@(j+1)</td>
+                    <td>@this.Model.WaitingForScoreList[j].InputPersonName</td>
+                    <td>@this.Model.WaitingForScoreList[j].MatchDate</td>
+                    <td>@this.Model.WaitingForScoreList[j].ChampionshipTitle</td>
+                    <td>@this.Model.WaitingForScoreList[j].MatchType</td>
+                    <td>@this.Model.WaitingForScoreList[j].WinLosePoints</td>
+                    <td>@this.Model.WaitingForScoreList[j].Winner1Name</td>
+                    <td>@this.Model.WaitingForScoreList[j].Winner2Name</td>
+                    <td>@this.Model.WaitingForScoreList[j].Loser1Name</td>
+                    <td>@this.Model.WaitingForScoreList[j].Loser2Name</td>
+                    <td><input type='checkbox' name='NoMatchValid' value='@this.Model.WaitingForScoreList[j].ID' class='checkbox' /></td>
                 </tr>
             }
         </tbody>
     </table>
+    <div class="panel-footer">
+        <span class="pull-right">:全选</span>&nbsp;&nbsp;<input type="checkbox" class="pull-right" name="NoValidAll" id="NoValidAll" onclick="ValidCheckedAll()" />
+        <button class="btn btn-link pull-right" style="line-height:8px;" onclick="notValidMatch()">撤销选中</button>
+    </div>
 </div>
 
+
+
+
+
+<div class="modal fade" id="DeleteMatchDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">删除</h4>
+            </div>
+            <div class="modal-body">
+                <p>该条记录将被删除，删除后不可恢复，按确定键继续。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" onclick="doDeleteMatch()" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div style="display: none" id="DeleteMatchURL" requsturl="@Url.Action("DeleteMatch", "MatchVerify")"></div>
+<div class="modal fade" id="ValidMatchDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">审核</h4>
+            </div>
+            <div class="modal-body">
+                <p>该条记录将被审核，按确定按钮继续。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" onclick="doValidMatch()" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div style="display: none" id="ValidMatchURL" requsturl="@Url.Action("ValidMatch", "MatchVerify")"></div>
+<div class="modal fade" id="NotValidMatchDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">审核</h4>
+            </div>
+            <div class="modal-body">
+                <p>该条记录将被取消审核，按确定按钮继续。</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" onclick="doNotValidMatch()" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div style="display: none" id="NotValidMatchURL" requsturl="@Url.Action("NotValidMatch", "MatchVerify")"></div>
+<script src="~/Scripts/dist/lib/datetimepicker/datetimepicker.min.js"></script>
 
-<div id="DeleteMatchDialog" title="Delete Confirm Dialog" hidden="hidden">
-    <p>
-        <br />
-        This Match will be removed and can not be recover.<br />
-        Are you sure ?
-        <br />
-        <br />
-    </p>
-</div>
-
-<div id="ValidMatchDialog" title="Valid Confirm Dialog" hidden="hidden">
-    <p>
-        <br />
-        This Match record is acceptable?
-        <br />
-        <br />
-    </p>
-</div>
-
-<div id="NotValidMatchDialog" title="Confirm Dialog">
-    <p>
-        <br />
-        This Match record isn't acceptable?
-        <br />
-        <br />
-    </p>
-</div>
+<script>
+    $("#collapseTwo").datatable({ sortable: true });
+    //$("#collapseOne").datatable({ sortable: true });
+</script>

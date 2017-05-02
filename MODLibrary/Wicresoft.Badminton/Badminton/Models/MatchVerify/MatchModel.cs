@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using Wicresoft.BadmintonSystem.Entity;
 using Wicresoft.BadmintonSystem.Unity;
@@ -36,6 +37,18 @@ namespace Badminton.Models.MatchVerify
             set;
         }
 
+        public int WinPoints
+        {
+            get;
+            set;
+        }
+
+        public int LosePoints
+        {
+            get;
+            set;
+        }
+
         public String InputPersonName
         {
             get;
@@ -54,6 +67,18 @@ namespace Badminton.Models.MatchVerify
             set;
         }
 
+        public String MatchType
+        {
+            get;
+            set;
+        }
+
+        public Boolean IsChange 
+        {
+            get;
+            set;
+        }
+
         public static MatchModel GetViewModel(MatchInfo item)
         {
             MatchModel matchModel = new MatchModel();
@@ -62,8 +87,13 @@ namespace Badminton.Models.MatchVerify
             matchModel.InputPersonName = item.InputPersonID.Name;
             matchModel.ChampionshipTitle = item.ChampionID.Title;
             matchModel.WinLosePoints = item.WinnerPoints.ToString() + ":" + item.LoserPoints.ToString();
+            matchModel.WinPoints = item.WinnerPoints;
+            matchModel.LosePoints = item.LoserPoints;
             matchModel.Winner1Name = item.WinnerID.Name;
             matchModel.Loser1Name = item.LoserID.Name;
+            matchModel.MatchType = EnumHelper.GetEnumDescription(item.MatchType);
+
+
             if (item.ChampionID.CompetingType == CompetingType.FemaleSin || item.ChampionID.CompetingType == CompetingType.MaleSin || item.ChampionID.CompetingType == CompetingType.MixSin)
             {
                 matchModel.Winner2Name = "";

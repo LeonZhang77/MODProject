@@ -16,6 +16,7 @@ namespace Badminton.Models.DataManage
         {
             provider = new BadmintionDataProvider(); 
         }
+        
         public String Name
         {
             get;
@@ -28,6 +29,18 @@ namespace Badminton.Models.DataManage
         }
 
         public bool IsUse
+        {
+            get;
+            set;
+        }
+
+        public String CaptainName
+        {
+            get;
+            set;
+        }
+
+        public int CaptainID 
         {
             get;
             set;
@@ -49,8 +62,19 @@ namespace Badminton.Models.DataManage
             model.Name = club.Name;
             model.Description = club.Description;
 
+            var memberAndClub = provider.GetMemberAndClubRelations(club);
             model.IsUse = false;
-            if (provider.GetMemberAndClubRelations(club).Count() > 0) model.IsUse = true;
+            if (memberAndClub.ToList().Count() > 0)
+            {
+                model.IsUse = true;
+                foreach (MemberAndClubRelation info in memberAndClub.ToList())
+                {
+                    if (info.IsCaption)
+                    {
+                        model.CaptainName = info.MemberID.Name;
+                    }
+                }
+            }
 
             return model;
         }

@@ -1,61 +1,54 @@
 ﻿$(function () {
-    $("#DeleteChampionshipDialog").dialog(
-    {
-        autoOpen: false,
-        resizable: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            "OK": function () {
-                $(this).dialog('close');
-                doDeleteChampionship();
-            },
-            "Cancel": function () {
-                $(this).dialog('close');
-            }
-        }
+    var mydate = new Date();
+    var nowDate = mydate.getFullYear() + "/" + (mydate.getMonth() + 1) + "/" + mydate.getDate();
+    $("#startDatePicker").val(nowDate);
+    $("#endDatePicker").val(nowDate);
+
+    $("#startDatePicker").datetimepicker({
+        language: "zh-CN",
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: "yyyy/mm/dd",
     });
 
-    $("#AddChampionshipDialog").dialog(
-    {
-        autoOpen: false,
-        resizable: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            "OK": function () {
-                $(this).dialog('close');
-                doAddChampionship();
-            },
-            "Cancel": function () {
-                $(this).dialog('close');
-            }
-        }
+    $("#endDatePicker").datetimepicker({
+        language: "zh-CN",
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: "yyyy/mm/dd",
     });
-    $("#startDatePicker").datepicker();
-    $("#endDatePicker").datepicker();
-
-    $("#EditChampionshipDialog").dialog(
-    {
-        autoOpen: false,
-        resizable: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            "OK": function () {
-                $(this).dialog('close');
-                doEditChampionship();
-            },
-            "Cancel": function () {
-                $(this).dialog('close');
-            }
-        }
+    $("#EditStartDatePickerEdit").datetimepicker({
+        language: "zh-CN",
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: "yyyy/mm/dd",
     });
-    $("#EditStartDatePickerEdit").datepicker();
-    $("#EditEndDatePickerEdit").datepicker();
+    $("#EditEndDatePickerEdit").datetimepicker({
+        language: "zh-CN",
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: "yyyy/mm/dd",
+    });
 });
 
 function doDeleteChampionship() {
@@ -66,11 +59,13 @@ function doDeleteChampionship() {
                 data: { q: _id },
                 success: function (data) {
                     if (data == "true") {
-                        var approveButtonId = "#championshipRow" + _id;
-                        $(approveButtonId).hide();
+                        $("tr[data-id='championshipRow" + _id + "']").hide();
+                        $("#DeleteChampionshipDialog").modal('hide');
+                        ErrorTipMessage(_DelSucc,"success");
                     }
                     else {
-                        alert(data);
+                        ErrorTipMessage(_DelFail + data, "danger");
+                        $("#DeleteChampionshipDialog").modal('hide');
                     }
                 }
             })
@@ -78,72 +73,16 @@ function doDeleteChampionship() {
 }
 
 function deleteChampionship(i) {
-    $("#DeleteChampionshipDialog").dialog("open");
+    $("#DeleteChampionshipDialog").modal('show','center');
     _id = i;
 }
 
-function doAddChampionship() {
-    var dataString = "{" + "\"title\":\"" + $("#ChampionshipTitle").val() +
-        "\",\"stratDate\":\"" + $("#startDatePicker").val() +
-        "\",\"endDate\":\"" + $("#endDatePicker").val() +
-        "\",\"Championtype\":\"" + $('#ChampionshipSelected option:selected').val() +
-        "\",\"Competingtype\":\"" + $('#CompetingSelected option:selected').val() +
-        "\"}";
-    $(function () {
-        $.ajax(
-            {
-                url: $("#AddChampionshipURL").attr("requstUrl"),
-                data: { q: dataString },
-                success: function (data) {
-                    if (data == "true") {
-                        alert(_strActionIsRecord);
-                        $("#ChampionshipTitle").val("");
-                        $("#startDatePicker").val("");
-                        $("#endDatePicker").val("");
-                        location.reload(true);
-                        $("#mainTabContent").tabs({ active: 2 });
-                    }
-                    else {
-                        alert(data);
-                    }
-                }
-            })
-    });
-}
 
 function addChampionship() {
-    $("#AddChampionshipDialog").dialog("open");
+    $("#AddChampionshipDialog").modal('show', 'center');
 }
 
-function doEditChampionship() {
-    var dataString = "{" + "\"strID\":\"" + _id +
-        "\",\"title\":\"" + $("#EditChampionshipTitle").val() +
-        "\",\"stratDate\":\"" + $("#EditStartDatePickerEdit").val() +
-        "\",\"endDate\":\"" + $("#EditEndDatePickerEdit").val() +
-        "\",\"Championtype\":\"" + $('#EditChampionshipSelected option:selected').val() +
-        "\",\"Competingtype\":\"" + $('#EditCompetingSelected option:selected').val() +
-        "\"}";
-    $(function () {
-        $.ajax(
-            {
-                url: $("#EditChampionshipURL").attr("requstUrl"),
-                data: { q: dataString },
-                success: function (data) {
-                    if (data == "true") {
-                        alert(_strActionIsRecord);
-                        $("#ChampionshipTitle").val("");
-                        $("#startDatePicker").val("");
-                        $("#endDatePicker").val("");
-                        location.reload(true);
-                        $("#mainTabContent").tabs({ active: 2 });
-                    }
-                    else {
-                        alert(data);
-                    }
-                }
-            })
-    });
-}
+
 
 function editChampionship(i) {
     var rowID = "#championshipRow" + i;
@@ -152,7 +91,7 @@ function editChampionship(i) {
     var CompetingtypeID = rowID + "CompetingType";
     var StartDateID = rowID + "StartDate";
     var EndDateID = rowID + "EndDate";
-
+    $("#EditChampion").val(i);
     $("#EditChampionshipTitle").val($(titleID).text().trim());
 
     var dropdownList = document.getElementById("EditChampionshipSelected");
@@ -174,6 +113,32 @@ function editChampionship(i) {
     $("#EditStartDatePickerEdit").val($(StartDateID).text().trim());
     $("#EditEndDatePickerEdit").val($(EndDateID).text().trim());
 
-    $("#EditChampionshipDialog").dialog("open");
+    $("#EditChampionshipDialog").modal('show', 'center');
     _id = i;
+}
+var status;
+function SetChampionActive(i, active)
+{
+    _id = i;
+    status = active;
+    doSetChampionActive();
+}
+
+function doSetChampionActive()
+{
+    $(function () {
+        $.ajax(
+            {
+                url: $("#ActiveChampionshipURL").attr("requstUrl"),
+                data: { ChampionID: _id, IsActive: status },
+                success: function (data) {
+                    if (data) {
+                        alert(_strActionIsRecord);
+                        location.reload(true);
+                    } else {
+                        alert(_strActionIsNotRecord);
+                    }
+                }
+            });
+    });
 }

@@ -3,15 +3,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @model Badminton.Models.DataManage.DataManageIndexModel
+
 @section scripts{
-    @Scripts.Render("~/Scripts/DataManageJS/DataManageJS.js")   
+    @Scripts.Render("~/Scripts/DataManageJS/DataManageJS.js")
     @Scripts.Render("~/Scripts/DataManageJS/DataManageClubJS.js")
-    @Scripts.Render("~/Scripts/DataManageJS/DataManageChampsionshipJS.js") 
-    @Scripts.Render("~/Scripts/DataManageJS/DataManageMemberJS.js")   
+    @Scripts.Render("~/Scripts/DataManageJS/DataManageChampsionshipJS.js")
+    @Scripts.Render("~/Scripts/DataManageJS/DataManageMemberJS.js")
 }
-
+@{Html.RenderPartial("Tip", this.Model);}
 <br />
-
 <div>
     <ul id="mainTab" class="nav nav-tabs">
         <li>
@@ -31,233 +31,275 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <span><b>Club List</b></span>
-                    <span class=" pull-right"><b><a onclick="addClub()" role="button">Add</a></b></span>
+                    <span class=" pull-right"><b><a onclick="addClub()" role="button">增加</a></b></span>
                 </div>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th>
-                                ID
-                            </th>
-                            <th>
-                                Club Name
-                            </th>
-                            <th>
-                                Captain
-                            </th>
-                            <th>
-                                Club Description
-                            </th>
-                            <th>
-                                Edit
-                            </th>
-                            <th>
-                                Remove
-                            </th>
-                        </tr>
-                        @foreach (var item in this.Model.ClubList)
-                        {
-                            string clubRowId = "clubRow" + @item.ID.ToString();
-                            string clubRowName = clubRowId + "Name";
-                            string clubRowCaptain = clubRowId + "Captain";
-                            string clubRowDescription = clubRowId + "Description";
-                            
-                            <tr>
-                                <td id="@clubRowId">
-                                    @item.ID
-                                </td>
-                                <td id="@clubRowName">
-                                    @item.Name
-                                </td>
-                                <td id="@clubRowCaptain">
-                                    @item.CaptainName
-                                </td>
-                                <td id="@clubRowDescription">
-                                    @item.Description
-                                </td>
-                                <td>
-                                    <i class="btn btn-warning btn-sm glyphicon glyphicon-edit" onclick="editClub(@item.ID)"></i>
-                                </td>
-                                <td>
-                                    @if (!item.IsUse)
-                                    {
-                                        <i class="btn btn-danger btn-sm glyphicon glyphicon-remove" onclick="deleteClub(@item.ID);"></i>
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr></tr>
-                    </tfoot>
-                </table>
+                <div class="datatable-head-span datatable-span flexarea">
+                    <div class="datatable-wrapper">
+                        <table class="table datatable" id="ClubTable">
+                            <thead>
+                                <tr>
+                                    <th data-type="number">
+                                        编号
+                                    </th>
+                                    <th data-type="string">
+                                        名称
+                                    </th>
+                                    <th data-type="string">
+                                        队长
+                                    </th>
+                                    <th data-type="string">
+                                        简介
+                                    </th>
+                                    <th class="sort-disabled">
+                                        编辑
+                                    </th>
+                                    <th class="sort-disabled">
+                                        批量添加会员
+                                    </th>
+                                    <th class="sort-disabled">
+                                        批量删除会员
+                                    </th>
+                                    <th class="sort-disabled">
+                                        删除
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                @foreach (var item in this.Model.ClubList)
+                                {
+                                    string clubRowId = "clubRow" + @item.ID.ToString();
+                                    string clubRowName = clubRowId + "Name";
+                                    string clubRowCaptain = clubRowId + "Captain";
+                                    string clubRowDescription = clubRowId + "Description";
+
+                                    <tr id="@clubRowId">
+                                        <td>
+                                            @item.ID
+                                        </td>
+                                        <td id="@clubRowName">
+                                            @item.Name
+                                        </td>
+                                        <td id="@clubRowCaptain">
+                                            @item.CaptainName
+                                        </td>
+                                        <td id="@clubRowDescription">
+                                            @item.Description
+                                        </td>
+                                        <td>
+                                            <i class="btn btn-warning btn-sm icon icon-edit" onclick="editClub(@item.ID)"></i>
+                                        </td>
+                                        <td>
+                                            <i class="btn btn-primary btn-sm icon icon-plus-sign" onclick="batchAddMember(@item.ID)"></i>
+                                        </td>
+                                        <td>
+                                            <i class="btn btn-danger  btn-sm icon icon-remove-circle" onclick="batchRemoveMember(@item.ID)"></i>
+                                        </td>
+                                        <td>
+                                            @if (!item.IsUse)
+                                            {
+                                                <i class="btn btn-danger btn-sm icon icon-remove" onclick="deleteClub(@item.ID);"></i>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr></tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                </div>
             </div>
-        </div>
-        <div class="tab-pane in active" id="Members">
-            <br />
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <span><b>Member List</b></span>
-                    <span class=" pull-right"><b><a onclick="addMember()" role="button">Add</a></b></span>
-                </div>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <th>
-                                ID
-                            </th>
-                            <th>
-                                Member Name
-                            </th>
-                            <th>
-                                Male
-                            </th>
-                            <th>
-                                Club
-                            </th>
-                            <th>
-                                Edit
-                            </th>
-                            <th>
-                                Remove
-                            </th>
-                        </tr>
-                        @foreach (var item in this.Model.MemberList)
+                <div class="tab-pane in active" id="Members">
+                    <br />
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <span><b>Member List</b></span>
+                            <span class=" pull-right"><b><a onclick="addMember()" role="button">增加</a></b></span>
+                        </div>
+                        <div class="datatable-head-span datatable-span flexarea">
+                            <div class="datatable-wrapper">
+                                <table class="table datatable" id="MemberTable">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                编号
+                                            </th>
+                                            <th>
+                                                姓名
+                                            </th>
+                                            <th>
+                                                性别
+                                            </th>
+                                            <th>
+                                                俱乐部
+                                            </th>
+                                            <th class="sort-disabled">
+                                                编辑
+                                            </th>
+                                            <th class="sort-disabled">
+                                                删除
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        
+                                        @foreach (var item in this.Model.MemberList)
                         {
                             string memberRowID = "memberRow" + @item.ID.ToString();
                             string memberRowIDName = memberRowID + "Name";
                             string memberRowIDMale = memberRowID + "Male";
                             string memberRowIDClub = memberRowID + "Club";
-                            <tr id=@memberRowID>
-                                <td>
-                                    @item.ID
-                                </td>
-                                <td id=@memberRowIDName>
-                                    @item.Name
-                                </td>
-                                <td id=@memberRowIDMale>
-                                    @if (item.Male)
-                                    {<span>男</span>}
-                                    @if (!item.Male)
-                                    {<span>女</span>}
-                                </td>
-                                <td id="@memberRowIDClub">
-                                    @if (item.MemberAndClubRelations != null)
-                                    {
-                                        @item.MemberAndClubRelations.ClubID.Name
-                                    }
-                                </td>
-                                <td>
-                                    <i class="btn btn-warning btn-sm glyphicon glyphicon-edit" onclick="editMember(@item.ID)"></i>
-                                </td>
-                                <td>
-                                    @if (!item.IsUse)
-                                    {
-                                        <i class="btn btn-danger btn-sm glyphicon glyphicon-remove" onclick="deleteMember(@item.ID)"></i>
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                    <tfoot>
-                        <tr></tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-        <div class="tab-pane" id="Championships">
-                <br />
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <span><b>Championship List</b></span>
-                        <span class="pull-right"><a onclick="addChampionship()">Add</a></span>
-                    </div>
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th>
-                                    ID
-                                </th>
-                                <th>
-                                    Title
-                                </th>
-                                <th>
-                                    Chompion Type
-                                </th>
-                                <th>
-                                    Competing Type
-                                </th>
-                                <th>
-                                    Start Date
-                                </th>
-                                <th>
-                                    End Date
-                                </th>
-                                <th>
-                                    Edit
-                                </th>
-                                <th>
-                                    Remove
-                                </th>
-                                <th>
-                                    Statue
-                                </th>
-                            </tr>
-                            @foreach (var item in this.Model.ChampionshipList)
-                            {
-                                string championshipRowID = "championshipRow" + @item.ID.ToString();
-                                string championshipIDTDID = championshipRowID + "ID";
-                                string championshipIDTDTitle = championshipRowID + "Title";
-                                string championshipIDTDChampionType = championshipRowID + "ChampionType";
-                                string championshipIDTDCompetingType = championshipRowID + "CompetingType";
-                                string championshipIDTDStartDate = championshipRowID + "StartDate";
-                                string championshipIDTDEndDate = championshipRowID + "EndDate";
-
-                                <tr id=@championshipRowID>
-                                    <td id=@championshipIDTDID>
+                                <tr id=@memberRowID>
+                                    <td>
                                         @item.ID
                                     </td>
-                                    <td id=@championshipIDTDTitle>
-                                        @item.Title
-                                    </td>
-                                    <td id=@championshipIDTDChampionType>
-                                        @item.ChampionType
-                                    </td>
-                                    <td id=@championshipIDTDCompetingType>
-                                        @item.CompetingType
-                                    </td>
-                                    <td id=@championshipIDTDStartDate>
-                                        @item.StartDate
-                                    </td>
-                                    <td id=@championshipIDTDEndDate>
-                                        @item.EndDate
+                                    <td id=@memberRowIDName>
+                                        @item.Name
                                     </td>
                                     <td>
-                                        <i class="btn btn-warning btn-sm glyphicon glyphicon-edit" onclick="editChampionship(@item.ID);"></i>
-
+                                        @if (item.Male)
+                                    {<span id=@memberRowIDMale>男</span>}
+                                        @if (!item.Male)
+                                    {<span id=@memberRowIDMale>女</span>}
+                                    </td>
+                                    <td id="@memberRowIDClub">
+                                        @item.ClubName
+                                    </td>
+                                    <td>
+                                        <i class="btn btn-warning btn-sm icon icon-edit" onclick="editMember(@item.ID)"></i>
                                     </td>
                                     <td>
                                         @if (!item.IsUse)
-                                        {
-                                            <i class="btn btn-danger btn-sm glyphicon glyphicon-remove" onclick="deleteChampionship(@item.ID);" role="button"></i>
-                                        }
-                                    </td>
-                                    <td>
-                                        
+                                    {
+                                <i class="btn btn-danger btn-sm icon icon-remove" onclick="deleteMember(@item.ID)"></i>
+                                    }
                                     </td>
                                 </tr>
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr></tr>
-                        </tfoot>
-                    </table>
+                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr></tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                        <div class="tab-pane" id="Championships">
+                            <br />
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <span><b>Championship List</b></span>
+                                    <span class="pull-right"><a onclick="addChampionship()">增加</a></span>
+                                </div>
+                                <div class="datatable-head-span datatable-span flexarea">
+                                    <div class="datatable-wrapper">
+                                        <table class="table datatable" id="ChampionshipTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        编号
+                                                    </th>
+                                                    <th>
+                                                        赛事名称
+                                                    </th>
+                                                    <th>
+                                                        比赛方式
+                                                    </th>
+                                                    <th>
+                                                        赛事类型
+                                                    </th>
+                                                    <th>
+                                                        开始时间
+                                                    </th>
+                                                    <th>
+                                                        结束时间
+                                                    </th>
+                                                    <th class="sort-disabled">
+                                                        编辑
+                                                    </th>
+                                                    <th class="sort-disabled">
+                                                        删除
+                                                    </th>
+                                                    <th>
+                                                        当前状态
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                                @foreach (var item in this.Model.ChampionshipList)
+                                        {
+                                            string championshipRowID = "championshipRow" + @item.ID.ToString();
+                                            string championshipIDTDID = championshipRowID + "ID";
+                                            string championshipIDTDTitle = championshipRowID + "Title";
+                                            string championshipIDTDChampionType = championshipRowID + "ChampionType";
+                                            string championshipIDTDCompetingType = championshipRowID + "CompetingType";
+                                            string championshipIDTDStartDate = championshipRowID + "StartDate";
+                                            string championshipIDTDEndDate = championshipRowID + "EndDate";
+
+                                        <tr id=@championshipRowID>
+                                            <td id=@championshipIDTDID>
+                                                @item.ID
+                                            </td>
+                                            <td id=@championshipIDTDTitle>
+                                                @item.Title
+                                            </td>
+                                            <td id=@championshipIDTDChampionType>
+                                                @item.ChampionType
+                                            </td>
+                                            <td id=@championshipIDTDCompetingType>
+                                                @item.CompetingType
+                                            </td>
+                                            <td id=@championshipIDTDStartDate>
+                                                @item.StartDate
+                                            </td>
+                                            <td id=@championshipIDTDEndDate>
+                                                @item.EndDate
+                                            </td>
+                                            <td>
+                                                <i class="btn btn-warning btn-sm icon icon-edit" onclick="editChampionship(@item.ID);"></i>
+
+                                            </td>
+                                            <td>
+                                                @if (!item.IsUse)
+                                                    {
+                                                    <i class="btn btn-danger btn-sm icon icon-remove" onclick="deleteChampionship(@item.ID);" role="button"></i>
+                                                    }
+                                            </td>
+                                            <td>
+                                                @if (item.IsActive)
+                                                    {
+                                                    <button class="btn btn-danger" onclick="SetChampionActive(@item.ID,false)">结束</button>
+                                                    }
+                                                    else
+                                                    {
+                                                    <button class="btn btn-success" onclick="SetChampionActive(@item.ID,true)">开始</button>
+                                                    }
+                                            </td>
+                                        </tr>
+                                        }
+                                            </tbody>
+                                            <tfoot>
+                                                <tr></tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        </div>
     </div>
-</div>
 @{Html.RenderPartial("ClubDialog");}
 @{Html.RenderPartial("ChampionshipDialog", this.Model);}
 @{Html.RenderPartial("MemberDialog");}
 
-
+<script src="~/Scripts/dist/lib/datetimepicker/datetimepicker.min.js"></script>
+<script>
+    $('#ChampionshipTable').datatable({ sortable: true });
+    $('#ClubTable').datatable({ sortable: true });
+    $('#MemberTable').datatable({ sortable: true });
+</script>

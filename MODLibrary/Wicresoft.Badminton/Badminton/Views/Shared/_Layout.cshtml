@@ -4,18 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - MOD Badminton</title>
-    @Scripts.Render("~/Scripts/jquery-1.10.2.js")
-    @Scripts.Render("~/Scripts/ui/jquery-ui.js")
-    @Styles.Render("~/Content/bootstrap.css")
-    @Styles.Render("~/Content/themes/base/jquery.ui.all.css")
-    @Styles.Render("~/Content/Site.css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Scripts/dist/css/zui.min.css")
+    
+    @Styles.Render("~/Scripts/dist/css/zui-theme.css")
+    <link href="~/scripts/dist/lib/datatable/zui.datatable.min.css" rel="stylesheet" />
+    @Scripts.Render("~/Scripts/dist/lib/jquery/jquery.js")
+    @Scripts.Render("~/Scripts/dist/js/zui.min.js")
+    <script src="~/scripts/dist/lib/datatable/zui.datatable.min.js"></script>
+    @Scripts.Render("~/Scripts/shorttable.js")
+    
     @RenderSection("scripts", required: false)
 
     
     <style>
+
         .bgBadminImgBottom {
             background: url(/Content/images/PlayBadmin.png) bottom right no-repeat;
         }
@@ -27,14 +29,37 @@
 
 </head>
 <body class="bgBadminImgBottom">
-    <div class="navbar navbar-inverse navbar-fixed-top " style="background-color:rgba(216, 236, 246, 1);border:none;">
-        <div class="container">
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container-fluid">
+            <!-- 导航头部 -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <!-- 移动设备上的导航切换按钮 -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-example">
+                    <span class="sr-only">切换导航</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+                <!-- 品牌名称或logo -->
+                <a class="navbar-brand" href="/Home/Index">MOD Badminton Group</a>
+            </div>
+            <!-- 导航项目 -->
+            <div class="collapse navbar-collapse navbar-collapse-example">
+                <!-- 一般导航项目 -->
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("比赛录入", "Index", "MatchInput", null, null)</li>
+                    <li>@Html.ActionLink("排行榜", "Index", "ScoreList", null, null)</li>
+                
+                  
+               
+                </ul>
+                @Html.Action("LoginUserDisplay", "Home")
+            </div><!-- END .navbar-collapse -->
+        </div>
+    </nav>
+    @*<div class="nav nav-primary">
+        <div class="container">
+            <div class="navbar-header">
                 <a class="navbar-brand" href="/Home/Index">M<img src='/Content/images/Badmin.png' height="20" />D Badminton Group</a>
             </div>
             <div class="navbar-collapse collapse">
@@ -48,9 +73,10 @@
                 @Html.Action("LoginUserDisplay", "Home")
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="bgBadminImgTop" style="width:100%">
         <div class="container body-content">
+           
             @RenderBody()
             <hr />
             <footer>

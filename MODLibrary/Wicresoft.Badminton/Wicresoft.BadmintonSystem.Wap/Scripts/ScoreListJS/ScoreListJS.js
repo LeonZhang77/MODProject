@@ -14,8 +14,7 @@ function showBattleRate(_chartID, _player1, _player2) {
            dataType: "json",
            success: function (data) {
                var ctx = $(_chartID).get(0).getContext("2d");
-               
-               var myNewChart = new Chart(ctx).Pie(data);
+               var myNewChart = new $.zui.Chart(ctx).Pie(data);
                
            }
        })       

@@ -2,23 +2,33 @@
 
 $(function () {    
     
-    $("#StateMessageDialog").dialog(
-    {
-        autoOpen: false,
-        resizable: false,
-        height: 400,
-        width: 500,
-        modal: true,
-        buttons: {
-            "OK": function () {
-                $(this).dialog('close');
-            }
-        }
+    //$("#StateMessageDialog").dialog(
+    //{
+    //    autoOpen: false,
+    //    resizable: false,
+    //    height: 400,
+    //    width: 500,
+    //    modal: true,
+    //    buttons: {
+    //        "OK": function () {
+    //            $(this).dialog('close');
+    //        }
+    //    }
+    //});
+
+    $("#StateMessageDialog").modal('show', 'center');
+
+    $("#EditStandDatePickerEdit").datetimepicker({
+        language: "zh-CN",
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: "yyyy/mm/dd",
     });
-
-    $("#StateMessageDialog").dialog("open");
-
-    $("#EditStandDatePickerEdit").datepicker();
 })
 
 function toCalcToReview() {

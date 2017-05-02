@@ -14,7 +14,16 @@ namespace Badminton.Models.DataManage
             this.ClubList = new List<ClubModel>();
             this.ChampionshipTypeSelectList = new List<SelectListItem>();
             this.CompetingTypeSelectList = new List<SelectListItem>();
+            this.MemberWithoutClub = new List<SelectListItem>();
+            this.TipMessage = null;
         }
+
+        public String TipMessage 
+        {
+            get;
+            set;
+        }
+
         public List<MemberModel> MemberList
         {
             get;
@@ -44,5 +53,13 @@ namespace Badminton.Models.DataManage
             get;
             set;
         }
+        public List<SelectListItem> MemberWithoutClub
+        {
+            get;
+            set;
+        }
+
+       
+
     }
 }

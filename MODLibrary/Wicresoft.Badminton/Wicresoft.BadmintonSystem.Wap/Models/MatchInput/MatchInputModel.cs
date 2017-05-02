@@ -12,10 +12,8 @@ namespace Wicresoft.BadmintonSystem.Wap.Models.MatchInput
 {
     public class MatchInputModel
     {
-        IBadmintionDataProvider provider;
         public MatchInputModel()
         {
-            this.provider = new BadmintionDataProvider();
             this.ChampionshipList = new List<SelectListItem>();
             this.TrueActiveChampionshipList = new List<SelectListItem>();
             this.ChampionshipCompetingTypeList = new List<SelectListItem>();
@@ -23,13 +21,24 @@ namespace Wicresoft.BadmintonSystem.Wap.Models.MatchInput
             this.SearchMemberList = new List<SelectListItem>();
             this.SearchMaleMemberList = new List<SelectListItem>();
             this.SearchFemaleMemberList = new List<SelectListItem>();
+            this.TipMessage = null;
+            this.ScoreList2 = scoreList();
         }
         public string ChampionshipID
         {
             get;
             set;
         }
-
+        public List<SelectListItem> ScoreList2
+        {
+            get;
+            set;
+        }
+        public string TipMessage
+        {
+            get;
+            set;
+        }
         public string CompetingTypeID
         {
             get;
@@ -103,7 +112,6 @@ namespace Wicresoft.BadmintonSystem.Wap.Models.MatchInput
             get;
             set;
         }
-
         public List<SelectListItem> CompetingList
         {
             get;
@@ -131,25 +139,19 @@ namespace Wicresoft.BadmintonSystem.Wap.Models.MatchInput
         {
             get;
             set;
-        }        
+        }
 
-        public MatchInfo GetEntity()
+        public List<SelectListItem> scoreList()
         {
-            MatchInfo info = new MatchInfo();
-            info.ChampionID = provider.GetChampionshipInfoByID(Convert.ToInt32(this.ChampionshipID));
-            //info.InputPersonID = provider.GetMemberInfoByID(Convert.ToInt32(this.InputPersonID));
-            info.MatchDate = DateTime.Parse(this.MatchDate);
-            info.WinnerID = provider.GetMemberInfoByID(Convert.ToInt32(this.Winner1ID));
-            info.LoserID = provider.GetMemberInfoByID(Convert.ToInt32(this.Loser1ID));
-            if(info.ChampionID.CompetingType.Equals(CompetingType.MaleDou)||
-                info.ChampionID.CompetingType.Equals(CompetingType.FemaleDou) ||
-                info.ChampionID.CompetingType.Equals(CompetingType.MixDou))
+            List<SelectListItem> score = new List<SelectListItem>();
+            for (int i = 0; i <= 25; i++)
             {
-                info.WinnerID2 = provider.GetMemberInfoByID(Convert.ToInt32(this.Winner2ID));
-                info.LoserID2 = provider.GetMemberInfoByID(Convert.ToInt32(this.Loser2ID));
+                SelectListItem item = new SelectListItem();
+                item.Value = i.ToString();
+                item.Text = i.ToString();
+                score.Add(item);
             }
-            info.CreateTime = DateTime.Now;
-            return info;
+            return score;
         }
     }
     

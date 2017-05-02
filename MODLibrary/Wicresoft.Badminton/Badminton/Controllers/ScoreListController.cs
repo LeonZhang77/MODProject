@@ -16,20 +16,20 @@ namespace Badminton.Controllers
     public class ScoreListController : Controller
     {
         IBadmintionDataProvider provider;
-        
+
         public ScoreListController()
         {
             provider = new BadmintionDataProvider();
         }
-        
+
         public ActionResult Index(long searchselectedID = 0)
         {
             ScoreListIndexModel model = new ScoreListIndexModel();
 
-            model.ScoreList = GetScoreList();          
+            model.ScoreList = GetScoreList();
 
-            model.SearchMemberList = GetSearchMemberList();           
-            
+            model.SearchMemberList = GetSearchMemberList();
+
             return View(model);
         }
 
@@ -51,9 +51,9 @@ namespace Badminton.Controllers
                 temp.Ranking = rankList.Find(u => u.MemberID == item.ID).Rank;
                 returnList.Add(temp);
             }
-            returnList = returnList.OrderBy(u => u.Ranking).ToList();       
+            returnList = returnList.OrderBy(u => u.Ranking).ToList();
             return returnList;
-        }       
+        }
 
         internal double GetWinRate(MemberInfo memberInfo)
         {
@@ -61,13 +61,13 @@ namespace Badminton.Controllers
             List<MatchInfo> matchInfos = provider.GetMatchInfos().ToList();
             List<MatchInfo> matchList = DataHelper.GetMatchInfos(memberInfo, true, ChampionType.Normal, false, matchInfos).ToList();
             int WinCount = matchList.Count();
-            matchList = DataHelper.GetMatchInfos(memberInfo, false, ChampionType.Normal, false, matchInfos).ToList();            
+            matchList = DataHelper.GetMatchInfos(memberInfo, false, ChampionType.Normal, false, matchInfos).ToList();
             int LostCount = matchList.Count();
             if ((WinCount + LostCount) != 0)
             {
                 returnValue = WinCount / (WinCount + LostCount);
             }
-           
+
             return returnValue;
         }
 
@@ -83,7 +83,7 @@ namespace Badminton.Controllers
             {
                 returnValue = WinCount / (WinCount + LostCount);
             }
-            
+
             return returnValue;
         }
 
@@ -98,7 +98,7 @@ namespace Badminton.Controllers
                 temp.Text = item.Name;
                 temp.Value = item.ID.ToString();
                 returnList.Add(temp);
-            }            
+            }
             return returnList;
         }
 
@@ -152,8 +152,9 @@ namespace Badminton.Controllers
                 }
             }
 
-            foreach (MatchInfo item in player1WinList)
+            for (int i = player1WinList.Count - 1; i >= 0; i--)
             {
+                MatchInfo item = player1WinList[i];
                 if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
                 {
                     if (item.LoserID.ID != player2id) player1WinList.Remove(item);
@@ -161,8 +162,9 @@ namespace Badminton.Controllers
                 else
                 {
                     if (item.LoserID.ID != player2id && item.LoserID2.ID != player2id) player1WinList.Remove(item);
-                }                
+                }
             }
+
             List<MatchInfo> player1LostList = DataHelper.GetMatchInfos(memberInfo, false, competingType, matchInfos).ToList();
             if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
             {
@@ -173,8 +175,9 @@ namespace Badminton.Controllers
                 }
             }
 
-            foreach (MatchInfo item in player1LostList)
+            for (int i = player1LostList.Count - 1; i >= 0; i--)
             {
+                MatchInfo item = player1LostList[i];
                 if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
                 {
                     if (item.WinnerID.ID != player2id) player1LostList.Remove(item);
@@ -182,7 +185,7 @@ namespace Badminton.Controllers
                 else
                 {
                     if (item.WinnerID.ID != player2id && item.WinnerID2.ID != player2id) player1LostList.Remove(item);
-                }                
+                }
             }
 
             if ((player1WinList.Count + player1LostList.Count()) != 0)
