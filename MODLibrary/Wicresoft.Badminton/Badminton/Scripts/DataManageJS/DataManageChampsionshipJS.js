@@ -132,12 +132,7 @@ function doSetChampionActive()
                 url: $("#ActiveChampionshipURL").attr("requstUrl"),
                 data: { ChampionID: _id, IsActive: status },
                 success: function (data) {
-                    if (data) {
-                        alert(_strActionIsRecord);
-                        location.reload(true);
-                    } else {
-                        alert(_strActionIsNotRecord);
-                    }
+                    location.reload(true);
                 }
             });
     });

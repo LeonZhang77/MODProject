@@ -54,12 +54,10 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
         { 
             return this.DataSource.ClubInfos.FirstOrDefault(u=>u.ID == ID);
         }
-
         public ClubInfo GetClubInfoByName(string Name)
         {
             return this.DataSource.ClubInfos.FirstOrDefault(u => u.Name == Name);
         }
-
         public IEnumerable<MatchInfo> GetMatchInfos()
         {
             return this.DataSource.MatchInfos;
@@ -170,23 +168,14 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
         {
             if (matchInfo != null)
             {
-                if (matchInfo.ChampionID != null) { matchInfo.ChampionID = this.DataSource.ChampionshipInfos.Find(matchInfo.ChampionID.ID); }
-                if (matchInfo.InputPersonID != null) { matchInfo.InputPersonID = this.DataSource.MemberInfos.Find(matchInfo.InputPersonID.ID); }
-                if (matchInfo.WinnerID != null) { matchInfo.WinnerID = this.DataSource.MemberInfos.Find(matchInfo.WinnerID.ID); }
-                if (matchInfo.WinnerID2 != null) { matchInfo.WinnerID2 = this.DataSource.MemberInfos.Find(matchInfo.WinnerID2.ID); }
-                if (matchInfo.LoserID != null) { matchInfo.LoserID = this.DataSource.MemberInfos.Find(matchInfo.LoserID.ID); }
-                if (matchInfo.LoserID2 != null) { matchInfo.LoserID2 = this.DataSource.MemberInfos.Find(matchInfo.LoserID2.ID); }
-
                 this.DataSource.MatchInfos.Add(matchInfo);
                 this.DataSource.SaveChanges();
             }            
         }
-
         public IEnumerable<MatchInfo> GetMatchInfoByChampionID(long ID) 
         {
             return this.DataSource.MatchInfos.Where(u => u.ChampionID.ID == ID);
         }
-
         public void UpdateMatchInfo(MatchInfo matchInfo)
         {
             MatchInfo match = this.GetMatchInfoByID(matchInfo.ID);
@@ -200,14 +189,16 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             match.VerifyDate = matchInfo.VerifyDate;
             match.Verified = matchInfo.Verified;
             match.MatchType = matchInfo.MatchType;
+            match.ChampionID = matchInfo.ChampionID;
+            match.InputPersonID = matchInfo.InputPersonID;
+            match.WinnerID = matchInfo.WinnerID;
+            match.LoserID = matchInfo.LoserID;
 
-            if (matchInfo.ChampionID != null) { match.ChampionID = this.DataSource.ChampionshipInfos.Find(matchInfo.ChampionID.ID); }
-            if (matchInfo.InputPersonID != null) { match.InputPersonID = this.DataSource.MemberInfos.Find(matchInfo.InputPersonID.ID); }
-            if (matchInfo.WinnerID != null) { match.WinnerID = this.DataSource.MemberInfos.Find(matchInfo.WinnerID.ID); }
-            if (matchInfo.WinnerID2 != null) { match.WinnerID2 = this.DataSource.MemberInfos.Find(matchInfo.WinnerID2.ID); }
-            if (matchInfo.LoserID != null) { match.LoserID = this.DataSource.MemberInfos.Find(matchInfo.LoserID.ID); }
-            if (matchInfo.LoserID2 != null) { match.LoserID2 = this.DataSource.MemberInfos.Find(matchInfo.LoserID2.ID); }
-
+            if (matchInfo.WinnerID2 != null && matchInfo.LoserID2 != null)
+            {
+                match.WinnerID2 = matchInfo.WinnerID2;
+                match.LoserID2 = matchInfo.LoserID2;
+            }
 
             this.DataSource.SaveChanges();
         }
@@ -284,12 +275,10 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
         {
             return this.DataSource.MemberAndClubRelations;
         }
-
         public MemberAndClubRelation GetMemberAndClubRelationByID(long ID)
         {
             return this.DataSource.MemberAndClubRelations.FirstOrDefault(u => u.ID == ID);
         }
-
         public IEnumerable<MemberAndClubRelation> GetMemberAndClubRelations(ClubInfo clubInfo)
         {
             return this.DataSource.MemberAndClubRelations.Where(u => u.ClubID.ID == clubInfo.ID);

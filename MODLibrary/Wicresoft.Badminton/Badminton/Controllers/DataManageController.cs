@@ -424,10 +424,11 @@ namespace Badminton.Controllers
 
                 provider.UpdateChampionshipInfo(info);
             }
-            catch (Exception ex) { 
+            catch (Exception ex) {
+                this.TempData["message"] = EnumHelper.GetEnumDescription(MessagePoint.EditFail); 
                 return ex.Message; 
             }
-            this.TempData["message"] = EnumHelper.GetEnumDescription(MessagePoint.AddFail); 
+            this.TempData["message"] = EnumHelper.GetEnumDescription(MessagePoint.EditSucc); 
             return "true";
         } 
         
