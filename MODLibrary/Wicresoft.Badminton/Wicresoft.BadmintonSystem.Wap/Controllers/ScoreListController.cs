@@ -154,8 +154,9 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
                 }
             }
 
-            foreach (MatchInfo item in player1WinList)
+            for (int i = player1WinList.Count - 1; i >= 0; i--)
             {
+                MatchInfo item = player1WinList[i];
                 if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
                 {
                     if (item.LoserID.ID != player2id) player1WinList.Remove(item);
@@ -163,20 +164,22 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
                 else
                 {
                     if (item.LoserID.ID != player2id && item.LoserID2.ID != player2id) player1WinList.Remove(item);
-                }                
+                }
             }
+
             List<MatchInfo> player1LostList = DataHelper.GetMatchInfos(memberInfo, false, competingType, matchInfos).ToList();
             if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
             {
                 tempList = DataHelper.GetMatchInfos(memberInfo, false, CompetingType.MixSin, matchInfos).ToList();
                 foreach (MatchInfo info in tempList)
                 {
-                    player1WinList.Add(info);
+                    player1LostList.Add(info);
                 }
             }
 
-            foreach (MatchInfo item in player1LostList)
+            for (int i = player1LostList.Count - 1; i >= 0; i--)
             {
+                MatchInfo item = player1LostList[i];
                 if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
                 {
                     if (item.WinnerID.ID != player2id) player1LostList.Remove(item);
@@ -184,12 +187,12 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
                 else
                 {
                     if (item.WinnerID.ID != player2id && item.WinnerID2.ID != player2id) player1LostList.Remove(item);
-                }                
+                }
             }
 
-            if ((player1WinList.Count + player1LostList.Count()) != 0)
+            if ((player1WinList.Count + player1LostList.Count) != 0)
             {
-                player1WinRate = player1WinList.Count() / (player1WinList.Count + player1LostList.Count());
+                player1WinRate = (double)player1WinList.Count / ((double)player1WinList.Count + (double)player1LostList.Count);
             }
             return player1WinRate;
         }
