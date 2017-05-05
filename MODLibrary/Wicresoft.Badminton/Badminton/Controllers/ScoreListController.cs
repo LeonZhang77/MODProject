@@ -171,7 +171,7 @@ namespace Badminton.Controllers
                 tempList = DataHelper.GetMatchInfos(memberInfo, false, CompetingType.MixSin, matchInfos).ToList();
                 foreach (MatchInfo info in tempList)
                 {
-                    player1WinList.Add(info);
+                    player1LostList.Add(info);
                 }
             }
 
@@ -188,9 +188,9 @@ namespace Badminton.Controllers
                 }
             }
 
-            if ((player1WinList.Count + player1LostList.Count()) != 0)
+            if ((player1WinList.Count + player1LostList.Count) != 0)
             {
-                player1WinRate = player1WinList.Count() / (player1WinList.Count + player1LostList.Count());
+                player1WinRate = (double)player1WinList.Count / ((double)player1WinList.Count + (double)player1LostList.Count);                
             }
             return player1WinRate;
         }

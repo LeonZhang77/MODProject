@@ -6,8 +6,8 @@ var _strActionIsNull = "请先选择要审核的数据";
 var _id;
 function changeValue(x)
 {
-    $("#" + x).addClass("text-danger");
-    var Digit = x.substr(21, 1);
+    $("#" + x).addClass("text-danger");    
+    var Digit = x.substr(21, x.indexOf("__") - 21);
     $("#WaitingForVerifyList_" + Digit + "__IsChange").val("true");
    
 }

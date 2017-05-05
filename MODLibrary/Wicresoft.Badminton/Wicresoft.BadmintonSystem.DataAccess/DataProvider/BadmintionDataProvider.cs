@@ -183,6 +183,7 @@ namespace Wicresoft.BadmintonSystem.DataAccess.DataProvider
             match.Compensation = matchInfo.Compensation;
             match.CreateTime = matchInfo.CreateTime;
             match.Ignore = matchInfo.Ignore;
+            match.WinnerPoints = matchInfo.WinnerPoints;
             match.LoserPoints = matchInfo.LoserPoints;
             match.MatchDate = matchInfo.MatchDate;
             match.Updated = matchInfo.Updated;
