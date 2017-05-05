@@ -46,8 +46,8 @@ namespace Badminton.Controllers
                 temp.MemberName = item.Name;
                 temp.Male = item.Male;
                 temp.Score = item.Score;
-                temp.WinRate = GetWinRate(item);
-                temp.AverageWinRate = GetAverageWinRate(item);
+                temp.WinRate = GetWinRate(item)*100;
+                temp.AverageWinRate = GetAverageWinRate(item)*100;
                 temp.Ranking = rankList.Find(u => u.MemberID == item.ID).Rank;
                 returnList.Add(temp);
             }
@@ -65,9 +65,10 @@ namespace Badminton.Controllers
             int LostCount = matchList.Count();
             if ((WinCount + LostCount) != 0)
             {
-                returnValue = WinCount / (WinCount + LostCount);
+                returnValue = (double)WinCount / ((double)WinCount + (double)LostCount);
             }
 
+            returnValue = System.Math.Round(returnValue, 2);
             return returnValue;
         }
 
@@ -81,9 +82,10 @@ namespace Badminton.Controllers
             int LostCount = matchList.Count();
             if ((WinCount + LostCount) != 0)
             {
-                returnValue = WinCount / (WinCount + LostCount);
+                returnValue = (double)WinCount / ((double)WinCount + (double)LostCount);
             }
 
+            returnValue = System.Math.Round(returnValue, 2);
             return returnValue;
         }
 
@@ -192,6 +194,8 @@ namespace Badminton.Controllers
             {
                 player1WinRate = (double)player1WinList.Count / ((double)player1WinList.Count + (double)player1LostList.Count);                
             }
+
+            player1WinRate = System.Math.Round(player1WinRate, 2);
             return player1WinRate;
         }
         public JsonResult GetJSONForSingles(String q)
