@@ -4,7 +4,7 @@ var _player1;
 var _player2;
 var _player1Name;
 var _playre2Name;
-
+var _twoUserError = "请选择两位选手！";
 function showBattleRate(_chartID, _player1, _player2) {
     var dataString = "{" + "\"player1\":\"" + _player1 + "\",\"player2\":\"" + _player2 + "\"}";
        $.ajax(
@@ -21,19 +21,17 @@ function showBattleRate(_chartID, _player1, _player2) {
 }
 
 function showChart() {
-    if ($("input[name='chk_list']:checked").length != 2) {
-        alert("请选择两位选手，不多不少！");
+    if ($("tr[class='active']").length != 2) {
+        TipErrorMessage(_twoUserError);
     }
     else {
         var flag = 0;
-        $("input[name='chk_list']").each(function () {
-            if ($(this).is(':checked')) {
+        $("tr[class='active'").each(function () {            
                 if (flag == 0)
-                    { _player1 = $(this).val(); flag++; }
+                    { _player1 = $(this).attr("data-id"); flag++; }
                 else
-                    { _player2 = $(this).val(); }
-            }
-        });
+                    { _player2 = $(this).attr("data-id"); }
+            });
         $("#SearchSelectedID").find("option").each(function () {
             if ($(this).val() == _player1) { _player1Name = $(this).text(); }
             if ($(this).val() == _player2) { _player2Name = $(this).text(); }
@@ -55,24 +53,15 @@ function showChart() {
     }
 }
 
-function selectAll() {
-    if ($("#chk_all").is(':checked')) {
-        $("input[name='chk_list']").prop("checked", true);
-    }
-    else {
-        $("input[name='chk_list']").removeAttr("checked");
-    }
-}
-
 function showAllRows() {
     $("#chart").hide();
-    $("li").each(function () {
+    $("tbody>tr").each(function () {
         $(this).show();
     });
 }
 
 function hideAllRows() {
-    $("li").each(function () {
+    $("tbody>tr").each(function () {
         $(this).hide();
     });
     $("#functionRow").show();
@@ -81,27 +70,20 @@ function hideAllRows() {
 
 function showSelectedRows() {
     $("#chart").hide();
-    $("input[name='chk_list']").each(function () {
-        if (!$(this).is(':checked')) {
-           hideThisRow($(this).val());
-        }
-    });    
-}
-
-function showThisRow(ID) {
-    var rowID = "#scoreRow_" + ID;
-    $(rowID).show();
-}
-
-function hideThisRow(ID){
-    var rowID = "#scoreRow_" + ID;
-    $(rowID).hide();
+    hideAllRows();
+    $("tr[class='active']").show();
 }
 
 function selectThisGuy() {
     $("#SearchSelectedID").find("option").each(function () {
         if ($(this).text() == $("#selectMemberNameTxt").val()) { ID = $(this).val(); }
-    });
-    checkBoxID = "#chk_list_" + ID;
-    $(checkBoxID).prop("checked", true);
+    });   
+    $("tr[data-id='" + ID + "']").attr("class", "active");
+}
+
+function TipErrorMessage(message) {
+    new $.zui.Messager('提示消息：' + message, {
+        type: 'danger',
+        close: false
+    }).show();
 }

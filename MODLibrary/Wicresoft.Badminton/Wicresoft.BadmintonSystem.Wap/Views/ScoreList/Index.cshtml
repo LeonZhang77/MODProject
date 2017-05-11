@@ -27,7 +27,7 @@
                         @Html.DropDownListFor(m => m.SearchSelectedID, this.Model.SearchMemberList, new { style = "display:none" })
                     </div>
                     <div class="col-xs-3">
-                        <i class="icon icon-search btn btn-default " style="padding-top:7px;" onclick="javascript:selectThisGuy()"></i>
+                        <a class="icon icon-search btn btn-default " style="padding-top:7px;" onclick="javascript:selectThisGuy()"></a>
                     </div>
                 </div>
                 
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-xs-4">
                     <a href="#" class="btn btn-block btn-danger" onclick="javascript:showAllRows()">显示全部</a>
-                </div>
+                </div>                
                 <div class="col-xs-4">
                     <a href="#" class="btn btn-block btn-danger" onclick="javascript:showChart()">查看对战</a>
                 </div>
@@ -89,11 +89,7 @@
                         </th>
                         <th data-type="number">
                             平均胜率
-                        </th>
-                        <th>
-                            <input type="checkbox" name="chk_all" id="chk_all" onclick="selectAll();">
-                            全选
-                        </th>
+                        </th>                       
                     </tr>
                 </thead>
                 <tbody>
@@ -101,7 +97,7 @@
                     @foreach (var item in this.Model.ScoreList)
                     {
                         string checkBoxId = "chk_list_" + item.ID;
-                        string rowID = "scoreRow_" + item.ID;
+                        string rowID =  item.ID.ToString();
                         if (!item.Male)
                         {
                             <tr id=@rowID>
@@ -133,10 +129,7 @@
                                 </td>
                                 <td>
                                     @item.AverageWinRate%
-                                </td>
-                                <td>
-                                    <input type="checkbox" name="chk_list" id=@checkBoxId value=@item.ID>
-                                </td>
+                                </td>                                
                             </tr>
                         }
                         else
@@ -170,19 +163,12 @@
                                 </td>
                                 <td>
                                     @item.AverageWinRate%
-                                </td>
-                                <td>
-                                    <input type="checkbox" name="chk_list" id=@checkBoxId value=@item.ID>
-                                </td>
+                                </td>                               
                             </tr>
                         }
-
                     }
                 </tbody>
-                <tfoot>
-                    <tr>
-                        @*<td colspan="11" align="right">@Html.Raw(this.Model.PagingContent.PagingViewContent)</td>*@
-                    </tr>
+                <tfoot>                    
                 </tfoot>
             </table>
         </div>
@@ -190,7 +176,11 @@
 
 }
 <script>
-    $('#scorelisttable').datatable({ sortable: true });
+    $('#scorelisttable').datatable({
+        sortable: true,
+        checkable: true,
+        storage: false
+    });
 </script>
         
         
