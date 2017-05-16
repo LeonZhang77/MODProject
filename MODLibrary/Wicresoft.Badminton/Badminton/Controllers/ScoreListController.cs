@@ -46,8 +46,8 @@ namespace Badminton.Controllers
                 temp.MemberName = item.Name;
                 temp.Male = item.Male;
                 temp.Score = item.Score;
-                temp.WinRate = GetWinRate(item)*100;
-                temp.AverageWinRate = GetAverageWinRate(item)*100;
+                temp.WinRate = GetWinRate(item) * 100;
+                temp.AverageWinRate = GetAverageWinRate(item) * 100;
                 temp.Ranking = rankList.Find(u => u.MemberID == item.ID).Rank;
                 returnList.Add(temp);
             }
@@ -192,7 +192,7 @@ namespace Badminton.Controllers
 
             if ((player1WinList.Count + player1LostList.Count) != 0)
             {
-                player1WinRate = (double)player1WinList.Count / ((double)player1WinList.Count + (double)player1LostList.Count);                
+                player1WinRate = (double)player1WinList.Count / ((double)player1WinList.Count + (double)player1LostList.Count);
             }
 
             player1WinRate = System.Math.Round(player1WinRate, 2);
@@ -220,6 +220,7 @@ namespace Badminton.Controllers
             returnList.Add(temp);
             temp = new ChartModel.returnListForPie();
             temp.value = 1 - player1WinRate;
+            temp.value = System.Math.Round(temp.value, 2);
             temp.title = player2Name;
             temp.color = "#E0E4CC";
             returnList.Add(temp);
@@ -247,6 +248,7 @@ namespace Badminton.Controllers
             returnList.Add(temp);
             temp = new ChartModel.returnListForPie();
             temp.value = 1 - player1WinRate;
+            temp.value = System.Math.Round(temp.value, 2);
             temp.color = "#E0E4CC";
             returnList.Add(temp);
             return Json(returnList, JsonRequestBehavior.AllowGet);
@@ -268,6 +270,7 @@ namespace Badminton.Controllers
             returnList.Add(temp);
             temp = new ChartModel.returnListForPie();
             temp.value = 1 - player1WinRate;
+            temp.value = System.Math.Round(temp.value, 2);
             temp.color = "#E0E4CC";
             returnList.Add(temp);
             return Json(returnList, JsonRequestBehavior.AllowGet);
