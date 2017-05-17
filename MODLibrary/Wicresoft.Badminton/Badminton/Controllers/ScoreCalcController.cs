@@ -16,14 +16,30 @@ namespace Badminton.Controllers
     {
         IBadmintionDataProvider provider;
         List<DataHelper.MemberRank> rankList;
-        List<MatchInfo> matchList;        
+        List<MatchInfo> matchList;
+        List<WaitingForCalcFinalScore> waitingForCalcFinalScoreList;
         public ScoreCalcController()
         {
             provider = new BadmintionDataProvider();
             List<MemberInfo> memberList = provider.GetMemberInfos().ToList();
             rankList = DataHelper.GetMemberRank(memberList);
             matchList = provider.GetMatchInfos().ToList();
-            matchList = matchList.Where(u => !u.Updated && u.Verified).ToList();            
+            matchList = matchList.Where(u => !u.Updated && u.Verified).ToList();
+            
+            waitingForCalcFinalScoreList = new List<WaitingForCalcFinalScore>();
+            List<ChampionshipInfo> champions = provider.GetChampionshipInfos().ToList();
+            foreach (ChampionshipInfo item in champions)
+            {
+                WaitingForCalcFinalScore waiting = new WaitingForCalcFinalScore();
+                waiting.championship = item;
+                waiting.Champions = new List<long>();
+                waiting.Top2 = new List<long>();
+                waiting.Top4 = new List<long>();
+                waiting.Top8 = new List<long>();
+                waiting.Top8Lost = new List<long>();
+
+                waitingForCalcFinalScoreList.Add(waiting);
+            }
         }
 
         public ActionResult Index(long searchselectedID = 0)
@@ -321,15 +337,217 @@ namespace Badminton.Controllers
                 }
                 else
                 {
-                    model = CalcScore(model, waitingMatch);
+                    model = CalcScore(model, waitingMatch);//计算基础积分和排名积分
                 }
+
+                //不管原积分差距有多大，也要看看这是不是决赛区的match, 如果是的话，相应调整准备算积分的内容。
+                MatchInfo thisMatch = provider.GetMatchInfoByID(waitingMatch.ID);
+                if (thisMatch.MatchType != null)
+                { 
+                    UpdateWaitingForCalcFinalScoreList (thisMatch);//更新WaitingForCalcFinalScoreList
+                }                
             }
+
+            //所有match遍历完成，waitingForCalcFinalScoreList也已Update, 开始算决赛区积分。
+            model.AddBonusInfoList = CalcFinalScore(model, waitingForCalcFinalScoreList);
+
             model.AddScoreInfoList = new List<AddScoreInfo>();
             model.AddScoreInfoList = GetAddScoreInfo(model);     
 
             return model;
         }
 
+        internal void UpdateWaitingForCalcFinalScoreList (MatchInfo matchInfo)
+        {
+            foreach(WaitingForCalcFinalScore waiting in waitingForCalcFinalScoreList)
+            {
+                if(waiting.championship.ID == matchInfo.ChampionID.ID)
+                {
+                    InsertMemberToList(matchInfo.WinnerID.ID, true, matchInfo.MatchType, waiting);
+                    InsertMemberToList(matchInfo.LoserID.ID, false, matchInfo.MatchType, waiting);
+
+                    if(matchInfo.ChampionID.CompetingType == CompetingType.FemaleDou||
+                            matchInfo.ChampionID.CompetingType == CompetingType.MaleDou||
+                            matchInfo.ChampionID.CompetingType == CompetingType.MixDou)
+                    {
+                        InsertMemberToList(matchInfo.WinnerID2.ID,true,matchInfo.MatchType,waiting);
+                        InsertMemberToList(matchInfo.LoserID2.ID,false,matchInfo.MatchType,waiting);                    
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        internal void InsertMemberToList(long memberID, bool WinnerOrLoser, MatchType matchType, WaitingForCalcFinalScore waiting)
+        {
+             if(matchType == MatchType.Top8)
+             {
+                if (WinnerOrLoser)
+                {
+                    if (existInList(memberID, waiting.Champions)
+                            ||(existInList(memberID, waiting.Top2))
+                            ||(existInList(memberID, waiting.Top4))
+                            ||(existInList(memberID, waiting.Top8)))
+                        {}//如果本来就存在于以上队列，那什么也不做。
+                        else if (existInList(memberID, waiting.Top8Lost))
+                        {
+                            //如果本来就存在于Top8Lost, 那移到Top8队列去。
+                            waiting.Top8Lost.Remove(memberID);
+                            waiting.Top8.Add(memberID);
+                        }
+                        else
+                        {
+                            //如果本来不存在，那就加入到Top8队列
+                            waiting.Top8.Add(memberID);
+                        }
+                }
+                else
+                {
+                    if (existInList(memberID, waiting.Champions)
+                            ||(existInList(memberID, waiting.Top2))
+                            ||(existInList(memberID, waiting.Top4))
+                            ||(existInList(memberID, waiting.Top8))
+                            ||existInList(memberID, waiting.Top8Lost))
+                        {}//如果本来就存在于以上队列，那什么也不做。                        
+                        else
+                        {
+                            //如果本来不存在，那就加入到Top8List队列
+                            waiting.Top8Lost.Add(memberID);
+                        }
+                }
+             }
+             else if (matchType == MatchType.Top4)
+             {
+                if (WinnerOrLoser)
+                {
+                    if (existInList(memberID, waiting.Champions)
+                            ||(existInList(memberID, waiting.Top2))
+                            ||(existInList(memberID, waiting.Top4)))                            
+                        {}//如果本来就存在于以上队列，那什么也不做。
+                        else if(existInList(memberID, waiting.Top8))
+                        {
+                            //如果本来就存在于Top8, 那移到Top4队列去。
+                            waiting.Top8.Remove(memberID);
+                            waiting.Top4.Add(memberID);
+                        }
+                        else if (existInList(memberID, waiting.Top8Lost))
+                        {
+                            //如果本来就存在于Top8Lost, 那移到Top4队列去。
+                            waiting.Top8Lost.Remove(memberID);
+                            waiting.Top4.Add(memberID);
+                        }
+                        else
+                        {
+                            //如果本来不存在，那就加入到Top4队列
+                            waiting.Top4.Add(memberID);
+                        }
+                }
+                else
+                {
+                    if (existInList(memberID, waiting.Champions)
+                            ||(existInList(memberID, waiting.Top2))
+                            ||(existInList(memberID, waiting.Top4))
+                            ||(existInList(memberID, waiting.Top8)))                            
+                        {}//如果本来就存在于以上队列，那什么也不做。
+                        else if (existInList(memberID, waiting.Top8Lost))
+                        {
+                            //如果本来就存在于Top8Lost, 那移到Top8队列去。
+                            waiting.Top8Lost.Remove(memberID);
+                            waiting.Top8.Add(memberID);
+                        }
+                        else
+                        {
+                            //如果本来不存在，那就加入到Top8队列
+                            waiting.Top8.Add(memberID);
+                        }
+                }
+             }
+            else if (matchType == MatchType.Finals)
+             {
+                if (WinnerOrLoser)
+                {
+                        if (existInList(memberID, waiting.Champions))                                      
+                        {}//如果本来就存在于冠军队列，那什么也不做。
+                        else if(existInList(memberID, waiting.Top2))
+                        {
+                            //如果本来就存在于Top2, 那移到Champions队列去。
+                            waiting.Top2.Remove(memberID);
+                            waiting.Champions.Add(memberID);
+                        }
+                        else if(existInList(memberID, waiting.Top4))
+                        {
+                            //如果本来就存在于Top4, 那移到Champions队列去。
+                            waiting.Top4.Remove(memberID);
+                            waiting.Champions.Add(memberID);
+                        }
+                        else if(existInList(memberID, waiting.Top8))
+                        {
+                            //如果本来就存在于Top8, 那移到Champions队列去。
+                            waiting.Top8.Remove(memberID);
+                            waiting.Champions.Add(memberID);
+                        }
+                        else if (existInList(memberID, waiting.Top8Lost))
+                        {
+                            //如果本来就存在于Top8Lost, 那移到Champions队列去。
+                            waiting.Top8Lost.Remove(memberID);
+                            waiting.Champions.Add(memberID);
+                        }
+                        else
+                        {
+                            //如果本来不存在，那就加入到Champions队列
+                            waiting.Champions.Add(memberID);
+                        }
+                }
+                else
+                {
+                        if (existInList(memberID, waiting.Champions)||(existInList(memberID, waiting.Top2)))
+                        {}//如果本来就存在于以上队列，那什么也不做。
+                        else if(existInList(memberID, waiting.Top4))
+                        {
+                            //如果本来就存在于Top4, 那移到Top2队列去。
+                            waiting.Top4.Remove(memberID);
+                            waiting.Top2.Add(memberID);
+                        }
+                        else if(existInList(memberID, waiting.Top8))
+                        {
+                            //如果本来就存在于Top8, 那移到Top2队列去。
+                            waiting.Top8.Remove(memberID);
+                            waiting.Top2.Add(memberID);
+                        }
+                        else if (existInList(memberID, waiting.Top8Lost))
+                        {
+                            //如果本来就存在于Top8Lost, 那移到Top2队列去。
+                            waiting.Top8Lost.Remove(memberID);
+                            waiting.Top2.Add(memberID);
+                        }
+                        else
+                        {
+                            //如果本来不存在，那就加入到Top2队列
+                            waiting.Top2.Add(memberID);
+                        }
+                }
+             }
+        }
+
+        
+        internal bool existInList(long lookingForMember, List<long> list)
+        {
+            long temp = list.Find(
+               delegate(long ID)
+               {
+                   return ID == lookingForMember;
+               });
+            
+            if(temp!=null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         internal List<AddScoreInfo> GetAddScoreInfo(ScoreCalcIndexModel model)
         {
             AddScoreInfo info;
@@ -364,73 +582,91 @@ namespace Badminton.Controllers
             model.AddBonusInfoList = CalcBaseScore(model, matchInfo);
             //排名积分
             model.AddBonusInfoList = CalcRankScore(model, matchInfo);
-            //决赛区积分
-            if(matchInfo.MatchType!=null)
-            {
-                model.AddBonusInfoList = CalcFinalScore(model, matchInfo);
-            }
+            //决赛区积分不再放在本处处理
+            //if(matchInfo.MatchType!=null)
+            //{
+            //    model.AddBonusInfoList = CalcFinalScore(model, matchInfo);
+            //}
 
             return model;
         }
 
-        internal List<AddBonusInfo> CalcFinalScore(ScoreCalcIndexModel model, MatchInfo matchInfo)
+        internal List<AddBonusInfo> CalcFinalScore(ScoreCalcIndexModel model, List<WaitingForCalcFinalScore> waitingList)
         {
-            Boolean isSingles = false;
-            AddBonusInfo info;
-            long WinScore = model.Parameters.Top8Win;
-            long LoseScore = model.Parameters.Top8Lose;
-
-            if (matchInfo.ChampionID.CompetingType == CompetingType.FemaleSin || matchInfo.ChampionID.CompetingType == CompetingType.MaleSin || matchInfo.ChampionID.CompetingType == CompetingType.MixSin)                
+            List<AddBonusInfo> infoList;
+            
+            foreach(WaitingForCalcFinalScore waiting in waitingList)
             {
-                isSingles = true;
+                if(waiting.Champions.Count!=0)
+                {
+                    infoList = createBonusInfoForWaitingList(
+                        waiting.Champions, model.Parameters.FinalWin, waiting.championship, "Champion");
+                    foreach (AddBonusInfo item in infoList)
+                    {
+                        model.AddBonusInfoList.Add(item);
+                    }                    
+                }
+                if(waiting.Top2.Count!=0)
+                {
+                    infoList = createBonusInfoForWaitingList(
+                        waiting.Top2, model.Parameters.FinalLose, waiting.championship, "Top2");
+                    foreach (AddBonusInfo item in infoList)
+                    {
+                        model.AddBonusInfoList.Add(item);
+                    }                    
+                }
+                if(waiting.Top4.Count!=0)
+                {
+                    infoList = createBonusInfoForWaitingList(
+                        waiting.Top4, model.Parameters.Top4Win, waiting.championship, "Top4");
+                    foreach (AddBonusInfo item in infoList)
+                    {
+                        model.AddBonusInfoList.Add(item);
+                    }                    
+                }
+                if(waiting.Top8.Count!=0)
+                {
+                    infoList = createBonusInfoForWaitingList(
+                        waiting.Top8, model.Parameters.Top8Win, waiting.championship, "Top8");
+                    foreach (AddBonusInfo item in infoList)
+                    {
+                        model.AddBonusInfoList.Add(item);
+                    }                    
+                }
+                if(waiting.Top8Lost.Count!=0)
+                {
+                    infoList = createBonusInfoForWaitingList(
+                        waiting.Top8Lost, model.Parameters.Top8Lose, waiting.championship, "Top8");
+                    foreach (AddBonusInfo item in infoList)
+                    {
+                        model.AddBonusInfoList.Add(item);
+                    }                    
+                }
             }
-            String matchType = EnumHelper.GetEnumDescription(matchInfo.MatchType);
-            if (matchType.Equals("Final"))
-            {
-                WinScore = model.Parameters.FinalWin;
-                LoseScore = model.Parameters.FinalLose;
-            }
-            else if (matchType.Equals("Top4"))
-            {
-                WinScore = model.Parameters.Top8Win;
-                LoseScore = model.Parameters.Top8Lose;
-            }
-
-            info = InitinalAddBonusInfo(matchInfo);
-            info.MemberID = matchInfo.WinnerID.ID;
-            info.MembernName = matchInfo.WinnerID.Name;
-            info.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Final).ToString());
-            info.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Final);
-            info.Score = WinScore;
-            model.AddBonusInfoList.Add(info);
-
-            info = InitinalAddBonusInfo(matchInfo);
-            info.MemberID = matchInfo.LoserID.ID;
-            info.MembernName = matchInfo.LoserID.Name;
-            info.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Final).ToString());
-            info.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Final);
-            info.Score = LoseScore;
-            model.AddBonusInfoList.Add(info);
-
-            if (!isSingles)
-            {
-                info = InitinalAddBonusInfo(matchInfo);
-                info.MemberID = matchInfo.WinnerID2.ID;
-                info.MembernName = matchInfo.WinnerID2.Name;
-                info.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Final).ToString());
-                info.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Final);
-                info.Score = WinScore;
-                model.AddBonusInfoList.Add(info);
-
-                info = InitinalAddBonusInfo(matchInfo);
-                info.MemberID = matchInfo.LoserID2.ID;
-                info.MembernName = matchInfo.LoserID2.Name;
-                info.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Final).ToString());
-                info.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Final);
-                info.Score = LoseScore;
-                model.AddBonusInfoList.Add(info);
-            }
+            
             return model.AddBonusInfoList;
+        }
+
+        internal List<AddBonusInfo> createBonusInfoForWaitingList (List<long> waitingList, long score, ChampionshipInfo championship, String description)
+        {
+            List<AddBonusInfo> infoList = new List<AddBonusInfo>();
+            AddBonusInfo info;
+            foreach(long id in waitingList)
+            {
+                info = new AddBonusInfo();
+                info.CreateTime = DateTime.Now;
+                MemberInfo member = provider.GetMemberInfoByID(id);
+                info.ChampionID = championship.ID;
+                info.ChampionTitle = championship.Title + "-" + description;
+                info.MemberID = member.ID;
+                info.MembernName = member.Name;
+                info.Score = score;
+                info.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Final).ToString());
+                info.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Final);
+                infoList.Add(info);
+            }              
+
+            return infoList;
         }
 
         internal List<AddBonusInfo> CalcRankScore(ScoreCalcIndexModel model, MatchInfo matchInfo)
@@ -588,6 +824,34 @@ namespace Badminton.Controllers
                 returnList.Add(model);
             }
             return returnList;
+        }
+    }
+
+    internal class WaitingForCalcFinalScore
+    {
+        public ChampionshipInfo championship
+        {
+            get;set;
+        }
+        public List<long> Champions
+        {
+            get;set;
+        }
+        public List<long> Top2
+        {
+            get;set;
+        }
+        public List<long> Top4
+        {
+            get;set;
+        }
+        public List<long> Top8
+        {
+            get;set;
+        }
+        public List<long> Top8Lost
+        {
+            get;set;
         }
     }
 }
