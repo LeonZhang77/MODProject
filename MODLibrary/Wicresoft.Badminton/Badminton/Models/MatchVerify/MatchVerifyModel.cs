@@ -86,12 +86,7 @@ namespace Badminton.Models.MatchVerify
         {
             get;
             set;
-        }
-        public List<SelectListItem> MatchType
-        {
-            get;
-            set;
-        }
+        }        
         public int MatchTypeID
         {
             get;
@@ -113,8 +108,7 @@ namespace Badminton.Models.MatchVerify
             matchModel.WinPoints = item.WinnerPoints;
             matchModel.LosePoints = item.LoserPoints;
             matchModel.Winner1 = MatchVerifyModel.MemberToSelectItemUtil(provider.GetMemberInfos(), item.WinnerID.ID);
-            matchModel.Loser1 = MatchVerifyModel.MemberToSelectItemUtil(provider.GetMemberInfos(), item.LoserID.ID);
-            matchModel.MatchType = EnumHelper.GetEnumIEnumerable(item.MatchType);
+            matchModel.Loser1 = MatchVerifyModel.MemberToSelectItemUtil(provider.GetMemberInfos(), item.LoserID.ID);            
 
             if (item.ChampionID.CompetingType == CompetingType.FemaleSin || item.ChampionID.CompetingType == CompetingType.MaleSin || item.ChampionID.CompetingType == CompetingType.MixSin)
             {

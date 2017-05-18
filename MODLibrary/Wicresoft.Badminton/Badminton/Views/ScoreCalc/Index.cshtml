@@ -60,6 +60,7 @@
                         {
                             @Html.HiddenFor(m => m.AddScoreInfoList[index].ID)
                             @Html.HiddenFor(m => m.AddScoreInfoList[index].MemberID)
+                            @Html.HiddenFor(m => m.AddScoreInfoList[index].MemberName)
                             @Html.HiddenFor(m => m.AddScoreInfoList[index].Score)
                             @Html.HiddenFor(m => m.AddScoreInfoList[index].Comments)
                             @Html.HiddenFor(m => m.AddScoreInfoList[index].PeriodEnd)
@@ -124,26 +125,7 @@
                                     <td>@Html.TextBoxFor(m => m.Parameters.Rank4End)</td>
                                     <td>奖励积分：</td>
                                     <td>@Html.TextBoxFor(m => m.Parameters.RankBonus4)</td>
-                                </tr>
-                                <tr><td colspan="4"><b>决赛排名奖励</b></td></tr>
-                                <tr>
-                                    <td>决赛胜：</td>
-                                    <td>@Html.TextBoxFor(m => m.Parameters.FinalWin)</td>
-                                    <td>决赛负：</td>
-                                    <td>@Html.TextBoxFor(m => m.Parameters.FinalLose)</td>
-                                </tr>
-                                <tr>
-                                    <td>四强胜：</td>
-                                    <td>@Html.TextBoxFor(m => m.Parameters.Top4Win)</td>
-                                    <td>四强负:</td>
-                                    <td>@Html.TextBoxFor(m => m.Parameters.Top4Lose)</td>
-                                </tr>
-                                <tr>
-                                    <td>八强胜：</td>
-                                    <td>@Html.TextBoxFor(m => m.Parameters.Top8Win)</td>
-                                    <td>八强负：</td>
-                                    <td>@Html.TextBoxFor(m => m.Parameters.Top8Lose)</td>
-                                </tr>
+                                </tr>                                
                             </tbody>
                             <tfoot>
                                 <tr><td colspan="4" height="15"></td></tr>

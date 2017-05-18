@@ -44,7 +44,7 @@ namespace Badminton.Models.ScoreCalc
         {
             IBadmintionDataProvider provider = new BadmintionDataProvider();
             ScoreInfo scoreInfo= new ScoreInfo();
-            scoreInfo.MemberID = provider.GetMemberInfoByID(item.MemberID);
+            scoreInfo.MemberID = provider.GetMemberInfoByID(item.MemberID);            
             scoreInfo.Score = Int32.Parse(item.Score.ToString());
             scoreInfo.PeriodEnd = item.PeriodEnd;
             scoreInfo.CreateTime = DateTime.Now;

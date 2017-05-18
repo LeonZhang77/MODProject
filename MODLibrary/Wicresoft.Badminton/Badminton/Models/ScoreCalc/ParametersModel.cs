@@ -26,16 +26,7 @@ namespace Badminton.Models.ScoreCalc
             this.Rank3End = 15;
 
             this.RankBonus4 = 4;
-            this.Rank4End = 30;
-
-            this.FinalWin = 25;
-            this.FinalLose = 10;
-
-            this.Top4Win = 20;
-            this.Top4Lose = 5;
-
-            this.Top8Win = 15;
-            this.Top8Lose = 0;
+            this.Rank4End = 30;            
 
             this.DateRange1 = 6;
             this.Rate1 = 1;
@@ -133,41 +124,6 @@ namespace Badminton.Models.ScoreCalc
             set;
         }
         public long Rank4End
-        {
-            get;
-            set;
-        }
-
-        public long FinalWin
-        {
-            get;
-            set;
-        }
-        public long FinalLose
-        {
-            get;
-            set;
-        }
-
-        public long Top4Win
-        {
-            get;
-            set;
-        }
-
-        public long Top4Lose
-        {
-            get;
-            set;
-        }
-
-        public long Top8Win
-        {
-            get;
-            set;
-        }
-
-        public long Top8Lose
         {
             get;
             set;

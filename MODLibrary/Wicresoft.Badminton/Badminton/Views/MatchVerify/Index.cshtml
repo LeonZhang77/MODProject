@@ -41,7 +41,6 @@
             <th>提交人</th>
             <th>比赛时间</th>
             <th>所属赛事</th>
-            <th>赛事类型</th>
             <th colspan="2">比分（胜/负）</th>
             <th>获胜选手1</th>
             <th>获胜选手2</th>
@@ -68,10 +67,7 @@
                     </td>
                     <td>
                         @Html.DropDownListFor(m => m.WaitingForVerifyList[i].ChampionshipID, this.Model.WaitingForVerifyList[i].ChampionshipTitle, new { @class = "width8", @onchange = "changeValue(this.id)" })
-                    </td>
-                    <td>
-                        @Html.DropDownListFor(m => m.WaitingForVerifyList[i].MatchTypeID, this.Model.WaitingForVerifyList[i].MatchType, new { @class = "width8", @onchange = "changeValue(this.id)" })
-                    </td>
+                    </td>                   
                     <td>
                         @Html.TextBoxFor(m => m.WaitingForVerifyList[i].WinPoints, new { @class = "width4", @onchange = "changeValue(this.id)" })
                     </td>
