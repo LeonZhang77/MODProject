@@ -164,6 +164,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DataManageController.cs" />
+    <Compile Include="Controllers\FinalScoreManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Models\DataManage\ClubModel.cs" />
     <Compile Include="Models\DataManage\DataManageIndexModel.cs" />
     <Compile Include="Models\DataManage\MemberAndClubRelationsModel.cs" />
+    <Compile Include="Models\FinalScoreManage\FinalScoreBonusModel.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Login\LoginIndexModel.cs" />
@@ -452,6 +454,7 @@
     <Content Include="Scripts\dist\fonts\zenicon.woff" />
     <Content Include="Views\Shared\Tip.cshtml" />
     <Content Include="Views\ScoreCalc\Index.cshtml" />
+    <Content Include="Views\FinalScoreManage\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
