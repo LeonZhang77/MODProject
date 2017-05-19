@@ -177,13 +177,19 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BaseIndexListModel.cs" />
+    <Compile Include="Models\BaseScoreModel.cs" />
+    <Compile Include="Models\BaseUpdateMemberModel.cs" />
     <Compile Include="Models\BaseViewModel.cs" />
     <Compile Include="Models\Chart\ChartModel.cs" />
     <Compile Include="Models\DataManage\ChampionshipModel.cs" />
     <Compile Include="Models\DataManage\ClubModel.cs" />
     <Compile Include="Models\DataManage\DataManageIndexModel.cs" />
     <Compile Include="Models\DataManage\MemberAndClubRelationsModel.cs" />
-    <Compile Include="Models\FinalScoreManage\FinalScoreBonusModel.cs" />
+    <Compile Include="Models\FinalScoreManage\AddScoreInfo.cs" />
+    <Compile Include="Models\FinalScoreManage\FinalScoreBonusInfo.cs" />
+    <Compile Include="Models\FinalScoreManage\FinalScoreManageIndexModel.cs" />
+    <Compile Include="Models\FinalScoreManage\ParametersModel.cs" />
+    <Compile Include="Models\FinalScoreManage\UpdateMembers.cs" />
     <Compile Include="Models\Home\HomeIndexModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Login\LoginIndexModel.cs" />

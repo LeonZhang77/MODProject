@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Badminton.Models.FinalScoreManage
 {
-    public class FinalScoreBonusModel
+    public class UpdateMembers:BaseUpdateMemberModel
     {
     }
 }
