@@ -31,6 +31,7 @@ namespace Badminton.Models.FinalScoreManage
             this.Rate5 = 0.45;
 
             this.ActionSteps = 0;
+            this.StandDate = DateTime.Now;
         }
 
         public List<SelectListItem> ChampionshipList
