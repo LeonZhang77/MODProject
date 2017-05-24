@@ -15,10 +15,12 @@ namespace Badminton.Controllers
     {
 
         IBadmintionDataProvider provider;
+        List<DataHelper.MemberRank> rankList;
 
         public FinalScoreManageController()
         {
             provider = new BadmintionDataProvider();
+            rankList = DataHelper.GetMemberRank(provider.GetMemberInfos().ToList());
             
         }
         // GET: FinalScoreManage
@@ -33,7 +35,7 @@ namespace Badminton.Controllers
         [HttpPost]
         public ActionResult Index(FinalScoreManageIndexModel modelInput)
         {
-            ActionResult returnAction = new ViewResult();
+            
             modelInput.ErrorState = false;
 
             switch (modelInput.Parameters.ActionSteps)
@@ -42,9 +44,12 @@ namespace Badminton.Controllers
                     modelInput = AddToBonusList(modelInput);
                     break;
                 case 2:
-                    modelInput = ReviewScoreListAndMemberList(modelInput);
+                    modelInput = ReviewScoreList(modelInput);
                     break;
                 case 3:
+                    modelInput = AdjustAccordingToDateRange(modelInput);
+                    break;
+                case 4:
                     modelInput = SaveBonusAndScoreEntry(modelInput);
                     break;               
                 default:
@@ -53,9 +58,93 @@ namespace Badminton.Controllers
 
             }
 
+            modelInput.Parameters.ChampionshipList = GetChampionshipList();
+            modelInput.Parameters.SearchMemberList = GetSearchMemberList();
             return View("Index", modelInput);
         }
 
+        public FinalScoreManageIndexModel AdjustAccordingToDateRange(FinalScoreManageIndexModel modelInput)
+        {
+            if (modelInput.AddScoreInfoList.Count == 0 && modelInput.FinalScoreBonusList.Count != 0)
+            {
+                modelInput.StateMessage = "你并没有增加新的Bonus记录!";
+                modelInput.ErrorState = true;
+            }
+            else
+            {
+                List<ScoreInfo> scoreInfoList = provider.GetScoreInfos().ToList();
+                ScoreInfo tempInfo;
+                foreach (AddScoreInfo item in modelInput.AddScoreInfoList)
+                {
+                    tempInfo = AddScoreInfo.GetEntity(item);
+                    scoreInfoList.Add(tempInfo);
+                }
+                modelInput.UpdateMembersList = GetUpdateMemberList(scoreInfoList, modelInput);
+
+            }
+            return modelInput;
+        }
+
+        internal List<UpdateMembers> GetUpdateMemberList(List<ScoreInfo> ScoreInfoList, FinalScoreManageIndexModel modelInput)
+        {
+            UpdateMembers updateMember;
+            List<MemberInfo> memberInfoList = provider.GetMemberInfos().ToList();
+            FinalScoreManageIndexModel model = modelInput;
+            //初始化 model.UpdateMemberList.
+            foreach (MemberInfo item in memberInfoList)
+            {
+                updateMember = new UpdateMembers();
+                updateMember.ID = item.ID;
+                updateMember.MemberName = item.Name;
+                updateMember.OriginalScore = item.Score;
+                updateMember.OriginalRank = rankList.Find(u => u.MemberID == item.ID).Rank;
+                updateMember.UpdateScore = 100;
+                model.UpdateMembersList.Add(updateMember);
+            }
+
+            // 更新 update Score 和 Comments.
+            ScoreInfoList = ScoreInfoList.OrderBy(u => u.PeriodEnd).ToList();
+            foreach (ScoreInfo item in ScoreInfoList)
+            {
+                TimeSpan timeSpan = model.Parameters.StandDate - item.PeriodEnd;
+                if ((int)timeSpan.TotalDays > 7 * model.Parameters.DateRange4)
+                {
+                    model.UpdateMembersList.Find(u => u.ID == item.MemberID.ID).UpdateScore += (long)Math.Round(model.Parameters.Rate5 * item.Score);
+
+                }
+                else if ((int)timeSpan.TotalDays > 7 * model.Parameters.DateRange3)
+                {
+                    model.UpdateMembersList.Find(u => u.ID == item.MemberID.ID).UpdateScore += (long)Math.Round(model.Parameters.Rate4 * item.Score);
+                }
+                else if ((int)timeSpan.TotalDays > 7 * model.Parameters.DateRange2)
+                {
+                    model.UpdateMembersList.Find(u => u.ID == item.MemberID.ID).UpdateScore += (long)Math.Round(model.Parameters.Rate3 * item.Score);
+                }
+                else if ((int)timeSpan.TotalDays > 7 * model.Parameters.DateRange1)
+                {
+                    model.UpdateMembersList.Find(u => u.ID == item.MemberID.ID).UpdateScore += (long)Math.Round(model.Parameters.Rate2 * item.Score);
+                }
+                else
+                {
+                    model.UpdateMembersList.Find(u => u.ID == item.MemberID.ID).UpdateScore += (long)Math.Round(model.Parameters.Rate1 * item.Score);
+                }
+                model.UpdateMembersList.Find(u => u.ID == item.MemberID.ID).Comments += "/" + item.Comment.ToString();
+            }
+
+            //更新 Rank
+            List<MemberInfo> tempMemberInfoList = provider.GetMemberInfos().ToList();
+            foreach (UpdateMembers item in model.UpdateMembersList)
+            {
+                tempMemberInfoList.Find(u => u.ID == item.ID).Score = Int32.Parse(item.UpdateScore.ToString());
+            }
+            List<DataHelper.MemberRank> tempRankList = DataHelper.GetMemberRank(tempMemberInfoList);
+            foreach (UpdateMembers item in model.UpdateMembersList)
+            {
+                item.UpdateRank = tempRankList.Find(u => u.MemberID == item.ID).Rank;
+            }
+            model.UpdateMembersList = model.UpdateMembersList.OrderBy(u => u.UpdateRank).ToList();
+            return model.UpdateMembersList;
+        }
         public FinalScoreManageIndexModel AddToBonusList(FinalScoreManageIndexModel modelInput)
         {
             FinalScoreBonusInfo bonusInfo = new FinalScoreBonusInfo();
@@ -67,16 +156,45 @@ namespace Badminton.Controllers
             bonusInfo.MembernName = provider.GetMemberInfoByID(bonusInfo.MemberID).Name;
             bonusInfo.ChampionID = long.Parse(modelInput.Parameters.ChampionshipID);
             bonusInfo.ChampionTitle = provider.GetChampionshipInfoByID(bonusInfo.ChampionID).Title;
-            bonusInfo.Score = modelInput.Parameters.Score;            
-            
+            bonusInfo.Score = modelInput.Parameters.Score;
+                        
             modelInput.FinalScoreBonusList.Add(bonusInfo);
             modelInput.Parameters.ActionSteps = 0;            
             return modelInput;
         }
 
-        public FinalScoreManageIndexModel ReviewScoreListAndMemberList(FinalScoreManageIndexModel modelInput)
+        public FinalScoreManageIndexModel ReviewScoreList(FinalScoreManageIndexModel modelInput)
         {
+            modelInput.AddScoreInfoList = new List<AddScoreInfo>();
+            modelInput.AddScoreInfoList = GetAddScoreInfo(modelInput);            
             return modelInput;
+        }
+
+        internal List<AddScoreInfo> GetAddScoreInfo(FinalScoreManageIndexModel model)
+        {
+            AddScoreInfo info;
+            foreach (FinalScoreBonusInfo item in model.FinalScoreBonusList)
+            {
+                info = model.AddScoreInfoList.Find(u => u.MemberID == item.MemberID);
+                if (info == null)
+                {
+                    info = new AddScoreInfo();
+                    info.MemberID = item.MemberID;
+                    info.MemberName = item.MembernName;
+                    info.Score = item.Score;
+                    info.Comments = item.ChampionTitle + "/" + item.BonusTypeDescription + "/" + item.Score.ToString();
+                    info.PeriodEnd = provider.GetChampionshipInfoByID(item.ChampionID).EndDate;
+                    model.AddScoreInfoList.Add(info);
+                }
+                else
+                {
+                    info.Score = info.Score + item.Score;
+                    info.PeriodEnd = DateTime.Compare(info.PeriodEnd, provider.GetChampionshipInfoByID(item.ChampionID).EndDate) > 0 ?
+                        info.PeriodEnd : provider.GetChampionshipInfoByID(item.ChampionID).EndDate;
+                    info.Comments = info.Comments + "; " + item.ChampionTitle + "/" + item.BonusTypeDescription + "/" + item.Score.ToString();
+                }
+            }
+            return model.AddScoreInfoList;
         }
         public FinalScoreManageIndexModel SaveBonusAndScoreEntry(FinalScoreManageIndexModel modelInput)
         {

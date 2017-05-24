@@ -399,6 +399,7 @@
     <Content Include="Scripts\dist\lib\sortable\zui.sortable.min.js" />
     <Content Include="Scripts\dist\lib\ueditor\ueditor.css" />
     <Content Include="Scripts\dist\lib\ueditor\ueditor.min.css" />
+    <Content Include="Scripts\FinalScoreManageJS\FinalScoreManageJS.js" />
     <Content Include="Scripts\LoginJS\ResetPasswordJS.js" />
     <Content Include="Scripts\MatchInput\MatchInputJS.js" />
     <Content Include="Scripts\MatchVerify\MatchVerifyJS.js" />

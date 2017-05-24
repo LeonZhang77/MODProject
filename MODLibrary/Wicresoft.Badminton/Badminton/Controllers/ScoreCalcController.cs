@@ -352,7 +352,7 @@ namespace Badminton.Controllers
                 {
                     info.Score = info.Score + item.Score;
                     info.PeriodEnd = DateTime.Compare(info.PeriodEnd, provider.GetMatchInfoByID(item.MatchID).MatchDate) > 0?
-                     info.PeriodEnd : provider.GetMatchInfoByID(item.MatchID).MatchDate;
+                        info.PeriodEnd : provider.GetMatchInfoByID(item.MatchID).MatchDate;
                     info.Comments = info.Comments + "; " + item.ChampionTitle + "/" + item.BonusTypeDescription + "/" + item.Score.ToString();
                 }
             }

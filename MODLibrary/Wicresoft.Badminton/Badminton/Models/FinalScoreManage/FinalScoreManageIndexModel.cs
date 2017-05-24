@@ -19,6 +19,7 @@ namespace Badminton.Models.FinalScoreManage
             this.FinalScoreBonusList = new List<FinalScoreBonusInfo>();
             this.AddScoreInfoList = new List<AddScoreInfo>();
             this.UpdateMembersList = new List<UpdateMembers>();
+            this.Parameters = new ParametersModel();
         }
 
         public ParametersModel Parameters

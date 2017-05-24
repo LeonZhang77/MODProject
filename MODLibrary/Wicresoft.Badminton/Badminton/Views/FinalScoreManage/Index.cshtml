@@ -1,17 +1,250 @@
 ﻿@{
-    Layout = null;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+@model Badminton.Models.FinalScoreManage.FinalScoreManageIndexModel
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
+@section scripts{
+    @Scripts.Render("~/Scripts/FinalScoreManageJS/FinalScoreManageJS.js")
+}
+
+@if (this.Model.ErrorState)
+{
+    <div id="StateMessageDialog" title="State Message">
+        <p>
+            @this.Model.StateMessage.<br />
+            <br />
+        </p>
     </div>
-</body>
-</html>
+}
+
+<div id="dashboard" class="dashboard dashboard-draggable">
+    <section class="row">
+        <div class="col-md-7 col-sm-6">
+            <div class="panel panel-default" data-id="1">
+                <div class="panel-heading">
+                    <i class="icon icon-list"></i>
+                    <span class="title">增加一条新的决赛区奖励积分记录</span>
+                </div>
+                <div class="panel-body" style="overflow:scroll; height:700px;">
+                    <form name="ParamaterSetup" method="post">
+                        @for (var index = 0; index < this.Model.FinalScoreBonusList.Count; index++)
+                        {
+                            @Html.HiddenFor(m => m.FinalScoreBonusList[index].ID)
+                            @Html.HiddenFor(m => m.FinalScoreBonusList[index].MemberID)
+                            @Html.HiddenFor(m => m.FinalScoreBonusList[index].MembernName)
+                            @Html.HiddenFor(m => m.FinalScoreBonusList[index].ChampionID)
+                            @Html.HiddenFor(m => m.FinalScoreBonusList[index].ChampionTitle)
+                            @Html.HiddenFor(m => m.FinalScoreBonusList[index].BonusTypeID)
+                            @Html.HiddenFor(m => m.FinalScoreBonusList[index].BonusTypeDescription)
+                            @Html.HiddenFor(m => m.FinalScoreBonusList[index].Score)
+                        }
+                        @for (var index = 0; index < this.Model.AddScoreInfoList.Count; index++)
+                        {
+                            @Html.HiddenFor(m => m.AddScoreInfoList[index].ID)
+                            @Html.HiddenFor(m => m.AddScoreInfoList[index].MemberID)
+                            @Html.HiddenFor(m => m.AddScoreInfoList[index].MemberName)
+                            @Html.HiddenFor(m => m.AddScoreInfoList[index].Score)
+                            @Html.HiddenFor(m => m.AddScoreInfoList[index].Comments)
+                            @Html.HiddenFor(m => m.AddScoreInfoList[index].PeriodEnd)
+                        }
+                        @for (var index = 0; index < this.Model.UpdateMembersList.Count; index++)
+                        {
+                            @Html.HiddenFor(m => m.UpdateMembersList[index].ID)
+                            @Html.HiddenFor(m => m.UpdateMembersList[index].MemberName)
+                            @Html.HiddenFor(m => m.UpdateMembersList[index].OriginalScore)
+                            @Html.HiddenFor(m => m.UpdateMembersList[index].UpdateScore)
+                            @Html.HiddenFor(m => m.UpdateMembersList[index].OriginalRank)
+                            @Html.HiddenFor(m => m.UpdateMembersList[index].UpdateRank)
+                            @Html.HiddenFor(m => m.UpdateMembersList[index].Comments)
+                        }
+
+                        @Html.HiddenFor(m => m.Parameters.ActionSteps)
+
+                        <table class="table">
+                            <thead></thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width:100px;">选择赛事：</td>
+                                    <td style="width:100px;">
+                                     @Html.DropDownListFor(m=>m.Parameters.ChampionshipID, this.Model.Parameters.ChampionshipList)
+                                    </td>                                   
+                                </tr>
+                                <tr>
+                                    <td>选择成员：</td>
+                                    <td>
+                                        @Html.DropDownListFor(m=>m.Parameters.MemberID, this.Model.Parameters.SearchMemberList)
+                                    </td>                                   
+                                </tr>
+                                <tr>
+                                    <td>输入积分：</td>
+                                    <td>@Html.TextBoxFor(m => m.Parameters.Score)</td>                                   
+                                </tr>                      
+                            </tbody>
+                            <tfoot>
+                                <tr><td colspan="4" height="15"></td></tr>
+                                <tr>
+                                    <td><button type="submit" class="btn" value="增加记录" onclick="toAddNewBonusInfo()">增加记录</button></td>
+                                    <td><button type="submit" class="btn" value="计算积分并预览" onclick="toCalcToReview()">计算积分并预览</button></td>
+                                    <td><button type="submit" class="btn" value="周期调整预览" onclick="toAdjustAccordingToDateRange()">周期调整预览</button></td>
+                                    <td><button type="submit" class="btn" value="保存到数据库" onclick="toUpdateToDB()">保存到数据库</button></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <br />
+                        <table>
+                            <caption><b>周期调整参数设置</b></caption>
+                            <tr>
+                                <td>设定基准时间：</td>
+                                <td>@Html.TextBoxFor(m => m.Parameters.StandDate, new { id = "EditStandDatePickerEdit" })</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                        <br />
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>最近</td>
+                                    <td> @Html.TextBoxFor(m => m.Parameters.DateRange1)</td>
+                                    <td>/周</td>
+                                    <td>比例:</td>
+                                    <td>@Html.TextBoxFor(m => m.Parameters.Rate1)</td>
+                                </tr>
+                                <tr>
+                                    <td>最近</td>
+                                    <td>@Html.TextBoxFor(m => m.Parameters.DateRange2)</td>
+                                    <td>/周</td>
+                                    <td>比例:</td>
+                                    <td>@Html.TextBoxFor(m => m.Parameters.Rate2)</td>
+                                </tr>
+                                <tr>
+                                    <td>最近</td>
+                                    <td>@Html.TextBoxFor(m => m.Parameters.DateRange3)</td>
+                                    <td>/周</td>
+                                    <td>比例:</td>
+                                    <td>@Html.TextBoxFor(m => m.Parameters.Rate3)</td>
+                                </tr>
+                                <tr>
+                                    <td>最近</td>
+                                    <td>@Html.TextBoxFor(m => m.Parameters.DateRange4)</td>
+                                    <td>/周</td>
+                                    <td>比例:</td>
+                                    <td>@Html.TextBoxFor(m => m.Parameters.Rate4)</td>
+                                </tr>
+                                <tr>
+                                    <td>早期</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>比例:</td>
+                                    <td>@Html.TextBoxFor(m => m.Parameters.Rate5)</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                
+                            </tfoot>
+                        </table>                        
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-6">
+            <div class="panel panel-default" data-id="2">
+                <div class="panel-heading">
+                    <i class="icon icon-list"></i>
+                    <span class="title">本次周期调整后的排行榜</span>
+                </div>
+                <div class="panel-body" style="overflow:scroll;height:700px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>编号</td>
+                                <td>姓名</td>
+                                <td>积分变化</td>
+                                <td>名次变化</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in this.Model.UpdateMembersList)
+                            {
+                                <tr>
+                                    <td>@item.ID</td>
+                                    <td>@item.MemberName</td>
+                                    <td data-toggle="tooltip" title="@item.Comments">@item.OriginalScore -> @item.UpdateScore </td>
+                                    <td data-toggle="tooltip" title="@item.Comments">@item.OriginalRank -> @item.UpdateRank</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div id="dashboard" class="dashboard dashboard-draggable" data-height="800">
+    <section class="row">
+        <div class="col-md-7 col-sm-6">
+            <div class="panel panel-default" data-id="1">
+                <div class="panel-heading">
+                    <i class="icon icon-list"></i>
+                    <span class="title">本次将增加的积分记录(BonusInfo)</span>
+                </div>
+                <div class="panel-body" style="overflow:scroll;height:600px">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>姓名</td>
+                                <td>赛事</td>
+                                <td>积分</td>
+                                <td>积分类型</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in this.Model.FinalScoreBonusList)
+                            {
+                                <tr>
+                                    <td>@item.MembernName</td>
+                                    <td data-toggle="tooltip" title="@item.ChampionTitle">@item.ChampionID</td>
+                                    <td>@item.Score</td>
+                                    <td>@item.BonusTypeDescription</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-6">
+            <div class="panel panel-default" data-id="1">
+                <div class="panel-heading">
+                    <i class="icon icon-list"></i>
+                    <span class="title">本次将增加的汇总记录(ScoreInfo)</span>
+                </div>
+                <div class="panel-body" style="overflow:scroll;height:600px">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>姓名</td>
+                                <td>更新的积分</td>
+                                <td>PeriodEnd</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in this.Model.AddScoreInfoList)
+                            {
+                                <tr>
+                                    <td>@item.MemberName</td>
+                                    <td data-toggle="tooltip" title="@item.Comments">@item.Score</td>
+                                    <td>@item.PeriodEnd</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
