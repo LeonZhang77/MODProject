@@ -200,16 +200,18 @@
                                 <td>赛事</td>
                                 <td>积分</td>
                                 <td>积分类型</td>
+                                <td>操作</td>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in this.Model.FinalScoreBonusList)
+                            @for (int i = 0; i < this.Model.FinalScoreBonusList.Count; i++)
                             {
                                 <tr>
-                                    <td>@item.MembernName</td>
-                                    <td data-toggle="tooltip" title="@item.ChampionTitle">@item.ChampionID</td>
-                                    <td>@item.Score</td>
-                                    <td>@item.BonusTypeDescription</td>
+                                    <td>@this.Model.FinalScoreBonusList[i].MembernName</td>
+                                    <td data-toggle="tooltip" title="@this.Model.FinalScoreBonusList[i].ChampionTitle">@this.Model.FinalScoreBonusList[i].ChampionID</td>
+                                    <td>@this.Model.FinalScoreBonusList[i].Score</td>
+                                    <td>@this.Model.FinalScoreBonusList[i].BonusTypeDescription</td>
+                                    <td><i class='btn btn-danger btn-sm icon icon-remove' role='button'onclick="toDeleteBonus(@i)"></i></td>                                    
                                 </tr>
                             }
                         </tbody>
@@ -248,3 +250,7 @@
         </div>
     </section>
 </div>
+
+<div style="display: none" id="DeleteBonusURL" requsturl="@Url.Action("DeleteBonusInfo", "FinalScoreManage")"></div>
+
+<script src="~/Scripts/dist/lib/datetimepicker/datetimepicker.min.js"></script>

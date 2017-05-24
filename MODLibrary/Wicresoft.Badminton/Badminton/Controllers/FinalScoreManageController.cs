@@ -51,7 +51,10 @@ namespace Badminton.Controllers
                     break;
                 case 4:
                     modelInput = SaveBonusAndScoreEntry(modelInput);
-                    break;               
+                    break;
+                case 5:
+                    modelInput = DeleteBonusInfo(modelInput);
+                    break;  
                 default:
                     modelInput = new FinalScoreManageIndexModel();
                     break;
@@ -61,6 +64,12 @@ namespace Badminton.Controllers
             modelInput.Parameters.ChampionshipList = GetChampionshipList();
             modelInput.Parameters.SearchMemberList = GetSearchMemberList();
             return View("Index", modelInput);
+        }
+
+        public FinalScoreManageIndexModel DeleteBonusInfo(FinalScoreManageIndexModel modelInput)
+        {
+            modelInput.FinalScoreBonusList.RemoveAt((int)modelInput.Parameters.Score);
+            return modelInput;
         }
 
         public FinalScoreManageIndexModel AdjustAccordingToDateRange(FinalScoreManageIndexModel modelInput)
@@ -198,9 +207,9 @@ namespace Badminton.Controllers
         }
         public FinalScoreManageIndexModel SaveBonusAndScoreEntry(FinalScoreManageIndexModel modelInput)
         {
-            if (modelInput.FinalScoreBonusList.Count == 0 && modelInput.AddScoreInfoList.Count == 0)
+            if (modelInput.FinalScoreBonusList.Count == 0 || modelInput.AddScoreInfoList.Count == 0)
             {
-                modelInput.StateMessage = "没有需要保存的Score和Bonus, 请先计算并检查！";
+                modelInput.StateMessage = "没有需要保存的Score或Bonus, 请先计算并检查！";
                 modelInput.ErrorState = true;
                 return modelInput;
             }

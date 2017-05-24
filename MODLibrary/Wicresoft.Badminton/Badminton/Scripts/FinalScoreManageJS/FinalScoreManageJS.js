@@ -32,3 +32,11 @@ function toUpdateToDB() {
     $("#Parameters_ActionSteps").val("4");
 }
 
+function toDeleteBonus(i) {
+    $("#Parameters_ActionSteps").val("5");
+    $("#Parameters_Score").val(i);
+    $("form[name=ParamaterSetup]").submit();
+}
+
+
+
