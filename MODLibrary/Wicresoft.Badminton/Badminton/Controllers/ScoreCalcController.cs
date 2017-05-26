@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Text;
 using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
 using Wicresoft.BadmintonSystem.Entity;
@@ -14,6 +15,17 @@ namespace Badminton.Controllers
 {
     public class ScoreCalcController : Controller
     {
+        static string stateMessage_NoWaitingMatchesGoToMatchVerifyPage = "没有等待计算积分的比赛，请返回录入数据审核页面检查！";
+        static string stateMessage_WaitingMatchExist = "还有等待计算积分的比赛";    
+        static string stateMessage_WaitingMatchExistGoToCalcAndReview = stateMessage_WaitingMatchExist + "，请先计算积分!";
+        static string stateMessage_WaitingMatchExistGoToCalcAndSave = stateMessage_WaitingMatchExist + "，请先计算积分并保存！";
+        static string stateMessage_NoScoreAndBonusNeedToSaveGoToCalcAndReview = "没有需要保存的Score和Bonus, 请先计算并检查！";
+        static string stateMessage_PLSGoToAdjustAccordingToDateRange = "请先进行周期调整计算并预览！";
+        static string stateMessage_Saved = "保存成功";
+        static string stateMessage_SavedExclamation = stateMessage_Saved + "!";
+        static string stateMessage_SavedGoToAdjustAccordingToDateRange = stateMessage_Saved + ", 请记得去按周期调整积分！";
+        static string stateMessage_SaveNotSuccessful = "保存没有成功！";
+
         IBadmintionDataProvider provider;
         List<DataHelper.MemberRank> rankList;
         List<MatchInfo> matchList;
@@ -70,7 +82,7 @@ namespace Badminton.Controllers
 
             if (modelInput.WaitingMatchList.Count == 0)
             {
-                modelInput.StateMessage = "没有等待计算积分的比赛，请返回录入数据审核页面检查！";
+                modelInput.StateMessage = stateMessage_NoWaitingMatchesGoToMatchVerifyPage;
                 modelInput.ErrorState = true;
             }
             else
@@ -84,7 +96,7 @@ namespace Badminton.Controllers
         {
             if (modelInput.AddScoreInfoList.Count == 0 && modelInput.WaitingMatchList.Count != 0)
             {
-                modelInput.StateMessage = "还有等待计算积分的比赛，请先计算积分!";
+                modelInput.StateMessage = stateMessage_WaitingMatchExistGoToCalcAndReview;
                 modelInput.ErrorState = true;
             }
             else
@@ -106,7 +118,7 @@ namespace Badminton.Controllers
         {
             if (modelInput.AddBonusInfoList.Count == 0 && modelInput.AddScoreInfoList.Count == 0)
             {
-                modelInput.StateMessage = "没有需要保存的Score和Bonus, 请先计算并检查！";
+                modelInput.StateMessage = stateMessage_NoScoreAndBonusNeedToSaveGoToCalcAndReview; 
                 modelInput.ErrorState = true;
                 return modelInput;
             }
@@ -115,12 +127,12 @@ namespace Badminton.Controllers
             if (flag)
             {
                 modelInput = new ScoreCalcIndexModel();
-                modelInput.StateMessage = "保存成功, 请记得去按周期调整积分！";
+                modelInput.StateMessage = stateMessage_SavedGoToAdjustAccordingToDateRange; 
                 modelInput.ErrorState = true;
             }
             else
             {
-                modelInput.StateMessage = "保存没有成功！";
+                modelInput.StateMessage = stateMessage_SaveNotSuccessful; 
                 modelInput.ErrorState = true;
             }
 
@@ -131,7 +143,7 @@ namespace Badminton.Controllers
         {
             if (modelInput.WaitingMatchList.Count != 0)
             {
-                modelInput.StateMessage = "还有等待计算积分的比赛，请先计算积分并保存！";
+                modelInput.StateMessage = stateMessage_WaitingMatchExistGoToCalcAndSave; 
                 modelInput.ErrorState = true;
             }
             else
@@ -150,12 +162,7 @@ namespace Badminton.Controllers
             //初始化 model.UpdateMemberList.
             foreach (MemberInfo item in memberInfoList)
             {
-                updateMember = new ScoreUpdateMember();
-                updateMember.ID = item.ID;
-                updateMember.MemberName = item.Name;
-                updateMember.OriginalScore = item.Score;
-                updateMember.OriginalRank = rankList.Find(u => u.MemberID == item.ID).Rank;
-                updateMember.UpdateScore = 100;
+                updateMember = ScoreUpdateMember.GetModel(item, rankList);
                 model.UpdateMemberList.Add(updateMember);
             }
 
@@ -207,14 +214,14 @@ namespace Badminton.Controllers
         {
             if (modelInput.UpdateMemberList.Count == 0)
             {
-                modelInput.StateMessage = "请先进行周期调整计算并预览！";
+                modelInput.StateMessage = stateMessage_PLSGoToAdjustAccordingToDateRange;// "请先进行周期调整计算并预览！";
                 modelInput.ErrorState = true;
                 return modelInput;
             }
 
             if (modelInput.WaitingMatchList.Count != 0)
             {
-                modelInput.StateMessage = "还有等待计算积分的比赛，请先计算积分并保存！";
+                modelInput.StateMessage = stateMessage_WaitingMatchExistGoToCalcAndSave;
                 modelInput.ErrorState = true;
                 return modelInput;
             }
@@ -223,12 +230,12 @@ namespace Badminton.Controllers
             if (flag)
             {
                 modelInput = new ScoreCalcIndexModel();
-                modelInput.StateMessage = "保存成功！";
+                modelInput.StateMessage = stateMessage_SavedExclamation;
                 modelInput.ErrorState = true;
             }
             else
             {
-                modelInput.StateMessage = "保存没有成功！";
+                modelInput.StateMessage = stateMessage_SaveNotSuccessful;
                 modelInput.ErrorState = true;
             }
 
@@ -337,13 +344,14 @@ namespace Badminton.Controllers
             foreach (AddBonusInfo item in model.AddBonusInfoList)
             {
                 info = model.AddScoreInfoList.Find(u => u.MemberID == item.MemberID);
+                StringBuilder Comments = new StringBuilder();
                 if (info == null)
                 {
                     info = new AddScoreInfo();
                     info.MemberID = item.MemberID;
                     info.MemberName = item.MembernName;
                     info.Score = item.Score;
-                    info.Comments = item.ChampionTitle + "/" + item.BonusTypeDescription + "/" + item.Score.ToString();
+                    info.Comments = Comments.AppendFormat("{0}/{1}/{2}", item.ChampionTitle, item.BonusTypeDescription, item.Score.ToString()).ToString();
                     info.PeriodEnd = provider.GetMatchInfoByID(item.MatchID).MatchDate;
                     model.AddScoreInfoList.Add(info);
                 }
@@ -352,7 +360,7 @@ namespace Badminton.Controllers
                     info.Score = info.Score + item.Score;
                     info.PeriodEnd = DateTime.Compare(info.PeriodEnd, provider.GetMatchInfoByID(item.MatchID).MatchDate) > 0 ?
                      info.PeriodEnd : provider.GetMatchInfoByID(item.MatchID).MatchDate;
-                    info.Comments = info.Comments + "; " + item.ChampionTitle + "/" + item.BonusTypeDescription + "/" + item.Score.ToString();
+                    info.Comments = Comments.AppendFormat("{4}; {0}/{1}/{2}", item.ChampionTitle, item.BonusTypeDescription, item.Score.ToString(), info.Comments).ToString();                     
                 }
             }
             return model.AddScoreInfoList;

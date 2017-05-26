@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,6 +14,10 @@ namespace Badminton.Controllers
 {
     public class FinalScoreManageController : Controller
     {
+        static string stateMessage_ThereIsNoNewBonusInfos = "你并没有增加新的Bonus记录!";
+        static string stateMessage_NoScoreOrBonusNeedToBeSaved = "没有需要保存的Score或Bonus, 请先计算并检查！";
+        static string stateMessage_SavedAndGoToScoreCalcPageAndAdjust = "保存成功, 请记得去积分计算页面按周期调整积分！";
+        static string stateMessage_SaveNotSuccess = "保存没有成功！";
 
         IBadmintionDataProvider provider;
         List<DataHelper.MemberRank> rankList;
@@ -76,7 +81,7 @@ namespace Badminton.Controllers
         {
             if (modelInput.AddScoreInfoList.Count == 0 && modelInput.FinalScoreBonusList.Count != 0)
             {
-                modelInput.StateMessage = "你并没有增加新的Bonus记录!";
+                modelInput.StateMessage = stateMessage_ThereIsNoNewBonusInfos;
                 modelInput.ErrorState = true;
             }
             else
@@ -102,12 +107,7 @@ namespace Badminton.Controllers
             //初始化 model.UpdateMemberList.
             foreach (MemberInfo item in memberInfoList)
             {
-                updateMember = new UpdateMembers();
-                updateMember.ID = item.ID;
-                updateMember.MemberName = item.Name;
-                updateMember.OriginalScore = item.Score;
-                updateMember.OriginalRank = rankList.Find(u => u.MemberID == item.ID).Rank;
-                updateMember.UpdateScore = 100;
+                updateMember = UpdateMembers.GetModel(item, rankList);
                 model.UpdateMembersList.Add(updateMember);
             }
 
@@ -156,19 +156,11 @@ namespace Badminton.Controllers
         }
         public FinalScoreManageIndexModel AddToBonusList(FinalScoreManageIndexModel modelInput)
         {
-            FinalScoreBonusInfo bonusInfo = new FinalScoreBonusInfo();
-
-            bonusInfo.CreateTime = DateTime.Now;
-            bonusInfo.BonusTypeID = long.Parse(Convert.ToInt32(BonusType.Final).ToString());
-            bonusInfo.BonusTypeDescription = EnumHelper.GetEnumDescription(BonusType.Final);
-            bonusInfo.MemberID = long.Parse(modelInput.Parameters.MemberID);
-            bonusInfo.MembernName = provider.GetMemberInfoByID(bonusInfo.MemberID).Name;
-            bonusInfo.ChampionID = long.Parse(modelInput.Parameters.ChampionshipID);
-            bonusInfo.ChampionTitle = provider.GetChampionshipInfoByID(bonusInfo.ChampionID).Title;
-            bonusInfo.Score = modelInput.Parameters.Score;
-                        
+            FinalScoreBonusInfo bonusInfo = FinalScoreBonusInfo.GetModel(modelInput, provider);
+           
             modelInput.FinalScoreBonusList.Add(bonusInfo);
             modelInput.Parameters.ActionSteps = 0;            
+
             return modelInput;
         }
 
@@ -182,16 +174,18 @@ namespace Badminton.Controllers
         internal List<AddScoreInfo> GetAddScoreInfo(FinalScoreManageIndexModel model)
         {
             AddScoreInfo info;
+           
             foreach (FinalScoreBonusInfo item in model.FinalScoreBonusList)
             {
                 info = model.AddScoreInfoList.Find(u => u.MemberID == item.MemberID);
+                StringBuilder Comments = new StringBuilder();
                 if (info == null)
                 {
                     info = new AddScoreInfo();
                     info.MemberID = item.MemberID;
                     info.MemberName = item.MembernName;
                     info.Score = item.Score;
-                    info.Comments = item.ChampionTitle + "/" + item.BonusTypeDescription + "/" + item.Score.ToString();
+                    info.Comments = Comments.AppendFormat("{0}/{1}/{2}", item.ChampionTitle, item.BonusTypeDescription, item.Score.ToString()).ToString();
                     info.PeriodEnd = provider.GetChampionshipInfoByID(item.ChampionID).EndDate;
                     model.AddScoreInfoList.Add(info);
                 }
@@ -200,7 +194,7 @@ namespace Badminton.Controllers
                     info.Score = info.Score + item.Score;
                     info.PeriodEnd = DateTime.Compare(info.PeriodEnd, provider.GetChampionshipInfoByID(item.ChampionID).EndDate) > 0 ?
                         info.PeriodEnd : provider.GetChampionshipInfoByID(item.ChampionID).EndDate;
-                    info.Comments = info.Comments + "; " + item.ChampionTitle + "/" + item.BonusTypeDescription + "/" + item.Score.ToString();
+                    info.Comments = Comments.AppendFormat("{4}; {0}/{1}/{2}", item.ChampionTitle, item.BonusTypeDescription, item.Score.ToString(), info.Comments).ToString();                     
                 }
             }
             return model.AddScoreInfoList;
@@ -209,7 +203,7 @@ namespace Badminton.Controllers
         {
             if (modelInput.FinalScoreBonusList.Count == 0 || modelInput.AddScoreInfoList.Count == 0)
             {
-                modelInput.StateMessage = "没有需要保存的Score或Bonus, 请先计算并检查！";
+                modelInput.StateMessage = stateMessage_NoScoreOrBonusNeedToBeSaved;
                 modelInput.ErrorState = true;
                 return modelInput;
             }
@@ -218,12 +212,12 @@ namespace Badminton.Controllers
             if (flag)
             {
                 modelInput = new FinalScoreManageIndexModel();
-                modelInput.StateMessage = "保存成功, 请记得去积分计算页面按周期调整积分！";
+                modelInput.StateMessage = stateMessage_SavedAndGoToScoreCalcPageAndAdjust;
                 modelInput.ErrorState = true;
             }
             else
             {
-                modelInput.StateMessage = "保存没有成功！";
+                modelInput.StateMessage = stateMessage_SaveNotSuccess;
                 modelInput.ErrorState = true;
             }
 
