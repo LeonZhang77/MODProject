@@ -6,7 +6,6 @@ using Wicresoft.BadmintonSystem.Entity;
 using Wicresoft.BadmintonSystem.DataAccess.DataProvider;
 using Wicresoft.BadmintonSystem.DataAccess.IDataProvider;
 
-
 namespace Badminton.Models
 {
     public class BaseUpdateMemberModel:BaseViewModel

@@ -16,20 +16,20 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
     public class ScoreListController : Controller
     {
         IBadmintionDataProvider provider;
-        
+
         public ScoreListController()
         {
             provider = new BadmintionDataProvider();
         }
-        
+
         public ActionResult Index(long searchselectedID = 0)
         {
             ScoreListIndexModel model = new ScoreListIndexModel();
 
-            model.ScoreList = GetScoreList();          
+            model.ScoreList = GetScoreList();
 
-            model.SearchMemberList = GetSearchMemberList();           
-            
+            model.SearchMemberList = GetSearchMemberList();
+
             return View(model);
         }
 
@@ -48,12 +48,10 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
                 temp.Score = item.Score;
                 temp.WinRate = GetWinRate(item) * 100;
                 temp.AverageWinRate = GetAverageWinRate(item) * 100;
-                //temp.Ranking = 1;         
                 temp.Ranking = rankList.Find(u => u.MemberID == item.ID).Rank;
                 returnList.Add(temp);
             }
-            var list = from r in returnList orderby r.Ranking select r;
-            returnList = list.ToList();
+            returnList = returnList.OrderBy(u => u.Ranking).ToList();
             return returnList;
         }
 
@@ -63,7 +61,7 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
             List<MatchInfo> matchInfos = provider.GetMatchInfos().ToList();
             List<MatchInfo> matchList = DataHelper.GetMatchInfos(memberInfo, true, ChampionType.Normal, false, matchInfos).ToList();
             int WinCount = matchList.Count();
-            matchList = DataHelper.GetMatchInfos(memberInfo, false, ChampionType.Normal, false, matchInfos).ToList();            
+            matchList = DataHelper.GetMatchInfos(memberInfo, false, ChampionType.Normal, false, matchInfos).ToList();
             int LostCount = matchList.Count();
             if ((WinCount + LostCount) != 0)
             {
@@ -102,7 +100,7 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
                 temp.Text = item.Name;
                 temp.Value = item.ID.ToString();
                 returnList.Add(temp);
-            }            
+            }
             return returnList;
         }
 
@@ -146,8 +144,8 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
             MemberInfo memberInfo = provider.GetMemberInfoByID(player1id);
             List<MatchInfo> matchInfos = provider.GetMatchInfos().ToList();
             List<MatchInfo> player1WinList = DataHelper.GetMatchInfos(memberInfo, true, competingType, matchInfos).ToList();
-            List<MatchInfo> tempList;            
-            if(competingType==CompetingType.FemaleSin||competingType==CompetingType.MaleSin||competingType==CompetingType.MixSin)
+            List<MatchInfo> tempList;
+            if (competingType == CompetingType.FemaleSin || competingType == CompetingType.MaleSin || competingType == CompetingType.MixSin)
             {
                 tempList = DataHelper.GetMatchInfos(memberInfo, true, CompetingType.MixSin, matchInfos).ToList();
                 foreach (MatchInfo info in tempList)
@@ -222,6 +220,7 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
             returnList.Add(temp);
             temp = new ChartModel.returnListForPie();
             temp.value = 1 - player1WinRate;
+            temp.value = System.Math.Round(temp.value, 2);
             temp.title = player2Name;
             temp.color = "#E0E4CC";
             returnList.Add(temp);
@@ -249,6 +248,7 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
             returnList.Add(temp);
             temp = new ChartModel.returnListForPie();
             temp.value = 1 - player1WinRate;
+            temp.value = System.Math.Round(temp.value, 2);
             temp.color = "#E0E4CC";
             returnList.Add(temp);
             return Json(returnList, JsonRequestBehavior.AllowGet);
@@ -270,6 +270,7 @@ namespace Wicresoft.BadmintonSystem.Wap.Controllers
             returnList.Add(temp);
             temp = new ChartModel.returnListForPie();
             temp.value = 1 - player1WinRate;
+            temp.value = System.Math.Round(temp.value, 2);
             temp.color = "#E0E4CC";
             returnList.Add(temp);
             return Json(returnList, JsonRequestBehavior.AllowGet);
